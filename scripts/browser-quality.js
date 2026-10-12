@@ -200,6 +200,7 @@ async function audit(){
         results.push({id,error:short(error.stack||error.message)});
       }finally{await context.close()}
     }
+    await require("./mobile-layout.js")(browser,origin,note,out);
   }finally{await browser.close()}
   fs.writeFileSync(path.join(out,'browser-quality.json'),JSON.stringify({origin,cases:results,issues},null,2));
   console.log('Browser audit: '+results.length+' cases, '+issues.length+' issues. Report: quality-artifacts/browser-quality.json');

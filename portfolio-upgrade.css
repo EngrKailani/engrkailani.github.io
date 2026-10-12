@@ -1569,3 +1569,51 @@ section[id]{scroll-margin-top:86px}
   background:var(--project-caption-surface);
   border-color:var(--project-caption-border);
 }
+
+/* Mobile containment: allow content to reflow inside its actual card or control,
+   including narrow phones, landscape navigation and enlarged system text. */
+@media(max-width:860px){
+  .nav-links{top:100%;max-height:calc(100dvh - 80px);overflow-y:auto;overscroll-behavior:contain}
+  .nav-links a{white-space:normal;overflow-wrap:anywhere}
+  .menu-toggle{flex-shrink:0}
+  :is(.hero-copy,.feature-content,.about-copy,.interest-copy,.resume-text,
+      .featured-project-card,.project-card,.repo-card,.detail-card,.detail-panel,
+      .case-explorer,.book-page,.shelf-preview,.education-panel,.resume-note){
+    min-width:0;overflow-wrap:anywhere;
+  }
+  :is(.project-metrics,.featured-project-grid,.detail-grid,.education-panel,
+      .case-explorer__headline,.case-explorer__flow,.case-explorer__stats,
+      .featured-next-step-links,.robot-control-utilities,.shelf-label-row)>*{min-width:0}
+  :is(.btn,.hero-buttons .btn,.github-profile-link,.shelf-collection-link,
+      .repo-featured__link,.tag-row span,.about-chips span,.repo-meta span,
+      .interest-tags span,.repo-featured__tags span,.detail-buttons a){
+    max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center;
+  }
+  .hero.container .eyebrow{max-width:100%;overflow-wrap:anywhere}
+  .case-explorer .case-explorer__flow button :is(strong,small){
+    width:100%;min-width:0;overflow-wrap:anywhere;
+  }
+  .case-explorer .case-explorer__actions{max-width:100%;flex-wrap:wrap}
+  .case-explorer .case-explorer__actions button{min-width:0;overflow-wrap:anywhere}
+  .project-page :is(h1,h2,h3,p,li,a,code){overflow-wrap:anywhere}
+  .project-page pre{max-width:100%;overflow-x:auto}
+  .robot-section :is(.robot-view-picker,.robot-control-presets,.robot-control-utilities) button{
+    min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;
+  }
+  .project-book-dialog :is(.book-modal-actions,.project-book-toolbar){flex-wrap:wrap}
+  .project-book-dialog :is(a,button){max-width:100%;overflow-wrap:anywhere}
+  .resume-page .page{box-sizing:border-box;max-width:100%;overflow-wrap:anywhere}
+  .resume-page .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding-inline:16px}
+  .resume-page .actions :is(a,button){box-sizing:border-box;max-width:100%;margin:0;overflow-wrap:anywhere}
+}
+@media(max-width:520px){
+  /* The critical first-paint sheet otherwise restores a desktop-sized heading. */
+  .hero.container h1{font-size:clamp(46px,13vw,64px)}
+  .hero.container .hero-photo{max-width:100%}
+  .project-metrics{grid-template-columns:minmax(0,1fr);gap:14px}
+  .shelf-preview{grid-template-columns:minmax(0,1fr);row-gap:5px}
+  .shelf-preview>*{grid-column:1;grid-row:auto}
+  .shelf-label-row{flex-wrap:wrap}
+  .shelf-collection-link{white-space:normal}
+  .featured-next-step-links{width:100%}
+}
