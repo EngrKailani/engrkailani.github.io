@@ -21,7 +21,7 @@ for(const file of htmlFiles){
   check(html.includes(domain),file+' missing canonical domain');
   check(!html.includes('https://kalarcon775.github.io') && !html.includes('https://kailania.vercel.app'),file+' references former portfolio host');
   check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
-  for(const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)){
+  for(const match of html.matchAll(/\s(?:href|src)=["']([^"']+)["']/g)){
     const url=match[1].trim();
     if(!url || /^(?:#|[a-z]+:|\/\/)/i.test(url))continue;
     const local=url.split(/[?#]/)[0];
@@ -122,6 +122,34 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
       p.slot+' overlaps '+q.slot+' at width '+width));
   });
 }
+
+/* Optional photo uploads are deliberately absent until the owner adds JPEGs.
+   Only real HTML src/href attributes are checked as required assets. */
+const photosJs=fs.readFileSync(path.join(root,'portfolio-photos.js'),'utf8');
+const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
+const photos=[
+  'assets/nasa-sls-team.jpeg',
+  'assets/nasa-mission-patches.jpeg',
+  'assets/nasa-astronaut-suit.jpeg',
+  'assets/engineering-awards.jpeg'
+];
+check(home.includes('portfolio-photos.css')&&home.includes('portfolio-photos.js'),
+  'Optional photo loader and styling must be referenced on the homepage');
+check(photos.every(filename=>home.includes('data-portfolio-photo-src="'+filename+'"')),
+  'All four planned portfolio filenames must be present');
+check((home.match(/data-portfolio-photo-src=/g)||[]).length===4,
+  'Expected four optional photo slots with no duplicated images');
+check(home.includes('id="portfolio-photo-gallery"')&&
+  home.includes('id="portfolio-photo-gallery-title"')&&
+  home.includes('class="portfolio-awards-photo" hidden'),
+  'NASA gallery and awards card must have accessible, initially hidden containers');
+check(photosJs.includes("preloader.onload")&&photosJs.includes("preloader.onerror")&&
+  photosJs.includes("figure.hidden = false")&&photosCss.includes('[hidden]'),
+  'Missing optional photos must remain hidden until they load successfully');
+let optionalPhotosScriptParses=true;
+try{new (require('node:vm').Script)(photosJs,{filename:'portfolio-photos.js'})}
+catch(error){optionalPhotosScriptParses=false;console.error(error.message)}
+check(optionalPhotosScriptParses,'Optional photo loader JavaScript must parse');
 
 /* Interactive engineering-case-study explorer: linked to the existing dossiers. */
 const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');
