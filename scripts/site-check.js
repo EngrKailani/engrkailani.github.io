@@ -42,6 +42,9 @@ for(const file of htmlFiles.filter(name=>name.startsWith('projects/'))){
   const unfocusable=[...source.matchAll(/<figure class="(?:project-visual-gallery__figure|iverify-concept-figure)"(?![^>]*tabindex="0")[^>]*>\\s*<img\\b/g)];
   check(unfocusable.length===0,file+': scrollable technical diagrams must be keyboard-focusable');
 }
+const thermalHtml=fs.readFileSync(path.join(root,'projects/thermal.html'),'utf8');
+check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
+  'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 

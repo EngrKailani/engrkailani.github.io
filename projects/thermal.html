@@ -70,7 +70,7 @@
       <div><h3 id="thermal-ui-title">Instrument interface and live trending</h3><p>The desktop application uses Tkinter for test configuration, channel selection and reporting. A separate graph window displays temperature trends with selectable channels. This illustration shows the type of interface, not a screenshot of the deployed application.</p></div>
       <span class="thermal-figure-number">FIG 01 / APPLICATION</span>
     </div>
-    <figure>
+    <figure tabindex="0">
       <img src="thermal/media/logger-interface-concept.svg" alt="Conceptual dark-themed Thermal Logger interface with channel selectors and four colored illustrative temperature traces; all graph values are synthetic." width="1280" height="700" decoding="async" loading="lazy">
       <figcaption>Source-informed interface illustration. Traces are synthetic examples, not recovered lab measurements, actual logger screenshots, or validated performance data. The original logger supports up to eight thermocouple channels and optional ambient-control functions.</figcaption>
     </figure>
@@ -81,7 +81,7 @@
       <div><h3 id="thermal-path-title">How the data moves through the system</h3><p>A Pico TC-08 supplies thermocouple readings to the Python application through the vendor Windows driver. The application coordinates graph updates, test metadata and exports. An optional serial connection can send setpoints and feedback to Arduino control hardware.</p></div>
       <span class="thermal-figure-number">FIG 02 / SYSTEM PATH</span>
     </div>
-    <figure>
+    <figure tabindex="0">
       <img src="thermal/media/system-architecture.svg" alt="Source-based system flow from up to eight thermocouples through Pico TC-08, Windows driver, Python Tkinter coordinator, and live plots or CSV and Excel export. An optional unverified Arduino controller branch is shown." width="1280" height="650" decoding="async" loading="lazy">
       <figcaption>Functional architecture traced from public code and documentation. The optional Arduino firmware, wiring and heater behavior were not recovered or physically retested. A nominal one-second UI schedule is not proof of exact sample timestamps.</figcaption>
     </figure>
@@ -96,7 +96,7 @@
       <div><h3 id="thermal-stability-title">How rolling stability is evaluated</h3><p>The original display logic examines the range of the most recent valid readings. With the default settings, a 10-reading window is within the configured band when its maximum minus minimum is no greater than 3.0 °C.</p></div>
       <span class="thermal-figure-number">FIG 03 / TREND RULE</span>
     </div>
-    <figure>
+    <figure tabindex="0">
       <img src="thermal/media/rolling-window-rule.svg" alt="Side-by-side simulated ten-sample thermal line graphs. Example A has a 1.2 degree Celsius range within a 3.0 degree configured band; Example B has a 5.3 degree range outside the band. Both plots are synthetic." width="1280" height="650" decoding="async" loading="lazy">
       <figcaption>Mathematically calculated example windows using synthetic values. This figure explains a software display rule only; neither series is experimental data. The range check does not independently establish thermal equilibrium, sensor accuracy, calibration or repeatability.</figcaption>
     </figure>
