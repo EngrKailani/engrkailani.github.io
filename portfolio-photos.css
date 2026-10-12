@@ -353,3 +353,95 @@
     width:80px;height:80px;flex-basis:80px;
   }
 }
+
+/* Center photo accents while preserving natural, varied image proportions. */
+.featured-projects-section .featured-project-photo{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  align-self:center;
+  text-align:center;
+  gap:7px;
+  margin:12px auto 14px;
+}
+.featured-projects-section .featured-project-photo img{
+  display:block;
+  flex:none;
+  width:auto;
+  height:auto;
+  max-width:min(100%,148px);
+  max-height:130px;
+  margin-inline:auto;
+  object-fit:contain;
+}
+.featured-projects-section .featured-project-card--photo:nth-child(1) .featured-project-photo img{
+  max-width:136px;
+  max-height:138px;
+}
+.featured-projects-section .featured-project-card--photo:nth-child(2) .featured-project-photo img{
+  max-width:148px;
+  max-height:108px;
+}
+.featured-projects-section .featured-project-card--photo:nth-child(3) .featured-project-photo img{
+  max-width:142px;
+  max-height:124px;
+}
+.featured-projects-section .featured-project-photo span{
+  max-width:100%;
+  text-align:center;
+}
+.work-section .portfolio-photo-card,
+.work-section .portfolio-photo-card--team{
+  justify-items:center;
+}
+.work-section .portfolio-photo-card img,
+.work-section .portfolio-photo-card--team img,
+.work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
+  display:block;
+  margin-inline:auto;
+  object-position:center;
+}
+.hero .hero-photo,
+.experience-section .experience-photo,
+.about-section .about-photo,
+.interests-section .interest-photo{
+  justify-self:center;
+  align-self:center;
+  margin-inline:auto;
+}
+.hero .hero-photo img,
+.work-section .feature-visual img,
+.experience-section .experience-photo img,
+.experience-section .education-photo img,
+.about-section .about-photo img,
+.interests-section .interest-photo img{
+  object-position:center;
+  margin-inline:auto;
+}
+.work-section .feature-visual{
+  margin-inline:auto;
+  text-align:center;
+}
+@media(max-width:760px){
+  .hero .hero-photo,
+  .experience-section .experience-photo,
+  .about-section .about-photo,
+  .interests-section .interest-photo{
+    align-self:center;
+    justify-self:center;
+    margin-inline:auto;
+  }
+  .work-section .feature-visual{
+    margin-inline:auto;
+    padding:13px 0 0;
+  }
+}
+@media(max-width:520px){
+  .featured-projects-section .featured-project-photo img{
+    width:auto;
+    height:auto;
+    max-width:min(100%,128px);
+    max-height:116px;
+    flex:none;
+  }
+}
