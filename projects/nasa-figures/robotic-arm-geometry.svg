@@ -60,8 +60,8 @@
 <line x1="595" y1="455" x2="558" y2="446" stroke="#8797b4" stroke-width="2" />
 <rect x="570" y="576" width="174" height="35" rx="7" fill="#ecf1f5" stroke="#ecf1f5" stroke-width="1"/><text x="583" y="600" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#485e6f" font-weight="700" >TOOL  |  8.5 in</text>
 <line x1="574" y1="579" x2="543" y2="560" stroke="#70869a" stroke-width="2" />
-<text x="345" y="193" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#455f74" font-weight="700" >CEILING-MOUNTED</text>
-<text x="364" y="241" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#536d7d" font-weight="600" >3 in offset</text>
+<text x="302" y="177" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#455f74" font-weight="700" >CEILING-MOUNTED</text>
+<text x="277" y="232" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#536d7d" font-weight="600" >3 in offset</text>
 <line x1="421" y1="211" x2="421" y2="257" stroke="#648397" stroke-width="2" stroke-dasharray='5 4'/>
 <!-- chamber dimension annotations -->
 <line x1="119" y1="235" x2="119" y2="571" stroke="#326085" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
