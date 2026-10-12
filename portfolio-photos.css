@@ -389,18 +389,6 @@
 
 /* Accessible photograph and video captions: readable on phones in either theme.
    Keep text below images, not over the engineering evidence or portraits. */
-:root{
-  --picture-caption-text:#3e3040;
-  --picture-caption-muted:#59475d;
-  --picture-caption-bg:#f8f3f7;
-  --picture-caption-border:#e5d8e2;
-}
-:root[data-theme="dark"]{
-  --picture-caption-text:#f6eef5;
-  --picture-caption-muted:#e6d8e8;
-  --picture-caption-bg:#312a3a;
-  --picture-caption-border:#64536e;
-}
 :root :is(.hero-photo,.feature-visual,.portfolio-photo-card,
   .experience-photo,.education-photo,.about-photo,.interest-photo,
   .portfolio-awards-photo,.video-demo) figcaption{
