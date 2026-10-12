@@ -135,10 +135,10 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
 /* Contextual photographs appear only where they help explain the project. */
 const nasaPage=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
 const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
-check(home.includes('src="assets/Arm.jpg"') &&
-  (home.match(/class="featured-project-photo"/g)||[]).length===1 &&
+check(home.includes('<figure class="feature-visual">\n            <img src="assets/Arm.jpg"') &&
+  !home.includes('class="featured-project-photo"') &&
   !home.includes('class="engineering-snapshots"'),
-  'Homepage should feature one contextual robotic-arm photo without a photo strip');
+  'Robotic-arm photo should accompany NASA project details, not enlarge featured cards');
 check(!home.includes('src="assets/Testing.jpg"') &&
   !home.includes('src="assets/VNA.jpg"'),
   'Homepage must not imply generic photos document unrelated project results');
