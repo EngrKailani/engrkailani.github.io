@@ -316,3 +316,46 @@
     gap:12px;
   }
 }
+
+/* Explicit caption colors prevent inherited pale/dark text from disappearing
+   when users switch between light and dark mode. */
+:root[data-theme="light"] :is(
+  .hero .hero-photo figcaption,
+  .hero .hero-photo figcaption .figure-index,
+  .hero .hero-photo figcaption .figure-detail,
+  .work-section .feature-visual figcaption,
+  .work-section .portfolio-photo-card figcaption,
+  .work-section .portfolio-photo-card figcaption span,
+  .experience-section .experience-photo figcaption,
+  .experience-section .education-photo figcaption,
+  .about-section .about-photo figcaption,
+  .about-section .portfolio-awards-photo figcaption,
+  .about-section .portfolio-awards-photo figcaption strong,
+  .interests-section .interest-photo figcaption
+){
+  color:#493649;
+  opacity:1;
+  visibility:visible;
+}
+:root[data-theme="light"] .work-section .portfolio-photo-card figcaption span,
+:root[data-theme="light"] .hero .hero-photo figcaption .figure-detail{
+  color:#604d5d;
+}
+:root[data-theme="dark"] :is(
+  .hero .hero-photo figcaption,
+  .hero .hero-photo figcaption .figure-index,
+  .hero .hero-photo figcaption .figure-detail,
+  .work-section .feature-visual figcaption,
+  .work-section .portfolio-photo-card figcaption,
+  .work-section .portfolio-photo-card figcaption span,
+  .experience-section .experience-photo figcaption,
+  .experience-section .education-photo figcaption,
+  .about-section .about-photo figcaption,
+  .about-section .portfolio-awards-photo figcaption,
+  .about-section .portfolio-awards-photo figcaption strong,
+  .interests-section .interest-photo figcaption
+){
+  color:var(--dark-body,#e6ddea);
+  opacity:1;
+  visibility:visible;
+}
