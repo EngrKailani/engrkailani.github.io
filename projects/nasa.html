@@ -2,19 +2,26 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fcfaf8">
-<link rel="canonical" href="https://kalarcon775.github.io/projects/nasa.html">
+<link rel="canonical" href="https://kailania.vercel.app/projects/nasa.html">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta name="description" content="Lunar-dust testing in a high-vacuum environment. Engineering project summary, methods, tools, and documented outcomes.">
 <meta property="og:type" content="article"><meta property="og:title" content="Robotics for Another World | Kailani Alarcon">
-<meta property="og:description" content="Lunar-dust testing in a high-vacuum environment"><meta property="og:url" content="https://kalarcon775.github.io/projects/nasa.html">
+<meta property="og:description" content="Lunar-dust testing in a high-vacuum environment"><meta property="og:url" content="https://kailania.vercel.app/projects/nasa.html">
 <title>Robotics for Another World | Kailani Alarcon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../portfolio.css?v=20261011-14"><style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="../portfolio.css?v=20261011-14">
+<link rel="stylesheet" href="../portfolio-upgrade.css?v=20261011"><style>
 .project-page .detail-figure{margin:20px 0 0;padding:13px;border:1px solid #ded5df;background:#f9f7fa;border-radius:8px;max-width:690px}
 .project-page .detail-figure img,.project-page .detail-figure video{display:block;width:100%;height:auto;max-height:410px;object-fit:contain;border-radius:5px;background:#ece7ed}
 .project-page .detail-figure figcaption{margin-top:10px;font-size:11px;line-height:1.6;color:#716978}
 </style>
+<meta property="og:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
+<meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
+<script src="../portfolio-upgrade.js?v=20261011" defer></script>
 </head>
 <body class="project-page">
 <a class="skip-link" href="#project-main">Skip to project details</a>
@@ -27,20 +34,21 @@
 <header class="detail-heading">
 <p class="eyebrow">NASA · 2026 · Robotics</p><h1>Robotics for Another World</h1><p>Lunar-dust testing in a high-vacuum environment</p>
 </header>
+<nav class="detail-jump" aria-label="Jump to project sections"><span>ON THIS PAGE</span><a href="#project-method">Methods &amp; tools</a><a href="#project-results">Outcomes</a><a href="#project-evidence">Evidence &amp; limitations</a></nav>
 <article class="detail-card" aria-label="Robotics for Another World engineering detail">
 <span class="detail-tag">PROJECT 01 / 16</span>
 <p class="detail-lead">At NASA Marshall Space Flight Center, I worked on a legacy robotic arm for lunar-dust mitigation testing. Within that project I used ROS2 to control and calibrate the arm and Thermal Desktop for both steady-state and transient thermal analysis of the arm in high vacuum. The wider assessment connected workspace geometry, actuator constraints, and verification planning.</p>
 <figure class="detail-figure"><img src="../assets/robotics-lab-rover.jpeg" loading="lazy" alt="NASA robotics laboratory with a robotic platform"><figcaption>NASA robotics laboratory context photograph. This is not an image of the evaluated arm or a test result.</figcaption></figure>
 <div class="detail-panel detail-role"><h2>My contribution / team context</h2><p>NASA Marshall OSTEM project: used ROS2 for robotic-arm control and calibration and Thermal Desktop for steady-state and transient thermal analysis, alongside systems requirements and workspace assessment.</p></div>
-<div class="detail-grid">
+<div id="project-method" class="detail-grid">
 <section class="detail-panel"><h2>Engineering challenge</h2><p>Evaluate whether a robotic arm could meet test-surface access and chamber constraints.</p></section>
 <section class="detail-panel"><h2>Methods and approach</h2><p>Use ROS2 for robotic-arm control and calibration, Thermal Desktop for steady-state and transient thermal analysis in high vacuum, and workspace/actuator analysis to organize planned verification across six operational scenarios and 34 system requirements.</p></section>
 <section class="detail-panel"><h2>Tools and environment</h2><p>ROS2 (arm control and calibration), Thermal Desktop (steady-state and transient high-vacuum thermal analysis), Creo, robotics, systems engineering, verification planning.</p></section>
 <section class="detail-panel"><h2>Evidence and limitations</h2><p>The diagram on the homepage is conceptual. NASA source figures, calibration error, temperatures, qualified thermal margins and completed qualification results are not public here.</p></section>
 </div>
-<div class="detail-results"><h2>Documented outcome</h2><p>Integrated control/calibration and thermal modeling into the requirements-led evaluation of a high-vacuum robotic-arm application. The 34 requirements and six scenarios describe assessment scope, not completed vacuum qualification or proven thermal margins.</p></div>
+<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>Integrated control/calibration and thermal modeling into the requirements-led evaluation of a high-vacuum robotic-arm application. The 34 requirements and six scenarios describe assessment scope, not completed vacuum qualification or proven thermal margins.</p></div>
 <div class="detail-buttons"><a href="../index.html#case-nasa">Detailed NASA case study ↗</a><a href="index.html">Browse all projects ↗</a></div>
-<p class="detail-source-note">This page is based on the existing portfolio project description. It distinguishes reported results from targets and does not publish restricted NASA files or unavailable raw data.</p>
+<p id="project-evidence" class="detail-source-note">This page is based on the existing portfolio project description. It distinguishes reported results from targets and does not publish restricted NASA files or unavailable raw data.</p>
 </article>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="powershell.html">← PowerShell Systems &amp; Concurrency</a>
