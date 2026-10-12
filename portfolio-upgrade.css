@@ -344,7 +344,9 @@ section[id]{scroll-margin-top:86px}
 :root[data-theme="dark"] .repo-card:hover{border-color:#d6a8c6}
 :root[data-theme="dark"] .feature-visual{background:#30293a}
 :root[data-theme="dark"] .feature-visual figcaption{
-  background:#f9ecf4;color:#38223a;
+  background:var(--picture-caption-bg);
+  color:var(--picture-caption-text);
+  border-color:var(--picture-caption-border);
 }
 :root[data-theme="dark"] .github-section,
 :root[data-theme="dark"] .bookshelf-section,
