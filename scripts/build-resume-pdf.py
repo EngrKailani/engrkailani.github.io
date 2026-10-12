@@ -26,13 +26,8 @@ pdf=fitz.open()
 page=pdf.new_page(width=612,height=792)
 page.insert_font(fontname="CarlitoRegular",fontfile=str(REGULAR))
 page.insert_font(fontname="CarlitoBold",fontfile=str(BOLD))
-# Make room for a second contact row without adding a page or shrinking
-# technical content. Offset diminishes down the page to preserve bottom margin.
+# Keep the original single-line contact placement and one-page spacing.
 SHIFT=10.5
-def header_extra(y):
-    if y < 82.1:
-        return 0
-    return 12.0-6.0*min(max((y-82.1)/(752.04-82.1),0),1)
 for x,y,bold,text in SPANS:
     if not FULL_DETAIL and text.strip() in OPTIONAL_DETAIL:
         continue
@@ -41,7 +36,7 @@ for x,y,bold,text in SPANS:
         continue
     original_y=y
     if original_y>51.24:
-        y+=SHIFT+header_extra(original_y)
+        y+=SHIFT
     size=15.96 if original_y==51.24 else 9.96
     heading=bold and x==36 and original_y in (82.10,168.38,240.50,537.43,721.90)
     color=BLUE if heading or original_y==51.24 else (0,0,0)
@@ -60,7 +55,7 @@ CONTACT_PARTS=[
     (" | ",None),
     ("GitHub: EngrKailani","https://github.com/EngrKailani"),
     (" | ",None),
-    ("Engineering Portfolio","https://engrkailani.github.io/"),
+    ("Portfolio: engrkailani.github.io","https://engrkailani.github.io/"),
 ]
 regular_font=fitz.Font(fontfile=str(REGULAR))
 contact_size=9.96
@@ -86,30 +81,9 @@ headline_size=9.35
 headline_width=fitz.Font(fontfile=str(BOLD)).text_length(headline,fontsize=headline_size)
 page.insert_text(((612-headline_width)/2,66.0),headline,
                  fontsize=headline_size,fontname="CarlitoBold",color=BLUE)
-portfolio="Portfolio: engrkailani.github.io"
-portfolio_size=9.3
-portfolio_width=fitz.Font(fontfile=str(REGULAR)).text_length(portfolio,fontsize=portfolio_size)
-page.insert_text(((612-portfolio_width)/2,91.0),portfolio,
-                 fontsize=portfolio_size,fontname="CarlitoRegular",color=BLUE)
 for y in (87.50,173.66,245.93,542.71,727.30):
-    page.draw_rect(fitz.Rect(34.56,y+SHIFT+header_extra(y),577.54,y+SHIFT+header_extra(y)+0.96),
+    page.draw_rect(fitz.Rect(34.56,y+SHIFT,577.54,y+SHIFT+0.96),
                    fill=BLUE,color=None,overlay=True)
-
-# PDF hyperlink annotations, not just blue-looking text. The labels are
-# searched after typesetting so every click target tracks the rendered glyphs.
-targets={
-    "kailanip.alarcon@gmail.com":"mailto:kailanip.alarcon@gmail.com",
-    "LinkedIn: kailani-alarcon":"https://www.linkedin.com/in/kailani-alarcon/",
-    "GitHub: EngrKailani":"https://github.com/EngrKailani",
-    "Portfolio: engrkailani.github.io":"https://engrkailani.github.io/"
-}
-for label,url in targets.items():
-    found=page.search_for(label)
-    if len(found)!=1:
-        raise RuntimeError(f"Expected one PDF link label {label!r}, got {len(found)}")
-    r=found[0]
-    area=fitz.Rect(r.x0-1,r.y0-2,r.x1+1,r.y1+2)
-    page.insert_link({"kind":fitz.LINK_URI,"from":area,"uri":url})
 
 pdf.set_metadata({"title":"Kailani Alarcon Engineering Resume",
                   "author":"Kailani Alarcon",
@@ -127,13 +101,9 @@ assert required_links.issubset(link_targets), (
 )
 assert "GitHub: EngrKailani" in check[0].get_text()
 assert "Engineering Portfolio" in check[0].get_text()
-expected_urls=set(targets.values())
-actual_urls={link.get("uri") for link in check[0].get_links() if link.get("kind")==fitz.LINK_URI}
-assert expected_urls==actual_urls, (expected_urls,actual_urls)
-assert len(check[0].get_links())==4, "Expected four clickable contact links"
+assert len(check[0].get_links())==4, "Expected exactly four embedded contact links"
+assert "Portfolio: engrkailani.github.io" in check[0].get_text()
 text=check[0].get_text()
-assert "GitHub: EngrKailani" in text
-assert "Portfolio: engrkailani.github.io" in text
 
 if not FULL_DETAIL:
     for item in OPTIONAL_DETAIL:
