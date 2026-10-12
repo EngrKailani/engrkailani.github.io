@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="portfolio-upgrade.css?v=20261012-experience-layout2">
 <link rel="stylesheet" href="repo-orbit.css?v=20261012-orbit-fix3">
 <link rel="stylesheet" href="robot-control-dock.css?v=20261011-dock1">
-<link rel="stylesheet" href="portfolio-photos.css?v=20261012-photos1">
+<link rel="stylesheet" href="portfolio-photos.css?v=20261012-curated1">
 <link rel="stylesheet" href="case-explorer.css?v=20261012-v2">
   <script src="script.js?v=20261012-audit1" defer></script>
   <script src="enhancements.js?v=20261011-pink2" defer></script>
@@ -35,7 +35,7 @@
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center"><meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="portfolio-upgrade.js?v=20261011-dock1" defer></script>
 <script src="case-explorer.js?v=20261012-v2" defer></script>
-<script src="portfolio-photos.js?v=20261012-photos1" defer></script><script src="robot-3d.js?v=20261011-dock1" defer></script>
+<script src="robot-3d.js?v=20261011-dock1" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Kailani Alarcon","url":"https://engrkailani.github.io/","jobTitle":"Electrical engineering graduate student","alumniOf":{"@type":"CollegeOrUniversity","name":"University of Nevada, Reno"},"knowsAbout":["Robotics","Embedded systems","Electrical engineering","Engineering verification"],"sameAs":["https://github.com/EngrKailani","https://www.linkedin.com/in/kailani-alarcon/"]}</script>
 </head>
 <body>
@@ -242,24 +242,19 @@
           </div>
         </article>
 
-        <!-- Optional photos: upload these JPEG files to the repository's assets/ folder.
-             Missing images remain hidden; they automatically appear once uploaded. -->
-        <section class="portfolio-photo-gallery" id="portfolio-photo-gallery" aria-labelledby="portfolio-photo-gallery-title" hidden>
+        <!-- Selected NASA photos are served directly from assets/ without a JavaScript loader. -->
+        <section class="portfolio-photo-gallery" id="portfolio-photo-gallery" aria-labelledby="portfolio-photo-gallery-title">
           <div class="portfolio-photo-gallery__intro">
             <h3 id="portfolio-photo-gallery-title">Around the space community</h3>
             <p>Experiences and moments beyond the engineering diagrams.</p>
           </div>
           <div class="portfolio-photo-gallery__grid">
-            <figure class="portfolio-photo-card portfolio-photo-card--team" hidden>
-              <img data-portfolio-photo-src="assets/nasa-sls-team.jpeg" alt="A group gathered around a tall Space Launch System rocket model in a lobby" loading="eager" decoding="async" width="1280" height="853">
+            <figure class="portfolio-photo-card portfolio-photo-card--team">
+              <img src="assets/nasa-sls-team.jpeg" alt="A group gathered around a tall Space Launch System rocket model in a lobby" loading="lazy" decoding="async" width="1280" height="853">
               <figcaption>Space Launch System <span>A moment with the wider team</span></figcaption>
             </figure>
-            <figure class="portfolio-photo-card" hidden>
-              <img data-portfolio-photo-src="assets/nasa-mission-patches.jpeg" alt="A visitor seated in front of a large wall of Space Shuttle mission patches" loading="eager" decoding="async" width="480" height="640">
-              <figcaption>Mission patch wall <span>Shuttle-era mission history</span></figcaption>
-            </figure>
-            <figure class="portfolio-photo-card" hidden>
-              <img data-portfolio-photo-src="assets/nasa-astronaut-suit.jpeg" alt="Kailani standing next to a spacesuit display in a dark exhibition area" loading="eager" decoding="async" width="480" height="640">
+            <figure class="portfolio-photo-card">
+              <img src="assets/nasa-astronaut-suit.jpeg" alt="Kailani standing next to a spacesuit display in a dark exhibition area" loading="lazy" decoding="async" width="480" height="640">
               <figcaption>Spacesuit exhibit <span>Exploring space technology</span></figcaption>
             </figure>
           </div>
@@ -740,8 +735,8 @@
           <p>My work connects robot kinematics, embedded firmware, digital logic, instrumentation, and control. I like starting with a measurable requirement, building a model or prototype, comparing it with test observations, and documenting what still needs verification. I also enjoy explaining technical ideas through engineering peer mentoring.</p>
           <div class="about-chips"><span>University of Nevada, Reno</span><span>M.S. EE · 2028</span><span>Robotics & embedded systems</span><span>UNR lab safety training · 2025</span></div>
           <p class="about-honors">Honors Baccalaureate · Two 2026 engineering Outstanding Service awards · Engineering peer mentor</p>
-          <figure class="portfolio-awards-photo" hidden>
-            <img data-portfolio-photo-src="assets/engineering-awards.jpeg" alt="Kailani standing on university steps holding two framed achievement certificates" loading="eager" decoding="async" width="480" height="640">
+          <figure class="portfolio-awards-photo">
+            <img src="assets/engineering-awards.jpeg" alt="Kailani standing on university steps holding two framed achievement certificates" loading="lazy" decoding="async" width="480" height="640">
             <figcaption><strong>Engineering recognition</strong>A moment celebrating academic achievement and service.</figcaption>
           </figure>
         </div>
