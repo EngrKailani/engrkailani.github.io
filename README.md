@@ -6,13 +6,13 @@ A technical engineering portfolio featuring NASA robotic-arm work, detailed proj
 
 The site remains framework-free HTML, CSS and JavaScript. `portfolio-upgrade.css` layers over the generated `portfolio.css` without changing `build-css.js`. `portfolio-upgrade.js` handles theme, menu behavior, and filtering for the project directory. `robot-3d.js` adds the interactive high-vacuum chamber illustration. The viewer is a browser-side kinematic approximation, not a hardware controller or collision-validated simulation.
 
-Canonical public website: `https://engrkailani.github.io`. To release, review and merge the portfolio-upgrade pull request, then verify Vercel deployed from the expected GitHub repository and production branch. Before publishing, verify all engineering claims, contact information and public-use permissions for photos. Run `node scripts/site-check.js` as a static content check.
+Canonical public website: `https://engrkailani.github.io`. Hosting and deployment use GitHub Pages from the `main` branch only. After committing changes, check the GitHub Pages deployment workflow and verify the published website. Before publishing, verify engineering claims, contact information, and public-use permissions for photos. Run `node scripts/site-check.js` as a static content check.
 
 ## Files
 
 - `index.html`, `script.js`, `bookshelf.js`, `enhancements.js`, `ux.js`, `ambient.js`
 - `portfolio.css`, the compiled single-file stylesheet used by GitHub Pages
-- Eight source stylesheets (see the build order in `build-css.js`)
+- Nine source stylesheets (see the build order in `build-css.js`)
 - `favicon.svg`, `robots.txt`, `sitemap.xml`, and the `assets/` folder with existing personal media and resume
 
 ## Preview locally
