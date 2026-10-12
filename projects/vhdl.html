@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-css1">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +31,12 @@
 <header class="detail-heading">
 <p class="eyebrow">EE421 · 2025 · Digital electronics</p><h1>VHDL Digital Logic</h1><p>Binary arithmetic displayed in decimal without a clock</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p><h2 id="evidence-summary-title">What was done, checked, and documented</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Implement combinational binary-to-decimal display logic and arithmetic output.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Designed VHDL digital electronics assignment circuits for seven-segment conversion and addition.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>VHDL, XOR/AND/OR logic, full adders and active-low seven-segment tables.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Checked combinational mapping and display behavior in the documented design exercise; comprehensive waveforms are unavailable.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Synthesizable conversion logic and four-bit addition with a five-bit result ranging from 0 to 31.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>No archived exhaustive simulation traces, timing report or independently reproduced board measurements.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 06 / 16</span><p class="detail-lead">For a digital electronics assignment, I developed purely combinational VHDL circuits that translate binary switch inputs into two-digit seven-segment output. A second design adds two 4-bit numbers and a carry-in and displays the result as a readable decimal value.</p></section>
 <article class="detail-card" aria-label="VHDL Digital Logic engineering detail"><h2 class="project-details-title">Engineering details</h2>
