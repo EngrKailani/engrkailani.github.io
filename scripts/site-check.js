@@ -123,20 +123,22 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
   });
 }
 
-/* Project imagery is contextual, compact and limited to relevant cards. */
-const featuredAccents=[
-  'assets/Arm.jpg',
-  'assets/Testing.jpg',
-  'assets/VNA.jpg'
-];
-check(featuredAccents.every(filename=>fs.existsSync(path.join(root,filename)) &&
-  home.includes('src="'+filename+'"')),
-  'Featured project accent images must exist and be referenced');
-check((home.match(/class="featured-project-photo"/g)||[]).length===3 &&
+/* Contextual photographs appear only where they help explain the project. */
+const nasaPage=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
+const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
+check(home.includes('src="assets/Arm.jpg"') &&
+  (home.match(/class="featured-project-photo"/g)||[]).length===1 &&
   !home.includes('class="engineering-snapshots"'),
-  'Featured photos belong inside three project cards, not a standalone image strip');
-check(fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8').includes('.featured-project-photo img'),
-  'Project photo accents need compact responsive styling');
+  'Homepage should feature one contextual robotic-arm photo without a photo strip');
+check(!home.includes('src="assets/Testing.jpg"') &&
+  !home.includes('src="assets/VNA.jpg"'),
+  'Homepage must not imply generic photos document unrelated project results');
+check(nasaPage.includes('src="../assets/Creo-1.jpg"') &&
+  vnaPage.includes('src="../assets/VNA.jpg"'),
+  'CAD and VNA photos must be placed beside the relevant technical methods');
+check(fs.readFileSync(path.join(root,'projects/project-photo-context.css'),'utf8')
+  .includes('.context-photo-accent img'),
+  'Project-specific photos must have compact centered styling');
 
 /* Curated NASA and awards photographs are real assets and work without JavaScript. */
 const selectedPhotos=[
