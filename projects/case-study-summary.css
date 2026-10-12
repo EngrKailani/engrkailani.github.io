@@ -1,0 +1,19 @@
+/* Evidence-first summary shared by the main engineering case studies. */
+.project-evidence-first{margin:20px 0 24px;padding:clamp(17px,2.5vw,26px);border:1px solid var(--border,#d8cad5);border-radius:16px;background:var(--soft,#fcf6fa)}
+.project-evidence-first__eyebrow{margin:0 0 10px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--secondary,#765d71)}
+.project-evidence-first h2{margin:0 0 16px;font:600 clamp(21px,2.5vw,27px)/1.24 var(--serif,Georgia,serif);color:var(--ink,#362d3a)}
+.project-evidence-first__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.project-evidence-first__item{padding:13px 14px;border:1px solid var(--border,#d8cad5);border-radius:11px;background:var(--card,#fff)}
+.project-evidence-first__item h3{margin:0 0 6px;color:var(--ink,#362d3a);font-size:12px;letter-spacing:.02em}
+.project-evidence-first__item p{margin:0;color:var(--secondary,#654e60);font-size:13px;line-height:1.65}
+.project-evidence-first__item--result{border-color:#b68ba7}
+.project-evidence-first__links{display:flex;flex-wrap:wrap;gap:10px 20px;margin:15px 0 0;font-size:12px;font-weight:700}
+.project-evidence-first__links a{text-decoration:underline;text-underline-offset:3px}
+:root[data-theme="dark"] .project-evidence-first{background:#292535;border-color:#62556a}
+:root[data-theme="dark"] .project-evidence-first__item{background:#342d3e;border-color:#665871}
+:root[data-theme="dark"] .project-evidence-first__item--result{border-color:#b98bab}
+:root[data-theme="dark"] .project-evidence-first__eyebrow,
+:root[data-theme="dark"] .project-evidence-first__item p{color:#ebd9ea}
+:root[data-theme="dark"] .project-evidence-first h2,
+:root[data-theme="dark"] .project-evidence-first__item h3{color:#fff2fa}
+@media(max-width:690px){.project-evidence-first__grid{grid-template-columns:minmax(0,1fr)}}
