@@ -30,7 +30,7 @@ for(const file of htmlFiles){
     check(fs.existsSync(target),file+': missing asset or page '+local);
   }
   const seen=new Set();
-  for(const match of html.matchAll(/\bid=["']([^"']+)["']/g)){
+  for(const match of html.matchAll(/\sid=["']([^"']+)["']/g)){
     check(!seen.has(match[1]),file+': duplicate id '+match[1]);
     seen.add(match[1]);
   }
