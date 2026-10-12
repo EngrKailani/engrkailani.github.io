@@ -127,6 +127,7 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
 const selectedPhotos=[
   'assets/nasa-sls-team.jpeg',
   'assets/nasa-astronaut-suit.jpeg',
+  'assets/nasa-mission-patches.jpeg',
   'assets/engineering-awards.jpeg'
 ];
 check(home.includes('portfolio-photos.css') && !home.includes('portfolio-photos.js'),
@@ -134,8 +135,8 @@ check(home.includes('portfolio-photos.css') && !home.includes('portfolio-photos.
 check(selectedPhotos.every(filename=>fs.existsSync(path.join(root,filename)) &&
   home.includes('src="'+filename+'"')),
   'Selected portfolio photos must exist and be referenced by native image elements');
-check((home.match(/class="portfolio-photo-card(?: portfolio-photo-card--team)?"/g)||[]).length===2,
-  'Curated NASA photo section should show two complementary images');
+check((home.match(/class="portfolio-photo-card(?: portfolio-photo-card--team)?"/g)||[]).length===3,
+  'Curated NASA photo section should show three compact complementary images');
 check(home.includes('id="portfolio-photo-gallery"') &&
   home.includes('id="portfolio-photo-gallery-title"') &&
   home.includes('class="portfolio-awards-photo"'),
