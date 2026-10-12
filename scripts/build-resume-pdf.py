@@ -36,6 +36,9 @@ def header_extra(y):
 for x,y,bold,text in SPANS:
     if not FULL_DETAIL and text.strip() in OPTIONAL_DETAIL:
         continue
+    # The contact strip is drawn segment by segment below to embed real links.
+    if text.startswith("775-432-9365 |"):
+        continue
     original_y=y
     if original_y>51.24:
         y+=SHIFT+header_extra(original_y)
@@ -45,6 +48,39 @@ for x,y,bold,text in SPANS:
     page.insert_text((x,y),text,fontsize=size,
                      fontname="CarlitoBold" if bold else "CarlitoRegular",
                      color=color)
+# Center a single-line contact bar with four genuinely clickable PDF links.
+# The connected GitHub account is EngrKailani. Repositories under the historic
+# kalarcon775 name redirect to EngrKailani.
+CONTACT_PARTS=[
+    ("775-432-9365",None),
+    (" | ",None),
+    ("kailanip.alarcon@gmail.com","mailto:kailanip.alarcon@gmail.com"),
+    (" | ",None),
+    ("LinkedIn","https://www.linkedin.com/in/kailani-alarcon/"),
+    (" | ",None),
+    ("GitHub: EngrKailani","https://github.com/EngrKailani"),
+    (" | ",None),
+    ("Engineering Portfolio","https://engrkailani.github.io/"),
+]
+regular_font=fitz.Font(fontfile=str(REGULAR))
+contact_size=9.96
+baseline=68.04+SHIFT
+total_width=sum(regular_font.text_length(part,fontsize=contact_size)
+                for part,_ in CONTACT_PARTS)
+cursor=(612-total_width)/2
+for label,target in CONTACT_PARTS:
+    width=regular_font.text_length(label,fontsize=contact_size)
+    linked=target is not None
+    ink=BLUE if linked else (0,0,0)
+    page.insert_text((cursor,baseline),label,fontsize=contact_size,
+                     fontname="CarlitoRegular",color=ink)
+    if linked:
+        page.draw_line((cursor,baseline+0.5),(cursor+width,baseline+0.5),
+                       color=BLUE,width=0.45)
+        page.insert_link({"kind":fitz.LINK_URI,
+                          "from":fitz.Rect(cursor,baseline-10,cursor+width,baseline+2),
+                          "uri":target})
+    cursor+=width
 headline="Electrical Engineer | Robotics, Embedded Systems & Verification"
 headline_size=9.35
 headline_width=fitz.Font(fontfile=str(BOLD)).text_length(headline,fontsize=headline_size)
@@ -83,6 +119,14 @@ pdf.save(DEST,garbage=4,deflate=True)
 check=fitz.open(DEST)
 assert len(check)==1 and check[0].rect.width==612 and check[0].rect.height==792
 assert headline in check[0].get_text()
+link_targets={link.get("uri") for link in check[0].get_links()
+              if link.get("kind")==fitz.LINK_URI}
+required_links={target for _,target in CONTACT_PARTS if target}
+assert required_links.issubset(link_targets), (
+    "Missing contact links: "+repr(required_links-link_targets)
+)
+assert "GitHub: EngrKailani" in check[0].get_text()
+assert "Engineering Portfolio" in check[0].get_text()
 expected_urls=set(targets.values())
 actual_urls={link.get("uri") for link in check[0].get_links() if link.get("kind")==fitz.LINK_URI}
 assert expected_urls==actual_urls, (expected_urls,actual_urls)
