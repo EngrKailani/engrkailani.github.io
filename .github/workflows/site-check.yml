@@ -1,12 +1,15 @@
-name: Static portfolio checks
+name: Portfolio quality checks
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
+
 jobs:
   validate:
+    name: Static HTML and source checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,5 +19,63 @@ jobs:
       - name: Verify JavaScript syntax
         run: |
           for file in *.js scripts/*.js; do node --check "$file"; done
-      - name: Verify pages, links and canonical host
+      - name: Verify pages, internal links and assets
         run: node scripts/site-check.js
+
+  browser-quality:
+    name: Chromium, CSS, accessibility and Lighthouse
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser and audit tooling
+        run: npm install --no-audit --no-fund
+      - name: Install headless Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Parse all CSS sources and compiled styles
+        id: css
+        continue-on-error: true
+        run: npm run check:css
+      - name: Launch local static site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/portfolio-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/portfolio-server.log
+          exit 1
+      - name: Check mobile overflow, images, themes and WCAG in Chromium
+        id: browser
+        continue-on-error: true
+        env:
+          SITE_URL: http://127.0.0.1:4173
+        run: npm run check:browser
+      - name: Locate Chromium for Lighthouse
+        run: echo "CHROME_PATH=$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" >> "$GITHUB_ENV"
+      - name: Audit Lighthouse mobile and desktop
+        id: lighthouse
+        continue-on-error: true
+        run: |
+          mkdir -p quality-artifacts
+          npx lighthouse http://127.0.0.1:4173/ --output=json --output-path=quality-artifacts/lighthouse-mobile.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet
+          npx lighthouse http://127.0.0.1:4173/ --preset=desktop --output=json --output-path=quality-artifacts/lighthouse-desktop.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet
+          npm run report:lighthouse
+          cat quality-artifacts/lighthouse-summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload measured reports and browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-quality-reports
+          path: quality-artifacts/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Enforce CSS and browser quality checks
+        if: steps.css.outcome == 'failure' || steps.browser.outcome == 'failure' || steps.lighthouse.outcome == 'failure'
+        run: |
+          echo "::error::One or more audits failed. Inspect the portfolio-quality-reports artifact and job logs."
+          exit 1

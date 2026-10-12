@@ -23,6 +23,14 @@ Canonical public website: `https://engrkailani.github.io`. Hosting and deploymen
 - Other optional stylesheets (`repo-orbit.css`, `robot-control-dock.css`, and `case-explorer.css`) remain isolated to their respective features. Project-specific styles stay in `projects/`.
 - Run `node scripts/site-check.js` before publishing. It verifies the compiled bundle, centralized dark-mode tokens, and photo styling invariants.
 
+## Automated browser quality and performance audits
+
+The GitHub Actions `Portfolio quality checks` workflow now uses Chromium to test desktop, tablet and mobile layouts in light and dark modes. The tests parse all CSS, check horizontal overflow, verify visible image loading, alt text and sizing, and run axe-core WCAG A/AA rules. Violations are reported by route, viewport and theme.
+
+Lighthouse runs on the locally served production files in both mobile and desktop emulation. Its **measured** performance, accessibility, best-practices and SEO scores, LCP and CLS are saved as JSON artifacts and summarized in the GitHub Actions job. A passing workflow does not imply a guaranteed score or represent real-user field metrics. Run results vary by CI hardware and browser version.
+
+To run locally with Node 22: `npm install`, `npx playwright install chromium`, `npm run check:css`; start `python3 -m http.server 4173` in another terminal and run `npm run check:browser`. The `quality-artifacts/` folder contains reports and screenshots; CI attaches it as `portfolio-quality-reports` for 30 days. No Vercel deployment is involved.
+
 ## Preview locally
 
 Use `python -m http.server 8000` in the repository root and preview at `http://localhost:8000`. After editing a source stylesheet, run `node build-css.js` before committing so that `portfolio.css` reflects the changes.

@@ -1,0 +1,17 @@
+{
+  "name": "engineering-portfolio-quality-checks",
+  "private": true,
+  "version": "1.0.0",
+  "description": "CI-only validation tooling for the static portfolio",
+  "scripts": {
+    "check:css": "node scripts/css-quality.js",
+    "check:browser": "node scripts/browser-quality.js",
+    "report:lighthouse": "node scripts/lighthouse-report.js"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.3",
+    "css-tree": "3.1.0",
+    "lighthouse": "12.8.2",
+    "playwright": "1.56.1"
+  }
+}
