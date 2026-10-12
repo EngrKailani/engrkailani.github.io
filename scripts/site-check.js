@@ -46,6 +46,18 @@ const thermalHtml=fs.readFileSync(path.join(root,'projects/thermal.html'),'utf8'
 check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+/* Contact and résumé should be reachable without scrolling to the footer. */
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf"') &&
+  home.includes('aria-label="View résumé PDF in a new tab"'),
+  'Main navigation must link directly to the résumé PDF');
+check(home.includes('class="featured-next-step"') &&
+  home.includes('href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity"') &&
+  home.includes('class="featured-next-step-links"'),
+  'Featured projects need clear contact and résumé follow-up links');
+check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
+  .includes('.featured-next-step-links .btn'),
+  'Featured project actions need mobile-responsive styles');
+
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 
 // Five repository planets remain visible, separated, and independently selectable.
