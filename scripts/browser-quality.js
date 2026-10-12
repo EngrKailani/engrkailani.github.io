@@ -16,7 +16,8 @@ const cases=[
   {path:'/',width:390,theme:'dark',screenshot:true},
   {path:'/',width:1440,theme:'dark'},
   {path:'/projects/nasa.html',width:390,theme:'light',imageCheck:true,screenshot:true},
-  {path:'/projects/nasa.html',width:390,theme:'dark'},
+  {path:'/projects/nasa.html',width:1440,theme:'light',imageCheck:true,screenshot:true},
+  {path:'/projects/nasa.html',width:390,theme:'dark',screenshot:true},
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
@@ -126,6 +127,12 @@ async function audit(){
             note(id+': figure caption has insufficient contrast ('+
               caption.contrast.toFixed(2)+':1): '+caption.text);
         }
+        if(test.path==='/projects/nasa.html'){
+          const figures=page.locator('.nasa-figure');
+          const links=page.locator('.nasa-figure .nasa-figure__zoom');
+          if(await figures.count()!==4 || await links.count()!==4)
+            note(id+': expected four technical figures with full-size links');
+        }
         if(test.imageCheck){
           for(const img of await page.locator('img:visible').all()){
             await img.scrollIntoViewIfNeeded({timeout:6500});
@@ -153,6 +160,14 @@ async function audit(){
               note(id+': CAD accent exceeds 285px: '+image.width);
             if(image.src?.includes('assets/VNA.jpg')&&image.width>285)
               note(id+': VNA accent exceeds 285px: '+image.width);
+          }
+        }
+        if(test.screenshot && test.path==='/projects/nasa.html'){
+          for(const figureId of ['nasa-fig-01','nasa-fig-02','nasa-fig-03','nasa-fig-04']){
+            await page.locator('#'+figureId).screenshot({
+              path:path.join(out,'screenshots',id+'-'+figureId+'.png'),
+              animations:'disabled',timeout:20000
+            });
           }
         }
         if(test.screenshot){
