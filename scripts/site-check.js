@@ -123,6 +123,21 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
   });
 }
 
+/* Project imagery is contextual, compact and limited to relevant cards. */
+const featuredAccents=[
+  'assets/Arm.jpg',
+  'assets/Testing.jpg',
+  'assets/VNA.jpg'
+];
+check(featuredAccents.every(filename=>fs.existsSync(path.join(root,filename)) &&
+  home.includes('src="'+filename+'"')),
+  'Featured project accent images must exist and be referenced');
+check((home.match(/class="featured-project-photo"/g)||[]).length===3 &&
+  !home.includes('class="engineering-snapshots"'),
+  'Featured photos belong inside three project cards, not a standalone image strip');
+check(fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8').includes('.featured-project-photo img'),
+  'Project photo accents need compact responsive styling');
+
 /* Curated NASA and awards photographs are real assets and work without JavaScript. */
 const selectedPhotos=[
   'assets/nasa-sls-team.jpeg',
