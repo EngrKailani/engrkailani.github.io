@@ -18,15 +18,26 @@ pdf=fitz.open()
 page=pdf.new_page(width=612,height=792)
 page.insert_font(fontname="CarlitoRegular",fontfile=str(REGULAR))
 page.insert_font(fontname="CarlitoBold",fontfile=str(BOLD))
+# The professional headline sits beneath the name; shift the remaining
+# original lines and dividers by 10.5pt to retain the one-page layout.
+SHIFT=10.5
 for x,y,bold,text in SPANS:
-    size=15.96 if y==51.24 else 9.96
-    heading=bold and x==36 and y in (82.10,168.38,240.50,537.43,721.90)
-    color=BLUE if heading or y==51.24 else (0,0,0)
+    original_y=y
+    if original_y>51.24:
+        y+=SHIFT
+    size=15.96 if original_y==51.24 else 9.96
+    heading=bold and x==36 and original_y in (82.10,168.38,240.50,537.43,721.90)
+    color=BLUE if heading or original_y==51.24 else (0,0,0)
     page.insert_text((x,y),text,fontsize=size,
                      fontname="CarlitoBold" if bold else "CarlitoRegular",
                      color=color)
+headline="Electrical Engineer | Robotics, Embedded Systems & Verification"
+headline_size=9.35
+headline_width=fitz.Font(fontfile=str(BOLD)).text_length(headline,fontsize=headline_size)
+page.insert_text(((612-headline_width)/2,66.0),headline,
+                 fontsize=headline_size,fontname="CarlitoBold",color=BLUE)
 for y in (87.50,173.66,245.93,542.71,727.30):
-    page.draw_rect(fitz.Rect(34.56,y,577.54,y+0.96),
+    page.draw_rect(fitz.Rect(34.56,y+SHIFT,577.54,y+SHIFT+0.96),
                    fill=BLUE,color=None,overlay=True)
 pdf.set_metadata({"title":"Kailani Alarcon Engineering Resume",
                   "author":"Kailani Alarcon",
@@ -35,6 +46,7 @@ pdf.subset_fonts()
 pdf.save(DEST,garbage=4,deflate=True)
 check=fitz.open(DEST)
 assert len(check)==1 and check[0].rect.width==612 and check[0].rect.height==792
+assert headline in check[0].get_text()
 text=check[0].get_text()
 for value in ("34 hierarchical system requirements","27.23 lbf-in",
               "12+ LED products","236 points","57,600 and 115,200 baud"):
