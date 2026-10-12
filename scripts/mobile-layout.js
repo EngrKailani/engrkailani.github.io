@@ -21,6 +21,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
       const failures = await page.evaluate(() => {
         const shapes = '.featured-project-card,.project-card,.repo-card,.detail-card,.detail-panel,' +
           '.detail-results,.resume-note,.education-panel,.shelf-preview,.book-page,' +
+          '.project-evidence-first__item,.project-visual-gallery__item,.nasa-workstreams__grid>section,' +
           '.case-explorer__insight,.case-explorer__limit,.case-explorer__stats>div,' +
           '.case-explorer__flow button,.case-explorer__tabs button,.case-explorer__actions button,' +
           '.btn,.repo-featured,.repo-featured__link,.robot-control-sliders>div,' +
@@ -28,7 +29,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
         const found = [];
         const viewport = document.documentElement.clientWidth;
         if (Math.max(document.body.scrollWidth,document.documentElement.scrollWidth) > viewport+3)
-          found.push('Document wider than viewport');
+          found.push('Document wider than viewport: '+[...document.querySelectorAll('body *')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.right>viewport+3&&r.left<viewport;}).slice(0,8).map(el=>el.tagName+'.'+el.className).join(', '));
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         for (let node; (node=walker.nextNode());) {
           if (!node.textContent.trim()) continue;
