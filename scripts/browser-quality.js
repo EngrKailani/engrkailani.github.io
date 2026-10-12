@@ -26,7 +26,18 @@ const cases=[
   {path:'/projects/huemotion.html',width:390,theme:'light'},
   {path:'/projects/powershell.html',width:390,theme:'light'},
   {path:'/projects/prodriver.html',width:390,theme:'light'},
-  {path:'/projects/thermal.html',width:390,theme:'light'}
+  {path:'/projects/thermal.html',width:390,theme:'light'},
+  // The résumé and remaining project pages also need rendered coverage.
+  {path:'/resume.html',width:390,theme:'light',screenshot:true},
+  {path:'/resume.html',width:390,theme:'dark'},
+  {path:'/resume.html',width:1440,theme:'light'},
+  {path:'/projects/alu.html',width:390,theme:'light'},
+  {path:'/projects/fingerprint.html',width:390,theme:'light'},
+  {path:'/projects/leg.html',width:390,theme:'light'},
+  {path:'/projects/motor.html',width:390,theme:'light'},
+  {path:'/projects/ur3e.html',width:390,theme:'light'},
+  {path:'/projects/vhdl.html',width:390,theme:'light'},
+  {path:'/projects/index.html',width:390,theme:'dark'}
 ];
 const issues=[];
 const results=[];
