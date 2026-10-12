@@ -317,3 +317,43 @@
     width:88px;height:88px;max-height:88px;aspect-ratio:1;
   }
 }
+
+/* Engineering evidence photos: thumbnail-size accents, not a full-image gallery. */
+.featured-projects-section .engineering-snapshots{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:16px 22px;
+  margin:21px 0 0;
+}
+.featured-projects-section .engineering-snapshot{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:1 1 185px;
+  max-width:240px;
+  min-width:0;
+  margin:0;
+}
+.featured-projects-section .engineering-snapshot img{
+  display:block;
+  width:78px;
+  height:78px;
+  flex:0 0 78px;
+  object-fit:cover;
+  border-radius:9px;
+  border:1px solid var(--border);
+}
+.featured-projects-section .engineering-snapshot figcaption{
+  min-width:0;
+  color:var(--secondary);
+  font-size:11px;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  .featured-projects-section .engineering-snapshots{gap:13px}
+  .featured-projects-section .engineering-snapshot{flex:1 1 145px}
+  .featured-projects-section .engineering-snapshot img{
+    width:66px;height:66px;flex-basis:66px;
+  }
+}
