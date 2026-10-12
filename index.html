@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fcf9f8">
-  <link rel="canonical" href="https://kalarcon775.github.io/">
+  <link rel="canonical" href="https://kailania.vercel.app/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="description" content="Kailani Alarcon, electrical engineer and NASA Marshall OSTEM intern. Explore robotic-arm control and calibration, thermal analysis, embedded systems, and engineering case studies.">
   <meta property="og:title" content="Kailani Alarcon | Electrical Engineering & Robotics">
   <meta property="og:description" content="Robotics, embedded systems, instrumentation, and test-driven design. Explore engineering projects and NASA OSTEM work.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kalarcon775.github.io/">
-  <meta property="og:image" content="https://kalarcon775.github.io/assets/sls-rocket-kailani.jpeg">
+  <meta property="og:url" content="https://kailania.vercel.app/">
+  <meta property="og:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kailani Alarcon | Electrical Engineering & Robotics">
   <meta name="twitter:description" content="NASA robotics, thermal analysis, embedded systems, and selected engineering case studies.">
@@ -20,12 +20,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <!-- Bundle regenerated with node build-css.js; original CSS remains editable. -->
-  <link rel="stylesheet" href="portfolio.css?v=20261011-14">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="portfolio.css?v=20261011-14">
+<link rel="stylesheet" href="portfolio-upgrade.css?v=20261011">
   <script src="script.js" defer></script>
   <script src="enhancements.js" defer></script>
   <script src="bookshelf.js?v=20261011-14" defer></script>
   <script src="ux.js" defer></script>
   <script src="ambient.js?v=20261011-2" defer></script>
+<meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center"><meta name="twitter:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
+<script src="portfolio-upgrade.js?v=20261011" defer></script><script src="robot-3d.js?v=20261011" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Kailani Alarcon","url":"https://kailania.vercel.app/","jobTitle":"Electrical engineering graduate student","alumniOf":{"@type":"CollegeOrUniversity","name":"University of Nevada, Reno"},"knowsAbout":["Robotics","Embedded systems","Electrical engineering","Engineering verification"],"sameAs":["https://github.com/kalarcon775","https://www.linkedin.com/in/kailani-alarcon/"]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -34,13 +39,14 @@
       <a class="logo" href="#top" aria-label="Kailani homepage">kailani<span>.</span></a>
       <button id="menu-toggle" class="menu-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Open menu" type="button"><span></span><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
+        <a href="projects/index.html">Projects</a>
         <a href="#work">NASA Work</a>
-        <a href="#case-studies">Case Studies</a>
         <a href="#bookshelf">Bookshelf</a>
-        <a href="#github-projects">Code</a>
         <a href="#robot-lab">Robot Lab</a>
         <a href="#experience">Experience</a>
-        <a class="nav-cta" href="#resume">Resume ↗</a>
+        <a href="#contact" class="mobile-contact-link">Contact</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">☾ Dark mode</button>
+        <a class="nav-cta" href="#resume">Résumé ↗</a>
       </div>
     </nav>
     <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-fill"></span></div>
@@ -141,9 +147,10 @@
         <p class="hero-subtitle">From system requirements to working engineering models.</p>
         <p class="hero-description">I design and evaluate robotic and embedded systems, from control and calibration to thermal modeling and verification. My NASA Marshall OSTEM work centers on a lunar-dust testing arm. I’m pursuing an M.S. in Electrical Engineering at the University of Nevada, Reno.</p>
         <div class="hero-buttons">
-          <a href="#case-studies" class="btn btn-primary">View Case Studies <span aria-hidden="true">↗</span></a>
+          <a href="projects/index.html" class="btn btn-primary">Explore Projects <span aria-hidden="true">↗</span></a>
           <a href="assets/Kailani_Alarcon_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View Resume <span aria-hidden="true">↗</span></a>
         </div>
+        <div class="hero-trust-row" aria-label="Engineering experience highlights"><span>NASA Marshall</span><span>Robotics and embedded systems</span><span>Engineering verification</span></div>
         <div class="engineering-focus" aria-label="Engineering focus areas">
           <div><span class="focus-code">01 / ROBOTICS</span><strong>Motion &amp; kinematics</strong><small>Workspace · ROS2 · dynamics</small></div>
           <div><span class="focus-code">02 / EMBEDDED</span><strong>Hardware &amp; firmware</strong><small>STM32 · VHDL · interfaces</small></div>
@@ -168,26 +175,26 @@
           <p>Select a project to see the methods, results, and evidence status.</p>
         </div>
         <div class="featured-project-grid">
-          <a class="featured-project-card" href="#case-nasa">
-            <span class="featured-category">NASA / ROBOTICS</span>
+          <a class="featured-project-card" href="projects/nasa.html">
+            <span class="featured-category">NASA / ROBOTICS</span><span class="featured-project-visual" aria-hidden="true"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="53"/><circle cx="70" cy="70" r="11"/><path d="M70 17v42m0 22v42M17 70h42m22 0h42M32 32l29 29m18 18 29 29M108 32 79 61M61 79l-29 29"/></svg></span>
             <strong>High-Vacuum Robotic Arm</strong>
             <small>ROS2 control and calibration · Thermal Desktop analysis</small>
             <span class="featured-more">Open case study ↗</span>
           </a>
-          <a class="featured-project-card" href="#case-iverify">
-            <span class="featured-category">CAPSTONE / SYSTEMS INTEGRATION</span>
+          <a class="featured-project-card" href="projects/iverify.html">
+            <span class="featured-category">CAPSTONE / SYSTEMS INTEGRATION</span><span class="featured-project-visual" aria-hidden="true"><svg viewBox="0 0 140 140"><rect x="17" y="34" width="105" height="75" rx="9"/><path d="M24 75h20l9-24 12 50 12-36 8 10h29M43 19v15m54-15v15M43 109v12m54-12v12"/></svg></span>
             <strong>IVerify</strong>
             <small>External force sensing · microcontroller logic · verification</small>
             <span class="featured-more">Open case study ↗</span>
           </a>
-          <a class="featured-project-card" href="#case-controls">
-            <span class="featured-category">INSTRUMENTATION / CONTROLS</span>
+          <a class="featured-project-card" href="projects/controls.html">
+            <span class="featured-category">INSTRUMENTATION / CONTROLS</span><span class="featured-project-visual" aria-hidden="true"><svg viewBox="0 0 140 140"><path d="M13 110h113M25 17v95M25 88q12 0 18-28t18 0 21-2 24-28 19-5"/><circle cx="43" cy="60" r="5"/><circle cx="82" cy="58" r="5"/></svg></span>
             <strong>Measurement Labs</strong>
             <small>Strain calibration · waveforms · experimental results</small>
             <span class="featured-more">Open case study ↗</span>
           </a>
           <a class="featured-project-card" href="projects/index.html">
-            <span class="featured-category">ENGINEERING LIBRARY</span>
+            <span class="featured-category">ENGINEERING LIBRARY</span><span class="featured-project-visual" aria-hidden="true"><svg viewBox="0 0 140 140"><rect x="23" y="22" width="94" height="96" rx="4"/><path d="M38 47h64M38 71h64M38 95h42"/><circle cx="48" cy="36" r="4"/><circle cx="48" cy="60" r="4"/></svg></span>
             <strong>All 16 Projects</strong>
             <small>Robotics · embedded · sensing · testing · prototypes</small>
             <span class="featured-more">Browse project directory ↗</span>
@@ -648,7 +655,7 @@
 </div>
         </div>
         <div class="robot-console">
-          <div class="console-header"><span class="console-title"><span class="live-pip"></span> KAILANI'S LITTLE ROBOT LAB</span><span class="console-tag">CONCEPT / 2D</span></div>
+          <div class="console-header"><span class="console-title"><span class="live-pip"></span> KAILANI'S ROBOT LAB</span><span class="console-tag">CONCEPT / 2D</span></div>
           <svg aria-label="Animated side view of a robotic arm hanging from the ceiling of a test chamber" id="arm-svg" role="img" viewbox="0 0 500 430">
 <defs><pattern height="25" id="simGrid" patternunits="userSpaceOnUse" width="25"><path d="M25 0H0V25" fill="none" opacity=".3" stroke="#74526c" stroke-width=".8"></path></pattern><lineargradient id="armGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffc9dd"></stop><stop offset="1" stop-color="#e48ab8"></stop></lineargradient></defs>
 <rect fill="url(#simGrid)" height="430" width="500" x="0" y="0"></rect>
@@ -662,6 +669,36 @@
 <circle cx="300" cy="335" fill="#ff9ec4" id="tip-glow" opacity=".12" r="15"></circle><circle cx="300" cy="335" fill="#ffeef5" id="tip-dot" r="4"></circle>
 <g fill="#edc5d8" opacity=".8"><path d="M124 101v-10m-5 5h10M380 144v-10m-5 5h10M133 347v-10m-5 5h10" stroke="#edc5d8" stroke-width="1.4"></path></g>
 </svg>
+<details class="robot-3d-details" open>
+            <summary>3D chamber viewer · orbit, presets and joint controls</summary>
+            <div class="robot-3d-body">
+              <div class="robot-3d-canvas-wrap">
+                <canvas id="robot-3d-canvas" class="robot-3d-canvas" width="600" height="460" role="img" tabindex="0" aria-label="Interactive 3D illustration of the robotic arm in a 36 inch cubical chamber. Use arrow keys or drag to rotate the view."></canvas>
+                <div class="robot-3d-caption" aria-hidden="true">36 × 36 × 36 in · ceiling mounted · illustrative geometry</div>
+              </div>
+              <div class="robot-3d-tools" role="group" aria-label="3D robot pose presets">
+                <button type="button" data-3d-pose="home" aria-pressed="true">Home</button>
+                <button type="button" data-3d-pose="floor" aria-pressed="false">Approach floor</button>
+                <button type="button" data-3d-pose="inspect" aria-pressed="false">Inspect</button>
+                <button type="button" data-3d-pose="park" aria-pressed="false">Park</button>
+              </div>
+              <div class="robot-3d-tools" role="group" aria-label="Camera controls">
+                <button id="r3d-view-left" type="button">Rotate left</button>
+                <button id="r3d-view-right" type="button">Rotate right</button>
+                <button id="r3d-view-reset" type="button">Reset view</button>
+              </div>
+              <div class="robot-3d-sliders" aria-label="3D joint controls">
+                <div class="robot-3d-control"><label for="r3d-yaw">Base rotation</label><output id="r3d-yaw-value">45°</output><input id="r3d-yaw" type="range" min="-180" max="180" step="1" value="45"></div>
+                <div class="robot-3d-control"><label for="r3d-shoulder">Shoulder</label><output id="r3d-shoulder-value">0°</output><input id="r3d-shoulder" type="range" min="-10" max="100" step="1" value="0"></div>
+                <div class="robot-3d-control"><label for="r3d-elbow">Elbow</label><output id="r3d-elbow-value">85°</output><input id="r3d-elbow" type="range" min="0" max="120" step="1" value="85"></div>
+                <div class="robot-3d-control"><label for="r3d-wrist">Wrist bend</label><output id="r3d-wrist-value">-60°</output><input id="r3d-wrist" type="range" min="-60" max="60" step="1" value="-60"></div>
+                <div class="robot-3d-control"><label for="r3d-twist">Tool rotation</label><output id="r3d-twist-value">0°</output><input id="r3d-twist" type="range" min="-180" max="180" step="1" value="0"></div>
+                <div class="robot-3d-control"><label for="r3d-grip">Gripper opening</label><output id="r3d-grip-value">35%</output><input id="r3d-grip" type="range" min="0" max="100" step="1" value="35"></div>
+              </div>
+              <p id="robot-3d-status" class="robot-3d-status" role="status" aria-live="polite">Loading chamber view</p>
+              <p class="robot-3d-help">Drag or use the arrow keys to orbit. Uses a 3 in base offset, two 18.5 in links and an 8.5 in tool. Boundary feedback checks arm centerline positions only. This is not self-collision detection, dynamics, validated inverse kinematics, or a real hardware controller.</p>
+            </div>
+          </details>
           <div class="console-bottom"><span aria-live="polite" id="pose-status" role="status">✳ In home position</span><div class="telemetry"><span>SHOULDER <b id="shoulder-readout">-48°</b></span><span>ELBOW <b id="elbow-readout">96°</b></span></div></div>
         </div>
       </div>
@@ -745,7 +782,7 @@
           <p class="eyebrow">10 / ENGINEERING RESUME</p>
           <h2>Technical work <em>at a glance.</em></h2>
           <p>A one-page overview of my education, experience, and technical work.</p>
-          <div class="resume-actions"><a href="assets/Kailani_Alarcon_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View resume PDF ↗</a><a href="assets/Kailani_Alarcon_Resume.pdf" download="Kailani_Alarcon_Resume.pdf" class="btn btn-outline">Download PDF ↓</a></div>
+          <div class="resume-actions"><a href="assets/Kailani_Alarcon_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View resume PDF ↗</a><a href="assets/Kailani_Alarcon_Resume.pdf" download="Kailani_Alarcon_Resume.pdf" class="btn btn-outline">Download PDF ↓</a></div><div class="resume-quick-links"><a href="resume.html">Read HTML résumé ↗</a><a href="#contact">Contact about opportunities ↗</a></div>
         </div>
         <div class="resume-note" aria-label="Resume summary" data-ambient-reveal><span class="resume-caption">KAILANI ALARCON</span><strong>Electrical Engineering</strong><p>NASA · LUX Dynamics · Robotics · Embedded systems · Product development</p><span class="resume-small">M.S. Electrical Engineering · 2028</span></div>
       </div>
