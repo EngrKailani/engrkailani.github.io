@@ -1,0 +1,19 @@
+
+/* NASA page only: reconstructed engineering figure gallery. */
+.nasa-figures{margin:32px 0 38px;scroll-margin-top:102px}
+.nasa-figures__intro{margin:0 0 19px;padding:clamp(20px,3vw,30px);border:1px solid var(--border,#e1d5dd);border-radius:18px;background:var(--soft,#fcf7fa)}
+.nasa-figures__eyebrow{font-size:12px!important;letter-spacing:.13em;font-weight:800;text-transform:uppercase;color:var(--secondary,#7b526b);margin:0 0 10px}
+.nasa-figures__intro h2{font:600 clamp(23px,3vw,33px)/1.23 var(--serif,Georgia,serif);color:var(--ink,#332a35);margin:0 0 11px}
+.nasa-figures__intro p:last-child{font-size:clamp(14px,1.4vw,16px);line-height:1.75;color:var(--secondary,#655562);max-width:84ch;margin:0}
+.nasa-figure{margin:0 0 24px;padding:clamp(12px,2vw,20px);border:1px solid var(--border,#e4d6e0);border-radius:18px;background:var(--card,#fff);scroll-margin-top:110px;box-shadow:0 10px 28px rgba(41,34,49,.045)}
+.nasa-figure__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 14px;margin:0 0 12px;color:var(--secondary,#705b6e);font-size:11px;font-weight:800;letter-spacing:.09em;line-height:1.45}
+.nasa-figure__top span:last-child{border:1px solid #b78aa4;padding:5px 9px;border-radius:999px;color:#784661;background:#fcf2f7;text-align:center}
+.nasa-figure img{display:block;max-width:100%;width:100%;height:auto;aspect-ratio:1200/760;object-fit:contain;background:#fcfbfa;border-radius:10px;border:1px solid #d4dfe6}
+.nasa-figure figcaption{padding:13px 2px 0;max-width:88ch;font-size:clamp(13px,1.5vw,16px);line-height:1.7;color:var(--secondary,#625663)}
+.nasa-figure figcaption strong{color:var(--ink,#332a35)}
+:root[data-theme="dark"] .nasa-figures__intro{background:var(--dark-surface,#26222e);border-color:var(--dark-border,#65546a)}
+:root[data-theme="dark"] .nasa-figure{background:var(--dark-raised,#302936);border-color:var(--dark-border,#65546a)}
+:root[data-theme="dark"] .nasa-figures__intro h2,:root[data-theme="dark"] .nasa-figure figcaption strong{color:#fff3fa}
+:root[data-theme="dark"] .nasa-figures__intro p:last-child,:root[data-theme="dark"] .nasa-figure figcaption,:root[data-theme="dark"] .nasa-figure__top{color:#ebddea}
+:root[data-theme="dark"] .nasa-figure__top span:last-child{color:#f8dce9;background:#613f53;border-color:#b78aa4}
+@media(max-width:650px){.nasa-figures{margin:23px 0}.nasa-figure{padding:10px;margin-bottom:15px}.nasa-figure__top{font-size:9px;letter-spacing:.04em}.nasa-figure__top span:last-child{padding:4px 7px}}

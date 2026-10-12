@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="project-photo-context.css?v=20261012">
 <link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
+<link rel="stylesheet" href="nasa-figures.css?v=20261012-visual1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,16 +35,45 @@
 <p class="eyebrow">NASA · 2026 · Robotics</p><h1>NASA Robotic-Arm Assessment</h1><p>Connecting motion, actuator capability, and thermal constraints for lunar-dust testing.</p>
 </header>
 <section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Evaluate a legacy arm for chamber access, actuator capability, and high-vacuum operation.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Worked on ROS2 control and calibration, Thermal Desktop analysis, and requirements-led assessment.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>ROS2, Thermal Desktop, Creo, workspace analysis, and verification planning.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Compared calculated shoulder load with estimated actuator capability; organized 34 requirements and six planned scenarios.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Identified a potential torque shortfall: 27.23 lbf-in calculated load versus 18.6–24.9 lbf-in estimated capability.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>Calculated assessment, not measured acceptance testing. Public calibration error, thermal margins, and vacuum qualification are unavailable.</p></div></div></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#project-results">Results</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical figures</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#project-results">Results</a><a href="#project-evidence">Evidence</a></nav>
+
+<section class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
+  <header class="nasa-figures__intro">
+    <p class="nasa-figures__eyebrow">VISUAL ENGINEERING REVIEW</p>
+    <h2 id="nasa-figures-title">From engineering decisions to visual evidence</h2>
+    <p>These four vector figures reconstruct project concepts from the public portfolio summary. They are <strong>illustrative graphics, not NASA-approved engineering drawings, laboratory photographs, solver screenshots, or proof of completed qualification testing.</strong></p>
+  </header>
+  <figure class="nasa-figure" id="nasa-fig-01">
+    <div class="nasa-figure__top"><span>FIG. 01 / ROBOTIC SYSTEMS</span><span>RECONSTRUCTED ILLUSTRATION</span></div>
+    <img src="nasa-figures/robotic-arm-geometry.svg" alt="Annotated conceptual robot-arm geometry with shoulder, elbow, wrist, two 18.5-inch links, an 8.5-inch tool, a 3-inch mounting offset, and a schematic chamber interface." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Robotic-arm geometry and chamber access.</strong> An annotated kinematic concept using the supplied simulation dimensions. Joint positions, mounting geometry, and chamber opening are schematic and are not independently verified against NASA hardware. The drawing is not to scale.</figcaption>
+  </figure>
+  <figure class="nasa-figure" id="nasa-fig-02">
+    <div class="nasa-figure__top"><span>FIG. 02 / MECHANICAL ASSESSMENT</span><span>RECONSTRUCTED DATA GRAPHIC</span></div>
+    <img src="nasa-figures/shoulder-torque-comparison.svg" alt="Bar and range graphic showing calculated shoulder load of 27.23 pound-force inches exceeds the estimated actuator-capability range of 18.6 to 24.9 pound-force inches." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Shoulder torque comparison.</strong> A visual representation of the documented 27.23 lbf-in calculated load versus 18.6–24.9 lbf-in estimated capability. The comparison identifies a potential shortfall for further review; it is an analytical finding, not a measured torque test or proof of actuator failure.</figcaption>
+  </figure>
+  <figure class="nasa-figure" id="nasa-fig-03">
+    <div class="nasa-figure__top"><span>FIG. 03 / SYSTEMS VERIFICATION</span><span>RECONSTRUCTED WORKFLOW</span></div>
+    <img src="nasa-figures/requirements-verification.svg" alt="Conceptual workflow connecting 34 documented requirements and six planned operational scenarios to control and calibration, workspace and actuator evaluation, thermal assessment, and verification planning." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Requirements-to-verification map.</strong> An illustrative connection between 34 documented system requirements, six planned operational scenarios, engineering workstreams, and next-step verification planning. The relationship shown is conceptual, not an official requirement traceability matrix or evidence that the planned tests passed.</figcaption>
+  </figure>
+  <figure class="nasa-figure" id="nasa-fig-04">
+    <div class="nasa-figure__top"><span>FIG. 04 / THERMAL MODELING</span><span>QUALITATIVE RECONSTRUCTION</span></div>
+    <img src="nasa-figures/thermal-analysis-concept.svg" alt="Conceptual robotic-arm temperature gradient and explanatory steady-state and transient thermal-analysis panels; no temperature measurements are depicted." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration of the steady-state and transient modeling approaches used with Thermal Desktop. The colors are arbitrary examples for explanation, not a simulated temperature map, actual Thermal Desktop output, or measured thermal performance.</figcaption>
+  </figure>
+</section>
+
 <article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>A reachable pose also has to be supportable by the actuator. The assessment connected workspace geometry and shoulder-load calculations with the available motor data.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
 <h2 id="nasa-workstreams-title">Implementation and verification scope</h2>
 <div class="nasa-workstreams__grid">
-<section id="nasa-controls"><h3>Control &amp; calibration</h3><p>Used ROS2 for robotic-arm control and calibration within the assessment.</p></section>
-<section id="nasa-thermal"><h3>Thermal modeling</h3><p>Used Thermal Desktop for steady-state and transient analysis relevant to high-vacuum operation.</p></section>
-<section id="nasa-requirements"><h3>Requirements &amp; constraints</h3><p>Organized chamber access, workspace geometry, and actuator constraints against 34 system requirements and six operational scenarios.</p></section>
-<section id="nasa-verification"><h3>Verification planning</h3><p>Connected planned verification activities to those requirements and scenarios. These counts describe scope, not qualification tests passed.</p></section>
+<section id="nasa-controls"><h3>Control &amp; calibration</h3><p>Used ROS2 for robotic-arm control and calibration within the assessment. <a href="#nasa-fig-01">Figure 01</a> provides a conceptual geometry reference.</p></section>
+<section id="nasa-thermal"><h3>Thermal modeling</h3><p>Used Thermal Desktop for steady-state and transient analysis relevant to high-vacuum operation. <a href="#nasa-fig-04">Figure 04</a> illustrates the workstream qualitatively; it is not a solver output.</p></section>
+<section id="nasa-requirements"><h3>Requirements &amp; constraints</h3><p>Organized chamber access, workspace geometry, and actuator constraints against 34 system requirements and six operational scenarios. <a href="#nasa-fig-03">Figure 03</a> shows a conceptual public-summary workflow.</p></section>
+<section id="nasa-verification"><h3>Verification planning</h3><p>Connected planned verification activities to those requirements and scenarios. These counts describe scope, not qualification tests passed. See the conceptual <a href="#nasa-fig-03">verification map</a>.</p></section>
 </div>
-</section><div id="project-results" class="detail-results"><h2>Testing and results</h2><p>The shoulder-load comparison identified a potential actuator-capability shortfall for further engineering review. The 27.23 lbf-in calculated load exceeded the estimated 18.6–24.9 lbf-in capability range. This finding is documented in my résumé and remains an analytical assessment, not a measured torque test.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Validate the actuator assumptions and load cases, measure calibration performance, and complete thermal and vacuum verification against the requirements.</p></div></article>
+</section><div id="project-results" class="detail-results"><h2>Testing and results</h2><p>The shoulder-load comparison identified a potential actuator-capability shortfall for further engineering review. The 27.23 lbf-in calculated load exceeded the estimated 18.6–24.9 lbf-in capability range. <a href="#nasa-fig-02">Figure 02</a> visualizes the comparison. This finding is documented in my résumé and remains an analytical assessment, not a measured torque test.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Validate the actuator assumptions and load cases, measure calibration performance, and complete thermal and vacuum verification against the requirements.</p></div></article>
 
 <figure class="context-photo-accent"><img src="../assets/Creo-1.jpg" loading="lazy" decoding="async" alt="Creo CAD modeling screenshot showing mechanical design geometry"><figcaption>Creo CAD design view. Supporting design context; not evidence of vacuum qualification or completed verification.</figcaption></figure>
 
