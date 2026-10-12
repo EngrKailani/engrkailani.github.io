@@ -33,6 +33,19 @@
   align-items:stretch;
   gap:13px;
 }
+.portfolio-photo-gallery[data-photo-count="1"] .portfolio-photo-gallery__grid{
+  grid-template-columns:minmax(0,1fr);
+  max-width:700px;
+}
+.portfolio-photo-gallery[data-photo-count="2"] .portfolio-photo-gallery__grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.portfolio-photo-gallery[data-photo-count="2"] .portfolio-photo-card--team{
+  grid-column:auto;
+}
+.portfolio-photo-gallery[data-photo-count="2"] .portfolio-photo-card--team img{
+  aspect-ratio:3/4;
+}
 .portfolio-photo-card{
   position:relative;
   margin:0;
