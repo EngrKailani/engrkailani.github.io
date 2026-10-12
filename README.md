@@ -15,6 +15,14 @@ Canonical public website: `https://engrkailani.github.io`. Hosting and deploymen
 - Nine source stylesheets (see the build order in `build-css.js`)
 - `favicon.svg`, `robots.txt`, `sitemap.xml`, and the `assets/` folder with existing personal media and resume
 
+## CSS maintenance
+
+- Edit the nine authored source stylesheets listed in `build-css.js`; then run `node build-css.js` to regenerate `portfolio.css`. Do not edit the generated bundle by hand.
+- Shared light and dark color variables, including photograph accent colors, live in `portfolio-upgrade.css` under `:root` and the single `:root[data-theme="dark"]` token block. Component styles should reference these variables rather than restating colors.
+- `portfolio-photos.css` owns the centered and responsive image accents. Keep one base rule per component and use media queries only for intentional breakpoint changes.
+- Other optional stylesheets (`repo-orbit.css`, `robot-control-dock.css`, and `case-explorer.css`) remain isolated to their respective features. Project-specific styles stay in `projects/`.
+- Run `node scripts/site-check.js` before publishing. It verifies the compiled bundle, centralized dark-mode tokens, and photo styling invariants.
+
 ## Preview locally
 
 Use `python -m http.server 8000` in the repository root and preview at `http://localhost:8000`. After editing a source stylesheet, run `node build-css.js` before committing so that `portfolio.css` reflects the changes.
