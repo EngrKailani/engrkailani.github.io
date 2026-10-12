@@ -135,7 +135,7 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
 /* Contextual photographs appear only where they help explain the project. */
 const nasaPage=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
 const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
-check(home.includes('<figure class="feature-visual">\n            <img src="assets/Arm.jpg"') &&
+check(home.includes('<figure class="feature-visual">\n            <img src="assets/Arm-home.webp"') &&
   !home.includes('class="featured-project-photo"') &&
   !home.includes('class="engineering-snapshots"'),
   'Robotic-arm photo should accompany NASA project details, not enlarge featured cards');
@@ -151,10 +151,10 @@ check(fs.readFileSync(path.join(root,'projects/project-photo-context.css'),'utf8
 
 /* Curated NASA and awards photographs are real assets and work without JavaScript. */
 const selectedPhotos=[
-  'assets/nasa-sls-team.jpeg',
-  'assets/nasa-astronaut-suit.jpeg',
-  'assets/nasa-mission-patches.jpeg',
-  'assets/engineering-awards.jpeg'
+  'assets/nasa-sls-team-home.webp',
+  'assets/nasa-astronaut-suit-home.webp',
+  'assets/nasa-mission-patches-home.webp',
+  'assets/engineering-awards-home.webp'
 ];
 check(home.includes('portfolio-photos.css') && !home.includes('portfolio-photos.js'),
   'Curated photos must load CSS without the old JavaScript preloader');
