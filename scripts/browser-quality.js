@@ -20,7 +20,13 @@ const cases=[
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
-  {path:'/projects/index.html',width:390,theme:'light'}
+  {path:'/projects/index.html',width:390,theme:'light'},
+  {path:'/projects/dmx.html',width:390,theme:'light'},
+  {path:'/projects/hall.html',width:390,theme:'light'},
+  {path:'/projects/huemotion.html',width:390,theme:'light'},
+  {path:'/projects/powershell.html',width:390,theme:'light'},
+  {path:'/projects/prodriver.html',width:390,theme:'light'},
+  {path:'/projects/thermal.html',width:390,theme:'light'}
 ];
 const issues=[];
 const results=[];

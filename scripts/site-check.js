@@ -36,6 +36,12 @@ for(const file of htmlFiles){
     seen.add(match[1]);
   }
 }
+// Large technical diagrams scroll horizontally on mobile; keyboard users need focus.
+for(const file of htmlFiles.filter(name=>name.startsWith('projects/'))){
+  const source=fs.readFileSync(path.join(root,file),'utf8');
+  const unfocusable=[...source.matchAll(/<figure class="(?:project-visual-gallery__figure|iverify-concept-figure)"(?![^>]*tabindex="0")[^>]*>\\s*<img\\b/g)];
+  check(unfocusable.length===0,file+': scrollable technical diagrams must be keyboard-focusable');
+}
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 
