@@ -196,6 +196,7 @@
   max-width:196px;
   height:auto;
   max-height:none;
+  aspect-ratio:auto;
   margin-inline:auto;
   border-radius:10px;
   object-fit:contain;
