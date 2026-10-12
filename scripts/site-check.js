@@ -133,9 +133,18 @@ check((home.match(/data-case-select="/g)||[]).length===3,
 check((home.match(/data-case-step="/g)||[]).length===4,
   'Each interactive case workflow needs four selectable stages');
 check(['case-nasa','case-iverify','case-controls'].every(id=>home.includes('id="'+id+'"')),
-  'All three original long-form case studies must remain accessible');
+  'Legacy case-study deep links must remain accessible');
 check(home.indexOf('id="case-explorer"') < home.indexOf('id="case-nasa"'),
-  'Interactive explorer should introduce the longer case studies');
+  'Legacy case-study anchors should follow the interactive explorer heading');
+check((home.match(/class="technical-dossier(?: nasa-dossier)?"/g)||[]).length===0,
+  'Do not repeat three full technical dossiers beneath the interactive explorer');
+check(!home.includes('The full case studies are preserved below.'),
+  'Interactive explorer should link to full project pages, not duplicate content below');
+check(['nasa','iverify','controls'].every(project=>
+  caseExplorerJS.includes("projects/"+project+".html#project-evidence")),
+  'Interactive evidence links must point to the three project pages');
+check(!home.includes('id="case-explorer" aria-labelledby="case-explorer-heading" hidden'),
+  'Case-study overview must remain visible without JavaScript');
 check(caseExplorerJS.includes("const caseData = {") &&
   ['nasa','iverify','controls'].every(key=>caseExplorerJS.includes(key+': {')),
   'Interactive case explorer source-derived case content missing');
