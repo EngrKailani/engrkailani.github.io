@@ -217,7 +217,14 @@
   border-radius:10px;
 }
 .experience-section .education-photo img{
+  display:block;
+  width:min(100%,132px);
+  height:auto;
+  max-height:none;
+  aspect-ratio:auto;
   margin-inline:auto;
+  border-radius:9px;
+  object-fit:contain;
   object-position:center;
 }
 .experience-section .experience-photo figcaption,
@@ -320,6 +327,11 @@
   }
   .work-section .portfolio-photo-card figcaption{font-size:11px}
   .work-section .portfolio-photo-card figcaption span{font-size:10px}
+  .experience-section .education-photo img{
+    width:110px;
+    max-width:110px;
+    margin-inline:0;
+  }
   .about-section .portfolio-awards-photo{
     grid-template-columns:minmax(85px,104px) minmax(0,1fr);
     gap:12px;
