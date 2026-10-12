@@ -101,3 +101,6 @@
   .case-explorer__flow button{transition:none!important}
   .case-explorer__flow button:hover{transform:none}
 }
+
+/* Keep old #case-nasa, #case-iverify and #case-controls links functional. */
+.case-explorer__legacy-anchor{display:block;height:0;overflow:hidden;scroll-margin-top:105px}
