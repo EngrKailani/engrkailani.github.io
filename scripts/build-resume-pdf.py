@@ -3,10 +3,18 @@ The published PDF is a font-compatible re-render of the uploaded one-page file;
 the original binary upload is not retained here. Do not alter claims, numbers or dates.
 """
 from pathlib import Path
+import sys
 import fitz
 
 ROOT=Path(__file__).resolve().parents[1]
-DEST=ROOT / "assets" / "Kailani_Alarcon_Resume.pdf"
+# The default website PDF omits optional GPA and hours for private-sector roles.
+# Use --full-detail only when an application specifically requests those fields.
+FULL_DETAIL="--full-detail" in sys.argv
+DEST=ROOT / "assets" / (
+    "Kailani_Alarcon_Resume_Full_Detail.pdf" if FULL_DETAIL
+    else "Kailani_Alarcon_Resume.pdf"
+)
+OPTIONAL_DETAIL={"GPA: 3.2 / 4.0","40 hrs. per week","20 hrs. per week"}
 REGULAR=Path("/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf")
 BOLD=Path("/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf")
 if not REGULAR.exists() or not BOLD.exists():
@@ -22,6 +30,8 @@ page.insert_font(fontname="CarlitoBold",fontfile=str(BOLD))
 # original lines and dividers by 10.5pt to retain the one-page layout.
 SHIFT=10.5
 for x,y,bold,text in SPANS:
+    if not FULL_DETAIL and text.strip() in OPTIONAL_DETAIL:
+        continue
     original_y=y
     if original_y>51.24:
         y+=SHIFT
@@ -41,13 +51,16 @@ for y in (87.50,173.66,245.93,542.71,727.30):
                    fill=BLUE,color=None,overlay=True)
 pdf.set_metadata({"title":"Kailani Alarcon Engineering Resume",
                   "author":"Kailani Alarcon",
-                  "subject":"Electrical engineering résumé from October 12, 2026"})
+                  "subject":"Engineering résumé - full application details" if FULL_DETAIL else "Private-sector engineering résumé"})
 pdf.subset_fonts()
 pdf.save(DEST,garbage=4,deflate=True)
 check=fitz.open(DEST)
 assert len(check)==1 and check[0].rect.width==612 and check[0].rect.height==792
 assert headline in check[0].get_text()
 text=check[0].get_text()
+if not FULL_DETAIL:
+    for item in OPTIONAL_DETAIL:
+        assert item not in text, "Optional résumé field still present: "+item
 for value in ("Aug. 2026–Present","potential shoulder-actuator torque shortfall","34 hierarchical system requirements","27.23 lbf-in",
               "12+ LED products","236 points","57,600 and 115,200 baud"):
     assert value in text,value
