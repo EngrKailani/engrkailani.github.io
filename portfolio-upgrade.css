@@ -1471,3 +1471,29 @@ section[id]{scroll-margin-top:86px}
   .featured-project-card .featured-project-visual{width:74px;height:74px;opacity:.06}
   .education-panel{gap:18px}
 }
+
+/* Contact path immediately after featured engineering work. */
+.featured-next-step{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px 22px;
+  margin-top:28px;
+  padding:20px 0 0;
+  border-top:1px solid var(--border);
+}
+.featured-next-step p{
+  margin:0;
+  color:var(--secondary);
+  font-size:14px;
+  line-height:1.6;
+}
+.featured-next-step-links{display:flex;flex-wrap:wrap;gap:10px}
+.featured-next-step-links .btn{min-height:44px;padding:9px 19px;font-size:12px}
+@media(max-width:660px){
+  .featured-next-step{align-items:stretch;gap:15px}
+  .featured-next-step-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .featured-next-step-links .btn{padding:11px 10px;gap:5px;text-align:center}
+}
+@media(max-width:360px){.featured-next-step-links{grid-template-columns:minmax(0,1fr)}}
