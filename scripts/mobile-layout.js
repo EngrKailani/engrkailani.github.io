@@ -58,6 +58,11 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
     try {
       await page.goto(origin+test.url,{waitUntil:'load'});
       await page.evaluate(() => document.fonts.ready);
+      await inspect('initial layout');
+      if(test.url==='/') {
+        if(await page.locator('#explore').evaluate(el=>el.open)) note(id+': optional portfolio should start collapsed');
+        await page.locator('#explore>summary').click();
+      }
       // Trigger below-the-fold content and feature loading before inspecting it.
       await page.evaluate(async () => {
         for (let y=0;y<document.body.scrollHeight;y+=650) {
@@ -91,7 +96,12 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
         }
         if (test.width===320) {
           await page.evaluate(()=>scrollTo(0,0));
+          await page.locator('#explore').evaluate(el=>el.open=false);
           await page.screenshot({path:path.join(out,'screenshots','mobile-containment-320.png'),fullPage:true});
+          await page.goto(origin+'/#bookshelf',{waitUntil:'load'});
+          await page.locator('#bookshelf').waitFor({state:'visible'});
+          if(!await page.locator('#explore').evaluate(el=>el.open)) note(id+': bookshelf deep link did not expand optional portfolio');
+          await inspect('legacy bookshelf deep link');
         }
       }
       for (const error of errors) note(id+': JavaScript error: '+error);

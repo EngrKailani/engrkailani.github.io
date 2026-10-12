@@ -21,8 +21,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="../portfolio-upgrade.js?v=20261011-readability" defer></script>
+<link rel="stylesheet" href="../homepage-refinement.css?v=20261012-focus1">
 </head>
-<body class="project-page">
+<body class="project-page featured-case">
 <a class="skip-link" href="#project-main">Skip to project details</a>
 <header class="detail-navigation"><nav class="detail-nav-inner" aria-label="Project navigation">
 <a class="detail-home" href="../index.html">kailani.</a>
@@ -31,28 +32,12 @@
 </div></nav></header>
 <main class="project-paper" id="project-main" tabindex="-1"><div class="detail-container">
 <header class="detail-heading">
-<p class="eyebrow">Capstone · 2026 · Health technology</p><h1>IVerify</h1><p>A non-invasive IV occlusion detection concept</p>
+<p class="eyebrow">Capstone · 2026 · Health technology</p><h1>IVerify</h1><p>Leading systems integration for an external tubing-force sensing prototype.</p>
 </header>
-<section class="project-evidence-first" aria-labelledby="evidence-summary-title">
-<p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p>
-<h2 id="evidence-summary-title">What was done, checked, and documented</h2>
-<div class="project-evidence-first__grid">
-<div class="project-evidence-first__item"><h3>Problem</h3><p>Identify possible restrictions in gravity-fed IV tubing without entering the sterile fluid pathway.</p></div>
-<div class="project-evidence-first__item"><h3>My contribution</h3><p>Led systems integration for a four-person capstone team, coordinating external force sensing, analog threshold response, microcontroller status logic, and the clip-on concept.</p></div>
-<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Force sensing, analog signal conditioning, threshold logic, microcontroller control, mechanical clamping.</p></div>
-<div class="project-evidence-first__item"><h3>Validation method</h3><p>Bench-level investigation of sensor and threshold response with two LED indications. Later diagrams and trend curves are conceptual or synthetic.</p></div>
-<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>A student prototype demonstrated a basic two-LED indication path; a three-state interface and specified force targets remained design goals.</p></div>
-<div class="project-evidence-first__item"><h3>Limitations</h3><p>No clinical validation, calibrated occlusion sensitivity, patient testing, or verified safety performance. Later CAD reconstruction is not manufactured hardware.</p></div>
-</div>
-<p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
-</section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#iverify-reconstruction">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
-<section class="project-overview" id="project-overview" aria-label="Project overview">
-<span class="detail-tag">PROJECT 09 / 16</span>
-<p class="detail-lead">As project lead and systems integrator on a four-person senior-design team, I coordinated development of a non-invasive clip-on concept for gravity-fed IV tubing. The system applies repeatable mechanical preload and senses the tube reaction force as an indirect indicator of restrictions. Analog filtering and threshold logic feed microcontroller supervision, translating measurements into understandable status indications.</p>
+<section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Explore restriction sensing without cutting or entering the sterile fluid pathway.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Led systems integration for a four-person capstone team across sensing, analog electronics, microcontroller logic, and indication.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Mechanical force sensing, signal conditioning, threshold logic, embedded supervision, and verification planning.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Investigated sensor and threshold response in a non-clinical bench prototype with two LED indications.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Demonstrated a basic two-LED indication path. The three-state interface remained a design goal.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>No clinical accuracy or safety validation. Later CAD and signal graphics are conceptual reconstructions, not the fabricated prototype.</p></div></div></section>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#iverify-reconstruction">Visual walkthrough</a><a href="#project-method">Design decisions</a><a href="#project-results">Results</a><a href="#project-evidence">Evidence</a></nav>
+<article class="detail-card" aria-label="iverify engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Use an external mechanical interface</h3><p>The clip-on concept applies preload outside the tubing and senses its reaction force. Keeping the sensor outside the fluid pathway was a defining design constraint; translating that force into reliable restriction detection still needed verification.</p></section><section class="detail-panel"><h3>Coordinate the entire indication path</h3><p>The integration work connected mechanical contact, analog conditioning, threshold response, and microcontroller supervision. The documented bench outcome was two LED indications; normal, partial-restriction, and occlusion states remained the intended product interface.</p></section></div><div id="project-results" class="detail-results"><h2>Testing and results</h2><p>The student bench prototype demonstrated a basic path from sensing and threshold response to two indicator LEDs. It established a limited integration proof of concept; it did not establish a clinically reliable three-state occlusion detector.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Characterize preload repeatability, calibrate the force response, and test candidate thresholds across tubing and operating conditions before making any accuracy or clinical-use claim.</p></div></article>
 
-
-</section>
 <section class="iverify-showcase" id="iverify-reconstruction" aria-labelledby="iverify-reconstruction-title">
   <header class="iverify-showcase-header">
     <p class="eyebrow">PUBLIC ENGINEERING WORK / CONCEPT RECONSTRUCTION</p>
@@ -74,10 +59,10 @@
         <li>Later concept geometry contains nine modeled solids; their placement is not verified against a fabricated prototype.</li>
         <li>No proven spring preload, fabricated latch, calibrated sensor, or tested tolerance stack-up.</li>
       </ul>
-      
+
     </div>
   </div>
-  
+
   <div class="project-visual-gallery__inline" id="iverify-graphics" aria-label="IVerify sensing and response visuals">
     <article class="project-visual-gallery__item" aria-labelledby="iverify-system-figure">
       <div class="project-visual-gallery__top"><div><h3 id="iverify-system-figure">From clamp force to status indication</h3><p>A functional overview of external tubing contact, force sensing, analog conditioning and supervisory logic. The bench demonstration used two LEDs, while three distinct colors were a design goal.</p></div><span class="project-visual-gallery__count">FIG 02 / SYSTEM LOGIC</span></div>
@@ -122,24 +107,11 @@
       </div>
     </div>
   </section>
-  
+
 </section>
-<article class="detail-card" aria-label="IVerify engineering detail">
-<h2 class="project-details-title">Engineering details</h2>
 
-
-
-<div id="project-method" class="detail-grid">
-<section class="detail-panel"><h3>Challenge</h3><p>Detect possible downstream flow restrictions without cutting, puncturing, or entering the sterile fluid pathway.</p></section>
-<section class="detail-panel"><h3>Approach</h3><p>Integrate a clamp, force sensor, analog front end, threshold detection, microcontroller state logic, and a visual interface. The product concept defined normal, partial-restriction, and occlusion states.</p></section>
-<section class="detail-panel"><h3>Tools</h3><p>Mechanical sensing, signal conditioning, threshold logic, embedded systems, risk analysis, verification planning.</p></section>
-
-</div>
-<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A bench-level, non-clinical proof of concept using two indicator LEDs. The proposed full three-color interface and clinical performance still required further testing.</p></div>
-<p class="project-related"><a href="../index.html#case-iverify">Detailed capstone case study ↗</a></p>
-
-</article>
 <section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p><strong>Evidence boundary:</strong> No quantitative clinical sensitivity, false-alarm rate, validated flow classification, or approved patient-use capability is claimed. The original team documents are not distributed through this website. Educational engineering concept only; not for IV therapy or clinical decisions.</p></section>
+<aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=iverify%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../assets/Kailani_Alarcon_Resume.pdf?v=20261012-r6" target="_blank" rel="noopener noreferrer">View résumé ↗</a></div></aside>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="controls.html">← Control &amp; Measurement Labs</a>
 <span aria-hidden="true"> · </span>

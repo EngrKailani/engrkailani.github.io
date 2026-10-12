@@ -379,7 +379,7 @@ const robotDockCss=fs.readFileSync(path.join(root,'robot-control-dock.css'),'utf
 const robotViewJs=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
 const robot3dJs=fs.readFileSync(path.join(root,'robot-3d.js'),'utf8');
 const robotSection=home.slice(home.indexOf('<section class="section robot-section"'),
-  home.indexOf('<section class="section experience-section"'));
+  home.indexOf('<section class="section skills-section"'));
 const dock=robotSection.indexOf('class="robot-controls-dock"');
 check(home.includes('robot-control-dock.css'),
   'Robot mode design should load the shared controls stylesheet');
@@ -417,20 +417,26 @@ for(const file of caseStudyFiles){
   const evidence=html.indexOf('id="project-evidence"');
   check(overview>=0&&method>overview&&findings>method&&evidence>findings,
     file+' needs overview → methods → findings → evidence ordering');
+  const featuredCase=/projects\/(nasa|iverify|thermal)\.html$/.test(file);
   const visualIds=['dmx-visuals','hall-visuals','huemotion-visuals',
     'iverify-reconstruction','prodriver-visuals','thermal-visuals','vna-visuals'];
   for(const id of visualIds){
     const visual=html.indexOf('id="'+id+'"');
     if(visual>=0){
-      check(visual>overview&&visual<method,
-        file+' should introduce visuals after overview, before detailed analysis');
+      check(featuredCase ? visual>findings&&visual<evidence : visual>overview&&visual<method,
+        file+' should put visual evidence in the intended case-study reading order');
     }
   }
   check(!/<h2>Evidence and limitations<\/h2>/.test(html),
     file+' includes repeated evidence-limitations card');
-  for(const title of ['Challenge','Approach','Tools']){
+  for(const title of (featuredCase ? [] : ['Challenge','Approach','Tools'])){
     check(html.includes('<h3>'+title+'</h3>'),
       file+' missing readable '+title+' subsection heading');
+  }
+  if(featuredCase){
+    check(html.includes('Engineering decisions')&&html.includes('Testing and results')&&
+      html.includes('Next verification step')&&html.includes('class="case-contact"'),
+      file+' needs decision rationale, results, next verification, and contact actions');
   }
   check((html.match(/<h1\b/g)||[]).length===1,
     file+' must contain exactly one page heading');
@@ -441,5 +447,17 @@ for(const group of ['robotics','embedded','measurement','software']){
     'Project directory missing discipline '+group);
 }
 
+/* The hiring overview must remain short while optional experiences stay reachable. */
+const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
+check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
+  'Homepage must feature exactly three focused project cards');
+check(['nasa','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
+  'NASA, IVerify and Thermal Logger must be the featured work');
+check(home.indexOf('id="experience"')<home.indexOf('id="explore"')&&
+  home.includes('<details class="portfolio-extras" id="explore">'),
+  'Experience must precede the initially collapsed interactive portfolio');
+check(home.includes('homepage-refinement.js')&&
+  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true"),
+  'Deep links must reveal optional sections');
 console.log((failed?'FAIL':'PASS')+': '+(checks-failed)+'/'+checks+' static checks');
 if(failed)process.exitCode=1;

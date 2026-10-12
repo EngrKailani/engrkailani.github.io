@@ -20,8 +20,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="../portfolio-upgrade.js?v=20261011-readability" defer></script>
+<link rel="stylesheet" href="../homepage-refinement.css?v=20261012-focus1">
 </head>
-<body class="project-page">
+<body class="project-page featured-case">
 <a class="skip-link" href="#project-main">Skip to project details</a>
 <header class="detail-navigation"><nav class="detail-nav-inner" aria-label="Project navigation">
 <a class="detail-home" href="../index.html">kailani.</a>
@@ -30,28 +31,12 @@
 </div></nav></header>
 <main class="project-paper" id="project-main" tabindex="-1"><div class="detail-container">
 <header class="detail-heading">
-<p class="eyebrow">2025–2026 · Test automation</p><h1>Thermal Controller &amp; Logger</h1><p>Making temperature measurements easier to trust</p>
+<p class="eyebrow">2025–2026 · Test automation</p><h1>Thermal Controller &amp; Logger</h1><p>Building a Python workflow for multichannel trends and traceable test reports.</p>
 </header>
-<section class="project-evidence-first" aria-labelledby="evidence-summary-title">
-<p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p>
-<h2 id="evidence-summary-title">What was done, checked, and documented</h2>
-<div class="project-evidence-first__grid">
-<div class="project-evidence-first__item"><h3>Problem</h3><p>Make multichannel thermal tests easier to monitor, document, and assess for stable temperature trends.</p></div>
-<div class="project-evidence-first__item"><h3>My contribution</h3><p>Built and documented a Python-based acquisition, trending, and reporting workflow; later reconstructed the recovered application architecture and added an audit utility.</p></div>
-<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Python, Tkinter, Pico TC-08, thermocouples, CSV/Excel; optional Arduino serial interface.</p></div>
-<div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed recovered source and used four passing synthetic tests for the CSV audit utility. A rolling 10-reading / 3.0 °C band describes software logic, not calibrated performance.</p></div>
-<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Source supports an eight-channel interface, nominal one-second UI polling, trend plots, and reporting outputs.</p></div>
-<div class="project-evidence-first__item"><h3>Limitations</h3><p>No new hardware calibration or timing validation; example traces are synthetic and original physical test outcomes are not publicly verified.</p></div>
-</div>
-<p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
-</section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#thermal-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
-<section class="project-overview" id="project-overview" aria-label="Project overview">
-<span class="detail-tag">PROJECT 10 / 16</span>
-<p class="detail-lead">I built tools to take repetitive engineering thermal tests and make them easier to monitor, compare, and document. The interesting part was not just collecting numbers, but helping engineers recognize stable conditions and produce repeatable reports.</p>
+<section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Make repetitive temperature tests easier to monitor, compare, and document.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Built the Python acquisition, trend-display, and reporting workflow; later documented recovered architecture and added a CSV audit utility.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Python, Tkinter, Pico TC-08, thermocouples, CSV/Excel, and an optional Arduino serial interface.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Inspected the recovered source and ran four passing synthetic checks of the separate CSV audit utility.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Source supports eight thermocouple channels, live plots, test metadata, and CSV/Excel reporting.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>Hardware accuracy and acquisition timing were not revalidated. Displayed traces are synthetic; original Arduino firmware was not recovered.</p></div></div></section>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#thermal-visuals">Visual walkthrough</a><a href="#project-method">Design decisions</a><a href="#project-results">Results</a><a href="#project-evidence">Evidence</a></nav>
+<article class="detail-card" aria-label="thermal engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Keep capture and reporting traceable</h3><p>The application saves test metadata with channel readings and supports CSV plus optional formatted Excel output. Plotting retains a bounded history while logging continues independently, separating the display from the record of the test.</p></section><section class="detail-panel"><h3>Make the trend rule explicit</h3><p>The configurable indicator compares the maximum and minimum of a rolling window, using 10 valid readings and a 3.0 °C band by default. This makes the software rule inspectable, but it does not independently prove thermal equilibrium or sensor accuracy.</p></section></div><div id="project-results" class="detail-results"><h2>Testing and results</h2><p>The recovered Python source documents an eight-channel measurement interface, trend plots, metadata capture, and CSV/Excel exports. Four synthetic tests passed for the later CSV audit utility. Those tests verify offline calculations, not thermocouple calibration or physical controller performance.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Record actual acquisition timestamps, validate the TC-08 and driver interface on hardware, and recover and test the optional Arduino control path.</p></div></article>
 
-
-</section>
 <section id="thermal-visuals" class="thermal-showcase" aria-labelledby="thermal-visuals-title">
   <header class="thermal-showcase-head">
     <p class="eyebrow">THERMAL VALIDATION / SOFTWARE VISUALIZATION</p>
@@ -105,25 +90,11 @@
       <div class="thermal-note"><strong>Verification still needed</strong><ul><li>Pico TC-08 calibration and real sample timing</li><li>Arduino controller firmware and circuit</li><li>Original test-data provenance and hardware outcomes</li></ul></div>
     </div>
   </article>
-  
+
 </section>
-<article class="detail-card" aria-label="Thermal Controller &amp; Logger engineering detail">
-<h2 class="project-details-title">Engineering details</h2>
 
-
-
-<div id="project-method" class="detail-grid">
-<section class="detail-panel"><h3>Challenge</h3><p>Manual monitoring and inconsistent reporting slow down thermal validation.</p></section>
-<section class="detail-panel"><h3>Approach</h3><p>Combine Python data acquisition and live visualization with optional Arduino ambient-control integration, a rolling stability indicator, and structured exports.</p></section>
-<section class="detail-panel"><h3>Tools</h3><p>Python, Arduino, Tkinter, temperature instrumentation, CSV and Excel.</p></section>
-
-</div>
-<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A more traceable and repeatable thermal-testing workflow through the surviving Python application. The original acquisition and UI source has been recovered, but no new instrument calibration or hardware performance tests have been completed in this archival pass.</p></div>
-<div class="detail-panel"><h2>Software architecture recovered from source inspection</h2><p>The original code includes Pico TC-08 thermocouple acquisition, optional Arduino ambient control, a multi-channel trend display, and CSV and Excel reporting. I reconstructed the software architecture, documented the serial interface, and added a verification plan and standalone CSV audit utility. Four synthetic tests of the audit utility passed; physical thermal-testing results remain unverified.</p></div>
-
-
-</article>
 <section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p><strong>Evidence and publication boundary:</strong> The graphics describe recovered software structure and synthetic calculation examples, not actual thermocouple measurements. Internal engineering logs, employer records, proprietary reports and source files are not provided for download from this project page.</p></section>
+<aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=thermal%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../assets/Kailani_Alarcon_Resume.pdf?v=20261012-r6" target="_blank" rel="noopener noreferrer">View résumé ↗</a></div></aside>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="iverify.html">← IVerify</a>
 <span aria-hidden="true"> · </span>
