@@ -48,6 +48,17 @@ check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
+check(htmlResume.includes('Aug. 2026–Present') &&
+      !htmlResume.includes('Aug. 2026 - Dec. 2026') &&
+      htmlResume.includes('potential shoulder-actuator torque shortfall') &&
+      htmlResume.includes('27.23 lbf-in') &&
+      htmlResume.includes('18.6–24.9 lbf-in'),
+      'Résumé must highlight NASA torque shortfall and current internship date');
+const resumeGenerator=fs.readFileSync(path.join(root,'scripts/build-resume-pdf.py'),'utf8');
+check(resumeGenerator.includes('Aug. 2026–Present') &&
+      resumeGenerator.includes('potential shoulder-actuator torque shortfall'),
+      'PDF résumé generator must include revised NASA accomplishment');
+
 check(htmlResume.includes('Electrical Engineer | Robotics, Embedded Systems &amp; Verification'),
   'HTML résumé must display the engineering specialization beneath the name');
 const currentResume=path.join(root,'assets','Kailani_Alarcon_Resume.pdf');
@@ -58,7 +69,7 @@ for(const phrase of ['27.23 lbf-in','34 hierarchical system requirements',
   check(htmlResume.includes(phrase),
     'The HTML resume must reflect uploaded resume evidence: '+phrase);
 }
-check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261012-r3'),
+check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261012-r4'),
   'HTML resume PDF download must use the newest cached version');
 
 // All 16 cases explain ownership, methods, results and evidentiary limits.
@@ -81,7 +92,7 @@ for(const id of ['nasa-controls','nasa-thermal','nasa-requirements','nasa-verifi
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261012-r3"') &&
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261012-r4"') &&
   home.includes('aria-label="View résumé PDF in a new tab"'),
   'Main navigation must link directly to the résumé PDF');
 check(home.includes('class="featured-next-step"') &&
