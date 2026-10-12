@@ -100,7 +100,7 @@ assert required_links.issubset(link_targets), (
     "Missing contact links: "+repr(required_links-link_targets)
 )
 assert "GitHub: EngrKailani" in check[0].get_text()
-assert "Engineering Portfolio" in check[0].get_text()
+assert "Portfolio: engrkailani.github.io" in check[0].get_text()
 assert len(check[0].get_links())==4, "Expected exactly four embedded contact links"
 assert "Portfolio: engrkailani.github.io" in check[0].get_text()
 text=check[0].get_text()
