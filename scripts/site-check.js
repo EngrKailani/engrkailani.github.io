@@ -46,6 +46,18 @@ const thermalHtml=fs.readFileSync(path.join(root,'projects/thermal.html'),'utf8'
 check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
+const currentResume=path.join(root,'assets','Kailani_Alarcon_Resume.pdf');
+check(fs.existsSync(currentResume) && fs.statSync(currentResume).size>30000,
+  'A complete October 2026 resume PDF must be deployed at the canonical asset path');
+for(const phrase of ['27.23 lbf-in','34 hierarchical system requirements',
+  '12+ LED products','236 points','57,600 and 115,200 baud']){
+  check(htmlResume.includes(phrase),
+    'The HTML resume must reflect uploaded resume evidence: '+phrase);
+}
+check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261012-r2'),
+  'HTML resume PDF download must use the newest cached version');
+
 // All 16 cases explain ownership, methods, results and evidentiary limits.
 const caseTitles=['nasa','iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
   'hall','huemotion','leg','motor','powershell','prodriver','vhdl','vna'];
@@ -66,7 +78,7 @@ for(const id of ['nasa-controls','nasa-thermal','nasa-requirements','nasa-verifi
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf"') &&
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261012-r2"') &&
   home.includes('aria-label="View résumé PDF in a new tab"'),
   'Main navigation must link directly to the résumé PDF');
 check(home.includes('class="featured-next-step"') &&
