@@ -46,6 +46,25 @@ const thermalHtml=fs.readFileSync(path.join(root,'projects/thermal.html'),'utf8'
 check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+// All 16 cases explain ownership, methods, results and evidentiary limits.
+const caseTitles=['nasa','iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
+  'hall','huemotion','leg','motor','powershell','prodriver','vhdl','vna'];
+const evidenceHeadings=['Problem','My contribution','Engineering tools',
+  'Validation method','Documented result','Limitations'];
+for(const slug of caseTitles){
+  const source=fs.readFileSync(path.join(root,'projects',slug+'.html'),'utf8');
+  check(source.includes('class="project-evidence-first"') &&
+    source.includes('case-study-summary.css') &&
+    evidenceHeadings.every(title=>source.includes('<h3>'+title+'</h3>')),
+    slug+': evidence-first summary must cover all six questions');
+}
+const nasaRead=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
+for(const id of ['nasa-controls','nasa-thermal','nasa-requirements','nasa-verification']){
+  check(nasaRead.includes('id="'+id+'"') &&
+    nasaRead.includes('href="#'+id+'"'),
+    'NASA workstream link must resolve: '+id);
+}
+
 /* Contact and résumé should be reachable without scrolling to the footer. */
 check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf"') &&
   home.includes('aria-label="View résumé PDF in a new tab"'),
