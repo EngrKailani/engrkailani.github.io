@@ -19,22 +19,26 @@ REGULAR=Path("/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf")
 BOLD=Path("/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf")
 if not REGULAR.exists() or not BOLD.exists():
     raise SystemExit("Required Carlito fonts unavailable; install fonts-crosextra-carlito.")
-SPANS=[[244.73,51.24,1,"KAILANI ALARCON"],[115.22,68.04,0,"775-432-9365 | kailanip.alarcon@gmail.com | LinkedIn: kailani-alarcon | GitHub: kalarcon775"],[36,82.1,1,"EDUCATION"],[39.6,98.18,1,"University of Nevada, Reno | Reno, NV"],[516.58,98.18,0,"GPA: 3.2 / 4.0"],[72.02,112.22,0,"M.S. Electrical Engineering | Expected May 2028"],[72.02,126.26,0,"B.S. Electrical Engineering, Minor in Mathematics | 2026"],[36,140.3,1,"Focus:"],[64.58,140.3,0,"Robotics, Autonomous Vehicles, and Embedded Systems (RAVES) | Honors Baccalaureate"],[36,154.34,1,"Coursework:"],[88.7,154.34,0," Control Systems I & II, Robotics, Embedded Systems, Digital Signal Processing, Microprocessor Applications"],[36,168.38,1,"TECHNICAL SKILLS"],[36,184.34,1,"Systems & Analysis:"],[118.34,184.34,0," Requirements development, verification planning, risk assessment, BOM development"],[36,198.38,1,"Embedded & Controls:"],[129.86,198.38,0," ROS, STM32, UART, SPI, I2C, PWM, interrupts, encoder capture, sensor integration, PID"],[36,212.42,1,"Programming & Tools:"],[128.78,212.42,0," C, C++, Python, MATLAB, Simulink, Creo, Thermal Desktop, Arduino, Git, STM32CubeIDE"],[36,226.46,1,"Hardware:"],[79.94,226.46,0," Oscilloscopes, DMMs, FPGA/VHDL, VNA/S-parameters, SOLT calibration, FFT, thermal/photometric validation"],[36,240.5,1,"EXPERIENCE"],[39.6,256.61,1,"OSTEM Intern, Human Factors Engineering and Mechanical Design | NASA"],[483.7,256.61,0,"Aug. 2026–Present"],[39.6,270.65,1,"Marshall Space Flight Center | Huntsville, AL"],[505.06,270.65,0,"40 hrs. per week"],[39.6,284.69,0,"• Evaluated a legacy robotic arm for lunar-dust testing in a high-vacuum chamber targeting ~1 × 10⁻⁷ Torr, using Python and a Linux"],[47.52,298.73,0,"development environment to characterize geometry, mass, actuator travel, workspace, and vacuum constraints."],[39.6,312.77,0,"• Converted 6 operational scenarios into 34 hierarchical system requirements covering manipulation, workspace, emergency"],[47.52,326.81,0,"shutdown, vacuum operation, and verification, incorporating ROS 2 and MuJoCo into robotic control and simulation"],[39.6,340.85,0,"• Identified a potential shoulder-actuator torque shortfall, comparing a calculated 27.23 lbf-in shoulder"],[47.52,354.89,0,"load against estimated actuator capability of 18.6–24.9 lbf-in using Creo and motor data."],[39.6,368.93,1,"Product Development Intern"],[480.82,368.93,0,"Sept. 2023 - Aug. 2026"],[43.2,382.97,1,"LUX Dynamics | Reno, NV"],[505.06,382.97,0,"40 hrs. per week"],[39.6,397.01,0,"• Provided electrical, thermal, and photometric validation for 12+ LED products, generating performance data used to support"],[47.52,411.05,0,"manufacturing-release and engineering decisions."],[39.6,425.11,0,"• Managed 4–5 concurrent product-development projects and presented technical findings weekly to managers, customers, and"],[47.52,439.15,0,"engineers, supporting coordinated design and validation decisions."],[39.6,453.19,0,"• Improved thermal testing by developing an adopted validation procedure and Python/Arduino automation for acquisition,"],[47.52,467.23,0,"logging, ambient control, analysis, and reporting; documented results in 3 technical white papers."],[39.6,481.27,1,"Peer Tutor"],[483.7,481.27,0,"Aug. 2024 - May 2026"],[39.6,495.31,1,"Engineering Tutoring Center | University of Nevada, Reno"],[505.06,495.31,0,"20 hrs. per week"],[39.6,509.35,0,"• Supported 12–15 engineering students weekly across embedded C, microcontrollers, circuits, and real-time control by providing"],[47.52,523.39,0,"individualized technical instruction and problem-solving guidance."],[36,537.43,1,"SELECTED PROJECTS"],[39.6,553.39,1,"IVerify Capstone Project | Project and Systems Integration Lead"],[524.38,553.39,0,"Spring 2026"],[39.6,567.43,0,"• Led systems integration for a 4-person team developing a 5-subsystem non-invasive IV occlusion detector with 3-state"],[47.52,581.5,0,"classification, coordinating mechanical sensing, analog electronics, firmware, user indication, and verification planning."],[39.6,595.54,1,"Thermal Controller and Logger | Python, Arduino, TC-08"],[524.38,595.54,0,"2025 - 2026"],[39.6,609.58,0,"• Developed a unified thermal-test platform integrating TC-08 data logging, ambient control, live visualization, stability tracking,"],[47.52,623.62,0,"metadata capture, and automated Excel reporting to streamline test execution and analysis."],[39.6,637.66,1,"Fingerprint-Based Authentication | STM32F767ZI, UART"],[536.02,637.66,0,"Fall 2025"],[39.6,651.7,0,"• Built and validated an STM32 biometric authentication system supporting 24 fingerprint templates across 4 users and 2 UART"],[47.52,665.74,0,"channels operating at 57,600 and 115,200 baud."],[39.6,679.78,1,"Virtual Network Analyzer and SFCW | MATLAB, SOLT, S-Parameters"],[524.38,679.78,0,"Spring 2025"],[39.6,693.82,0,"• Developed MATLAB control and 12-term SOLT calibration for a 2-port VNA, automating S-parameter measurement, visualization,"],[47.52,707.86,0,"and exporting across 236 points from 100 MHz to 6 GHz."],[36,721.9,1,"LEADERSHIP, MEMBERSHIPS, AND HONORS"],[36,737.98,0,"Honors College Ambassador | IEEE | SWE | Presidential Scholarship | TC Energy Scholarship | Engineering Department & Electrical"],[36,752.04,0,"Engineering Outstanding Service Awards"]]
+SPANS=[[244.73,51.24,1,"KAILANI ALARCON"],[115.22,68.04,0,"775-432-9365 | kailanip.alarcon@gmail.com | LinkedIn: kailani-alarcon | GitHub: EngrKailani"],[36,82.1,1,"EDUCATION"],[39.6,98.18,1,"University of Nevada, Reno | Reno, NV"],[516.58,98.18,0,"GPA: 3.2 / 4.0"],[72.02,112.22,0,"M.S. Electrical Engineering | Expected May 2028"],[72.02,126.26,0,"B.S. Electrical Engineering, Minor in Mathematics | 2026"],[36,140.3,1,"Focus:"],[64.58,140.3,0,"Robotics, Autonomous Vehicles, and Embedded Systems (RAVES) | Honors Baccalaureate"],[36,154.34,1,"Coursework:"],[88.7,154.34,0," Control Systems I & II, Robotics, Embedded Systems, Digital Signal Processing, Microprocessor Applications"],[36,168.38,1,"TECHNICAL SKILLS"],[36,184.34,1,"Systems & Analysis:"],[118.34,184.34,0," Requirements development, verification planning, risk assessment, BOM development"],[36,198.38,1,"Embedded & Controls:"],[129.86,198.38,0," ROS, STM32, UART, SPI, I2C, PWM, interrupts, encoder capture, sensor integration, PID"],[36,212.42,1,"Programming & Tools:"],[128.78,212.42,0," C, C++, Python, MATLAB, Simulink, Creo, Thermal Desktop, Arduino, Git, STM32CubeIDE"],[36,226.46,1,"Hardware:"],[79.94,226.46,0," Oscilloscopes, DMMs, FPGA/VHDL, VNA/S-parameters, SOLT calibration, FFT, thermal/photometric validation"],[36,240.5,1,"EXPERIENCE"],[39.6,256.61,1,"OSTEM Intern, Human Factors Engineering and Mechanical Design | NASA"],[483.7,256.61,0,"Aug. 2026–Present"],[39.6,270.65,1,"Marshall Space Flight Center | Huntsville, AL"],[505.06,270.65,0,"40 hrs. per week"],[39.6,284.69,0,"• Evaluated a legacy robotic arm for lunar-dust testing in a high-vacuum chamber targeting ~1 × 10⁻⁷ Torr, using Python and a Linux"],[47.52,298.73,0,"development environment to characterize geometry, mass, actuator travel, workspace, and vacuum constraints."],[39.6,312.77,0,"• Converted 6 operational scenarios into 34 hierarchical system requirements covering manipulation, workspace, emergency"],[47.52,326.81,0,"shutdown, vacuum operation, and verification, incorporating ROS 2 and MuJoCo into robotic control and simulation"],[39.6,340.85,0,"• Identified a potential shoulder-actuator torque shortfall, comparing a calculated 27.23 lbf-in shoulder"],[47.52,354.89,0,"load against estimated actuator capability of 18.6–24.9 lbf-in using Creo and motor data."],[39.6,368.93,1,"Product Development Intern"],[480.82,368.93,0,"Sept. 2023 - Aug. 2026"],[43.2,382.97,1,"LUX Dynamics | Reno, NV"],[505.06,382.97,0,"40 hrs. per week"],[39.6,397.01,0,"• Provided electrical, thermal, and photometric validation for 12+ LED products, generating performance data used to support"],[47.52,411.05,0,"manufacturing-release and engineering decisions."],[39.6,425.11,0,"• Managed 4–5 concurrent product-development projects and presented technical findings weekly to managers, customers, and"],[47.52,439.15,0,"engineers, supporting coordinated design and validation decisions."],[39.6,453.19,0,"• Improved thermal testing by developing an adopted validation procedure and Python/Arduino automation for acquisition,"],[47.52,467.23,0,"logging, ambient control, analysis, and reporting; documented results in 3 technical white papers."],[39.6,481.27,1,"Peer Tutor"],[483.7,481.27,0,"Aug. 2024 - May 2026"],[39.6,495.31,1,"Engineering Tutoring Center | University of Nevada, Reno"],[505.06,495.31,0,"20 hrs. per week"],[39.6,509.35,0,"• Supported 12–15 engineering students weekly across embedded C, microcontrollers, circuits, and real-time control by providing"],[47.52,523.39,0,"individualized technical instruction and problem-solving guidance."],[36,537.43,1,"SELECTED PROJECTS"],[39.6,553.39,1,"IVerify Capstone Project | Project and Systems Integration Lead"],[524.38,553.39,0,"Spring 2026"],[39.6,567.43,0,"• Led systems integration for a 4-person team developing a 5-subsystem non-invasive IV occlusion detector with 3-state"],[47.52,581.5,0,"classification, coordinating mechanical sensing, analog electronics, firmware, user indication, and verification planning."],[39.6,595.54,1,"Thermal Controller and Logger | Python, Arduino, TC-08"],[524.38,595.54,0,"2025 - 2026"],[39.6,609.58,0,"• Developed a unified thermal-test platform integrating TC-08 data logging, ambient control, live visualization, stability tracking,"],[47.52,623.62,0,"metadata capture, and automated Excel reporting to streamline test execution and analysis."],[39.6,637.66,1,"Fingerprint-Based Authentication | STM32F767ZI, UART"],[536.02,637.66,0,"Fall 2025"],[39.6,651.7,0,"• Built and validated an STM32 biometric authentication system supporting 24 fingerprint templates across 4 users and 2 UART"],[47.52,665.74,0,"channels operating at 57,600 and 115,200 baud."],[39.6,679.78,1,"Virtual Network Analyzer and SFCW | MATLAB, SOLT, S-Parameters"],[524.38,679.78,0,"Spring 2025"],[39.6,693.82,0,"• Developed MATLAB control and 12-term SOLT calibration for a 2-port VNA, automating S-parameter measurement, visualization,"],[47.52,707.86,0,"and exporting across 236 points from 100 MHz to 6 GHz."],[36,721.9,1,"LEADERSHIP, MEMBERSHIPS, AND HONORS"],[36,737.98,0,"Honors College Ambassador | IEEE | SWE | Presidential Scholarship | TC Energy Scholarship | Engineering Department & Electrical"],[36,752.04,0,"Engineering Outstanding Service Awards"]]
 BLUE=(0.122,0.306,0.475)
 
 pdf=fitz.open()
 page=pdf.new_page(width=612,height=792)
 page.insert_font(fontname="CarlitoRegular",fontfile=str(REGULAR))
 page.insert_font(fontname="CarlitoBold",fontfile=str(BOLD))
-# The professional headline sits beneath the name; shift the remaining
-# original lines and dividers by 10.5pt to retain the one-page layout.
+# Make room for a second contact row without adding a page or shrinking
+# technical content. Offset diminishes down the page to preserve bottom margin.
 SHIFT=10.5
+def header_extra(y):
+    if y < 82.1:
+        return 0
+    return 12.0-6.0*min(max((y-82.1)/(752.04-82.1),0),1)
 for x,y,bold,text in SPANS:
     if not FULL_DETAIL and text.strip() in OPTIONAL_DETAIL:
         continue
     original_y=y
     if original_y>51.24:
-        y+=SHIFT
+        y+=SHIFT+header_extra(original_y)
     size=15.96 if original_y==51.24 else 9.96
     heading=bold and x==36 and original_y in (82.10,168.38,240.50,537.43,721.90)
     color=BLUE if heading or original_y==51.24 else (0,0,0)
@@ -46,9 +50,31 @@ headline_size=9.35
 headline_width=fitz.Font(fontfile=str(BOLD)).text_length(headline,fontsize=headline_size)
 page.insert_text(((612-headline_width)/2,66.0),headline,
                  fontsize=headline_size,fontname="CarlitoBold",color=BLUE)
+portfolio="Portfolio: engrkailani.github.io"
+portfolio_size=9.3
+portfolio_width=fitz.Font(fontfile=str(REGULAR)).text_length(portfolio,fontsize=portfolio_size)
+page.insert_text(((612-portfolio_width)/2,91.0),portfolio,
+                 fontsize=portfolio_size,fontname="CarlitoRegular",color=BLUE)
 for y in (87.50,173.66,245.93,542.71,727.30):
-    page.draw_rect(fitz.Rect(34.56,y+SHIFT,577.54,y+SHIFT+0.96),
+    page.draw_rect(fitz.Rect(34.56,y+SHIFT+header_extra(y),577.54,y+SHIFT+header_extra(y)+0.96),
                    fill=BLUE,color=None,overlay=True)
+
+# PDF hyperlink annotations, not just blue-looking text. The labels are
+# searched after typesetting so every click target tracks the rendered glyphs.
+targets={
+    "kailanip.alarcon@gmail.com":"mailto:kailanip.alarcon@gmail.com",
+    "LinkedIn: kailani-alarcon":"https://www.linkedin.com/in/kailani-alarcon/",
+    "GitHub: EngrKailani":"https://github.com/EngrKailani",
+    "Portfolio: engrkailani.github.io":"https://engrkailani.github.io/"
+}
+for label,url in targets.items():
+    found=page.search_for(label)
+    if len(found)!=1:
+        raise RuntimeError(f"Expected one PDF link label {label!r}, got {len(found)}")
+    r=found[0]
+    area=fitz.Rect(r.x0-1,r.y0-2,r.x1+1,r.y1+2)
+    page.insert_link({"kind":fitz.LINK_URI,"from":area,"uri":url})
+
 pdf.set_metadata({"title":"Kailani Alarcon Engineering Resume",
                   "author":"Kailani Alarcon",
                   "subject":"Engineering résumé - full application details" if FULL_DETAIL else "Private-sector engineering résumé"})
@@ -57,7 +83,14 @@ pdf.save(DEST,garbage=4,deflate=True)
 check=fitz.open(DEST)
 assert len(check)==1 and check[0].rect.width==612 and check[0].rect.height==792
 assert headline in check[0].get_text()
+expected_urls=set(targets.values())
+actual_urls={link.get("uri") for link in check[0].get_links() if link.get("kind")==fitz.LINK_URI}
+assert expected_urls==actual_urls, (expected_urls,actual_urls)
+assert len(check[0].get_links())==4, "Expected four clickable contact links"
 text=check[0].get_text()
+assert "GitHub: EngrKailani" in text
+assert "Portfolio: engrkailani.github.io" in text
+
 if not FULL_DETAIL:
     for item in OPTIONAL_DETAIL:
         assert item not in text, "Optional résumé field still present: "+item
