@@ -140,3 +140,180 @@
     gap:12px;
   }
 }
+
+
+/* Compact editorial photo accents, matching the small education image. */
+.work-section .portfolio-photo-gallery{
+  max-width:100%;
+  margin-top:22px;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--soft);
+}
+.portfolio-photo-gallery__intro{
+  display:block;
+  margin-bottom:12px;
+}
+.portfolio-photo-gallery__intro h3{
+  font:600 17px/1.35 var(--serif,Georgia,serif);
+}
+.portfolio-photo-gallery__grid{
+  display:flex;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:14px 24px;
+}
+.work-section .portfolio-photo-card,
+.work-section .portfolio-photo-card--team{
+  display:grid;
+  grid-template-columns:104px minmax(0,180px);
+  align-items:center;
+  gap:11px;
+  flex:0 1 310px;
+  max-width:100%;
+  min-width:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  overflow:visible;
+}
+.work-section .portfolio-photo-card img,
+.work-section .portfolio-photo-card--team img,
+.work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
+  width:104px;
+  height:104px;
+  min-height:0;
+  max-height:104px;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:9px;
+}
+.work-section .portfolio-photo-card figcaption{
+  position:static;
+  padding:0;
+  background:none;
+  color:var(--ink);
+  text-shadow:none;
+  font:700 12px/1.5 var(--sans,system-ui,sans-serif);
+}
+.work-section .portfolio-photo-card figcaption span{
+  color:var(--secondary);
+  font-size:11px;
+  margin-top:4px;
+}
+.hero.container{
+  grid-template-columns:minmax(0,1fr) minmax(170px,235px);
+  gap:clamp(22px,4vw,55px);
+}
+.hero .hero-photo{
+  width:100%;
+  max-width:235px;
+  justify-self:end;
+  align-self:center;
+}
+.hero .hero-photo img{
+  width:100%;
+  height:245px;
+  border-radius:14px;
+  object-fit:cover;
+}
+.hero .hero-photo figcaption{font-size:11px;line-height:1.5}
+.work-section .feature-project{
+  grid-template-columns:minmax(0,220px) minmax(0,1fr);
+  align-items:center;
+}
+.work-section .feature-visual{
+  width:100%;
+  min-height:0;
+  height:auto;
+  padding:12px;
+  background:transparent;
+}
+.work-section .feature-visual img{
+  width:100%;
+  height:210px;
+  max-height:210px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.work-section .feature-visual figcaption{
+  position:static;
+  width:auto;
+  max-width:none;
+  margin-top:8px;
+  background:transparent;
+  color:var(--secondary);
+  font-size:11px;
+}
+.experience-section .experience-photo,
+.about-section .about-photo,
+.interests-section .interest-photo{
+  justify-self:center;
+  align-self:start;
+  width:100%;
+  max-width:205px;
+}
+.experience-section .experience-photo img,
+.about-section .about-photo img,
+.interests-section .interest-photo img{
+  display:block;
+  width:100%;
+  height:190px;
+  max-height:190px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.experience-section .experience-photo figcaption,
+.about-section .about-photo figcaption,
+.interests-section .interest-photo figcaption{
+  font-size:11px;
+  line-height:1.55;
+}
+:root[data-theme="dark"] .work-section .portfolio-photo-gallery{
+  background:var(--dark-surface,#282636);
+  border-color:var(--dark-border,#655b74);
+}
+:root[data-theme="dark"] .work-section .portfolio-photo-card figcaption{color:#fff0fa}
+:root[data-theme="dark"] .work-section .portfolio-photo-card figcaption span{color:#e3d5e7}
+@media(max-width:760px){
+  .hero.container{display:flex;flex-direction:column;align-items:stretch}
+  .hero .hero-photo{
+    width:195px;
+    max-width:195px;
+    margin:0;
+    align-self:flex-start;
+  }
+  .hero .hero-photo img{height:185px;border-radius:10px}
+  .work-section .feature-project{
+    grid-template-columns:minmax(0,1fr);
+  }
+  .work-section .feature-visual{
+    width:205px;
+    max-width:100%;
+    padding:13px 0 0 20px;
+  }
+  .work-section .feature-visual img{height:180px;max-height:180px}
+  .experience-section .experience-photo,
+  .about-section .about-photo,
+  .interests-section .interest-photo{
+    justify-self:start;
+    max-width:180px;
+    margin:0;
+  }
+  .experience-section .experience-photo img,
+  .about-section .about-photo img,
+  .interests-section .interest-photo img{height:170px;max-height:170px}
+}
+@media(max-width:520px){
+  .work-section .portfolio-photo-gallery{padding:13px}
+  .work-section .portfolio-photo-gallery__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+  .work-section .portfolio-photo-card,
+  .work-section .portfolio-photo-card--team{grid-template-columns:88px minmax(0,1fr);max-width:100%}
+  .work-section .portfolio-photo-card img,
+  .work-section .portfolio-photo-card--team img,
+  .work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
+    width:88px;height:88px;max-height:88px;aspect-ratio:1;
+  }
+}
