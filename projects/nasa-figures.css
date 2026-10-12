@@ -9,7 +9,7 @@
 .nasa-figure__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 14px;margin:0 0 12px;color:var(--secondary,#705b6e);font-size:11px;font-weight:800;letter-spacing:.09em;line-height:1.45}
 .nasa-figure__top span:last-child{border:1px solid #b78aa4;padding:5px 9px;border-radius:999px;color:#784661;background:#fcf2f7;text-align:center}
 .nasa-figure img{display:block;max-width:100%;width:100%;height:auto;aspect-ratio:1200/760;object-fit:contain;background:#fcfbfa;border-radius:10px;border:1px solid #d4dfe6}
-.nasa-figure figcaption{padding:13px 2px 0;max-width:88ch;font-size:clamp(15px,1.5vw,16px);line-height:1.7;color:var(--secondary,#625663)}
+.nasa-figure figcaption{padding:13px 2px 0;max-width:88ch;font-style:normal;font-family:"DM Sans",Arial,Helvetica,sans-serif;font-size:clamp(15px,1.5vw,16px);line-height:1.7;color:var(--secondary,#625663)}
 .nasa-figure figcaption strong{color:var(--ink,#332a35)}
 :root[data-theme="dark"] .nasa-figures__intro{background:var(--dark-surface,#26222e);border-color:var(--dark-border,#65546a)}
 :root[data-theme="dark"] .nasa-figure{background:var(--dark-raised,#302936);border-color:var(--dark-border,#65546a)}
@@ -18,6 +18,6 @@
 :root[data-theme="dark"] .nasa-figure__top span:last-child{color:#f8dce9;background:#613f53;border-color:#b78aa4}
 @media(max-width:650px){.nasa-figures{margin:23px 0}.nasa-figure{padding:10px;margin-bottom:15px}.nasa-figure__top{font-size:9px;letter-spacing:.04em}.nasa-figure__top span:last-child{padding:4px 7px}}
 
-.nasa-figure__zoom{display:inline-block;margin:10px 0 0;padding:7px 11px;border:1px solid currentColor;border-radius:8px;color:var(--secondary,#70506d);font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.nasa-figure__zoom{display:block;width:max-content;max-width:100%;margin:10px 0 0;padding:7px 11px;border:1px solid currentColor;border-radius:8px;color:var(--secondary,#70506d);font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .nasa-figure__zoom:focus-visible{outline:3px solid #9c5275;outline-offset:3px}
 :root[data-theme="dark"] .nasa-figure__zoom{color:#f0d6e5}
