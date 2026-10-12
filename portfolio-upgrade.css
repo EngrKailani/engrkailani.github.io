@@ -1255,3 +1255,68 @@ section[id]{scroll-margin-top:86px}
   .project-page .detail-jump{margin-bottom:19px}
   .project-page .detail-jump a{min-height:44px}
 }
+
+/* Experience timeline disclosure: readable column width and theme contrast. */
+.experience-section .timeline-item{
+  grid-template-columns:96px 20px minmax(0,1fr);
+}
+.experience-section .timeline-item>div:nth-child(3){
+  min-width:0;
+}
+.experience-section .experience-more{
+  grid-column:3 / -1;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  margin-top:10px;
+}
+.experience-section .experience-more summary{
+  width:fit-content;
+  max-width:100%;
+  line-height:1.5;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.experience-section .experience-more p{
+  max-width:65ch;
+  line-height:1.75;
+}
+:root[data-theme="dark"] .experience-section .timeline-item:has(.experience-more[open]){
+  background:#30283b;
+}
+:root[data-theme="dark"] .experience-section .experience-more{
+  border-top-color:var(--dark-border);
+}
+:root[data-theme="dark"] .experience-section .experience-more summary{
+  color:#ffd0e6;
+}
+:root[data-theme="dark"] .experience-section .experience-more summary:hover{
+  color:#ffe9f3;
+}
+:root[data-theme="dark"] .experience-section .experience-more p{
+  color:#f0e4f0;
+}
+@media(max-width:660px){
+  .experience-section .timeline-item{
+    grid-template-columns:14px minmax(0,1fr);
+    column-gap:12px;
+    row-gap:6px;
+  }
+  .experience-section .timeline-date{
+    grid-column:2;
+    grid-row:1;
+  }
+  .experience-section .timeline-dot{
+    grid-column:1;
+    grid-row:1;
+  }
+  .experience-section .timeline-item>div:nth-child(3){
+    grid-column:2;
+    grid-row:2;
+  }
+  .experience-section .experience-more{
+    grid-column:2;
+    grid-row:3;
+    margin-top:2px;
+  }
+}
