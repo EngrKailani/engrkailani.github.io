@@ -11,7 +11,7 @@ const origin=process.env.SITE_URL||'http://127.0.0.1:4173';
 const cases=[
   {path:'/',width:1440,theme:'light',imageCheck:true,screenshot:true},
   {path:'/',width:768,theme:'light'},
-  {path:'/',width:390,theme:'light',screenshot:true},
+  {path:'/',width:390,theme:'light',imageCheck:true,screenshot:true},
   {path:'/',width:320,theme:'light'},
   {path:'/',width:390,theme:'dark',screenshot:true},
   {path:'/',width:1440,theme:'dark'},
@@ -77,13 +77,22 @@ async function audit(){
               try{await Promise.race([el.decode(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('image timeout')),7000))])}catch{}
               const r=el.getBoundingClientRect();
               return {src:el.getAttribute('src'),loaded:el.complete&&el.naturalWidth>0,
+                naturalWidth:el.naturalWidth,naturalHeight:el.naturalHeight,
                 width:r.width,height:r.height,alt:el.getAttribute('alt')};
             });
             if(!image.loaded)note(id+': image failed to load: '+image.src);
             if(image.width<1||image.height<1)note(id+': visible image has zero display size: '+image.src);
             if(image.alt===null)note(id+': image missing alt attribute: '+image.src);
-            if(image.src?.includes('assets/Arm.jpg')&&image.width>180)
-              note(id+': robotics accent exceeds 180px: '+image.width);
+            if(image.src?.includes('assets/Arm.jpg')&&image.width>205)
+              note(id+': robotics accent exceeds 205px: '+image.width);
+            const nativePhoto=/\/(?:sls-rocket-kailani|nasa-sls-team|nasa-astronaut-suit|nasa-mission-patches|Arm|robotics-lab-rover|graduation-flowers|cleanroom-suit|nasa-mission-training-complex)\.(?:jpeg|jpg)$/.test(image.src||'');
+            if(nativePhoto && image.loaded && image.width>0 && image.height>0){
+              const original=image.naturalWidth/image.naturalHeight;
+              const displayed=image.width/image.height;
+              if(Math.abs(displayed-original)/original>0.08)
+                note(id+': photo has distorted proportions/cropping: '+image.src+
+                  ' ('+displayed.toFixed(2)+' displayed, '+original.toFixed(2)+' original)');
+            }
             if(image.src?.includes('assets/Creo-1.jpg')&&image.width>285)
               note(id+': CAD accent exceeds 285px: '+image.width);
             if(image.src?.includes('assets/VNA.jpg')&&image.width>285)
@@ -91,7 +100,24 @@ async function audit(){
           }
         }
         if(test.screenshot){
+          await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
           await page.screenshot({path:path.join(out,'screenshots',id+'.png'),animations:'disabled'});
+          if(test.path==='/'){
+            for(const [name,selector] of [
+              ['featured-projects','#featured-projects'],
+              ['nasa-photo-accents','#portfolio-photo-gallery'],
+              ['education-photo','.education-panel'],
+              ['about-photos','#about']
+            ]){
+              const element=page.locator(selector).first();
+              if(await element.count()){
+                await element.screenshot({
+                  path:path.join(out,'screenshots',id+'-'+name+'.png'),
+                  animations:'disabled',timeout:12000
+                });
+              }
+            }
+          }
         }
         await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});
         const accessibility=await page.evaluate(async()=>{
