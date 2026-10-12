@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-css1">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +31,12 @@
 <header class="detail-heading">
 <p class="eyebrow">GitHub · Human interaction</p><h1>HueMotion</h1><p>Turning hand gestures into lighting responses</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p><h2 id="evidence-summary-title">What was done, checked, and documented</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Control RGBW lighting scenes through stabilized webcam-recognized gestures.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Documented gesture-to-scene work and later recovered policy logic; individual ownership of original modules is not separately established.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>JavaScript, MediaPipe, webcam, Node.js bridge and Casambi lighting scenes.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Source inspection and 11 synthetic offline behavior checks of timing, mappings and state handling.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Eight source-defined scenes and a reconstructed policy model with 11 offline tests.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>No newly verified camera recognition rate or physical lighting performance; bridge has no request authentication.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#huemotion-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview">
 <span class="detail-tag">PROJECT 14 / 16</span>
