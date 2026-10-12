@@ -1,14 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="t-geometry d-geometry">
-<title id="t-geometry">Robotic-Arm Geometry Overview</title><desc id="d-geometry">Conceptual joint layout and chamber-access reference. Conceptual reconstruction for portfolio presentation, not an official NASA source image or measured test record.</desc>
-<defs><pattern id="grid-geometry" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#e7edf1" stroke-width="1"/></pattern><pattern id="major-geometry" width="125" height="125" patternUnits="userSpaceOnUse"><path d="M125 0H0V125" fill="none" stroke="#d6e1e8" stroke-width="1.5"/></pattern>
-<linearGradient id="panel-geometry" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fffdfc"/><stop offset="1" stop-color="#f4f8fa"/></linearGradient></defs>
-<rect width="1200" height="760" fill="#fcfbfa"/><rect width="1200" height="760" fill="url(#grid-geometry)"/><rect width="1200" height="760" fill="url(#major-geometry)"/>
-<rect x="22" y="22" width="1156" height="716" rx="20" fill="none" stroke="#b9c6cf" stroke-width="2"/>
-<text x="68" y="93" font-family="Arial,Helvetica,sans-serif" font-size="45" fill="#1e3043" font-weight="700" text-anchor="start" >Robotic-Arm Geometry Overview</text>
-<text x="68" y="130" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#53677b" font-weight="400" text-anchor="start" >Conceptual joint layout and chamber-access reference</text>
-<line x1="68" y1="152" x2="1132" y2="152" stroke="#cbd8e1" stroke-width="2" />
-<defs><radialGradient id="chamber" cx="44%" cy="50%" r="65%"><stop offset="0%" stop-color="#f0f5f8"/><stop offset="95%" stop-color="#8d9dac"/></radialGradient></defs><ellipse cx="975" cy="424" rx="180" ry="218" fill="#edf2f4" stroke="#7d8e9e" stroke-width="12"/><ellipse cx="980" cy="424" rx="138" ry="176" fill="url(#chamber)" stroke="#718495" stroke-width="8"/><ellipse cx="984" cy="424" rx="99" ry="133" fill="#e7ecee" stroke="#a7b5bf" stroke-width="5"/><circle cx="1135.0" cy="424.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1122.8" cy="499.4" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1088.1" cy="563.3" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1036.2" cy="606.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="975.0" cy="621.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="913.8" cy="606.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="861.9" cy="563.3" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="827.2" cy="499.4" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="815.0" cy="424.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="827.2" cy="348.6" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="861.9" cy="284.7" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="913.8" cy="242.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="975.0" cy="227.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1036.2" cy="242.0" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1088.1" cy="284.7" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><circle cx="1122.8" cy="348.6" r="7" fill="#a2b3c0" stroke="#536476" stroke-width="2"/><rect x="132" y="538" width="168" height="58" rx="8" fill="#8e9da9" stroke="#4d6071" stroke-width="2" /><rect x="167" y="491" width="96" height="72" rx="12" fill="#c3cdd4" stroke="#506071" stroke-width="2" /><line x1="213" y1="505" x2="450" y2="288" stroke="#5e7182" stroke-width="71" stroke-linecap='round'/><line x1="213" y1="505" x2="450" y2="288" stroke="#e5e8e7" stroke-width="60" stroke-linecap='round'/><line x1="450" y1="288" x2="710" y2="412" stroke="#5e7182" stroke-width="72" stroke-linecap='round'/><line x1="450" y1="288" x2="710" y2="412" stroke="#e0e5e7" stroke-width="61" stroke-linecap='round'/><line x1="710" y1="412" x2="823" y2="458" stroke="#586b7c" stroke-width="40" stroke-linecap='round'/><line x1="710" y1="412" x2="823" y2="458" stroke="#dce1e3" stroke-width="33" stroke-linecap='round'/><circle cx="213" cy="505" r="45" fill="#8e9faf" stroke="#344f64" stroke-width="7"/><circle cx="213" cy="505" r="28" fill="#e9edf0" stroke="#66798a" stroke-width="4"/><circle cx="213" cy="505" r="7" fill="#75899a"/><circle cx="450" cy="288" r="46" fill="#8e9faf" stroke="#344f64" stroke-width="7"/><circle cx="450" cy="288" r="29" fill="#e9edf0" stroke="#66798a" stroke-width="4"/><circle cx="450" cy="288" r="7" fill="#75899a"/><circle cx="710" cy="412" r="39" fill="#8e9faf" stroke="#344f64" stroke-width="7"/><circle cx="710" cy="412" r="22" fill="#e9edf0" stroke="#66798a" stroke-width="4"/><circle cx="710" cy="412" r="7" fill="#75899a"/><path d="M818 452L849 435M819 461L847 487" fill="none" stroke="#40586e" stroke-width="11" stroke-linecap="round"/><path d="M819 450L848 432M820 463L848 488" fill="none" stroke="#d2d9df" stroke-width="5" stroke-linecap="round"/><line x1="120" y1="598" x2="312" y2="598" stroke="#536879" stroke-width="3" /><path d="M215 503Q480 67 825 458" fill="none" stroke="#829d93" stroke-width="3" stroke-dasharray="12 12" opacity=".65"/><rect x="85" y="186" width="156" height="40" rx="10" fill="#f4dce6" stroke="#f4dce6" stroke-width="2" /><text x="99" y="212" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#7a3c55" font-weight="700" text-anchor="start" >SHOULDER</text><line x1="169" y1="228" x2="202" y2="468" stroke="#b66a86" stroke-width="3" /><rect x="371" y="174" width="115" height="40" rx="10" fill="#eee6f5" stroke="#eee6f5" stroke-width="2" /><text x="385" y="200" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#67557a" font-weight="700" text-anchor="start" >ELBOW</text><line x1="417" y1="215" x2="449" y2="244" stroke="#947ba6" stroke-width="3" /><rect x="637" y="184" width="105" height="40" rx="10" fill="#e6eddf" stroke="#e6eddf" stroke-width="2" /><text x="651" y="210" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#4b6558" font-weight="700" text-anchor="start" >WRIST</text><line x1="703" y1="225" x2="711" y2="371" stroke="#74917b" stroke-width="3" /><rect x="815" y="178" width="149" height="40" rx="10" fill="#e7eef7" stroke="#e7eef7" stroke-width="2" /><text x="829" y="204" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#475e79" font-weight="700" text-anchor="start" >CHAMBER</text><line x1="880" y1="222" x2="926" y2="258" stroke="#728dab" stroke-width="3" /><rect x="276" y="373" width="220" height="40" rx="10" fill="#f2f5f7" stroke="#f2f5f7" stroke-width="2" /><text x="290" y="399" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#405b70" font-weight="700" text-anchor="start" >LINK 1 · 18.5 in</text><rect x="515" y="332" width="220" height="40" rx="10" fill="#f2f5f7" stroke="#f2f5f7" stroke-width="2" /><text x="529" y="358" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#405b70" font-weight="700" text-anchor="start" >LINK 2 · 18.5 in</text><rect x="715" y="514" width="198" height="40" rx="10" fill="#f2f5f7" stroke="#f2f5f7" stroke-width="2" /><text x="729" y="540" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#405b70" font-weight="700" text-anchor="start" >TOOL · 8.5 in</text><line x1="759" y1="509" x2="818" y2="461" stroke="#607a8b" stroke-width="2" /><rect x="85" y="612" width="192" height="40" rx="10" fill="#e6eddf" stroke="#e6eddf" stroke-width="2" /><text x="99" y="638" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#3c6558" font-weight="700" text-anchor="start" >OFFSET · 3 in</text><line x1="210" y1="607" x2="213" y2="527" stroke="#769081" stroke-width="3" /><text x="355" y="623" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#53677b" font-weight="400" text-anchor="start" >Diagram is not to scale.</text><text x="355" y="652" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#53677b" font-weight="400" text-anchor="start" >Joint positions and chamber geometry are illustrative.</text>
-<line x1="68" y1="687" x2="1132" y2="687" stroke="#cbd8e1" stroke-width="2" />
-<text x="68" y="712" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#586d7e" font-weight="500" text-anchor="start" >Illustrative geometry using supplied simulation dimensions; not validated NASA hardware CAD.</text>
-<rect x="950" y="691" width="211" height="40" rx="10" fill="#e8f0f5" stroke="#e8f0f5" stroke-width="2" /><text x="965" y="717" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#3e637b" font-weight="700" text-anchor="start" >RECONSTRUCTED</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="fig1-title fig1-desc">
+<title id="fig1-title">Ceiling-mounted robotic arm centered inside a cubic chamber</title>
+<desc id="fig1-desc">Reconstructed conceptual diagram, not to scale, showing a ceiling-mounted robotic arm with a centrally located shoulder mount inside a simple 36 by 36 by 36 inch cube. Link 1 and link 2 are 18.5 inches each, the tool length is 8.5 inches, and the ceiling-to-shoulder offset is 3 inches. Joints are shown with simplified shapes.</desc>
+<defs>
+<pattern id="minor-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#e9eef2" stroke-width="1"/></pattern>
+<pattern id="chamber-grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#dee6eb" stroke-width="1"/></pattern>
+<linearGradient id="back" x1="0" x2="0.1" y1="0" y2="1"><stop offset="0" stop-color="#fafcfd"/><stop offset="1" stop-color="#e7eef3"/></linearGradient>
+<marker id="arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#326085"/></marker></defs>
+<rect width="1200" height="760" fill="#fdfcfb"/>
+<rect width="1200" height="760" fill="url(#minor-grid)"/>
+<rect x="20" y="20" width="1160" height="720" rx="20" fill="none" stroke="#b9c6d0" stroke-width="2"/>
+<text x="66" y="90" font-family="Arial,Helvetica,sans-serif" font-size="43" fill="#213248" font-weight="700" >Ceiling-Mounted Robotic-Arm Geometry</text>
+<text x="67" y="126" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#61788a" font-weight="500" >Reconstructed layout | centered mount | cubic chamber</text>
+<line x1="68" y1="150" x2="1133" y2="150" stroke="#bfccd6" stroke-width="2" />
+<!-- cube-shaped chamber: top, flat walls, floor -->
+<polygon points="88,191 804,191 752,226 140,226" fill="#e4ebf0" stroke="#8095a5" stroke-width="2"/>
+<rect x="140" y="226" width="612" height="354" rx="0" fill="url(#back)" stroke="#91a5b3" stroke-width="2"/>
+<rect x="140" y="226" width="612" height="354" fill="url(#chamber-grid)" opacity=".8"/>
+<polygon points="88,191 140,226 140,580 88,629" fill="#d1dde5" stroke="#8095a5" stroke-width="2"/>
+<polygon points="752,226 804,191 804,629 752,580" fill="#c9d7e1" stroke="#8095a5" stroke-width="2"/>
+<polygon points="140,580 752,580 804,629 88,629" fill="#d6e2e9" stroke="#8095a5" stroke-width="2"/>
+<line x1="88" y1="191" x2="88" y2="629" stroke="#6d8496" stroke-width="3" />
+<line x1="804" y1="191" x2="804" y2="629" stroke="#6d8496" stroke-width="3" />
+<line x1="88" y1="629" x2="804" y2="629" stroke="#6d8496" stroke-width="3" />
+<line x1="140" y1="226" x2="752" y2="226" stroke="#a4b4c1" stroke-width="2" />
+<!-- floor seam hints; no circular ports -->
+<line x1="180" y1="594" x2="718" y2="594" stroke="#b1c2ce" stroke-width="2" />
+<line x1="284" y1="580" x2="260" y2="629" stroke="#b1c2ce" stroke-width="1.5" />
+<line x1="609" y1="580" x2="632" y2="629" stroke="#b1c2ce" stroke-width="1.5" />
+<!-- ceiling mount centered on the square back wall -->
+<rect x="397" y="189" width="96" height="18" rx="5" fill="#869bac" stroke="#5e7282" stroke-width="2"/>
+<rect x="428" y="207" width="34" height="22" rx="4" fill="#acbdc9" stroke="#60798b" stroke-width="2"/>
+<line x1="445" y1="229" x2="445" y2="251" stroke="#60778a" stroke-width="17" stroke-linecap='round'/>
+<!-- Link 1, shoulder -> elbow -->
+<line x1="445" y1="257" x2="590" y2="370" stroke="#476174" stroke-width="56" stroke-linecap='round'/>
+<line x1="445" y1="257" x2="590" y2="370" stroke="#e0e6ea" stroke-width="43" stroke-linecap='round'/>
+<!-- Link 2, folded back inside cube -->
+<line x1="590" y1="370" x2="470" y2="505" stroke="#476174" stroke-width="56" stroke-linecap='round'/>
+<line x1="590" y1="370" x2="470" y2="505" stroke="#e0e6ea" stroke-width="43" stroke-linecap='round'/>
+<!-- wrist and tool -->
+<line x1="470" y1="505" x2="538" y2="553" stroke="#476174" stroke-width="34" stroke-linecap='round'/>
+<line x1="470" y1="505" x2="538" y2="553" stroke="#e5e8eb" stroke-width="22" stroke-linecap='round'/>
+<path d="M537 543L566 536 M538 562L563 577" fill="none" stroke="#465c6d" stroke-width="9" stroke-linecap="round"/>
+<!-- joints -->
+<circle cx="445" cy="257" r="31" fill="#91a5b5" stroke="#466278" stroke-width="4"/><circle cx="445" cy="257" r="13" fill="#f4f7f8" stroke="#5d7486" stroke-width="3"/>
+<circle cx="590" cy="370" r="35" fill="#91a5b5" stroke="#466278" stroke-width="4"/><circle cx="590" cy="370" r="15" fill="#f4f7f8" stroke="#5d7486" stroke-width="3"/>
+<circle cx="470" cy="505" r="29" fill="#91a5b5" stroke="#466278" stroke-width="4"/><circle cx="470" cy="505" r="12" fill="#f4f7f8" stroke="#5d7486" stroke-width="3"/>
+<!-- labels kept away from geometry -->
+<rect x="186" y="256" width="134" height="35" rx="7" fill="#f0dce4" stroke="#f0dce4" stroke-width="1"/><text x="199" y="280" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#77465f" font-weight="700" >SHOULDER</text>
+<line x1="320" y1="273" x2="412" y2="258" stroke="#aa6e85" stroke-width="2.5" />
+<rect x="612" y="336" width="116" height="35" rx="7" fill="#eee3f4" stroke="#eee3f4" stroke-width="1"/><text x="625" y="360" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#69537a" font-weight="700" >ELBOW</text>
+<line x1="612" y1="352" x2="609" y2="359" stroke="#9476a1" stroke-width="2.5" />
+<rect x="266" y="447" width="104" height="35" rx="7" fill="#e0ece5" stroke="#e0ece5" stroke-width="1"/><text x="279" y="471" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#466a56" font-weight="700" >WRIST</text>
+<line x1="370" y1="465" x2="442" y2="492" stroke="#63907a" stroke-width="2.5" />
+<rect x="636" y="514" width="153" height="35" rx="7" fill="#e6edf5" stroke="#e6edf5" stroke-width="1"/><text x="649" y="538" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#455e79" font-weight="700" >END EFFECTOR</text>
+<line x1="635" y1="535" x2="569" y2="555" stroke="#6c8aa3" stroke-width="2.5" />
+<rect x="464" y="282" width="210" height="35" rx="7" fill="#e8eaf6" stroke="#e8eaf6" stroke-width="1"/><text x="477" y="306" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#485c7d" font-weight="700" >LINK 1  |  18.5 in</text>
+<line x1="548" y1="317" x2="533" y2="332" stroke="#8797b4" stroke-width="2" />
+<rect x="587" y="430" width="212" height="35" rx="7" fill="#e8eaf6" stroke="#e8eaf6" stroke-width="1"/><text x="600" y="454" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#485c7d" font-weight="700" >LINK 2  |  18.5 in</text>
+<line x1="595" y1="455" x2="558" y2="446" stroke="#8797b4" stroke-width="2" />
+<rect x="570" y="576" width="174" height="35" rx="7" fill="#ecf1f5" stroke="#ecf1f5" stroke-width="1"/><text x="583" y="600" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#485e6f" font-weight="700" >TOOL  |  8.5 in</text>
+<line x1="574" y1="579" x2="543" y2="560" stroke="#70869a" stroke-width="2" />
+<text x="345" y="193" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#455f74" font-weight="700" >CEILING-MOUNTED</text>
+<text x="364" y="241" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#536d7d" font-weight="600" >3 in offset</text>
+<line x1="421" y1="211" x2="421" y2="257" stroke="#648397" stroke-width="2" stroke-dasharray='5 4'/>
+<!-- chamber dimension annotations -->
+<line x1="119" y1="235" x2="119" y2="571" stroke="#326085" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="108" y="399" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#315b7a" font-weight="700" transform="rotate(-90 108 399)" text-anchor="middle">36 in height</text>
+<line x1="210" y1="605" x2="684" y2="605" stroke="#326085" stroke-width="2.5" />
+<text x="443" y="600" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#315b7a" font-weight="700" text-anchor="middle">36 in width</text>
+<text x="160" y="652" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#526b7d" font-weight="500" >Depth: 36 in  |  Square chamber walls, floor and ceiling</text>
+<!-- right-side specification panel -->
+<rect x="842" y="181" width="291" height="447" rx="16" fill="#f8fafc" stroke="#bdceda" stroke-width="2"/>
+<rect x="861" y="202" width="254" height="35" rx="7" fill="#e6edf4" stroke="#e6edf4" stroke-width="1"/><text x="874" y="226" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#35546e" font-weight="700" >KEY DIMENSIONS</text>
+<text x="860" y="270" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#566b7b" font-weight="600" >Chamber interior</text>
+<text x="861" y="299" font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#1d3f5d" font-weight="700" >36 x 36 x 36 in</text>
+<line x1="860" y1="314" x2="1114" y2="314" stroke="#d4dee5" stroke-width="2" />
+<text x="861" y="349" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#566b7b" font-weight="500" >Ceiling-to-shoulder</text><text x="1091" y="349" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#233c55" font-weight="700" text-anchor="end">3 in</text>
+<line x1="860" y1="367" x2="1114" y2="367" stroke="#d4dee5" stroke-width="1" />
+<text x="861" y="399" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#566b7b" font-weight="500" >Link 1</text><text x="1091" y="399" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#233c55" font-weight="700" text-anchor="end">18.5 in</text>
+<line x1="860" y1="417" x2="1114" y2="417" stroke="#d4dee5" stroke-width="1" />
+<text x="861" y="449" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#566b7b" font-weight="500" >Link 2</text><text x="1091" y="449" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#233c55" font-weight="700" text-anchor="end">18.5 in</text>
+<line x1="860" y1="467" x2="1114" y2="467" stroke="#d4dee5" stroke-width="1" />
+<text x="861" y="499" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#566b7b" font-weight="500" >Tool / tip</text><text x="1091" y="499" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#233c55" font-weight="700" text-anchor="end">8.5 in</text>
+<line x1="860" y1="520" x2="1114" y2="520" stroke="#d4dee5" stroke-width="1" />
+<text x="860" y="554" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5a6c79" font-weight="500" >Folded pose is schematic.</text>
+<text x="860" y="582" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5a6c79" font-weight="500" >No collision or reach</text>
+<text x="860" y="608" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5a6c79" font-weight="500" >validation is implied.</text>
+<text x="72" y="696" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#526b7e" font-weight="500" >Reconstructed engineering illustration. Simplified shapes, not to scale and not NASA hardware CAD.</text>
+<rect x="953" y="703" width="176" height="29" rx="6" fill="#e5edf4" stroke="#c3d0dc" stroke-width="1"/>
+<text x="965" y="724" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#3b5d77" font-weight="700" >RECONSTRUCTED</text>
 </svg>
