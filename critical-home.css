@@ -25,3 +25,16 @@
   .hero .hero-photo{width:190px;max-width:190px;align-self:center;margin-inline:auto}
   .featured-project-card{min-height:165px;padding:18px}
 }
+
+/* Match the first paint to the final spacing, avoiding layout shifts. */
+:root{--card-pad:clamp(18px,2.4vw,28px);--caption-size:12px}
+.hero .hero-photo figcaption{font-size:var(--caption-size);line-height:1.55}
+.featured-projects-head{gap:16px}
+.featured-projects-head .eyebrow{margin:0}
+.featured-projects-head p:last-child{margin:0;line-height:1.7}
+.featured-project-card{display:flex;flex-direction:column;gap:10px;padding:var(--card-pad);min-width:0}
+.featured-project-card strong{margin:8px 0 0;line-height:1.22}
+.featured-project-card small{line-height:1.65}
+.featured-project-card .featured-more{margin-top:auto;padding-top:12px}
+.featured-project-card .featured-project-visual{right:8px;bottom:8px;width:90px;height:90px;opacity:.075}
+@media(max-width:760px){.featured-project-card{gap:8px;padding:19px}.featured-project-card strong{margin-top:4px}.featured-project-card .featured-project-visual{width:74px;height:74px;opacity:.06}}
