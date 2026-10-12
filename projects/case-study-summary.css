@@ -17,3 +17,15 @@
 :root[data-theme="dark"] .project-evidence-first h2,
 :root[data-theme="dark"] .project-evidence-first__item h3{color:#fff2fa}
 @media(max-width:690px){.project-evidence-first__grid{grid-template-columns:minmax(0,1fr)}}
+
+/* NASA assessment: scannable, anchored engineering workstreams. */
+.nasa-workstreams{margin:28px 0;padding:clamp(20px,3vw,30px);border:1px solid var(--border,#e4d8e2);border-radius:16px;background:var(--soft,#faf6f9)}
+.nasa-workstreams>h2{font-size:clamp(23px,3vw,30px);line-height:1.25;margin:0 0 20px}
+.nasa-workstreams__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.nasa-workstreams__grid>section{padding:18px;border:1px solid var(--border,#e4d8e2);border-radius:12px;background:var(--paper,#fff);scroll-margin-top:95px}
+.nasa-workstreams__grid h3{font-size:17px;line-height:1.3;margin:0 0 9px}
+.nasa-workstreams__grid p{font-size:13px;line-height:1.75;margin:0;color:var(--secondary,#655662)}
+:root[data-theme="dark"] .nasa-workstreams{background:var(--dark-surface,#26222e);border-color:var(--dark-border,#625067)}
+:root[data-theme="dark"] .nasa-workstreams__grid>section{background:var(--dark-raised,#292331);border-color:var(--dark-border,#625067)}
+:root[data-theme="dark"] .nasa-workstreams__grid p{color:var(--dark-body,#e6ddea)}
+@media(max-width:680px){.nasa-workstreams__grid{grid-template-columns:minmax(0,1fr)}.nasa-workstreams__grid>section{padding:16px}}
