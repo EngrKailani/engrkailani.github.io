@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-css1">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +31,12 @@
 <header class="detail-heading">
 <p class="eyebrow">GitHub · Robotics &amp; controls</p><h1>3-Link Leg Simulation</h1><p>Exploring how connected joints move together</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p><h2 id="evidence-summary-title">What was done, checked, and documented</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Model hip, knee and ankle position, velocity and linked-body dynamics.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Built an Honors Contract simulation of three-link leg motion and torque computation.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>MATLAB, Simulink, S-functions, Jacobians and Newton–Euler dynamics.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Applied analytical kinematic and dynamic relationships within simulation; no independent experimental validation is documented.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>A three-joint biomechanical simulation exploring position, velocity and joint torque.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>No prosthetic prototype, measured gait comparison or quantified model error.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 03 / 16</span><p class="detail-lead">I modeled the hip, knee, and ankle as a connected three-link human leg. The model translates joint motion into foot position and velocity while examining the torques involved in linked-body motion.</p></section>
 <article class="detail-card" aria-label="3-Link Leg Simulation engineering detail"><h2 class="project-details-title">Engineering details</h2>
