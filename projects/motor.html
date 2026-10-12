@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-css1">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +31,12 @@
 <header class="detail-heading">
 <p class="eyebrow">Fall 2025 · Embedded control coursework</p><h1>STM32 Motor Timing &amp; PWM</h1><p>From timer registers to measured motor behavior</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p><h2 id="evidence-summary-title">What was done, checked, and documented</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Relate STM32 timer and PWM commands to motor response and encoder feedback.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Implemented documented embedded coursework exercises for PWM, timer configuration and GPIO input/output.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>STM32F767ZI, embedded C, TIM3 PWM, encoder capture and GPIO.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Examined PWM/duty-cycle settings and recorded motor response timing in coursework; underlying traces are unavailable.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Demonstrated microcontroller peripheral timing and motor-response observation.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>No complete motor dataset, preserved oscilloscope capture or quantified controller accuracy.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 05 / 16</span><p class="detail-lead">Working with an STM32F767ZI introduced the practical side of motor timing: configuring timer outputs, changing pulse-width modulation, and gathering response data to understand hardware behavior. Related microprocessor lab work also covered push-button inputs and direct GPIO control.</p></section>
 <article class="detail-card" aria-label="STM32 Motor Timing &amp; PWM engineering detail"><h2 class="project-details-title">Engineering details</h2>
