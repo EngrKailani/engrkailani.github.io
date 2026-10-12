@@ -646,16 +646,16 @@
           <div class="robot-action-row"><button aria-pressed="true" class="pose-button active" data-pose="home" type="button">Home</button><button aria-pressed="false" class="pose-button" data-pose="hello" type="button">Say hello</button><button aria-pressed="false" class="pose-button" data-pose="reach" type="button">Reach</button><button aria-pressed="false" class="pose-button" data-pose="inspect" type="button">Inspect</button></div>
           <div class="sequence-wrap"><button type="button" id="animate-button" class="sequence-button">Run motion sequence ↗</button><button type="button" id="stop-button" class="sequence-stop" hidden>Stop sequence</button></div>
 <div class="robot-tuner" aria-label="Manual joint controls">
-<h3>Try adjusting the joints</h3>
-<p class="tuner-hint">Drag a control to explore a new pose, or choose a preset above.</p>
+<h3>Explore the 2D joint model</h3>
+<p class="tuner-hint">These controls operate the simplified 2D view. The 3D view has its own chamber and joint controls.</p>
 <div class="joint-row"><label for="joint-shoulder">Shoulder angle</label><output id="shoulder-input-value" for="joint-shoulder">-48°</output><input id="joint-shoulder" data-joint-control type="range" min="-90" max="90" step="1" value="-48" aria-describedby="shoulder-input-value"></div>
 <div class="joint-row"><label for="joint-elbow">Elbow angle</label><output id="elbow-input-value" for="joint-elbow">96°</output><input id="joint-elbow" data-joint-control type="range" min="-120" max="135" step="1" value="96" aria-describedby="elbow-input-value"></div>
 <div class="joint-row"><label for="joint-wrist">Wrist angle</label><output id="wrist-input-value" for="joint-wrist">0°</output><input id="joint-wrist" data-joint-control type="range" min="-90" max="90" step="1" value="0" aria-describedby="wrist-input-value"></div>
 <div class="tuner-bottom"><p>Angles are illustrative, not mechanical joint limits.</p><button class="tuner-reset" type="button" id="reset-robot">Reset to home</button></div>
 </div>
         </div>
-        <div class="robot-console">
-          <div class="console-header"><span class="console-title"><span class="live-pip"></span> KAILANI'S ROBOT LAB</span><span class="console-tag">CONCEPT / 2D</span></div>
+        <div class="robot-console" data-view="3d">
+          <div class="console-header"><span class="console-title"><span class="live-pip"></span> KAILANI'S ROBOT LAB</span><span class="console-tag">EDUCATIONAL DEMOS</span><div class="robot-view-picker" role="group" aria-label="Choose robot visualization"><button type="button" data-robot-view="2d" aria-pressed="false">2D view</button><button type="button" data-robot-view="3d" aria-pressed="true">3D view</button></div></div>
           <svg aria-label="Animated side view of a robotic arm hanging from the ceiling of a test chamber" id="arm-svg" role="img" viewbox="0 0 500 430">
 <defs><pattern height="25" id="simGrid" patternunits="userSpaceOnUse" width="25"><path d="M25 0H0V25" fill="none" opacity=".3" stroke="#74526c" stroke-width=".8"></path></pattern><lineargradient id="armGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffc9dd"></stop><stop offset="1" stop-color="#e48ab8"></stop></lineargradient></defs>
 <rect fill="url(#simGrid)" height="430" width="500" x="0" y="0"></rect>
