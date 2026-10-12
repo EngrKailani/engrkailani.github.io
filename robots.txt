@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kailania.vercel.app/sitemap.xml
+Sitemap: https://engrkailani.github.io/sitemap.xml

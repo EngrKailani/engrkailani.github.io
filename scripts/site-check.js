@@ -3,7 +3,7 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
-const domain='https://kailania.vercel.app';
+const domain='https://engrkailani.github.io';
 const projectDir=path.join(root,'projects');
 const htmlFiles=['index.html','resume.html',
   ...fs.readdirSync(projectDir).filter(name=>name.endsWith('.html')).map(name=>'projects/'+name)];
@@ -19,7 +19,8 @@ for(const file of htmlFiles){
   check(html.includes('portfolio-upgrade.js'),file+' missing behavior script');
   check(html.includes('<meta property="og:image"'),file+' missing preview image');
   check(html.includes(domain),file+' missing canonical domain');
-  check(!html.includes('https://kalarcon775.github.io'),file+' references old canonical host');
+  check(!html.includes('https://kalarcon775.github.io') && !html.includes('https://kailania.vercel.app'),file+' references former portfolio host');
+  check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
   for(const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)){
     const url=match[1].trim();
     if(!url || /^(?:#|[a-z]+:|\/\/)/i.test(url))continue;
