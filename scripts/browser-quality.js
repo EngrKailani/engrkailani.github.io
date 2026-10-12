@@ -70,24 +70,46 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
-        if(test.path==='/'){
-          const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>
-            elements.map(el=>{
-              const style=getComputedStyle(el);
-              const color=style.color;
-              const rect=el.getBoundingClientRect();
-              return {text:el.textContent.trim().slice(0,85),color,
-                visibility:style.visibility,opacity:Number(style.opacity),
-                width:rect.width,height:rect.height};
-            })
-          );
-          for(const caption of captions){
-            if(caption.visibility!=='visible'||caption.opacity<0.95||
-              caption.width<1||caption.height<1)
-              note(id+': photo caption hidden: '+caption.text);
-            if(test.theme==='light' && /rgb\\(2(?:[0-5]\\d),\\s*2(?:[0-5]\\d),\\s*2(?:[0-5]\\d)\\)/.test(caption.color))
-              note(id+': photo caption too pale in light mode: '+caption.text);
-          }
+        // Captions are supporting technical content and must remain readable,
+        // not merely visible. Check every rendered case-study and homepage figure.
+        const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>{
+          const channel=color=>{
+            const m=color.match(/rgba?\\(([^)]+)\\)/);
+            if(!m)return null;
+            const parts=m[1].split(',').map(Number);
+            return parts.length>=3?parts:null;
+          };
+          const luminance=parts=>{
+            const linear=parts.slice(0,3).map(v=>{
+              const n=v/255;
+              return n<=0.04045?n/12.92:((n+0.055)/1.055)**2.4;
+            });
+            return linear[0]*0.2126+linear[1]*0.7152+linear[2]*0.0722;
+          };
+          return elements.map(el=>{
+            const cs=getComputedStyle(el);
+            const text=channel(cs.color);
+            const bg=channel(cs.backgroundColor);
+            const contrast=text&&bg&&bg[3]!==0
+              ?(Math.max(luminance(text),luminance(bg))+0.05)/
+               (Math.min(luminance(text),luminance(bg))+0.05)
+              :null;
+            const r=el.getBoundingClientRect();
+            return {text:el.textContent.trim().slice(0,85),
+              fontSize:parseFloat(cs.fontSize),color:cs.color,bg:cs.backgroundColor,
+              visibility:cs.visibility,opacity:Number(cs.opacity),
+              width:r.width,height:r.height,contrast};
+          });
+        });
+        for(const caption of captions){
+          if(caption.visibility!=='visible'||caption.opacity<0.95||
+            caption.width<1||caption.height<1)
+            note(id+': figure caption hidden: '+caption.text);
+          if(caption.fontSize<13.8)
+            note(id+': figure caption is too small ('+caption.fontSize+'px): '+caption.text);
+          if(caption.contrast!==null&&caption.contrast<4.5)
+            note(id+': figure caption has insufficient contrast ('+
+              caption.contrast.toFixed(2)+':1): '+caption.text);
         }
         if(test.imageCheck){
           for(const img of await page.locator('img:visible').all()){
