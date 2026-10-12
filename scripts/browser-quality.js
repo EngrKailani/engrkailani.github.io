@@ -40,6 +40,9 @@ const cases=[
   {path:'/projects/index.html',width:390,theme:'dark'}
 ];
 const issues=[];
+if(!'rgb(12, 34, 56)'.match(/rgba?\(([^)]+)\)/))
+  throw new Error('Caption color parser regression');
+
 const results=[];
 function note(message){issues.push(message);console.error('::error::'+message)}
 function short(s){return String(s||'').replace(/\s+/g,' ').slice(0,150)}
@@ -85,7 +88,7 @@ async function audit(){
         // not merely visible. Check every rendered case-study and homepage figure.
         const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>{
           const channel=color=>{
-            const m=color.match(/rgba?\\(([^)]+)\\)/);
+            const m=color.match(/rgba?\(([^)]+)\)/);
             if(!m)return null;
             const parts=m[1].split(',').map(Number);
             return parts.length>=3?parts:null;
