@@ -1497,3 +1497,69 @@ section[id]{scroll-margin-top:86px}
   .featured-next-step-links .btn{padding:11px 10px;gap:5px;text-align:center}
 }
 @media(max-width:360px){.featured-next-step-links{grid-template-columns:minmax(0,1fr)}}
+
+/* Project figures: make explanatory captions legible, not footnotes.
+   Higher specificity keeps contrast consistent when visual-gallery CSS loads later. */
+:root{
+  --project-caption-text:#3e3040;
+  --project-caption-surface:#f8f3f7;
+  --project-caption-border:#e5d8e2;
+}
+:root[data-theme="dark"]{
+  --project-caption-text:#f6eef5;
+  --project-caption-surface:#342b3e;
+  --project-caption-border:#6b5875;
+}
+:root .project-page :is(
+  .detail-figure,
+  .project-visual-gallery__figure,
+  .thermal-feature,
+  .iverify-concept-figure,
+  .context-photo-accent
+) figcaption{
+  position:static;
+  display:block;
+  width:auto;
+  max-width:100%;
+  margin:12px 0 0;
+  padding:11px 14px;
+  font:500 14px/1.65 var(--sans,Arial,sans-serif);
+  letter-spacing:0;
+  text-align:left;
+  text-shadow:none;
+  color:var(--project-caption-text);
+  background:var(--project-caption-surface);
+  border:1px solid var(--project-caption-border);
+  border-radius:9px;
+  overflow-wrap:anywhere;
+}
+:root .project-page .iverify-concept-figure figcaption{
+  margin-top:0;
+  border-radius:0 0 9px 9px;
+}
+:root .project-page .context-photo-accent figcaption{
+  align-self:stretch;
+  text-align:center;
+}
+:root .project-page :is(
+  .detail-figure,
+  .project-visual-gallery__figure,
+  .thermal-feature,
+  .iverify-concept-figure,
+  .context-photo-accent
+) figcaption :is(span,small){
+  font-size:13px;
+  line-height:1.55;
+  color:var(--project-caption-text);
+}
+:root[data-theme="dark"] .project-page :is(
+  .detail-figure,
+  .project-visual-gallery__figure,
+  .thermal-feature,
+  .iverify-concept-figure,
+  .context-photo-accent
+) figcaption{
+  color:var(--project-caption-text);
+  background:var(--project-caption-surface);
+  border-color:var(--project-caption-border);
+}
