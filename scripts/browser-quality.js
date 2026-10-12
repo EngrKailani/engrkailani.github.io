@@ -70,6 +70,25 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/'){
+          const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>
+            elements.map(el=>{
+              const style=getComputedStyle(el);
+              const color=style.color;
+              const rect=el.getBoundingClientRect();
+              return {text:el.textContent.trim().slice(0,85),color,
+                visibility:style.visibility,opacity:Number(style.opacity),
+                width:rect.width,height:rect.height};
+            })
+          );
+          for(const caption of captions){
+            if(caption.visibility!=='visible'||caption.opacity<0.95||
+              caption.width<1||caption.height<1)
+              note(id+': photo caption hidden: '+caption.text);
+            if(test.theme==='light' && /rgb\\(2(?:[0-5]\\d),\\s*2(?:[0-5]\\d),\\s*2(?:[0-5]\\d)\\)/.test(caption.color))
+              note(id+': photo caption too pale in light mode: '+caption.text);
+          }
+        }
         if(test.imageCheck){
           for(const img of await page.locator('img:visible').all()){
             await img.scrollIntoViewIfNeeded({timeout:6500});
