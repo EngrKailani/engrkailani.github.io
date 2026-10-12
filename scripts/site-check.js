@@ -19,7 +19,7 @@ for(const file of htmlFiles){
   check(html.includes('portfolio-upgrade.js'),file+' missing behavior script');
   check(html.includes('<meta property="og:image"'),file+' missing preview image');
   check(html.includes(domain),file+' missing canonical domain');
-  check(!html.includes('https://kalarcon775.github.io') && !html.includes('https://kailania.vercel.app'),file+' references former portfolio host');
+  check(!html.includes('https://kalarcon775.github.io'),file+' references former portfolio host');
   check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
   for(const match of html.matchAll(/\s(?:href|src)=["']([^"']+)["']/g)){
     const url=match[1].trim();
@@ -123,33 +123,29 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
   });
 }
 
-/* Optional photo uploads are deliberately absent until the owner adds JPEGs.
-   Only real HTML src/href attributes are checked as required assets. */
-const photosJs=fs.readFileSync(path.join(root,'portfolio-photos.js'),'utf8');
-const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
-const photos=[
+/* Curated NASA and awards photographs are real assets and work without JavaScript. */
+const selectedPhotos=[
   'assets/nasa-sls-team.jpeg',
-  'assets/nasa-mission-patches.jpeg',
   'assets/nasa-astronaut-suit.jpeg',
   'assets/engineering-awards.jpeg'
 ];
-check(home.includes('portfolio-photos.css')&&home.includes('portfolio-photos.js'),
-  'Optional photo loader and styling must be referenced on the homepage');
-check(photos.every(filename=>home.includes('data-portfolio-photo-src="'+filename+'"')),
-  'All four planned portfolio filenames must be present');
-check((home.match(/data-portfolio-photo-src=/g)||[]).length===4,
-  'Expected four optional photo slots with no duplicated images');
-check(home.includes('id="portfolio-photo-gallery"')&&
-  home.includes('id="portfolio-photo-gallery-title"')&&
-  home.includes('class="portfolio-awards-photo" hidden'),
-  'NASA gallery and awards card must have accessible, initially hidden containers');
-check(photosJs.includes("preloader.onload")&&photosJs.includes("preloader.onerror")&&
-  photosJs.includes("figure.hidden = false")&&photosCss.includes('[hidden]'),
-  'Missing optional photos must remain hidden until they load successfully');
-let optionalPhotosScriptParses=true;
-try{new (require('node:vm').Script)(photosJs,{filename:'portfolio-photos.js'})}
-catch(error){optionalPhotosScriptParses=false;console.error(error.message)}
-check(optionalPhotosScriptParses,'Optional photo loader JavaScript must parse');
+check(home.includes('portfolio-photos.css') && !home.includes('portfolio-photos.js'),
+  'Curated photos must load CSS without the old JavaScript preloader');
+check(selectedPhotos.every(filename=>fs.existsSync(path.join(root,filename)) &&
+  home.includes('src="'+filename+'"')),
+  'Selected portfolio photos must exist and be referenced by native image elements');
+check((home.match(/class="portfolio-photo-card(?: portfolio-photo-card--team)?"/g)||[]).length===2,
+  'Curated NASA photo section should show two complementary images');
+check(home.includes('id="portfolio-photo-gallery"') &&
+  home.includes('id="portfolio-photo-gallery-title"') &&
+  home.includes('class="portfolio-awards-photo"'),
+  'NASA gallery and engineering recognition image should be present');
+check(!home.includes('data-portfolio-photo-src=') &&
+  !/<section class="portfolio-photo-gallery"[^>]* hidden/.test(home),
+  'Present photographs must not be hidden behind JavaScript');
+const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
+check(photosCss.includes('@media(max-width:620px)'),
+  'Curated photo gallery needs a compact single-column layout');
 
 /* Interactive engineering-case-study explorer: linked to the existing dossiers. */
 const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');
