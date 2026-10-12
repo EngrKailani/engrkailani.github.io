@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261011-readability">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +31,19 @@
 <header class="detail-heading">
 <p class="eyebrow">ME422 · Spring 2026 · Group study</p><h1>UR3e Robot Kinematics</h1><p>Modeling six degrees of freedom with Jacobians</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title">
+<p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p>
+<h2 id="evidence-summary-title">What was done, checked, and documented</h2>
+<div class="project-evidence-first__grid">
+<div class="project-evidence-first__item"><h3>Problem</h3><p>Model the pose, velocity, and singularity conditions of a six-joint UR3e robotic arm.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Contributed as a member of a three-person analysis team; individual derivations are not separately attributed in the available record.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>MATLAB, Denavit–Hartenberg frames, homogeneous transformations, Jacobian analysis.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Evaluated Jacobian rank for multiple joint configurations using the team’s kinematic model.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>The zero-angle configuration yielded Jacobian rank 5 (singular); another analyzed configuration reached full rank.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>Mathematical group analysis, not independently verified physical UR3e testing. Individual task ownership and original raw outputs are not fully documented.</p></div>
+</div>
+<p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
+</section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 02 / 16</span><p class="detail-lead">In a three-person robotics analysis project, our team studied the Universal Robots UR3e, a six-joint collaborative arm. We assigned Denavit–Hartenberg frames and derived the transformations that describe how each joint contributes to the end-effector pose. The project connected the mathematics of robot motion to an industrial manipulator.</p><div class="project-overview__role"><strong>Team context</strong><p>Member of a three-person robot-kinematics analysis team; the project documentation describes shared DH, Jacobian, and singularity analysis.</p></div></section>
 <article class="detail-card" aria-label="UR3e Robot Kinematics engineering detail"><h2 class="project-details-title">Engineering details</h2>
