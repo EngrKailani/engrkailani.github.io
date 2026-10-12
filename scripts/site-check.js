@@ -171,9 +171,10 @@ check(!home.includes('data-portfolio-photo-src=') &&
   !/<section class="portfolio-photo-gallery"[^>]* hidden/.test(home),
   'Present photographs must not be hidden behind JavaScript');
 const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
-check(photosCss.includes('@media(max-width:520px)') &&
-  photosCss.includes('grid-template-columns:minmax(0,1fr)'),
-  'Curated photo gallery needs a compact single-column layout');
+check(photosCss.includes('@media(max-width:620px)') &&
+  photosCss.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
+  photosCss.includes('grid-column:1/-1'),
+  'Responsive photo accents should show a full-width team image above two small portraits');
 check(!photosCss.includes('Engineering evidence photos: thumbnail-size accents') &&
   !photosCss.includes('background:linear-gradient(transparent,rgba(22,17,28,.84))'),
   'Outdated photo layouts and overlay captions must not return');
