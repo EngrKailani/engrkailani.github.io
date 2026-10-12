@@ -1,0 +1,132 @@
+/* Optional portfolio photos: reveal only after each user-provided asset loads.
+   All selectors are scoped so project and robot layouts remain unchanged. */
+.portfolio-photo-gallery[hidden],
+.portfolio-photo-card[hidden],
+.portfolio-awards-photo[hidden]{
+  display:none!important;
+}
+.work-section .portfolio-photo-gallery{
+  margin:clamp(23px,3.5vw,37px) auto 0;
+  max-width:1120px;
+}
+.portfolio-photo-gallery__intro{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px 22px;
+  margin:0 0 14px;
+}
+.portfolio-photo-gallery__intro h3{
+  margin:0 0 3px;
+  color:#493649;
+  font:600 clamp(21px,2.6vw,27px)/1.25 var(--serif,Georgia,serif);
+}
+.portfolio-photo-gallery__intro p{
+  margin:0;
+  color:#6d596a;
+  font:500 12px/1.7 var(--sans,system-ui,sans-serif);
+}
+.portfolio-photo-gallery__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,1fr));
+  align-items:stretch;
+  gap:13px;
+}
+.portfolio-photo-card{
+  position:relative;
+  margin:0;
+  overflow:hidden;
+  min-width:0;
+  border:1px solid rgba(111,77,110,.3);
+  border-radius:13px;
+  background:#2e2637;
+  box-shadow:0 12px 28px rgba(49,34,51,.11);
+}
+.portfolio-photo-card img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:220px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:center;
+}
+.portfolio-photo-card--team img{
+  aspect-ratio:3/2;
+  object-position:center;
+}
+.portfolio-photo-card figcaption{
+  position:absolute;
+  inset:auto 0 0;
+  padding:35px 14px 12px;
+  background:linear-gradient(transparent,rgba(22,17,28,.84));
+  color:#fff6fc;
+  font:700 12px/1.45 var(--sans,system-ui,sans-serif);
+  text-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.portfolio-photo-card figcaption span{
+  display:block;
+  margin-top:3px;
+  font-weight:500;
+  font-size:11px;
+  color:#f6e1f1;
+}
+.about-section .portfolio-awards-photo{
+  display:grid;
+  grid-template-columns:minmax(90px,135px) minmax(0,1fr);
+  align-items:center;
+  gap:13px;
+  max-width:530px;
+  margin:19px 0 0;
+  padding:11px;
+  border:1px solid #d8bdcf;
+  border-radius:13px;
+  background:rgba(255,251,254,.7);
+  box-shadow:0 8px 21px rgba(67,35,60,.07);
+}
+.portfolio-awards-photo img{
+  display:block;
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:center 39%;
+  border-radius:8px;
+}
+.portfolio-awards-photo figcaption{
+  color:#594658;
+  font:500 12px/1.7 var(--sans,system-ui,sans-serif);
+}
+.portfolio-awards-photo figcaption strong{
+  display:block;
+  margin-bottom:3px;
+  color:#683653;
+  font-size:13px;
+  font-weight:750;
+}
+:root[data-theme="dark"] .portfolio-photo-gallery__intro h3{color:#fff2fa}
+:root[data-theme="dark"] .portfolio-photo-gallery__intro p{color:#ead4e6}
+:root[data-theme="dark"] .portfolio-awards-photo{
+  border-color:#835c7d;
+  background:#34273c;
+}
+:root[data-theme="dark"] .portfolio-awards-photo figcaption{color:#eedbea}
+:root[data-theme="dark"] .portfolio-awards-photo figcaption strong{color:#f4bddb}
+@media(max-width:780px){
+  .portfolio-photo-gallery__grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .portfolio-photo-card--team{grid-column:1/-1}
+  .portfolio-photo-card--team img{aspect-ratio:16/9;min-height:0}
+  .portfolio-photo-card:not(.portfolio-photo-card--team) img{min-height:0}
+}
+@media(max-width:520px){
+  .portfolio-photo-gallery__grid{gap:10px}
+  .portfolio-photo-card figcaption{padding:30px 10px 10px;font-size:11px}
+  .portfolio-photo-card figcaption span{font-size:10px}
+  .portfolio-photo-card:not(.portfolio-photo-card--team) img{aspect-ratio:3/4}
+  .about-section .portfolio-awards-photo{
+    grid-template-columns:94px minmax(0,1fr);
+    gap:12px;
+  }
+}
