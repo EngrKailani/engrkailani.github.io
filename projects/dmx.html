@@ -13,6 +13,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-css1">
+<link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -31,6 +32,12 @@
 <header class="detail-heading">
 <p class="eyebrow">GitHub · Lighting control</p><h1>DMX Controller</h1><p>A browser interface connected to physical lights</p>
 </header>
+<section class="project-evidence-first" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p><h2 id="evidence-summary-title">What was done, checked, and documented</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Translate browser scene and brightness selections into RGBW DMX frames.</p></div>
+<div class="project-evidence-first__item"><h3>My contribution</h3><p>Original browser/Flask and Arduino source documents the control system; exact individual module ownership is not recorded.</p></div>
+<div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Flask, Python, serial, Arduino Mega, DMX/RS-485 and RGBW control.</p></div>
+<div class="project-evidence-first__item"><h3>Validation method</h3><p>Inspected recovered code and calculated frame timing/dimming outputs; video offers context only.</p></div>
+<div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Four RGBW slots, programmed scenes and a 22.708 ms calculated minimum frame at 250 kbit/s.</p></div>
+<div class="project-evidence-first__item"><h3>Limitations</h3><p>No oscilloscope-verified waveform, physical fixture measurements or authenticated HTTP control.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#dmx-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview">
 <span class="detail-tag">PROJECT 15 / 16</span>
