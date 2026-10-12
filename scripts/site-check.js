@@ -162,8 +162,43 @@ check(!home.includes('data-portfolio-photo-src=') &&
   !/<section class="portfolio-photo-gallery"[^>]* hidden/.test(home),
   'Present photographs must not be hidden behind JavaScript');
 const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
-check(photosCss.includes('@media(max-width:620px)'),
+check(photosCss.includes('@media(max-width:520px)') &&
+  photosCss.includes('grid-template-columns:minmax(0,1fr)'),
   'Curated photo gallery needs a compact single-column layout');
+check(!photosCss.includes('Engineering evidence photos: thumbnail-size accents') &&
+  !photosCss.includes('background:linear-gradient(transparent,rgba(22,17,28,.84))'),
+  'Outdated photo layouts and overlay captions must not return');
+check(photosCss.includes('var(--photo-gallery-heading)') &&
+  photosCss.includes('var(--photo-awards-background)') &&
+  photosCss.includes('object-fit:contain'),
+  'Photo accents must use shared theme colors and natural image proportions');
+
+const upgradeCss=fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8');
+check((upgradeCss.match(/:root\\[data-theme="dark"\\]\\s*\\{/g)||[]).length===1,
+  'Dark-mode design tokens must be declared in one canonical block');
+for(const token of [
+  '--bg:#191923;',
+  '--dark-text:#f8f5fc;',
+  '--berry:#982e62;',
+  '--photo-gallery-heading:#fff2fa;',
+  '--photo-awards-background:#34273c;'
+]){
+  check(upgradeCss.includes(token),'Missing dark-mode token: '+token);
+}
+for(const token of [
+  '--photo-gallery-heading:#493649;',
+  '--photo-awards-background:rgba(255,251,254,.7);'
+]){
+  check(upgradeCss.includes(token),'Missing light-mode photo token: '+token);
+}
+/* Keep the published bundle byte-for-byte in sync with its authored sources. */
+const bundleSources=['styles.css','enhancements.css','bookshelf.css','ux.css',
+  'botanical.css','ambient.css','engineering.css','case-studies.css','project-pages.css'];
+const expectedBundle='/* Compiled portfolio stylesheet. Source: build-css.js; CSS files concatenated in exact cascade order. */\\n' +
+  bundleSources.map(file=>'\\n/* SOURCE: '+file+' */\\n' +
+    fs.readFileSync(path.join(root,file),'utf8').trimEnd()+'\\n').join('');
+check(fs.readFileSync(path.join(root,'portfolio.css'),'utf8')===expectedBundle,
+  'Compiled portfolio.css must match source CSS. Run node build-css.js');
 
 /* Interactive engineering-case-study explorer: linked to the existing dossiers. */
 const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');
