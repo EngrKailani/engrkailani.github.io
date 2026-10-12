@@ -447,17 +447,19 @@ for(const group of ['robotics','embedded','measurement','software']){
     'Project directory missing discipline '+group);
 }
 
-/* The hiring overview must remain short while optional experiences stay reachable. */
+/* Keep the overview concise and restore permanently visible books and planets. */
 const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
 check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
   'Homepage must feature exactly three focused project cards');
 check(['nasa','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
   'NASA, IVerify and Thermal Logger must be the featured work');
-check(home.indexOf('id="experience"')<home.indexOf('id="explore"')&&
-  home.includes('<details class="portfolio-extras" id="explore">'),
-  'Experience must precede the initially collapsed interactive portfolio');
+check(home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
+  home.includes('<section class="portfolio-extras" id="explore"') &&
+  home.includes('id="bookshelf"') && home.includes('id="repo-planetarium"') &&
+  !home.includes('<details class="portfolio-extras"'),
+  'Books and planets must remain visible on the homepage');
 check(home.includes('homepage-refinement.js')&&
   fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true"),
-  'Deep links must reveal optional sections');
+  'Deep links must reveal nested interactive sections');
 console.log((failed?'FAIL':'PASS')+': '+(checks-failed)+'/'+checks+' static checks');
 if(failed)process.exitCode=1;

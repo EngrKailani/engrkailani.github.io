@@ -85,7 +85,12 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
-        if(test.path==='/'&&test.imageCheck) await page.locator('#explore>summary').click();
+        if(test.path==='/') {
+          if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf should be visible');
+          if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
+          if(await page.locator('[data-open-book]').count()!==16) note(id+': expected 16 project books');
+          if(await page.locator('.repo-planet').count()!==5) note(id+': expected 5 repository planets');
+        }
         // Captions are supporting technical content and must remain readable,
         // not merely visible. Check every rendered case-study and homepage figure.
         const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>{
@@ -171,20 +176,22 @@ async function audit(){
           }
         }
         if(test.screenshot){
-          if(test.path==='/') await page.locator('#explore').evaluate(el=>el.open=false);
-          await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+
+await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
           await page.screenshot({path:path.join(out,'screenshots',id+'.png'),animations:'disabled'});
           if(test.path==='/'){
             for(const [name,selector] of [
               ['featured-projects','#featured-projects'],
               ['nasa-photo-accents','#portfolio-photo-gallery'],
               ['education-photo','.education-panel'],
-              ['about-photos','#about']
+              ['about-photos','#about'],
+              ['project-books','#bookshelf'],
+              ['orbit-planets','#repo-planetarium']
             ]){
               const element=page.locator(selector).first();
               if(await element.count()){
-                if(name==='nasa-photo-accents') await page.locator('#explore').evaluate(el=>el.open=true);
-                await element.screenshot({
+
+await element.screenshot({
                   path:path.join(out,'screenshots',id+'-'+name+'.png'),
                   animations:'disabled',timeout:12000
                 });

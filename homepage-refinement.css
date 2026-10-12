@@ -23,13 +23,11 @@
 .portfolio-home #about .portfolio-awards-photo{margin-top:20px}
 .portfolio-explore-wrap{margin-block:12px 42px}
 .portfolio-extras{border:1px solid var(--border);border-radius:16px;background:var(--paper,#fff)}
-.portfolio-extras>summary{display:flex;align-items:center;justify-content:space-between;gap:20px;cursor:pointer;list-style:none;padding:25px 28px;border-radius:16px;min-height:90px}
-.portfolio-extras>summary::-webkit-details-marker{display:none}
+.portfolio-extras>.extras-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:25px 28px;border-radius:16px;min-height:90px}
 .extras-summary-copy{display:grid;gap:5px;min-width:0}
-.extras-summary-copy>strong{font:500 25px/1.25 var(--serif);color:var(--ink)}
-.extras-summary-copy>span{font-size:13px;line-height:1.65;color:var(--secondary)}
-.extras-summary-action{font-size:12px;font-weight:700;color:var(--rose-dark);flex-shrink:0}
-.portfolio-extras[open]>summary{border-bottom:1px solid var(--border);border-radius:16px 16px 0 0}
+.extras-summary-copy>h2{font:500 25px/1.25 var(--serif);color:var(--ink);margin:0}
+.extras-summary-copy>p{font-size:13px;line-height:1.65;color:var(--secondary);margin:0}
+.portfolio-extras>.extras-heading{border-bottom:1px solid var(--border);border-radius:16px 16px 0 0}
 .portfolio-extras .section{padding-block:48px}
 .portfolio-extras>.work-section .feature-visual{width:min(230px,100%);margin:0 auto 24px;min-height:0;padding:0;background:none}
 .portfolio-extras>.work-section .feature-visual img{width:100%;height:auto;max-height:none}
@@ -64,8 +62,8 @@
  .portfolio-home > main > .section{padding-block:42px}
  .selected-work .featured-project-card{padding:21px}
  .selected-work .featured-project-card h3{font-size:26px}
- .portfolio-extras>summary{padding:20px;align-items:flex-start;flex-direction:column;gap:12px}
- .extras-summary-copy>strong{font-size:22px}
+ .portfolio-extras>.extras-heading{padding:20px;align-items:flex-start;flex-direction:column;gap:12px}
+ .extras-summary-copy>h2{font-size:22px}
  .portfolio-extras :is(.container,.technical-dossiers){width:calc(100% - 24px)}
  .portfolio-extras .bookshelf-cabinet{padding-inline:10px}
  .portfolio-extras .robot-section .robot-layout{width:calc(100% - 16px)}
