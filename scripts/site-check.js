@@ -174,7 +174,7 @@ check(photosCss.includes('var(--photo-gallery-heading)') &&
   'Photo accents must use shared theme colors and natural image proportions');
 
 const upgradeCss=fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8');
-check((upgradeCss.match(/:root\\[data-theme="dark"\\]\\s*\\{/g)||[]).length===1,
+check((upgradeCss.match(/:root\[data-theme="dark"\]\s*\{/g)||[]).length===1,
   'Dark-mode design tokens must be declared in one canonical block');
 for(const token of [
   '--bg:#191923;',
@@ -194,9 +194,9 @@ for(const token of [
 /* Keep the published bundle byte-for-byte in sync with its authored sources. */
 const bundleSources=['styles.css','enhancements.css','bookshelf.css','ux.css',
   'botanical.css','ambient.css','engineering.css','case-studies.css','project-pages.css'];
-const expectedBundle='/* Compiled portfolio stylesheet. Source: build-css.js; CSS files concatenated in exact cascade order. */\\n' +
-  bundleSources.map(file=>'\\n/* SOURCE: '+file+' */\\n' +
-    fs.readFileSync(path.join(root,file),'utf8').trimEnd()+'\\n').join('');
+const expectedBundle='/* Compiled portfolio stylesheet. Source: build-css.js; CSS files concatenated in exact cascade order. */\n' +
+  bundleSources.map(file=>'\n/* SOURCE: '+file+' */\n' +
+    fs.readFileSync(path.join(root,file),'utf8').trimEnd()+'\n').join('');
 check(fs.readFileSync(path.join(root,'portfolio.css'),'utf8')===expectedBundle,
   'Compiled portfolio.css must match source CSS. Run node build-css.js');
 
