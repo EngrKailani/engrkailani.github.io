@@ -2,17 +2,17 @@
 
 **Project 10 of 16 · 2025–2026 · Test automation**
 
-This is an **engineering recovery package** for the original Thermal Controller & Logger. The [original Python source](https://github.com/kalarcon775/Thermal-Logger) survives and is maintained in its own repository; it is **not copied into the portfolio repo**.
+This is an **engineering recovery package** for the original Thermal Controller & Logger. The [original Python source](https://github.com/EngrKailani/Thermal-Logger) survives and is maintained in its own repository; it is **not copied into the portfolio repo**.
 
 ## Recovered source
 
 | Component | Original file |
 |---|---|
-| Desktop GUI and acquisition coordinator | [main_ui.pyw](https://github.com/kalarcon775/Thermal-Logger/blob/main/main_ui.pyw) |
-| Thermocouple acquisition | [tc08_interface.py](https://github.com/kalarcon775/Thermal-Logger/blob/main/tc08_interface.py) |
-| Arduino serial controls | [logger_core.py](https://github.com/kalarcon775/Thermal-Logger/blob/main/logger_core.py) |
-| Graphical trends | [graph_window.py](https://github.com/kalarcon775/Thermal-Logger/blob/main/graph_window.py) |
-| Original setup documentation | [README.md](https://github.com/kalarcon775/Thermal-Logger/blob/main/README.md) |
+| Desktop GUI and acquisition coordinator | [main_ui.pyw](https://github.com/EngrKailani/Thermal-Logger/blob/main/main_ui.pyw) |
+| Thermocouple acquisition | [tc08_interface.py](https://github.com/EngrKailani/Thermal-Logger/blob/main/tc08_interface.py) |
+| Arduino serial controls | [logger_core.py](https://github.com/EngrKailani/Thermal-Logger/blob/main/logger_core.py) |
+| Graphical trends | [graph_window.py](https://github.com/EngrKailani/Thermal-Logger/blob/main/graph_window.py) |
+| Original setup documentation | [README.md](https://github.com/EngrKailani/Thermal-Logger/blob/main/README.md) |
 
 The original source reads up to eight thermocouple channels, optionally includes the cold-junction channel, manages setpoints over an optional Arduino serial link, displays channel trends, and records tests to CSV and optionally Excel.
 

@@ -1,6 +1,6 @@
 # Electrical model and reproducible engineering calculations
 
-**Original source reviewed:** [ProDriver-Sim/main.py](https://github.com/kalarcon775/ProDriver-Sim/blob/main/main.py), with publicly committed \`BST1.json\`, \`HO7_4800lm.json\`, and \`HO7_6400lm.json\`.
+**Original source reviewed:** [ProDriver-Sim/main.py](https://github.com/EngrKailani/ProDriver-Sim/blob/main/main.py), with publicly committed \`BST1.json\`, \`HO7_4800lm.json\`, and \`HO7_6400lm.json\`.
 
 This document describes behavior implemented in the currently available code. It does **not** claim validated simulation-to-bench correlation.
 

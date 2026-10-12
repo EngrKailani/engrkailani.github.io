@@ -2,7 +2,7 @@
 
 **Project 13 / 16 · Electrical simulation · Recovered original source, new supporting analysis**
 
-The [original ProDriver Sim application](https://github.com/kalarcon775/ProDriver-Sim) survives in its own GitHub repository, including `main.py`, driver/LED module JSON profiles, and a desktop GUI. This directory contains **new source-informed documentation, diagrams, cross-checking utilities, and tests** for the engineering portfolio. It intentionally does not duplicate company configuration files or a potentially sensitive calibration database.
+The [original ProDriver Sim application](https://github.com/EngrKailani/ProDriver-Sim) survives in its own GitHub repository, including `main.py`, driver/LED module JSON profiles, and a desktop GUI. This directory contains **new source-informed documentation, diagrams, cross-checking utilities, and tests** for the engineering portfolio. It intentionally does not duplicate company configuration files or a potentially sensitive calibration database.
 
 ## Architecture and public configuration plots
 
@@ -18,10 +18,10 @@ The plots visualize public archived JSON **profile values**. These curves are no
 
 | Original source | Content |
 |---|---|
-| [main.py](https://github.com/kalarcon775/ProDriver-Sim/blob/main/main.py) | JSON parsing, interpolation, electrical power model, operating limit checks, CLI, and PyQt6 UI |
-| [BST1.json](https://github.com/kalarcon775/ProDriver-Sim/blob/main/BST1.json) | Archived driver voltage, efficiency and operating-limit parameters |
-| [HO7_4800lm.json](https://github.com/kalarcon775/ProDriver-Sim/blob/main/HO7_4800lm.json) | Archived 4800 lm module reference curves |
-| [HO7_6400lm.json](https://github.com/kalarcon775/ProDriver-Sim/blob/main/HO7_6400lm.json) | Archived 6400 lm module reference curves |
+| [main.py](https://github.com/EngrKailani/ProDriver-Sim/blob/main/main.py) | JSON parsing, interpolation, electrical power model, operating limit checks, CLI, and PyQt6 UI |
+| [BST1.json](https://github.com/EngrKailani/ProDriver-Sim/blob/main/BST1.json) | Archived driver voltage, efficiency and operating-limit parameters |
+| [HO7_4800lm.json](https://github.com/EngrKailani/ProDriver-Sim/blob/main/HO7_4800lm.json) | Archived 4800 lm module reference curves |
+| [HO7_6400lm.json](https://github.com/EngrKailani/ProDriver-Sim/blob/main/HO7_6400lm.json) | Archived 6400 lm module reference curves |
 
 ## Newly reconstructed engineering files
 
@@ -35,7 +35,7 @@ The plots visualize public archived JSON **profile values**. These curves are no
 ## Run the original application
 
 ```bash
-git clone https://github.com/kalarcon775/ProDriver-Sim.git
+git clone https://github.com/EngrKailani/ProDriver-Sim.git
 cd ProDriver-Sim
 python main.py --driver BST1.json --module HO7_4800lm.json --current 0.6 --input-v 120
 ```

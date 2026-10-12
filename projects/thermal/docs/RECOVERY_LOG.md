@@ -4,7 +4,7 @@
 
 ## Located original source
 
-[Original repository](https://github.com/kalarcon775/Thermal-Logger) with:
+[Original repository](https://github.com/EngrKailani/Thermal-Logger) with:
 - `main_ui.pyw`: full Tkinter test configuration/acquisition/export interface.
 - `logger_core.py`: Arduino transport and shared trend/sample settings.
 - `tc08_interface.py`: Pico TC-08 driver wrapper.
