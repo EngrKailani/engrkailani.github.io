@@ -1,0 +1,38 @@
+name: Publish updated resume PDF
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/build-resume-pdf.py
+      - .github/workflows/update-resume.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install font and PDF generator
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-crosextra-carlito
+          python -m pip install PyMuPDF==1.26.5
+      - name: Render supplied resume content into a one-page PDF
+        run: python scripts/build-resume-pdf.py
+      - name: Commit updated resume at the existing website asset path
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/Kailani_Alarcon_Resume.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish October 2026 resume PDF"
+            git pull --rebase origin main
+            git push
+          fi
