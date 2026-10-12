@@ -2,7 +2,7 @@
 
 **Project 14 / 16 | Webcam gesture-controlled RGBW scene concept**
 
-The original [HueMotion application](https://github.com/kalarcon775/HueMotion) has been recovered in its public GitHub repository. This portfolio folder adds **source-inspected documentation, three vector graphics, and a standalone, non-networked gesture policy model**. The original live application is preserved separately. No Casambi credentials, private scene numbers, operational network data, or user recordings are included.
+The original [HueMotion application](https://github.com/EngrKailani/HueMotion) has been recovered in its public GitHub repository. This portfolio folder adds **source-inspected documentation, three vector graphics, and a standalone, non-networked gesture policy model**. The original live application is preserved separately. No Casambi credentials, private scene numbers, operational network data, or user recordings are included.
 
 ![Source architecture](visuals/architecture.svg)
 
@@ -12,11 +12,11 @@ The original [HueMotion application](https://github.com/kalarcon775/HueMotion) h
 
 ## Original project source and manual
 
-- [Original server, browser interface, and gesture recognition](https://github.com/kalarcon775/HueMotion/blob/main/server.casambi.js), single source file
-- [Original README and setup instructions](https://github.com/kalarcon775/HueMotion/blob/main/README.md)
-- [Original HueMotion project manual](https://github.com/kalarcon775/HueMotion/blob/main/HueMotion_Manual.pdf)
+- [Original server, browser interface, and gesture recognition](https://github.com/EngrKailani/HueMotion/blob/main/server.casambi.js), single source file
+- [Original README and setup instructions](https://github.com/EngrKailani/HueMotion/blob/main/README.md)
+- [Original HueMotion project manual](https://github.com/EngrKailani/HueMotion/blob/main/HueMotion_Manual.pdf)
 - [Original portfolio demonstration](../huemotion.html) with an existing video, preserved unchanged
-- [Dependencies](https://github.com/kalarcon775/HueMotion/blob/main/package.json): local WebSocket client library `ws`
+- [Dependencies](https://github.com/EngrKailani/HueMotion/blob/main/package.json): local WebSocket client library `ws`
 
 The original implementation uses MediaPipe Tasks Vision loaded into the browser from a CDN, webcam video, up to two detected hands, and application-defined gesture heuristics. The Node.js server optionally authenticates to a Casambi network and sends scene messages using a WebSocket bridge.
 
@@ -34,7 +34,7 @@ The original implementation uses MediaPipe Tasks Vision loaded into the browser 
 ## Run the original preview
 
 ```bash
-git clone https://github.com/kalarcon775/HueMotion.git
+git clone https://github.com/EngrKailani/HueMotion.git
 cd HueMotion
 npm install
 node server.casambi.js
@@ -56,6 +56,6 @@ The 11 unit scenarios also passed a JS runtime assertion-harness evaluation duri
 
 ## Source / reconstruction distinctions
 
-Historical **source**: original [HueMotion repository](https://github.com/kalarcon775/HueMotion). New **reconstruction**: diagrams, mapping table, offline state gate, security/verification documents in this directory. Historical performance measurements, classifier accuracy, gesture false-positive rates, and successful scene transitions cannot be inferred solely from code. The original manual is linked rather than republished.
+Historical **source**: original [HueMotion repository](https://github.com/EngrKailani/HueMotion). New **reconstruction**: diagrams, mapping table, offline state gate, security/verification documents in this directory. Historical performance measurements, classifier accuracy, gesture false-positive rates, and successful scene transitions cannot be inferred solely from code. The original manual is linked rather than republished.
 
 Back to [HueMotion portfolio detail](../huemotion.html).

@@ -2,7 +2,7 @@
 
 ## Recovered original materials
 
-- [Original public HueMotion repository](https://github.com/kalarcon775/HueMotion)
+- [Original public HueMotion repository](https://github.com/EngrKailani/HueMotion)
 - Single-file Node HTTP server and embedded HTML/CSS/browser JavaScript (`server.casambi.js`).
 - Webcam-based MediaPipe Tasks Vision 21-landmark hand tracking (up to two hands).
 - Eight gesture mappings, RGBW preview states, stabilization and dispatch logic.
