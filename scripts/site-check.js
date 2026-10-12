@@ -448,6 +448,17 @@ for(const group of ['robotics','embedded','measurement','software']){
 }
 
 /* Keep the overview concise and restore permanently visible books and planets. */
+const expectedFeaturedPreviews=[
+  'projects/nasa-figures/robotic-arm-geometry.svg',
+  'projects/iverify/media/exploded-concept.svg',
+  'projects/thermal/media/logger-interface-concept.svg'
+];
+const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
+check((featuredPreviews.match(/class="selected-project-preview"/g)||[]).length===3 &&
+  expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
+  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=3,
+  'Featured engineering work must include three source-labeled visual previews');
+
 const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
 check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
   'Homepage must feature exactly three focused project cards');

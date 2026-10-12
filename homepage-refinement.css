@@ -73,3 +73,51 @@
  .case-contact-actions .btn{width:100%}
 }
 @media(max-width:660px){.portfolio-home .portfolio-explore-wrap{width:calc(100% - 12px)}}
+
+/* Evidence-led engineering previews: preserve the existing project text and
+   keep the interactive bookshelf and planetarium as secondary explorations. */
+.selected-work-heading{max-width:800px;margin-bottom:clamp(24px,3vw,36px)}
+.selected-work-heading h2{font-size:clamp(31px,3.65vw,47px);line-height:1.18;letter-spacing:-.025em;text-wrap:balance}
+.selected-work-heading>p:last-child{max-width:60ch;font-size:clamp(15px,1.2vw,17px);line-height:1.7}
+.selected-work .featured-project-grid{gap:clamp(15px,1.6vw,23px);align-items:stretch}
+.selected-work .featured-project-card{display:flex;flex-direction:column;min-width:0;padding:clamp(17px,2vw,23px);border-radius:18px}
+.selected-work .featured-project-card .featured-category{letter-spacing:.07em;font-size:11px;font-weight:800}
+.selected-project-preview{display:block;position:relative;overflow:hidden;flex-shrink:0;min-width:0;margin:14px 0 7px;border:1px solid var(--border,#e6dce3);border-radius:12px;background:#f5f2f5;text-decoration:none;color:inherit}
+.selected-project-preview img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#f7f8fa;transition:transform .23s ease}
+.selected-project-preview__meta{display:block;padding:9px 11px;color:#63485e;background:#f9f3f7;border-top:1px solid #dfd2df;font:700 10px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.07em}
+.selected-project-preview:is(:hover,:focus-visible) img{transform:scale(1.018)}
+.selected-project-preview:focus-visible{outline:3px solid #a04e7d;outline-offset:3px}
+.selected-work .featured-project-card h3{font-size:clamp(25px,2.2vw,30px);line-height:1.22;margin:16px 0 10px;text-wrap:balance}
+.selected-work .selected-project-tools{margin-bottom:13px}
+.selected-work .selected-project-role{font-size:14px;line-height:1.7;margin-bottom:14px}
+.selected-project-result{margin-top:0;padding:15px 0}
+.selected-work .selected-project-scope{font-size:13px;line-height:1.65;margin-bottom:15px}
+.selected-work .featured-more{padding-top:15px;min-height:44px}
+:root[data-theme="dark"] .selected-project-preview{border-color:#665466;background:#28222f}
+:root[data-theme="dark"] .selected-project-preview__meta{color:#f0d8e8;background:#372a3a;border-top-color:#69566a}
+/* The bookshelf, repository planets and robot lab remain fully accessible.
+   Remove the broad framing that made them compete with the primary case studies. */
+.portfolio-explore-wrap{margin-block:clamp(18px,4vw,36px) 38px}
+.portfolio-extras{border:0;border-radius:0;background:transparent}
+.portfolio-extras>.extras-heading{padding:12px 4px 15px;min-height:0;border:0;border-bottom:1px solid var(--border);border-radius:0}
+.extras-summary-copy>h2{font-size:clamp(21px,2.3vw,27px);line-height:1.27}
+.extras-summary-copy>p{font-size:14px;max-width:65ch}
+.extras-jump{padding:13px 4px 16px;border-bottom:0;gap:9px 18px}
+.extras-jump a{font-size:12px}
+:root[data-theme="dark"] .portfolio-extras{background:transparent}
+@media(max-width:960px){
+  .selected-work .featured-project-card{padding:clamp(18px,3vw,24px)}
+  .selected-project-preview img{max-height:295px}
+}
+@media(max-width:660px){
+  .selected-work .featured-project-grid{gap:16px}
+  .selected-work .featured-project-card{padding:17px}
+  .selected-work .featured-project-card h3{font-size:26px}
+  .selected-project-preview{margin:12px 0 6px}
+  .selected-project-preview__meta{font-size:10px;padding:8px 10px}
+  .extras-jump{gap:11px 17px;padding:12px 2px 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .selected-project-preview img{transition:none}
+  .selected-project-preview:is(:hover,:focus-visible) img{transform:none}
+}

@@ -86,6 +86,8 @@ async function audit(){
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
         if(test.path==='/') {
+          if(await page.locator('.selected-project-preview img').count()!==3)
+            note(id+': expected three illustrated featured engineering projects');
           if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf should be visible');
           if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
           if(await page.locator('[data-open-book]').count()!==16) note(id+': expected 16 project books');
