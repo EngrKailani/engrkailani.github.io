@@ -1,0 +1,27 @@
+/* Minimal above-the-fold adjustments while the full refinement and photo CSS load.
+   The generated portfolio.css remains the stable first-paint foundation. */
+:root[data-theme="dark"]{--bg:#191923;--ink:#f8f5fc;--secondary:#d6c7d5;--paper:#292331;--soft:#26222e;--border:#625067;--plum:#f4e6f2;--rose-dark:#e1a9ce}
+:root[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+:root[data-theme="dark"] .site-header{background:#211e2b}
+:root[data-theme="dark"] .nav-links a{color:#f8f5fc}
+:root[data-theme="dark"] .hero-subtitle,:root[data-theme="dark"] .hero-description,:root[data-theme="dark"] .hero-trust-row{color:#e6ddea}
+:root[data-theme="dark"] .hero .eyebrow{background:#342c3d;color:#eed8e7}
+:root[data-theme="dark"] .featured-project-card{background:#292331;color:#f8f5fc}
+.hero.container{grid-template-columns:minmax(0,1fr) minmax(175px,215px);gap:clamp(22px,4vw,55px)}
+.hero{min-height:0;padding-bottom:75px}
+.hero h1{font-size:clamp(64px,7.2vw,100px);line-height:1.04}
+.hero .eyebrow{max-width:max-content;padding:8px 13px;border:1px solid #dfcad7;border-radius:100px;background:rgba(255,255,255,.8);letter-spacing:.105em}
+.hero-photo{width:100%;max-width:210px;justify-self:center;align-self:center;margin-inline:auto}
+.hero-photo img{display:block;width:100%;height:auto;max-height:none;aspect-ratio:auto;border-radius:12px;object-fit:contain}
+.hero-photo figcaption{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;font-size:11px;line-height:1.5;text-align:center;color:var(--secondary)}
+.hero-photo .figure-index{display:block;font-size:10px;letter-spacing:.09em}
+.hero-photo .figure-detail{display:block;font-size:11px}
+.featured-projects-section{padding-top:35px!important}
+.featured-project-grid{gap:18px}
+.featured-project-card{position:relative;min-height:235px;padding:24px 25px;border-radius:16px}
+@media(max-width:760px){
+  .hero.container{display:flex;flex-direction:column;align-items:stretch}
+  .hero{min-height:0;padding-top:55px;padding-bottom:65px}
+  .hero .hero-photo{width:190px;max-width:190px;align-self:center;margin-inline:auto}
+  .featured-project-card{min-height:165px;padding:18px}
+}
