@@ -2,19 +2,26 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fcfaf8">
-<link rel="canonical" href="https://kalarcon775.github.io/projects/powershell.html">
+<link rel="canonical" href="https://kailania.vercel.app/projects/powershell.html">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta name="description" content="Inventory, safe CSV processing, and synchronized parallel tasks. Engineering project summary, methods, tools, and documented outcomes.">
 <meta property="og:type" content="article"><meta property="og:title" content="PowerShell Systems &amp; Concurrency | Kailani Alarcon">
-<meta property="og:description" content="Inventory, safe CSV processing, and synchronized parallel tasks"><meta property="og:url" content="https://kalarcon775.github.io/projects/powershell.html">
+<meta property="og:description" content="Inventory, safe CSV processing, and synchronized parallel tasks"><meta property="og:url" content="https://kailania.vercel.app/projects/powershell.html">
 <title>PowerShell Systems &amp; Concurrency | Kailani Alarcon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../portfolio.css?v=20261011-14"><style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="../portfolio.css?v=20261011-14">
+<link rel="stylesheet" href="../portfolio-upgrade.css?v=20261011"><style>
 .project-page .detail-figure{margin:20px 0 0;padding:13px;border:1px solid #ded5df;background:#f9f7fa;border-radius:8px;max-width:690px}
 .project-page .detail-figure img,.project-page .detail-figure video{display:block;width:100%;height:auto;max-height:410px;object-fit:contain;border-radius:5px;background:#ece7ed}
 .project-page .detail-figure figcaption{margin-top:10px;font-size:11px;line-height:1.6;color:#716978}
 </style>
+<meta property="og:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
+<meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kailania.vercel.app/assets/sls-rocket-kailani.jpeg">
+<script src="../portfolio-upgrade.js?v=20261011" defer></script>
 </head>
 <body class="project-page">
 <a class="skip-link" href="#project-main">Skip to project details</a>
@@ -27,20 +34,21 @@
 <header class="detail-heading">
 <p class="eyebrow">CS646 · Fall 2026 · Operating systems coursework</p><h1>PowerShell Systems &amp; Concurrency</h1><p>Inventory, safe CSV processing, and synchronized parallel tasks</p>
 </header>
+<nav class="detail-jump" aria-label="Jump to project sections"><span>ON THIS PAGE</span><a href="#project-method">Methods &amp; tools</a><a href="#project-results">Outcomes</a><a href="#project-evidence">Evidence &amp; limitations</a></nav>
 <article class="detail-card" aria-label="PowerShell Systems &amp; Concurrency engineering detail">
 <span class="detail-tag">PROJECT 16 / 16</span>
 <p class="detail-lead">Across three operating-systems labs, I developed PowerShell scripts inside a Linux course container. The first inventoried the operating system and visible CPU, memory, storage, network interfaces, and packages. The second safely sorted complete CSV records without overwriting the source. The third explored how concurrent web requests improve throughput while creating new risks around shared files and ordering.</p>
 
 
-<div class="detail-grid">
+<div id="project-method" class="detail-grid">
 <section class="detail-panel"><h2>Engineering challenge</h2><p>Build scripts that behave correctly in a container, preserve input integrity, and safely coordinate shared resources.</p></section>
 <section class="detail-panel"><h2>Methods and approach</h2><p>Use Linux system interfaces with PowerShell for inventory; validate CSV fields and rows, compare SHA256 input hashes and append audit logs; then run 102 requests across three services with a throttle limit of 10, synchronization tests, and thread/process observations.</p></section>
 <section class="detail-panel"><h2>Tools and environment</h2><p>PowerShell, Debian Linux, containers, CSV processing, SHA256, ForEach-Object -Parallel, file locking, strace, ps.</p></section>
 <section class="detail-panel"><h2>Evidence and limitations</h2><p>This page summarizes the work documented in the portfolio project book. Where underlying test data, design files, or screenshots are not public, the summary does not imply those materials were independently verified.</p></section>
 </div>
-<div class="detail-results"><h2>Documented outcome</h2><p>A six-row CSV test preserved the source, and larger sorting tests included 300,000 records. In one concurrency comparison, 102 requests took 8.69 s serially versus 1.68 s concurrently; locking also corrected a shared-counter race from 2 to the expected 100.</p></div>
+<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A six-row CSV test preserved the source, and larger sorting tests included 300,000 records. In one concurrency comparison, 102 requests took 8.69 s serially versus 1.68 s concurrently; locking also corrected a shared-counter race from 2 to the expected 100.</p></div>
 <div class="detail-buttons"><a href="index.html">Browse all projects ↗</a></div>
-<p class="detail-source-note">This page is based on the existing portfolio project description. It distinguishes reported results from targets and does not publish restricted NASA files or unavailable raw data.</p>
+<p id="project-evidence" class="detail-source-note">This page is based on the existing portfolio project description. It distinguishes reported results from targets and does not publish restricted NASA files or unavailable raw data.</p>
 </article>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="dmx.html">← DMX Controller</a>
