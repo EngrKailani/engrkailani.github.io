@@ -14,6 +14,17 @@ function check(condition,message){
 }
 for(const file of htmlFiles){
   const html=fs.readFileSync(path.join(root,file),'utf8');
+  // Avoid dead in-page navigation and duplicate target IDs.
+  const pageIds=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
+  const pageIdSet=new Set(pageIds);
+  check(pageIds.length===pageIdSet.size,file+': duplicated HTML id');
+  for(const match of html.matchAll(/\bhref=["']#([^"']+)["']/g)){
+    let targetId=match[1];
+    try{targetId=decodeURIComponent(targetId)}catch{}
+    check(pageIdSet.has(targetId),
+      file+': broken in-page anchor #'+targetId);
+  }
+
   check(/<title>[\s\S]+?<\/title>/.test(html),file+' needs a document title');
   check(html.includes('portfolio-upgrade.css'),file+' missing responsive stylesheet');
   check(html.includes('portfolio-upgrade.js'),file+' missing behavior script');
@@ -48,6 +59,10 @@ check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
+check(htmlResume.includes('aria-label="Open one-page résumé PDF for printing"') &&
+      !htmlResume.includes('onclick="window.print()"'),
+      'Résumé print action must open the verified one-page PDF');
+
 check(htmlResume.includes('href="https://github.com/EngrKailani"') &&
       htmlResume.includes('href="https://engrkailani.github.io/"') &&
       htmlResume.includes('href="mailto:kailanip.alarcon@gmail.com"') &&
