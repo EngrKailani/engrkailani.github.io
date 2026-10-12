@@ -20,7 +20,8 @@ for(const file of htmlFiles){
   check(html.includes('<meta property="og:image"'),file+' missing preview image');
   check(html.includes(domain),file+' missing canonical domain');
   check(!html.includes('https://kalarcon775.github.io'),file+' references former portfolio host');
-  check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
+  // Uploaded October 2026 résumé names this account; keep its text faithful.
+  check(file==='resume.html' || !html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
   for(const match of html.matchAll(/\s(?:href|src)=["']([^"']+)["']/g)){
     const url=match[1].trim();
     if(!url || /^(?:#|[a-z]+:|\/\/)/i.test(url))continue;
