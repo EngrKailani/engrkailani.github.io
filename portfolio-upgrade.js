@@ -69,3 +69,21 @@
     if(links?.classList.contains('open')&&!event.target.closest('.site-header'))closeMenu();
   });
 })();
+/* Keep the original 2D learning exercise available alongside the new 3D viewer. */
+(() => {
+  'use strict';
+  const consoleEl=document.querySelector('.robot-console');
+  const buttons=[...document.querySelectorAll('[data-robot-view]')];
+  if(!consoleEl||!buttons.length)return;
+  function show(mode){
+    const chosen=mode==='2d'?'2d':'3d';
+    consoleEl.dataset.view=chosen;
+    buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.robotView===chosen)));
+  }
+  buttons.forEach(b=>b.addEventListener('click',()=>show(b.dataset.robotView)));
+  document.querySelectorAll('.pose-button,[data-joint-control],#animate-button').forEach(el=>{
+    el.addEventListener(el.matches('input')?'input':'click',()=>show('2d'));
+  });
+  document.querySelectorAll('[data-3d-pose]').forEach(el=>el.addEventListener('click',()=>show('3d')));
+  show('3d');
+})();
