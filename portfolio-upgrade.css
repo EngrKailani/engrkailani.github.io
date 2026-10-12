@@ -12,6 +12,13 @@
   --photo-awards-heading:#683653;
   --photo-gallery-label:var(--ink);
   --photo-gallery-label-secondary:var(--secondary);
+  --project-caption-text:#3e3040;
+  --project-caption-surface:#f8f3f7;
+  --project-caption-border:#e5d8e2;
+  --picture-caption-text:#3e3040;
+  --picture-caption-muted:#59475d;
+  --picture-caption-bg:#f8f3f7;
+  --picture-caption-border:#e5d8e2;
 }
 html{scroll-padding-top:86px}
 body{line-height:1.72}
@@ -152,6 +159,13 @@ section[id]{scroll-margin-top:86px}
   --photo-awards-heading:#f4bddb;
   --photo-gallery-label:#fff0fa;
   --photo-gallery-label-secondary:#e3d5e7;
+  --project-caption-text:#f6eef5;
+  --project-caption-surface:#342b3e;
+  --project-caption-border:#6b5875;
+  --picture-caption-text:#f6eef5;
+  --picture-caption-muted:#e6d8e8;
+  --picture-caption-bg:#312a3a;
+  --picture-caption-border:#64536e;
 }
 :root[data-theme="dark"] .site-header{background:rgba(29,26,39,.98)}
 :root[data-theme="dark"] .nav-links a{color:#eeddea}
@@ -1500,16 +1514,6 @@ section[id]{scroll-margin-top:86px}
 
 /* Project figures: make explanatory captions legible, not footnotes.
    Higher specificity keeps contrast consistent when visual-gallery CSS loads later. */
-:root{
-  --project-caption-text:#3e3040;
-  --project-caption-surface:#f8f3f7;
-  --project-caption-border:#e5d8e2;
-}
-:root[data-theme="dark"]{
-  --project-caption-text:#f6eef5;
-  --project-caption-surface:#342b3e;
-  --project-caption-border:#6b5875;
-}
 :root .project-page :is(
   .detail-figure,
   .project-visual-gallery__figure,
