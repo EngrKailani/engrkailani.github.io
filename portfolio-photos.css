@@ -359,3 +359,30 @@
   opacity:1;
   visibility:visible;
 }
+
+/* A shared visual baseline for captions and accompanying engineering text. */
+.work-section .feature-visual{align-self:center}
+.work-section .feature-visual figcaption,
+.experience-section .experience-photo figcaption,
+.experience-section .education-photo figcaption,
+.about-section .about-photo figcaption,
+.interests-section .interest-photo figcaption{
+  width:100%;
+  max-width:34ch;
+  margin:10px auto 0;
+  font-size:12px;
+  line-height:1.55;
+  text-align:center;
+}
+.work-section .portfolio-photo-card{
+  justify-content:flex-start;
+  gap:10px;
+}
+.work-section .portfolio-photo-card figcaption{margin:0;font-size:12px;line-height:1.5}
+.work-section .portfolio-photo-card figcaption span{margin-top:3px;font-size:11px;line-height:1.45}
+.about-section .portfolio-awards-photo{align-items:center;gap:clamp(12px,2vw,18px)}
+.about-section .portfolio-awards-photo figcaption{font-size:12px;line-height:1.6}
+@media(max-width:620px){
+  .work-section .portfolio-photo-card figcaption{font-size:11px}
+  .work-section .portfolio-photo-card figcaption span{font-size:10px}
+}
