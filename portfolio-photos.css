@@ -4,16 +4,20 @@
 .portfolio-photo-card[hidden],
 .portfolio-awards-photo[hidden]{display:none!important}
 
-/* NASA community accents */
+/* NASA photo accents: preserve group panoramas and full-height portraits. */
 .work-section .portfolio-photo-gallery{
-  max-width:100%;
+  width:100%;
   margin:22px auto 0;
-  padding:14px 16px;
+  padding:16px;
   border:1px solid var(--border);
   border-radius:14px;
   background:var(--soft);
 }
-.portfolio-photo-gallery__intro{display:block;margin:0 0 12px}
+.portfolio-photo-gallery__intro{
+  display:block;
+  margin:0 0 14px;
+  text-align:center;
+}
 .portfolio-photo-gallery__intro h3{
   margin:0 0 3px;
   color:var(--photo-gallery-heading);
@@ -26,40 +30,53 @@
 }
 .portfolio-photo-gallery__grid{
   display:flex;
-  align-items:flex-start;
   flex-wrap:wrap;
-  gap:14px 24px;
+  align-items:stretch;
+  justify-content:center;
+  gap:14px;
 }
 .work-section .portfolio-photo-card{
-  display:grid;
-  grid-template-columns:104px minmax(0,180px);
-  justify-items:center;
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  flex:0 1 310px;
-  gap:11px;
-  max-width:100%;
+  justify-content:center;
+  flex:0 1 178px;
   min-width:0;
+  max-width:100%;
   margin:0;
+  padding:11px 12px 13px;
+  gap:9px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--paper);
+  text-align:center;
+}
+.work-section .portfolio-photo-card--team{
+  flex-basis:260px;
 }
 .work-section .portfolio-photo-card img{
   display:block;
-  width:104px;
-  height:104px;
-  min-height:0;
-  max-height:104px;
-  aspect-ratio:1;
+  width:auto;
+  height:auto;
+  max-width:min(100%,122px);
+  max-height:165px;
   margin-inline:auto;
-  object-fit:cover;
+  border-radius:8px;
+  object-fit:contain;
   object-position:center;
-  border-radius:9px;
+}
+.work-section .portfolio-photo-card--team img{
+  max-width:min(100%,232px);
+  max-height:168px;
 }
 .work-section .portfolio-photo-card figcaption{
   position:static;
+  width:100%;
   padding:0;
-  color:var(--photo-gallery-label);
   background:none;
+  color:var(--photo-gallery-label);
+  font:700 12px/1.45 var(--sans,system-ui,sans-serif);
   text-shadow:none;
-  font:700 12px/1.5 var(--sans,system-ui,sans-serif);
 }
 .work-section .portfolio-photo-card figcaption span{
   display:block;
@@ -70,6 +87,10 @@
 }
 :root[data-theme="dark"] .work-section .portfolio-photo-gallery{
   background:var(--dark-surface);
+  border-color:var(--dark-border);
+}
+:root[data-theme="dark"] .work-section .portfolio-photo-card{
+  background:var(--dark-raised);
   border-color:var(--dark-border);
 }
 
@@ -107,14 +128,14 @@
   font-weight:750;
 }
 
-/* Compact supporting photographs in the hero and engineering sections */
+/* Supporting photography keeps its own aspect ratio instead of being cropped into squares. */
 .hero.container{
-  grid-template-columns:minmax(0,1fr) minmax(170px,235px);
+  grid-template-columns:minmax(0,1fr) minmax(175px,215px);
   gap:clamp(22px,4vw,55px);
 }
 .hero .hero-photo{
   width:100%;
-  max-width:235px;
+  max-width:210px;
   justify-self:center;
   align-self:center;
   margin-inline:auto;
@@ -122,43 +143,57 @@
 .hero .hero-photo img{
   display:block;
   width:100%;
-  height:245px;
+  height:auto;
+  max-height:none;
   margin-inline:auto;
-  border-radius:14px;
-  object-fit:cover;
+  border-radius:12px;
+  object-fit:contain;
   object-position:center;
 }
-.hero .hero-photo figcaption{font-size:11px;line-height:1.5}
+.hero .hero-photo figcaption{
+  font-size:11px;
+  line-height:1.5;
+  text-align:center;
+}
 .work-section .feature-project{
   grid-template-columns:minmax(0,220px) minmax(0,1fr);
   align-items:center;
 }
 .work-section .feature-visual{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   width:100%;
   min-height:0;
   height:auto;
   margin-inline:auto;
-  padding:12px;
+  padding:14px 12px;
   background:transparent;
   text-align:center;
 }
 .work-section .feature-visual img{
+  display:block;
   width:100%;
-  height:210px;
-  max-height:210px;
+  max-width:185px;
+  height:auto;
+  max-height:none;
   margin-inline:auto;
   border-radius:10px;
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
 }
 .work-section .feature-visual figcaption{
   position:static;
-  width:auto;
-  max-width:none;
-  margin-top:8px;
+  width:100%;
+  max-width:205px;
+  margin:9px 0 0;
+  padding:0;
   background:transparent;
   color:var(--secondary);
   font-size:11px;
+  line-height:1.55;
+  text-align:center;
 }
 .experience-section .experience-photo,
 .about-section .about-photo,
@@ -166,7 +201,7 @@
   justify-self:center;
   align-self:center;
   width:100%;
-  max-width:205px;
+  max-width:190px;
   margin-inline:auto;
 }
 .experience-section .experience-photo img,
@@ -174,10 +209,10 @@
 .interests-section .interest-photo img{
   display:block;
   width:100%;
-  height:190px;
-  max-height:190px;
+  height:auto;
+  max-height:none;
   margin-inline:auto;
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
   border-radius:10px;
 }
@@ -190,16 +225,21 @@
 .interests-section .interest-photo figcaption{
   font-size:11px;
   line-height:1.55;
+  text-align:center;
 }
 
-/* One centered, naturally proportioned photo per relevant featured card */
-.featured-projects-section .featured-project-card--photo{min-width:0}
+/* Let the NASA hardware photograph be the visual, not an icon plus an image. */
+.featured-projects-section .featured-project-card--photo{
+  min-width:0;
+}
+.featured-projects-section .featured-project-card--photo .featured-project-visual{
+  display:none;
+}
 .featured-projects-section .featured-project-photo{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
-  align-self:center;
+  justify-content:center;
   gap:7px;
   max-width:100%;
   margin:12px auto 14px;
@@ -210,30 +250,17 @@
 }
 .featured-projects-section .featured-project-photo img{
   display:block;
-  flex:none;
   width:auto;
   height:auto;
-  max-width:min(100%,148px);
-  max-height:130px;
+  max-width:min(100%,190px);
+  max-height:142px;
   margin-inline:auto;
   border:1px solid var(--border);
-  border-radius:9px;
+  border-radius:10px;
   object-fit:contain;
-}
-.featured-projects-section .featured-project-card--photo:nth-child(1) .featured-project-photo img{
-  max-width:136px;
-  max-height:138px;
-}
-.featured-projects-section .featured-project-card--photo:nth-child(2) .featured-project-photo img{
-  max-width:148px;
-  max-height:108px;
-}
-.featured-projects-section .featured-project-card--photo:nth-child(3) .featured-project-photo img{
-  max-width:142px;
-  max-height:124px;
+  object-position:center;
 }
 .featured-projects-section .featured-project-photo span{
-  min-width:0;
   max-width:100%;
   text-align:center;
 }
@@ -244,55 +271,61 @@
 @media(max-width:760px){
   .hero.container{display:flex;flex-direction:column;align-items:stretch}
   .hero .hero-photo{
-    width:195px;
-    max-width:195px;
+    width:190px;
+    max-width:190px;
     align-self:center;
-    justify-self:center;
     margin-inline:auto;
   }
-  .hero .hero-photo img{height:185px;border-radius:10px}
   .work-section .feature-project{grid-template-columns:minmax(0,1fr)}
   .work-section .feature-visual{
-    width:205px;
-    max-width:100%;
+    width:100%;
+    max-width:240px;
     margin-inline:auto;
-    padding:13px 0 0;
+    padding:15px 12px 0;
   }
-  .work-section .feature-visual img{height:180px;max-height:180px}
+  .work-section .feature-visual img{max-width:175px}
   .experience-section .experience-photo,
   .about-section .about-photo,
   .interests-section .interest-photo{
-    max-width:180px;
+    max-width:170px;
     justify-self:center;
     align-self:center;
     margin-inline:auto;
   }
-  .experience-section .experience-photo img,
-  .about-section .about-photo img,
-  .interests-section .interest-photo img{height:170px;max-height:170px}
 }
-@media(max-width:520px){
+@media(max-width:620px){
   .work-section .portfolio-photo-gallery{padding:13px}
   .work-section .portfolio-photo-gallery__grid{
     display:grid;
-    grid-template-columns:minmax(0,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:12px;
   }
   .work-section .portfolio-photo-card{
-    grid-template-columns:88px minmax(0,1fr);
+    width:100%;
     max-width:100%;
+    padding:10px 8px 12px;
+  }
+  .work-section .portfolio-photo-card--team{
+    grid-column:1/-1;
+    justify-self:center;
+    max-width:280px;
   }
   .work-section .portfolio-photo-card img{
-    width:88px;
-    height:88px;
-    max-height:88px;
+    max-width:min(100%,112px);
+    max-height:150px;
   }
+  .work-section .portfolio-photo-card--team img{
+    max-width:min(100%,250px);
+    max-height:170px;
+  }
+  .work-section .portfolio-photo-card figcaption{font-size:11px}
+  .work-section .portfolio-photo-card figcaption span{font-size:10px}
   .about-section .portfolio-awards-photo{
-    grid-template-columns:94px minmax(0,1fr);
+    grid-template-columns:minmax(85px,104px) minmax(0,1fr);
     gap:12px;
   }
   .featured-projects-section .featured-project-photo img{
-    max-width:min(100%,128px);
-    max-height:116px;
+    max-width:min(100%,170px);
+    max-height:128px;
   }
 }
