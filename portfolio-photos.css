@@ -1,77 +1,79 @@
-/* Curated portfolio photography. All selected photos are bundled in assets/.
-   Static images work without JavaScript or duplicate network preloading. */
+/* Photo accents. Component dimensions are defined once and theme colors come
+   from portfolio-upgrade.css. Images remain static and work without JavaScript. */
 .portfolio-photo-gallery[hidden],
 .portfolio-photo-card[hidden],
-.portfolio-awards-photo[hidden]{
-  display:none!important;
-}
+.portfolio-awards-photo[hidden]{display:none!important}
+
+/* NASA community accents */
 .work-section .portfolio-photo-gallery{
-  margin:clamp(23px,3.5vw,37px) auto 0;
-  max-width:1120px;
+  max-width:100%;
+  margin:22px auto 0;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--soft);
 }
-.portfolio-photo-gallery__intro{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px 22px;
-  margin:0 0 14px;
-}
+.portfolio-photo-gallery__intro{display:block;margin:0 0 12px}
 .portfolio-photo-gallery__intro h3{
   margin:0 0 3px;
-  color:#493649;
-  font:600 clamp(21px,2.6vw,27px)/1.25 var(--serif,Georgia,serif);
+  color:var(--photo-gallery-heading);
+  font:600 17px/1.35 var(--serif,Georgia,serif);
 }
 .portfolio-photo-gallery__intro p{
   margin:0;
-  color:#6d596a;
+  color:var(--photo-gallery-description);
   font:500 12px/1.7 var(--sans,system-ui,sans-serif);
 }
 .portfolio-photo-gallery__grid{
+  display:flex;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:14px 24px;
+}
+.work-section .portfolio-photo-card{
   display:grid;
-  grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr);
-  align-items:stretch;
-  gap:13px;
-}
-.portfolio-photo-card{
-  position:relative;
-  margin:0;
-  overflow:hidden;
+  grid-template-columns:104px minmax(0,180px);
+  justify-items:center;
+  align-items:center;
+  flex:0 1 310px;
+  gap:11px;
+  max-width:100%;
   min-width:0;
-  border:1px solid rgba(111,77,110,.3);
-  border-radius:13px;
-  background:#2e2637;
-  box-shadow:0 12px 28px rgba(49,34,51,.11);
+  margin:0;
 }
-.portfolio-photo-card img{
+.work-section .portfolio-photo-card img{
   display:block;
-  width:100%;
-  height:100%;
-  min-height:220px;
-  aspect-ratio:3/4;
+  width:104px;
+  height:104px;
+  min-height:0;
+  max-height:104px;
+  aspect-ratio:1;
+  margin-inline:auto;
   object-fit:cover;
   object-position:center;
+  border-radius:9px;
 }
-.portfolio-photo-card--team img{
-  aspect-ratio:3/2;
-  object-position:center;
+.work-section .portfolio-photo-card figcaption{
+  position:static;
+  padding:0;
+  color:var(--photo-gallery-label);
+  background:none;
+  text-shadow:none;
+  font:700 12px/1.5 var(--sans,system-ui,sans-serif);
 }
-.portfolio-photo-card figcaption{
-  position:absolute;
-  inset:auto 0 0;
-  padding:35px 14px 12px;
-  background:linear-gradient(transparent,rgba(22,17,28,.84));
-  color:#fff6fc;
-  font:700 12px/1.45 var(--sans,system-ui,sans-serif);
-  text-shadow:0 1px 3px rgba(0,0,0,.4);
-}
-.portfolio-photo-card figcaption span{
+.work-section .portfolio-photo-card figcaption span{
   display:block;
-  margin-top:3px;
-  font-weight:500;
+  margin-top:4px;
+  color:var(--photo-gallery-label-secondary);
   font-size:11px;
-  color:#f6e1f1;
+  font-weight:500;
 }
+:root[data-theme="dark"] .work-section .portfolio-photo-gallery{
+  background:var(--dark-surface);
+  border-color:var(--dark-border);
+}
+
+/* Recognition accent beside the about copy */
 .about-section .portfolio-awards-photo{
   display:grid;
   grid-template-columns:minmax(90px,135px) minmax(0,1fr);
@@ -80,9 +82,9 @@
   max-width:530px;
   margin:19px 0 0;
   padding:11px;
-  border:1px solid #d8bdcf;
+  border:1px solid var(--photo-awards-border);
   border-radius:13px;
-  background:rgba(255,251,254,.7);
+  background:var(--photo-awards-background);
   box-shadow:0 8px 21px rgba(67,35,60,.07);
 }
 .portfolio-awards-photo img{
@@ -94,115 +96,18 @@
   border-radius:8px;
 }
 .portfolio-awards-photo figcaption{
-  color:#594658;
+  color:var(--photo-awards-text);
   font:500 12px/1.7 var(--sans,system-ui,sans-serif);
 }
 .portfolio-awards-photo figcaption strong{
   display:block;
   margin-bottom:3px;
-  color:#683653;
+  color:var(--photo-awards-heading);
   font-size:13px;
   font-weight:750;
 }
-:root[data-theme="dark"] .portfolio-photo-gallery__intro h3{color:#fff2fa}
-:root[data-theme="dark"] .portfolio-photo-gallery__intro p{color:#ead4e6}
-:root[data-theme="dark"] .portfolio-awards-photo{
-  border-color:#835c7d;
-  background:#34273c;
-}
-:root[data-theme="dark"] .portfolio-awards-photo figcaption{color:#eedbea}
-:root[data-theme="dark"] .portfolio-awards-photo figcaption strong{color:#f4bddb}
-@media(max-width:780px){
-  .portfolio-photo-gallery__grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-  .portfolio-photo-card img{min-height:0}
-  .portfolio-photo-card--team img{aspect-ratio:4/5}
-}
-@media(max-width:620px){
-  .portfolio-photo-gallery__grid{
-    grid-template-columns:minmax(0,1fr);
-    max-width:620px;
-  }
-  .portfolio-photo-card--team img{aspect-ratio:16/10}
-  .portfolio-photo-card:not(.portfolio-photo-card--team) img{
-    aspect-ratio:4/3;
-    max-height:370px;
-  }
-}
-@media(max-width:520px){
-  .portfolio-photo-gallery__grid{gap:10px}
-  .portfolio-photo-card figcaption{padding:30px 10px 10px;font-size:11px}
-  .portfolio-photo-card figcaption span{font-size:10px}
-  .portfolio-photo-card:not(.portfolio-photo-card--team) img{aspect-ratio:3/4}
-  .about-section .portfolio-awards-photo{
-    grid-template-columns:94px minmax(0,1fr);
-    gap:12px;
-  }
-}
 
-
-/* Compact editorial photo accents, matching the small education image. */
-.work-section .portfolio-photo-gallery{
-  max-width:100%;
-  margin-top:22px;
-  padding:14px 16px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:var(--soft);
-}
-.portfolio-photo-gallery__intro{
-  display:block;
-  margin-bottom:12px;
-}
-.portfolio-photo-gallery__intro h3{
-  font:600 17px/1.35 var(--serif,Georgia,serif);
-}
-.portfolio-photo-gallery__grid{
-  display:flex;
-  align-items:flex-start;
-  flex-wrap:wrap;
-  gap:14px 24px;
-}
-.work-section .portfolio-photo-card,
-.work-section .portfolio-photo-card--team{
-  display:grid;
-  grid-template-columns:104px minmax(0,180px);
-  align-items:center;
-  gap:11px;
-  flex:0 1 310px;
-  max-width:100%;
-  min-width:0;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-  overflow:visible;
-}
-.work-section .portfolio-photo-card img,
-.work-section .portfolio-photo-card--team img,
-.work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
-  width:104px;
-  height:104px;
-  min-height:0;
-  max-height:104px;
-  aspect-ratio:1;
-  object-fit:cover;
-  border-radius:9px;
-}
-.work-section .portfolio-photo-card figcaption{
-  position:static;
-  padding:0;
-  background:none;
-  color:var(--ink);
-  text-shadow:none;
-  font:700 12px/1.5 var(--sans,system-ui,sans-serif);
-}
-.work-section .portfolio-photo-card figcaption span{
-  color:var(--secondary);
-  font-size:11px;
-  margin-top:4px;
-}
+/* Compact supporting photographs in the hero and engineering sections */
 .hero.container{
   grid-template-columns:minmax(0,1fr) minmax(170px,235px);
   gap:clamp(22px,4vw,55px);
@@ -210,14 +115,18 @@
 .hero .hero-photo{
   width:100%;
   max-width:235px;
-  justify-self:end;
+  justify-self:center;
   align-self:center;
+  margin-inline:auto;
 }
 .hero .hero-photo img{
+  display:block;
   width:100%;
   height:245px;
+  margin-inline:auto;
   border-radius:14px;
   object-fit:cover;
+  object-position:center;
 }
 .hero .hero-photo figcaption{font-size:11px;line-height:1.5}
 .work-section .feature-project{
@@ -228,15 +137,19 @@
   width:100%;
   min-height:0;
   height:auto;
+  margin-inline:auto;
   padding:12px;
   background:transparent;
+  text-align:center;
 }
 .work-section .feature-visual img{
   width:100%;
   height:210px;
   max-height:210px;
-  object-fit:cover;
+  margin-inline:auto;
   border-radius:10px;
+  object-fit:cover;
+  object-position:center;
 }
 .work-section .feature-visual figcaption{
   position:static;
@@ -251,9 +164,10 @@
 .about-section .about-photo,
 .interests-section .interest-photo{
   justify-self:center;
-  align-self:start;
+  align-self:center;
   width:100%;
   max-width:205px;
+  margin-inline:auto;
 }
 .experience-section .experience-photo img,
 .about-section .about-photo img,
@@ -262,8 +176,14 @@
   width:100%;
   height:190px;
   max-height:190px;
+  margin-inline:auto;
   object-fit:cover;
+  object-position:center;
   border-radius:10px;
+}
+.experience-section .education-photo img{
+  margin-inline:auto;
+  object-position:center;
 }
 .experience-section .experience-photo figcaption,
 .about-section .about-photo figcaption,
@@ -271,98 +191,22 @@
   font-size:11px;
   line-height:1.55;
 }
-:root[data-theme="dark"] .work-section .portfolio-photo-gallery{
-  background:var(--dark-surface,#282636);
-  border-color:var(--dark-border,#655b74);
-}
-:root[data-theme="dark"] .work-section .portfolio-photo-card figcaption{color:#fff0fa}
-:root[data-theme="dark"] .work-section .portfolio-photo-card figcaption span{color:#e3d5e7}
-@media(max-width:760px){
-  .hero.container{display:flex;flex-direction:column;align-items:stretch}
-  .hero .hero-photo{
-    width:195px;
-    max-width:195px;
-    margin:0;
-    align-self:flex-start;
-  }
-  .hero .hero-photo img{height:185px;border-radius:10px}
-  .work-section .feature-project{
-    grid-template-columns:minmax(0,1fr);
-  }
-  .work-section .feature-visual{
-    width:205px;
-    max-width:100%;
-    padding:13px 0 0 20px;
-  }
-  .work-section .feature-visual img{height:180px;max-height:180px}
-  .experience-section .experience-photo,
-  .about-section .about-photo,
-  .interests-section .interest-photo{
-    justify-self:start;
-    max-width:180px;
-    margin:0;
-  }
-  .experience-section .experience-photo img,
-  .about-section .about-photo img,
-  .interests-section .interest-photo img{height:170px;max-height:170px}
-}
-@media(max-width:520px){
-  .work-section .portfolio-photo-gallery{padding:13px}
-  .work-section .portfolio-photo-gallery__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
-  .work-section .portfolio-photo-card,
-  .work-section .portfolio-photo-card--team{grid-template-columns:88px minmax(0,1fr);max-width:100%}
-  .work-section .portfolio-photo-card img,
-  .work-section .portfolio-photo-card--team img,
-  .work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
-    width:88px;height:88px;max-height:88px;aspect-ratio:1;
-  }
-}
 
-/* Small photos live inside the relevant engineering cards, not a separate strip. */
-.featured-projects-section .featured-project-card--photo{
-  min-width:0;
-}
+/* One centered, naturally proportioned photo per relevant featured card */
+.featured-projects-section .featured-project-card--photo{min-width:0}
 .featured-projects-section .featured-project-photo{
   display:flex;
-  align-items:center;
-  gap:12px;
-  max-width:100%;
-  margin:10px 0 12px;
-  color:var(--secondary);
-  font-size:11px;
-  line-height:1.5;
-}
-.featured-projects-section .featured-project-photo img{
-  width:96px;
-  height:96px;
-  flex:0 0 96px;
-  display:block;
-  object-fit:cover;
-  border:1px solid var(--border);
-  border-radius:9px;
-}
-.featured-projects-section .featured-project-photo span{
-  min-width:0;
-  max-width:18ch;
-}
-:root[data-theme="dark"] .featured-projects-section .featured-project-photo{
-  color:var(--dark-muted,#d7c9dd);
-}
-@media(max-width:520px){
-  .featured-projects-section .featured-project-photo img{
-    width:80px;height:80px;flex-basis:80px;
-  }
-}
-
-/* Center photo accents while preserving natural, varied image proportions. */
-.featured-projects-section .featured-project-photo{
   flex-direction:column;
   justify-content:center;
   align-items:center;
   align-self:center;
-  text-align:center;
   gap:7px;
+  max-width:100%;
   margin:12px auto 14px;
+  color:var(--secondary);
+  font-size:11px;
+  line-height:1.5;
+  text-align:center;
 }
 .featured-projects-section .featured-project-photo img{
   display:block;
@@ -372,6 +216,8 @@
   max-width:min(100%,148px);
   max-height:130px;
   margin-inline:auto;
+  border:1px solid var(--border);
+  border-radius:9px;
   object-fit:contain;
 }
 .featured-projects-section .featured-project-card--photo:nth-child(1) .featured-project-photo img{
@@ -387,61 +233,66 @@
   max-height:124px;
 }
 .featured-projects-section .featured-project-photo span{
+  min-width:0;
   max-width:100%;
   text-align:center;
 }
-.work-section .portfolio-photo-card,
-.work-section .portfolio-photo-card--team{
-  justify-items:center;
+:root[data-theme="dark"] .featured-projects-section .featured-project-photo{
+  color:var(--dark-muted);
 }
-.work-section .portfolio-photo-card img,
-.work-section .portfolio-photo-card--team img,
-.work-section .portfolio-photo-card:not(.portfolio-photo-card--team) img{
-  display:block;
-  margin-inline:auto;
-  object-position:center;
-}
-.hero .hero-photo,
-.experience-section .experience-photo,
-.about-section .about-photo,
-.interests-section .interest-photo{
-  justify-self:center;
-  align-self:center;
-  margin-inline:auto;
-}
-.hero .hero-photo img,
-.work-section .feature-visual img,
-.experience-section .experience-photo img,
-.experience-section .education-photo img,
-.about-section .about-photo img,
-.interests-section .interest-photo img{
-  object-position:center;
-  margin-inline:auto;
-}
-.work-section .feature-visual{
-  margin-inline:auto;
-  text-align:center;
-}
+
 @media(max-width:760px){
-  .hero .hero-photo,
-  .experience-section .experience-photo,
-  .about-section .about-photo,
-  .interests-section .interest-photo{
+  .hero.container{display:flex;flex-direction:column;align-items:stretch}
+  .hero .hero-photo{
+    width:195px;
+    max-width:195px;
     align-self:center;
     justify-self:center;
     margin-inline:auto;
   }
+  .hero .hero-photo img{height:185px;border-radius:10px}
+  .work-section .feature-project{grid-template-columns:minmax(0,1fr)}
   .work-section .feature-visual{
+    width:205px;
+    max-width:100%;
     margin-inline:auto;
     padding:13px 0 0;
   }
+  .work-section .feature-visual img{height:180px;max-height:180px}
+  .experience-section .experience-photo,
+  .about-section .about-photo,
+  .interests-section .interest-photo{
+    max-width:180px;
+    justify-self:center;
+    align-self:center;
+    margin-inline:auto;
+  }
+  .experience-section .experience-photo img,
+  .about-section .about-photo img,
+  .interests-section .interest-photo img{height:170px;max-height:170px}
 }
 @media(max-width:520px){
+  .work-section .portfolio-photo-gallery{padding:13px}
+  .work-section .portfolio-photo-gallery__grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:12px;
+  }
+  .work-section .portfolio-photo-card{
+    grid-template-columns:88px minmax(0,1fr);
+    max-width:100%;
+  }
+  .work-section .portfolio-photo-card img{
+    width:88px;
+    height:88px;
+    max-height:88px;
+  }
+  .about-section .portfolio-awards-photo{
+    grid-template-columns:94px minmax(0,1fr);
+    gap:12px;
+  }
   .featured-projects-section .featured-project-photo img{
-    width:auto;
-    height:auto;
     max-width:min(100%,128px);
     max-height:116px;
-    flex:none;
   }
 }
