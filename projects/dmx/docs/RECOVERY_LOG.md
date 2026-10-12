@@ -2,7 +2,7 @@
 
 ## Located original artifacts
 
-- Original [DMX Controller GitHub repository](https://github.com/kalarcon775/DMX-Controller).
+- Original [DMX Controller GitHub repository](https://github.com/EngrKailani/DMX-Controller).
 - Flask server `app.py`, browser `templates/index.html`, UI stylesheet, and original source README.
 - Arduino Mega sketch for serial command parsing, DMX512 transmission, scene control and animations.
 - Original portfolio page with an embedded generic lighting demonstration video (kept intact).

@@ -1,6 +1,6 @@
 # DMX Controller | Source-inspected architecture
 
-**Original source:** [app.py](https://github.com/kalarcon775/DMX-Controller/blob/main/app.py), [Arduino sketch](https://github.com/kalarcon775/DMX-Controller/blob/main/LUX_DMX_Controller_Working/LUX_DMX_Controller_Working.ino), and [index.html](https://github.com/kalarcon775/DMX-Controller/blob/main/templates/index.html). This description documents implementation observed in code, not a full hardware validation.
+**Original source:** [app.py](https://github.com/EngrKailani/DMX-Controller/blob/main/app.py), [Arduino sketch](https://github.com/EngrKailani/DMX-Controller/blob/main/LUX_DMX_Controller_Working/LUX_DMX_Controller_Working.ino), and [index.html](https://github.com/EngrKailani/DMX-Controller/blob/main/templates/index.html). This description documents implementation observed in code, not a full hardware validation.
 
 ## Control path
 

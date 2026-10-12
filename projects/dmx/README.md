@@ -2,7 +2,7 @@
 
 **Project 15 of 16 · Lighting control · Recovered original source + new engineering documentation**
 
-The original [DMX Controller repository](https://github.com/kalarcon775/DMX-Controller) includes Flask application code, HTML/CSS, and an Arduino Mega DMX transmitter sketch. This portfolio directory contains **new source-inspected documentation, engineering diagrams, an independent offline reference model, and test cases**. No new physical fixture measurements or qualifications have been fabricated.
+The original [DMX Controller repository](https://github.com/EngrKailani/DMX-Controller) includes Flask application code, HTML/CSS, and an Arduino Mega DMX transmitter sketch. This portfolio directory contains **new source-inspected documentation, engineering diagrams, an independent offline reference model, and test cases**. No new physical fixture measurements or qualifications have been fabricated.
 
 ## Engineering graphics
 
@@ -18,11 +18,11 @@ The diagrams are reconstructed from the original public source and **are not pho
 
 | Original file | Function |
 |---|---|
-| [app.py](https://github.com/kalarcon775/DMX-Controller/blob/main/app.py) | Flask routes, COM port setup and newline serial commands |
-| [Arduino sketch](https://github.com/kalarcon775/DMX-Controller/blob/main/LUX_DMX_Controller_Working/LUX_DMX_Controller_Working.ino) | DMX frames, RGBW channels, brightness, scene effects |
-| [templates/index.html](https://github.com/kalarcon775/DMX-Controller/blob/main/templates/index.html) | Browser controller UI and JavaScript POST actions |
-| [static/style.css](https://github.com/kalarcon775/DMX-Controller/blob/main/static/style.css) | Original browser styling |
-| [README.md](https://github.com/kalarcon775/DMX-Controller/blob/main/README.md) | User setup guide and updated security notes |
+| [app.py](https://github.com/EngrKailani/DMX-Controller/blob/main/app.py) | Flask routes, COM port setup and newline serial commands |
+| [Arduino sketch](https://github.com/EngrKailani/DMX-Controller/blob/main/LUX_DMX_Controller_Working/LUX_DMX_Controller_Working.ino) | DMX frames, RGBW channels, brightness, scene effects |
+| [templates/index.html](https://github.com/EngrKailani/DMX-Controller/blob/main/templates/index.html) | Browser controller UI and JavaScript POST actions |
+| [static/style.css](https://github.com/EngrKailani/DMX-Controller/blob/main/static/style.css) | Original browser styling |
+| [README.md](https://github.com/EngrKailani/DMX-Controller/blob/main/README.md) | User setup guide and updated security notes |
 
 ## New recovery files
 
@@ -40,7 +40,7 @@ The diagrams are reconstructed from the original public source and **are not pho
 ## Original app usage
 
 ```powershell
-git clone https://github.com/kalarcon775/DMX-Controller.git
+git clone https://github.com/EngrKailani/DMX-Controller.git
 cd DMX-Controller
 py -m pip install flask pyserial
 $env:DMX_ARDUINO_PORT = "COM5"  # Change if necessary
