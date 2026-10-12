@@ -213,9 +213,15 @@ check(fs.readFileSync(path.join(root,'portfolio.css'),'utf8')===expectedBundle,
 /* Interactive engineering-case-study explorer: linked to the existing dossiers. */
 const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');
 const caseExplorerCSS=fs.readFileSync(path.join(root,'case-explorer.css'),'utf8');
+const lazyFeatureJS=fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8');
 check(home.includes('id="case-explorer"') &&
-  home.includes('case-explorer.css') && home.includes('case-explorer.js'),
+  home.includes('case-explorer.css') &&
+  lazyFeatureJS.includes('case-explorer.js'),
   'Engineering case studies need their interactive explorer and assets');
+check(home.includes('scripts/lazy-features.js') &&
+  ['bookshelf.js','robot-3d.js','case-explorer.js'].every(file=>
+    lazyFeatureJS.includes(file) && !home.includes('<script src="'+file)),
+  'Interactive below-fold modules should load on demand, not block the first screen');
 check((home.match(/data-case-select="/g)||[]).length===3,
   'Case explorer must offer NASA, IVerify and instrumentation views');
 check((home.match(/data-case-step="/g)||[]).length===4,
