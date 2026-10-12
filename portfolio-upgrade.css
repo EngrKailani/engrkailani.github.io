@@ -3,6 +3,15 @@
 :root{
   --upgrade-ink:#2d2635;--upgrade-accent:#8e4168;--upgrade-line:#e4d8e2;
   --upgrade-surface:#fff;--upgrade-muted:#5d5264;
+  /* Photo accents share the site palette; components use these tokens. */
+  --photo-gallery-heading:#493649;
+  --photo-gallery-description:#6d596a;
+  --photo-awards-border:#d8bdcf;
+  --photo-awards-background:rgba(255,251,254,.7);
+  --photo-awards-text:#594658;
+  --photo-awards-heading:#683653;
+  --photo-gallery-label:var(--ink);
+  --photo-gallery-label-secondary:var(--secondary);
 }
 html{scroll-padding-top:86px}
 body{line-height:1.72}
@@ -96,12 +105,54 @@ section[id]{scroll-margin-top:86px}
 .robot-3d-status{font-size:12px;font-weight:700;color:#bbefda;margin:10px 0 0}
 .robot-3d-status[data-warning="true"]{color:#ffb9b9}
 .robot-console{min-width:0}
+/* Centralized dark-mode design tokens. Keep component-specific rules below. */
 :root[data-theme="dark"]{
-  color-scheme:dark;--bg:#191823;--paper:#252130;--soft:#2d2635;--soft-alt:#372a39;--plum:#f7ecf4;
-  --ink:#f4e9f0;--secondary:#d7c6d3;--border:#564559;--rose:#f0acc8;--rose-dark:#e8a4c3;
-  --upgrade-ink:#f7e8f3;--upgrade-accent:#ecb0d0;--upgrade-line:#59485d;--upgrade-surface:#292332;--upgrade-muted:#ded0db;
+  color-scheme:dark;
+  --bg:#191923;
+  --paper:#242332;
+  --soft:#302b3c;
+  --soft-alt:#393247;
+  --plum:#f8f2fa;
+  --ink:#f8f5fc;
+  --secondary:#e6ddea;
+  --border:#61556d;
+  --rose:#f1a7cd;
+  --rose-dark:#ffbedb;
+  --upgrade-ink:#f7e8f3;
+  --upgrade-accent:#ecb0d0;
+  --upgrade-line:#59485d;
+  --upgrade-surface:#292332;
+  --upgrade-muted:#ded0db;
+  --eng-ink:#f8f5fc;
+  --eng-graphite:#dfd5e4;
+  --eng-rule:#65596f;
+  --muted:#e0d4e1;
+  --pink-deep:#ffc1df;
+  --dark-text:#f8f5fc;
+  --dark-body:#e6ddea;
+  --dark-muted:#d7c9dd;
+  --dark-link:#ffc5e0;
+  --dark-surface:#282636;
+  --dark-raised:#343044;
+  --dark-border:#655b74;
+  --draft-paper:#1d1c29;
+  --draft-minor:rgba(196,177,205,.075);
+  --draft-major:rgba(196,177,205,.14);
+  --berry-deep:#682443;
+  --berry:#982e62;
+  --berry-hover:#b6477b;
+  --berry-link:#ffc1dc;
+  --berry-outline:#b15c88;
+  --berry-wash:rgba(167,48,104,.15);
+  --photo-gallery-heading:#fff2fa;
+  --photo-gallery-description:#ead4e6;
+  --photo-awards-border:#835c7d;
+  --photo-awards-background:#34273c;
+  --photo-awards-text:#eedbea;
+  --photo-awards-heading:#f4bddb;
+  --photo-gallery-label:#fff0fa;
+  --photo-gallery-label-secondary:#e3d5e7;
 }
-:root[data-theme="dark"] body{background:#191823;color:#f7e8f3}
 :root[data-theme="dark"] .site-header{background:rgba(29,26,39,.98)}
 :root[data-theme="dark"] .nav-links a{color:#eeddea}
 :root[data-theme="dark"] .nav-links .nav-cta{background:#ac6791;color:#fff}
@@ -192,33 +243,7 @@ section[id]{scroll-margin-top:86px}
 /* Dark mode readability pass: October 2026.
    High-contrast text and matching surfaces, while keeping paper book pages
    and the printable résumé light with their original dark ink. */
-:root[data-theme="dark"]{
-  --bg:#191923;
-  --paper:#242332;
-  --soft:#302b3c;
-  --soft-alt:#393247;
-  --ink:#f8f5fc;
-  --secondary:#e6ddea;
-  --border:#61556d;
-  --rose:#f1a7cd;
-  --rose-dark:#ffbedb;
-  --plum:#f8f2fa;
-  --eng-ink:#f8f5fc;
-  --eng-graphite:#dfd5e4;
-  --eng-rule:#65596f;
-  --muted:#e0d4e1;
-  --pink-deep:#ffc1df;
-  --dark-text:#f8f5fc;
-  --dark-body:#e6ddea;
-  --dark-muted:#d7c9dd;
-  --dark-link:#ffc5e0;
-  --dark-surface:#282636;
-  --dark-raised:#343044;
-  --dark-border:#655b74;
-  --draft-paper:#1d1c29;
-  --draft-minor:rgba(196,177,205,.075);
-  --draft-major:rgba(196,177,205,.14);
-}
+
 :root[data-theme="dark"] body,
 :root[data-theme="dark"] body.project-page{
   background:#191923;color:var(--dark-text);
@@ -630,14 +655,7 @@ section[id]{scroll-margin-top:86px}
 
 /* Saturated berry for important surfaces, pale pink only for text on dark.
    Deep backgrounds stay distinct so that the site isn't monochromatic. */
-:root[data-theme="dark"]{
-  --berry-deep:#682443;
-  --berry:#982e62;
-  --berry-hover:#b6477b;
-  --berry-link:#ffc1dc;
-  --berry-outline:#b15c88;
-  --berry-wash:rgba(167,48,104,.15);
-}
+
 :root[data-theme="dark"] .hero{
   background-image:radial-gradient(ellipse 65% 72% at 6% 22%,rgba(143,37,83,.18),transparent 80%);
 }
