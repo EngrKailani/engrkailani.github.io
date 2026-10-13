@@ -441,6 +441,11 @@ check(robotDockCss.includes('robot-control-sliders')&&
   robotDockCss.includes('robot-control-presets'),
   'Both panels need shared styling');
 
+check(robotSection.includes('id="bone-1" stroke="#e9a9c8"') &&
+  robotSection.includes('id="bone-2" stroke="#b6dbe4"') &&
+  robotSection.includes('id="bone-3" stroke="#eecf8f"') &&
+  !robotSection.includes('stroke="url(#armGradient)"'),
+  'All three 2D links must have explicit solid strokes; vertical SVG line gradients can render invisible');
 check(home.includes('data-robot-mode="3d"'),'3D view should start as the selected robot mode');
 /* The radial SVG and perspective canvas must share exactly one kinematic model. */
 const sharedRobotJS=fs.readFileSync(path.join(root,'robot-chamber-model.js'),'utf8');

@@ -151,6 +151,16 @@ async function audit(){
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
           // Moving between 2D and 3D must not change arm geometry or joint pose.
           await page.locator('[data-robot-view="2d"]').click();
+          const bones=await page.locator('#arm-bones > line').evaluateAll(elements=>elements.map(el=>({
+            id:el.id,stroke:el.getAttribute('stroke'),length:el.getTotalLength(),
+            style:getComputedStyle(el).stroke
+          })));
+          if(bones.length!==3 ||
+             bones.some((bone,i)=>!bone.stroke?.startsWith('#')||
+               !Number.isFinite(bone.length)||bone.length<[150,150,70][i] ||
+               bone.style.includes('url('))){
+            note(id+': 2D link hidden or missing: '+JSON.stringify(bones));
+          }
           const floor2d=page.locator('[data-pose="floor"]');
           await floor2d.click();
           const first2d=(await page.locator('#side-tip-readout').textContent()||'');
