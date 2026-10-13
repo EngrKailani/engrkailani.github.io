@@ -130,7 +130,7 @@ check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
 
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
-const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]);
+const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]).filter(name=>name!=='index.html');
 const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
 check(menuItems.length===16&&new Set(menuItems).size===16&&
   directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
