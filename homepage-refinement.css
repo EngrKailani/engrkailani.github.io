@@ -191,3 +191,40 @@
 .selected-work .selected-project-preview--paper::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:rgba(174,116,162,.35);mix-blend-mode:multiply}
 .selected-work .selected-project-preview__meta{position:relative;z-index:2}
 :root[data-theme="dark"] .selected-work .selected-project-preview{background:linear-gradient(145deg,#54415d,#40334e);border-color:#786182}
+
+
+/* NASA selected-work card: neutral thumbnail and affiliation disclaimer. */
+.selected-work .selected-project-preview--paper{
+  background:#f7f8fa;
+  border-color:#d7d9df;
+}
+.selected-work .selected-project-preview--paper::after{
+  display:none;
+}
+:root[data-theme="dark"] .selected-work .selected-project-preview--paper{
+  background:#24262b;
+  border-color:#555b66;
+}
+.selected-project-disclaimer{
+  margin:12px 0 10px;
+  padding:12px 13px;
+  border:1px solid #c7a5b7;
+  border-left:4px solid #9c5275;
+  border-radius:10px;
+  background:#fff8fb;
+  color:#5c4a56;
+  font:500 12px/1.55 var(--sans,Arial,sans-serif);
+}
+.selected-project-disclaimer strong{
+  color:#3f303a;
+  font-weight:800;
+}
+:root[data-theme="dark"] .selected-project-disclaimer{
+  background:#332930;
+  border-color:#806276;
+  border-left-color:#d98aad;
+  color:#eadce5;
+}
+:root[data-theme="dark"] .selected-project-disclaimer strong{
+  color:#fff4fa;
+}
