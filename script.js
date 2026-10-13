@@ -37,7 +37,10 @@ const arm = {
   shoulder:document.getElementById('shoulder-readout'),elbow:document.getElementById('elbow-readout'),
   status:document.getElementById('pose-status'),
   tipHeight:document.getElementById('side-tip-readout'),
-  bounds:document.getElementById('side-projection-status')
+  bounds:document.getElementById('side-projection-status'),
+  chamberOutline:document.getElementById('side-chamber-outline'),
+  ceilingRail:document.getElementById('side-ceiling-rail'),
+  floorRail:document.getElementById('side-floor-rail')
 };
 const robotLayout=document.querySelector('.robot-layout');
 const rad = robotModel.radians;
@@ -76,6 +79,16 @@ function renderArm(a,broadcast=true){
   if(robotLayout)robotLayout.robotPose=pose;
   const joints=robotModel.joints(pose),scale=322/robotModel.chamber;
   const yaw=rad(pose.yaw);
+  // A radial plane rotated with base yaw intersects the cube at a variable
+  // horizontal span; using fixed +/-18in walls would falsely show collisions.
+  const radialHalf=(robotModel.chamber/2)/Math.max(Math.abs(Math.cos(yaw)),Math.abs(Math.sin(yaw)));
+  const leftWall=250-radialHalf*scale,rightWall=250+radialHalf*scale;
+  if(arm.chamberOutline){
+    arm.chamberOutline.setAttribute('x',leftWall.toFixed(2));
+    arm.chamberOutline.setAttribute('width',(rightWall-leftWall).toFixed(2));
+  }
+  if(arm.ceilingRail)arm.ceilingRail.setAttribute('d','M'+leftWall.toFixed(2)+' 65H'+rightWall.toFixed(2));
+  if(arm.floorRail)arm.floorRail.setAttribute('d','M'+leftWall.toFixed(2)+' 387H'+rightWall.toFixed(2));
   const project=point=>({
     x:250+(point.x*Math.cos(yaw)+point.y*Math.sin(yaw))*scale,
     y:65+(robotModel.chamber-point.z)*scale
