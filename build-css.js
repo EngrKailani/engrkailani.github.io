@@ -28,4 +28,19 @@ const output = '/* Compiled portfolio stylesheet. Source: build-css.js; CSS file
     return '\n/* SOURCE: ' + file + ' */\n' + content + '\n';
   }).join('');
 fs.writeFileSync(path.join(root, 'portfolio.css'), output, 'utf8');
-console.log('Rebuilt portfolio.css from ' + sources.length + ' source stylesheets.');
+// The homepage keeps hero/layout rules render-blocking and defers just the
+// below-fold bookshelf and engineering dossier rules. Slice the same compiled
+// source by stable markers to retain the exact original CSS cascade.
+const boundary = file => {
+  const index = output.indexOf('\n/* SOURCE: ' + file + ' */\n');
+  if (index < 0) throw new Error('Missing CSS source marker: ' + file);
+  return index;
+};
+const homepageChunks = [
+  ['home-css-initial.css', output.slice(0, boundary('bookshelf.css'))],
+  ['home-css-layout.css', output.slice(boundary('ux.css'), boundary('case-studies.css'))],
+  ['home-css-project.css', output.slice(boundary('project-pages.css'))]
+];
+for (const [file, content] of homepageChunks)
+  fs.writeFileSync(path.join(root, file), content, 'utf8');
+console.log('Rebuilt full portfolio.css and three layout-stable homepage CSS chunks.');

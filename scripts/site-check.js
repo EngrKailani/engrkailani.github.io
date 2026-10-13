@@ -306,6 +306,26 @@ const expectedBundle='/* Compiled portfolio stylesheet. Source: build-css.js; CS
     fs.readFileSync(path.join(root,file),'utf8').trimEnd()+'\n').join('');
 check(fs.readFileSync(path.join(root,'portfolio.css'),'utf8')===expectedBundle,
   'Compiled portfolio.css must match source CSS. Run node build-css.js');
+// CSS chunks are byte-for-byte slices of the same ordered stylesheet so that
+// deferred book and dossier rules do not change the final visual cascade.
+const cssBoundary=file=>{
+  const marker='\n/* SOURCE: '+file+' */\n';
+  const pos=expectedBundle.indexOf(marker);
+  if(pos<0)throw new Error('Missing CSS source marker '+file);
+  return pos;
+};
+const expectedHomepageChunks=[
+  ['home-css-initial.css',expectedBundle.slice(0,cssBoundary('bookshelf.css'))],
+  ['home-css-layout.css',expectedBundle.slice(cssBoundary('ux.css'),cssBoundary('case-studies.css'))],
+  ['home-css-project.css',expectedBundle.slice(cssBoundary('project-pages.css'))]
+];
+for(const [file,content] of expectedHomepageChunks)
+  check(fs.readFileSync(path.join(root,file),'utf8')===content,
+    'Optimized CSS '+file+' is outdated; run node build-css.js');
+check(expectedHomepageChunks.every(([file])=>home.includes('href="'+file+'?v=20261012-split1"')) &&
+  home.includes('href="bookshelf.css?v=20261012-split1" media="print"') &&
+  home.includes('href="case-studies.css?v=20261012-split1" media="print"'),
+  'Homepage must load full layout first and defer only offscreen book and dossier styles');
 
 /* Interactive engineering-case-study explorer: linked to the existing dossiers. */
 const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');

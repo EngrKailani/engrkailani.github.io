@@ -17,7 +17,7 @@ Canonical public website: `https://engrkailani.github.io`. Hosting and deploymen
 
 ## CSS maintenance
 
-- Edit the nine authored source stylesheets listed in `build-css.js`; then run `node build-css.js` to regenerate `portfolio.css`. Do not edit the generated bundle by hand.
+- Edit the nine authored source stylesheets listed in `build-css.js`; then run `node build-css.js` to regenerate `portfolio.css` **and** the three optimized homepage chunks (`home-css-initial.css`, `home-css-layout.css`, `home-css-project.css`). Do not edit generated CSS by hand. The homepage defers only the original `bookshelf.css` and `case-studies.css` while preserving their cascade order.
 - Shared light and dark color variables, including photograph accent colors, live in `portfolio-upgrade.css` under `:root` and the single `:root[data-theme="dark"]` token block. Component styles should reference these variables rather than restating colors.
 - `portfolio-photos.css` owns the centered and responsive image accents. Keep one base rule per component and use media queries only for intentional breakpoint changes.
 - Other optional stylesheets (`repo-orbit.css`, `robot-control-dock.css`, and `case-explorer.css`) remain isolated to their respective features. Project-specific styles stay in `projects/`.
