@@ -129,6 +129,21 @@ check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
   'Featured project actions need mobile-responsive styles');
 
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
+const thumbs=[...directory.matchAll(/<span class="directory-card-visual"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
+check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
+check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
+  'Each project thumbnail must have a labeled evidence type');
+check(directory.includes('directory-thumbnails.css'),'Directory must link scoped thumbnail CSS');
+for(const [,source,alt] of thumbs){
+  check(alt.length>24,'Project thumbnail requires meaningful alternative text');
+  check(fs.existsSync(path.resolve(projectDir,source.split('?')[0])),
+    'Project thumbnail image not found: '+source);
+}
+check((directory.match(/data-gallery-category=/g)||[]).length===16 &&
+  directory.includes('id="directory-search"') &&
+  directory.includes('data-gallery-filter="robotics"'),
+  'Searchable categorized project directory must remain intact');
+
 
 // Five repository planets remain visible, separated, and independently selectable.
 const orbitCss=fs.readFileSync(path.join(root,'repo-orbit.css'),'utf8');

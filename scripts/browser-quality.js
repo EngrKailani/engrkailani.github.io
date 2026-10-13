@@ -21,7 +21,7 @@ const cases=[
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
-  {path:'/projects/index.html',width:390,theme:'light'},
+  {path:'/projects/index.html',width:390,theme:'light',imageCheck:true,screenshot:true},
   {path:'/projects/dmx.html',width:390,theme:'light'},
   {path:'/projects/hall.html',width:390,theme:'light'},
   {path:'/projects/huemotion.html',width:390,theme:'light'},
@@ -85,6 +85,16 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/projects/index.html'){
+          const thumbs=page.locator('.project-directory-grid .directory-card-visual img');
+          if(await thumbs.count()!==16) note(id+': expected 16 project thumbnails');
+          const first=thumbs.first();
+          if(await first.count()){
+            await first.evaluate(el=>el.decode().catch(()=>{}));
+            if(!await first.evaluate(el=>el.complete && el.naturalWidth>0)) note(id+': directory preview did not load');
+          }
+          if(!await page.locator('a[href="../index.html#bookshelf"]').count()) note(id+': bookshelf link missing');
+        }
         if(test.path==='/') {
           if(await page.locator('.selected-project-preview img').count()!==3)
             note(id+': expected three illustrated featured engineering projects');
