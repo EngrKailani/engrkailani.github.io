@@ -6,7 +6,7 @@
     // Bookshelf is essential and now loads as a deferred script on the homepage.
     // Never initialize the same reader twice via this progressive loader.
     {id:'explorer',selector:'#case-explorer',url:'case-explorer.js?v=20261012-v2'},
-    {id:'robot',selector:'#robot-lab',url:'robot-3d.js?v=20261012-shared1'}
+    {id:'robot',selector:'#robot-lab',url:'robot-3d.js?v=20261013-generic-motion'}
   ];
   function load(item){
     if(item.started)return;
