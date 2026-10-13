@@ -65,8 +65,8 @@
   }
   sliders.forEach(slider => slider.addEventListener('input', applyManual));
   reset?.addEventListener('click', () => {
-    choosePose('home');
-    updateSliders(poses.home.angles);
+    choosePose('neutral');
+    updateSliders(poses.neutral.angles);
   });
   poseButtons.forEach(button => button.addEventListener('click', () => {
     const pose = poses[button.dataset.pose];
@@ -79,7 +79,7 @@
     });
     statusObserver.observe(arm.status, { childList: true, characterData: true, subtree: true });
   }
-  updateSliders(poses.home.angles);
+  updateSliders(poses.neutral.angles);
 
   // Native <details> is keyboard-accessible, fully readable without JS.
   // Highlight just the active role while preserving the complete timeline.
