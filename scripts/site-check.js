@@ -442,6 +442,30 @@ check(robotDockCss.includes('robot-control-sliders')&&
   'Both panels need shared styling');
 
 check(home.includes('data-robot-mode="3d"'),'3D view should start as the selected robot mode');
+/* The radial SVG and perspective canvas must share exactly one kinematic model. */
+const sharedRobotJS=fs.readFileSync(path.join(root,'robot-chamber-model.js'),'utf8');
+const robot2dJS=fs.readFileSync(path.join(root,'script.js'),'utf8');
+check(home.includes('robot-chamber-model.js?v=20261012-shared1') &&
+  home.indexOf('robot-chamber-model.js?v=20261012-shared1')<home.indexOf('script.js?v=20261012-shared1'),
+  'Shared chamber model must load before 2D script');
+check(sharedRobotJS.includes('link1=18.5, link2=18.5, tool=8.5') &&
+  sharedRobotJS.includes('chamber=36, mount=3') &&
+  robot3dJs.includes('model.joints(pose)') &&
+  robot2dJS.includes('robotModel.joints(pose)'),
+  'Both robot views must derive joint locations from the same physical lengths');
+check(['home','floor','inspect','park'].every(name=>
+  robotSection.includes('data-pose="'+name+'"')&&
+  robotSection.includes('data-3d-pose="'+name+'"')) &&
+  robotSection.includes('id="side-tip-readout"') &&
+  robotSection.includes('id="side-projection-status"'),
+  '2D and 3D must expose matching presets and chamber clearance feedback');
+check(robot2dJS.includes("source:'2d'") &&
+  robot3dJs.includes("source:'3d'") &&
+  robot2dJS.includes("event.detail?.source!=='3d'") &&
+  robot3dJs.includes("event.detail?.source!=='2d'"),
+  'Robot mode changes must synchronize angles in both directions without an echo loop');
+check(fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes('robot-3d.js?v=20261012-shared1'),
+  'Lazy 3D loader should fetch the synchronized renderer');
 
 
 /* Content hierarchy and visual-first case-study invariants. */
