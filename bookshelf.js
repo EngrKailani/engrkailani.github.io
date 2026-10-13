@@ -172,6 +172,16 @@
   const closeBtn = document.getElementById('close-project-book');
   const pageStatus = document.getElementById('book-page-status');
   const previous = document.getElementById('book-previous');
+  const bookSwitchSelect = document.getElementById('book-switch-select');
+  // Use the same project records as the books, so the titles cannot drift.
+  if (bookSwitchSelect) {
+    books.forEach((book, index) => {
+      const option = document.createElement('option');
+      option.value = book.id;
+      option.textContent = String(index + 1).padStart(2, '0') + ' · ' + book.title;
+      bookSwitchSelect.appendChild(option);
+    });
+  }
   const next = document.getElementById('book-next');
   const counter = document.getElementById('book-counter');
   const coverTitle = document.getElementById('book-cover-title');
@@ -221,6 +231,7 @@
   function syncNavigation() {
     if (previous) previous.disabled = isOpening || isTurning || selectedIndex === 0;
     if (next) next.disabled = isOpening || isTurning || selectedIndex === books.length - 1;
+    if (bookSwitchSelect) bookSwitchSelect.disabled = isOpening || isTurning;
   }
 
   // Project information is filled from trusted, authored text only.
@@ -228,6 +239,7 @@
     if (index < 0 || index >= books.length) return;
     selectedIndex = index;
     const book = books[index];
+    if (bookSwitchSelect) bookSwitchSelect.value = book.id;
     for (const [name, element] of Object.entries(fields)) {
       if (element) element.textContent = book[name];
     }
@@ -434,6 +446,14 @@
   closeBtn?.addEventListener('click', () => dialog.close());
   previous?.addEventListener('click', () => turnTo(selectedIndex - 1, -1));
   next?.addEventListener('click', () => turnTo(selectedIndex + 1, 1));
+  bookSwitchSelect?.addEventListener('change', () => {
+    const index = books.findIndex(book => book.id === bookSwitchSelect.value);
+    if (index < 0 || !dialog.open || isOpening || isTurning) {
+      bookSwitchSelect.value = books[selectedIndex].id;
+      return;
+    }
+    if (index !== selectedIndex) turnTo(index, index > selectedIndex ? 1 : -1);
+  });
 
   detailLink?.addEventListener('click', () => {
     if (detailLink.getAttribute('href')?.startsWith('#')) {
