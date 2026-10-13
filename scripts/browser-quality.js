@@ -154,7 +154,7 @@ async function audit(){
           const floor2d=page.locator('[data-pose="floor"]');
           await floor2d.click();
           const first2d=(await page.locator('#side-tip-readout').textContent()||'');
-          const z2d=Number(first2d.match(/z:\\s*([+-]?[\\d.]+)/i)?.[1]);
+          const z2d=Number(first2d.match(/z:\s*([+-]?[\d.]+)/i)?.[1]);
           if(!Number.isFinite(z2d)||Math.abs(z2d-.5)>.2)
             note(id+': 2D floor preset should approach 0.5in, got '+first2d);
           await page.locator('[data-robot-view="3d"]').click();
@@ -165,7 +165,7 @@ async function audit(){
           if(await page.locator('#r3d-elbow').inputValue()!=='72')
             note(id+': 2D floor preset did not transfer elbow angle into 3D');
           const first3d=(await page.locator('#robot-3d-status').textContent()||'');
-          const z3d=Number(first3d.match(/Tip z:\\s*([+-]?[\\d.]+)/)?.[1]);
+          const z3d=Number(first3d.match(/Tip z:\s*([+-]?[\d.]+)/)?.[1]);
           if(!Number.isFinite(z3d)||Math.abs(z3d-z2d)>.12)
             note(id+': 2D and 3D floor heights disagree: '+first2d+' / '+first3d);
           await page.locator('#r3d-shoulder').evaluate(input=>{
