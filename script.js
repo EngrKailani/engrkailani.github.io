@@ -18,23 +18,34 @@ if (menuToggle && navLinks) {
 }
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Shared 2D side projection of the 3D chamber arm. Both use identical joint
-// definitions, dimensions and presets from robot-chamber-model.js.
-const robotModel = window.robotChamberModel;
-if (!robotModel) throw new Error('Shared robot chamber model did not load');
-const poses = {
-  home: {angles:[0,85,-60],label:'Home position · shared chamber geometry'},
-  floor: {angles:[0,72,-60],label:'Approaching chamber floor'},
-  inspect: {angles:[-10,110,-60],label:'Inspecting chamber interior'},
-  park: {angles:[0,110,-60],label:'Arm parked'}
+// Generic 2D side projection of the shared illustrative robot-motion model.
+// Geometry, proportions, poses and ranges are intentionally arbitrary and are
+// not representations of project hardware or validated motion plans.
+const robotModel=window.robotMotionModel;
+if(!robotModel)throw new Error('Generic robot motion model did not load');
+
+const poseLabels={
+  neutral:'Neutral pose · generic geometry',
+  reach:'Generic reach pose',
+  fold:'Generic folded pose',
+  rest:'Generic rest pose'
 };
-const arm = {
-  bone1: document.getElementById('bone-1'), bone2:document.getElementById('bone-2'),
+const poses=Object.fromEntries(Object.entries(robotModel.presets).map(([name,p])=>[
+  name,{angles:[p.jointA,p.jointB,p.jointC],label:poseLabels[name]||'Generic pose'}
+]));
+
+const arm={
+  bone1:document.getElementById('bone-1'),
+  bone2:document.getElementById('bone-2'),
   bone3:document.getElementById('bone-3'),
-  joint1:document.getElementById('joint-1'),joint2:document.getElementById('joint-2'),
-  gripperLeft:document.getElementById('grip-left'),gripperRight:document.getElementById('grip-right'),
-  tipGlow:document.getElementById('tip-glow'),tipDot:document.getElementById('tip-dot'),
-  shoulder:document.getElementById('shoulder-readout'),elbow:document.getElementById('elbow-readout'),
+  joint1:document.getElementById('joint-1'),
+  joint2:document.getElementById('joint-2'),
+  gripperLeft:document.getElementById('grip-left'),
+  gripperRight:document.getElementById('grip-right'),
+  tipGlow:document.getElementById('tip-glow'),
+  tipDot:document.getElementById('tip-dot'),
+  jointA:document.getElementById('joint-a-readout'),
+  jointB:document.getElementById('joint-b-readout'),
   status:document.getElementById('pose-status'),
   tipHeight:document.getElementById('side-tip-readout'),
   bounds:document.getElementById('side-projection-status'),
@@ -42,15 +53,17 @@ const arm = {
   ceilingRail:document.getElementById('side-ceiling-rail'),
   floorRail:document.getElementById('side-floor-rail')
 };
+
 const robotLayout=document.querySelector('.robot-layout');
-const rad = robotModel.radians;
-let angles=poses.home.angles.slice();
+const rad=robotModel.radians;
+let angles=poses.neutral.angles.slice();
 let animationFrame=null;
 let sequenceTimers=[];
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 const poseButtons=[...document.querySelectorAll('.pose-button')];
 const sequenceButton=document.getElementById('animate-button');
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+
 function setXY(el,fields,x,y){
   if(!el)return;
   el.setAttribute(fields[0],x.toFixed(2));
@@ -61,80 +74,81 @@ function putBone(el,p1,p2){
   setXY(el,['x2','y2'],p2.x,p2.y);
 }
 function sync2dSliderValues(){
-  ['shoulder','elbow','wrist'].forEach((name,i)=>{
+  ['a','b','c'].forEach((name,i)=>{
     const slider=document.getElementById('joint-'+name);
     if(!slider)return;
     slider.value=String(Math.round(angles[i]));
-    const output=document.getElementById(name==='shoulder'?'shoulder-input-value':name==='elbow'?'elbow-input-value':'wrist-input-value');
+    const output=document.getElementById('joint-'+name+'-value');
     if(output)output.textContent=slider.value+'°';
     const min=Number(slider.min),max=Number(slider.max);
     slider.style.setProperty('--range-progress',clamp(100*(Number(slider.value)-min)/(max-min),0,100).toFixed(2)+'%');
   });
 }
 function renderArm(a,broadcast=true){
-  // A radial plane through the current yaw axis shows the true link lengths.
-  // Yaw/twist/grip remain part of the shared 3D state.
-  const current=(robotLayout&&robotLayout.robotPose)||robotModel.presets.home;
-  const pose={...current,shoulder:a[0],elbow:a[1],wrist:a[2]};
+  const current=(robotLayout&&robotLayout.robotPose)||robotModel.presets.neutral;
+  const pose={...current,jointA:a[0],jointB:a[1],jointC:a[2]};
   if(robotLayout)robotLayout.robotPose=pose;
-  const joints=robotModel.joints(pose),scale=322/robotModel.chamber;
+
+  const joints=robotModel.joints(pose);
+  const scale=322/robotModel.workspace;
   const yaw=rad(pose.yaw);
-  // A radial plane rotated with base yaw intersects the cube at a variable
-  // horizontal span; using fixed +/-18in walls would falsely show collisions.
-  const radialHalf=(robotModel.chamber/2)/Math.max(Math.abs(Math.cos(yaw)),Math.abs(Math.sin(yaw)));
+  const radialHalf=(robotModel.workspace/2)/Math.max(Math.abs(Math.cos(yaw)),Math.abs(Math.sin(yaw)));
   const leftWall=250-radialHalf*scale,rightWall=250+radialHalf*scale;
+
   if(arm.chamberOutline){
     arm.chamberOutline.setAttribute('x',leftWall.toFixed(2));
     arm.chamberOutline.setAttribute('width',(rightWall-leftWall).toFixed(2));
   }
   if(arm.ceilingRail)arm.ceilingRail.setAttribute('d','M'+leftWall.toFixed(2)+' 65H'+rightWall.toFixed(2));
   if(arm.floorRail)arm.floorRail.setAttribute('d','M'+leftWall.toFixed(2)+' 387H'+rightWall.toFixed(2));
+
   const project=point=>({
     x:250+(point.x*Math.cos(yaw)+point.y*Math.sin(yaw))*scale,
-    y:65+(robotModel.chamber-point.z)*scale
+    y:65+(robotModel.workspace-point.z)*scale
   });
-  const shoulder=project(joints[1]),elbow=project(joints[2]),
-    wrist=project(joints[3]),tip=project(joints[4]);
-  putBone(arm.bone1,shoulder,elbow);
-  putBone(arm.bone2,elbow,wrist);
-  putBone(arm.bone3,wrist,tip);
-  setXY(arm.joint1,['cx','cy'],elbow.x,elbow.y);
-  setXY(arm.joint2,['cx','cy'],wrist.x,wrist.y);
+  const root=project(joints[1]),jointA=project(joints[2]),jointB=project(joints[3]),tip=project(joints[4]);
+
+  putBone(arm.bone1,root,jointA);
+  putBone(arm.bone2,jointA,jointB);
+  putBone(arm.bone3,jointB,tip);
+  setXY(arm.joint1,['cx','cy'],jointA.x,jointA.y);
+  setXY(arm.joint2,['cx','cy'],jointB.x,jointB.y);
   setXY(arm.tipGlow,['cx','cy'],tip.x,tip.y);
   setXY(arm.tipDot,['cx','cy'],tip.x,tip.y);
+
   const tipPitch=rad(a[0]+a[1]+a[2]);
-  const spread=.45+(pose.grip/60)*1.15;
+  const spread=.015+(pose.grip/100)*.035;
   const dx=Math.sin(tipPitch),dy=Math.cos(tipPitch);
-  const finger=2.6*scale,gap=spread*scale;
-  putBone(arm.gripperLeft,
-    {x:tip.x-gap,y:tip.y},
-    {x:tip.x-gap+dx*finger,y:tip.y+dy*finger});
-  putBone(arm.gripperRight,
-    {x:tip.x+gap,y:tip.y},
-    {x:tip.x+gap+dx*finger,y:tip.y+dy*finger});
+  const finger=.07*scale,gap=spread*scale;
+  putBone(arm.gripperLeft,{x:tip.x-gap,y:tip.y},{x:tip.x-gap+dx*finger,y:tip.y+dy*finger});
+  putBone(arm.gripperRight,{x:tip.x+gap,y:tip.y},{x:tip.x+gap+dx*finger,y:tip.y+dy*finger});
+
   const inside=joints.every(robotModel.inside);
-  const margin=joints[4].z.toFixed(1);
-  if(arm.tipHeight)arm.tipHeight.textContent='TIP z: '+margin+' IN';
-  if(arm.bounds) {
-    arm.bounds.textContent=inside?(joints[4].z<=.55?'FLOOR APPROACH':'CENTERLINE IN BOUNDS'):'OUTSIDE CHAMBER';
+  const relativeHeight=Math.round(clamp(joints[4].z/robotModel.workspace,0,1)*100);
+  if(arm.tipHeight)arm.tipHeight.textContent='TIP HEIGHT: '+relativeHeight+'%';
+  if(arm.bounds){
+    arm.bounds.textContent=inside?'WITHIN ILLUSTRATIVE BOUNDS':'OUTSIDE ILLUSTRATIVE BOUNDS';
     arm.bounds.setAttribute('fill',inside?'#d2c1e0':'#ffb6a1');
   }
-  if(arm.shoulder)arm.shoulder.textContent=Math.round(a[0])+'°';
-  if(arm.elbow)arm.elbow.textContent=Math.round(a[1])+'°';
+  if(arm.jointA)arm.jointA.textContent=Math.round(a[0])+'°';
+  if(arm.jointB)arm.jointB.textContent=Math.round(a[1])+'°';
+
   sync2dSliderValues();
   if(broadcast)document.dispatchEvent(new CustomEvent('robot:pose-change',{
     detail:{source:'2d',pose:{...pose}}
   }));
 }
+
 function cancelSequence(){
   sequenceTimers.forEach(clearTimeout);sequenceTimers=[];
   const stop=document.getElementById('stop-button');
   if(stop)stop.hidden=true;
   if(sequenceButton){
     sequenceButton.disabled=false;
-    sequenceButton.textContent='Run motion sequence ↗';
+    sequenceButton.textContent='Run generic motion sequence ↗';
   }
 }
+
 function choosePose(name,fromSequence=false){
   if(!poses[name])return;
   if(!fromSequence)cancelSequence();
@@ -145,8 +159,11 @@ function choosePose(name,fromSequence=false){
   });
   if(arm.status)arm.status.textContent=poses[name].label;
   if(animationFrame!==null)cancelAnimationFrame(animationFrame);
-  const shared=robotModel.presets[name],current=(robotLayout&&robotLayout.robotPose)||robotModel.presets.home;
+
+  const shared=robotModel.presets[name];
+  const current=(robotLayout&&robotLayout.robotPose)||robotModel.presets.neutral;
   if(robotLayout)robotLayout.robotPose={...current,yaw:shared.yaw,twist:shared.twist,grip:shared.grip};
+
   const start=angles.slice(),end=poses[name].angles.slice();
   if(reduceMotion.matches){angles=end;renderArm(angles);return}
   const begin=performance.now(),duration=520;
@@ -159,33 +176,35 @@ function choosePose(name,fromSequence=false){
   };
   animationFrame=requestAnimationFrame(animate);
 }
+
 poseButtons.forEach(button=>button.addEventListener('click',()=>choosePose(button.dataset.pose)));
 if(sequenceButton)sequenceButton.addEventListener('click',()=>{
   cancelSequence();
   sequenceButton.disabled=true;
-  sequenceButton.textContent='Motion sequence in progress...';
-  const sequence=['floor','inspect','park','home'];
+  sequenceButton.textContent='Generic sequence in progress...';
+  const sequence=['reach','fold','rest','neutral'];
   sequence.forEach((name,i)=>sequenceTimers.push(setTimeout(()=>choosePose(name,true),i*1200)));
   sequenceTimers.push(setTimeout(cancelSequence,sequence.length*1200));
 });
-// The 3D simulator broadcasts its current pose. Update the hidden 2D projection
-// without redispatching, so mode switches preserve the same configuration.
+
 document.addEventListener('robot:pose-change',event=>{
   if(event.detail?.source!=='3d'||!event.detail.pose)return;
   const incoming=event.detail.pose;
   if(animationFrame!==null){cancelAnimationFrame(animationFrame);animationFrame=null}
-  angles=[incoming.shoulder,incoming.elbow,incoming.wrist];
+  angles=[incoming.jointA,incoming.jointB,incoming.jointC];
   if(robotLayout)robotLayout.robotPose={...incoming};
   renderArm(angles,false);
+
+  const axes=['yaw','jointA','jointB','jointC','twist','grip'];
   const matching=Object.keys(robotModel.presets).find(key=>
-    ['yaw','shoulder','elbow','wrist','twist','grip']
-      .every(axis=>Math.abs(robotModel.presets[key][axis]-incoming[axis])<.01));
+    axes.every(axis=>Math.abs(robotModel.presets[key][axis]-incoming[axis])<.01)
+  );
   poseButtons.forEach(button=>{
     const selected=matching===button.dataset.pose;
     button.classList.toggle('active',selected);
     button.setAttribute('aria-pressed',String(selected));
   });
-  if(arm.status)arm.status.textContent=matching?poses[matching].label:'Shared manual joint position';
+  if(arm.status)arm.status.textContent=matching?poses[matching].label:'Generic manual pose';
 });
 renderArm(angles);
 
