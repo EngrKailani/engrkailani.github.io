@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="project-photo-context.css?v=20261012">
 <link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
-<link rel="stylesheet" href="nasa-figures.css?v=20261012-visual2">
+<link rel="stylesheet" href="nasa-figures.css?v=20261013-generic-geometry">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -41,16 +41,16 @@
   <header class="nasa-figures__intro">
     <p class="nasa-figures__eyebrow">TECHNICAL CONTEXT</p>
     <h2 id="nasa-figures-title">Engineering workstreams</h2>
-    <p>This public portfolio page presents the project at a general level. The visual below is an illustrative reconstruction used to explain the thermal-analysis workstream; it is not an official NASA engineering drawing, solver output, or qualification result.</p>
+    <p>This public portfolio page presents the project at a general level. The visual below uses an intentionally generic robotic-arm representation to explain the thermal-analysis workstream. It does not reproduce project-specific dimensions, link lengths, joint locations, chamber geometry, or mechanical configuration, and it is not an official NASA engineering drawing, solver output, or qualification result.</p>
   </header>
   <figure class="nasa-figure" id="nasa-fig-thermal">
     <div class="nasa-figure__top"><span>THERMAL MODELING</span><span>QUALITATIVE RECONSTRUCTION</span></div>
-    <img src="nasa-figures/thermal-analysis-concept.svg?v=20261012-visual3" alt="Conceptual robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project measurements." width="1200" height="760" loading="lazy" decoding="async">
-    <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration of the steady-state and transient modeling approaches used with Thermal Desktop. The colors are explanatory only and do not represent measured or qualified thermal performance.</figcaption>
+    <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project-specific geometry or measurements." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration using a generic arm silhouette. The geometry, proportions, and joint placement are illustrative only and do not represent the project hardware. The colors are explanatory only and do not represent measured or qualified thermal performance.</figcaption>
   </figure>
 </section>
 
-<article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>A reachable pose also has to be supportable by the actuator. The assessment connected workspace geometry and shoulder-load calculations with the available motor data.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
+<article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>A reachable pose also has to be supportable by the actuator. The assessment connected workspace feasibility and actuator-loading analysis with available motor data while keeping project-specific mechanical geometry out of this public summary.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
 <h2 id="nasa-workstreams-title">Implementation and verification scope</h2>
 <div class="nasa-workstreams__grid">
 <section id="nasa-controls"><h3>Control &amp; calibration</h3><p>Used ROS2 to support robotic-arm control, calibration, simulation, and integration planning within the assessment.</p></section>
@@ -60,9 +60,7 @@
 </div>
 </section><div id="project-results" class="detail-results"><h2>Assessment status</h2><p>The assessment identified areas for continued engineering review across actuator capability, mechanical packaging, controls, thermal behavior, and high-vacuum operation. These are design and analytical findings rather than completed acceptance or qualification tests.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Validate actuator assumptions, refine the mechanical and control design, characterize calibration performance, and complete thermal and vacuum verification against the project requirements.</p></div></article>
 
-<figure class="context-photo-accent"><img src="../assets/Creo-1.jpg" loading="lazy" decoding="async" alt="Creo CAD modeling screenshot showing mechanical design geometry"><figcaption>Creo CAD design view. Supporting design context; not evidence of vacuum qualification or completed verification.</figcaption></figure>
-
-<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>This page summarizes the engineering methods and general project work that can be shared publicly. Detailed NASA source data, internal geometry, quantitative performance margins, calibration results, and completed qualification results are not public here. The CAD photo provides design context only.</p></section>
+<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>This page summarizes the engineering methods and general project work that can be shared publicly. Detailed NASA source data, project-specific dimensions, link lengths, joint locations, mechanical configuration, quantitative performance margins, calibration results, and completed qualification results are not public here. Any robotic-arm geometry shown on this page is intentionally generic and illustrative.</p></section>
 <aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=nasa%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../assets/Kailani_Alarcon_Resume.pdf?v=20261012-r6" target="_blank" rel="noopener noreferrer">View résumé ↗</a></div></aside>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="powershell.html">← PowerShell Systems &amp; Concurrency</a>
