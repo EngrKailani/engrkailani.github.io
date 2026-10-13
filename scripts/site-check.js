@@ -471,9 +471,15 @@ check(home.includes('<dialog id="project-book-dialog"') &&
   home.includes('id="book-next-page"') &&
   home.includes('id="book-prev-page"') &&
   home.includes('id="close-project-book"') &&
-  home.includes('id="book-next"') && home.includes('id="book-previous"'),
-  'Interactive bookshelf reader dialog, page controls and story fields must exist');
-check(home.includes('src="bookshelf.js?v=20261012-readerfix1" defer') &&
+  home.includes('id="book-next"') && home.includes('id="book-previous"') &&
+  home.includes('<select id="book-switch-select"') &&
+  home.includes('class="bookshelf-index-link"') &&
+  home.includes('class="book-switcher__directory"'),
+  'Book reader, direct 16-project chooser, and controls must all exist');
+check(fs.readFileSync(path.join(root,'bookshelf.js'),'utf8').includes("bookSwitchSelect?.addEventListener('change'") &&
+  fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.book-switcher__heading'),
+  'Direct chooser must be interactive and visibly styled');
+check(home.includes('src="bookshelf.js?v=20261012-bookswitch1" defer') &&
   !fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes("{id:'bookshelf'"),
   'Reader should initialize exactly once on initial load, not only on scroll');
 
