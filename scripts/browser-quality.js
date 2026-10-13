@@ -119,9 +119,19 @@ async function audit(){
           if(await projectsMenu.evaluate(el=>el.open))
             note(id+': Projects dropdown should close with Escape');
           if(test.width===390){
-            await page.locator('#menu-toggle').click();
-            if(await page.locator('#nav-links').isVisible())
-              note(id+': mobile menu did not close');
+            const nav=page.locator('#nav-links');
+            const mobileToggle=page.locator('#menu-toggle');
+            // Escape also closes the containing hamburger menu via the site's
+            // existing keyboard handler. Test reopening and closing separately.
+            if(await nav.isVisible())await mobileToggle.click();
+            if(await nav.isVisible())
+              note(id+': mobile navigation stayed open after dismissal');
+            await mobileToggle.click();
+            if(!await nav.isVisible())
+              note(id+': hamburger could not reopen navigation');
+            await mobileToggle.click();
+            if(await nav.isVisible())
+              note(id+': hamburger could not close navigation');
           }
         }
         if(test.path==='/') {
