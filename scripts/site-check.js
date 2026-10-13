@@ -318,7 +318,7 @@ check(home.includes('id="case-explorer"') &&
 check(home.includes('scripts/lazy-features.js') &&
   ['robot-3d.js','case-explorer.js'].every(file=>
     lazyFeatureJS.includes(file) && !home.includes('<script src="'+file)) &&
-  home.includes('<script src="bookshelf.js?v=20261012-readerfix1" defer></script>') &&
+  home.includes('<script src="bookshelf.js?v=20261012-bookswitch1" defer></script>') &&
   !lazyFeatureJS.includes("{id:'bookshelf'"),
   'Keep the robot and case explorer lazy-loaded while initializing the bookshelf reader once');
 check((home.match(/data-case-select="/g)||[]).length===3,
