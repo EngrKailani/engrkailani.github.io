@@ -91,6 +91,14 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
           try { await page.locator('#project-book-dialog[open]').waitFor({state:'visible',timeout:5000}); }
           catch {note(id+': clicking a book did not open the reader modal');}
           await inspect('open book');
+          const switcher=page.locator('#book-switch-select');
+          if(await switcher.count()){
+            if(await switcher.locator('option').count()!==16)
+              note(id+': missing direct chooser options for all sixteen books');
+            await switcher.selectOption('iverify');
+            if((await page.locator('#book-modal-title').textContent()||'').trim()!=='IVerify')
+              note(id+': mobile book selector did not open IVerify');
+          } else note(id+': direct book switcher missing on mobile');
           const turn = page.locator('.book-mobile-turn:visible').first();
           if (await turn.count()) { await turn.click(); await page.waitForTimeout(100); await inspect('book second page'); }
           await page.keyboard.press('Escape');
