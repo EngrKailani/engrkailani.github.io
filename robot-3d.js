@@ -11,20 +11,18 @@
   const status = document.getElementById('robot-3d-status');
   const presets = Array.from(document.querySelectorAll('[data-3d-pose]'));
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const configurations = {
-    home:    {yaw:45, shoulder:0, elbow:85, wrist:-60, twist:0, grip:35},
-    floor:   {yaw:45, shoulder:0, elbow:72, wrist:-60, twist:0, grip:10},
-    inspect: {yaw:-45,shoulder:-10,elbow:110,wrist:-60,twist:20,grip:65},
-    park:    {yaw:45, shoulder:0, elbow:110, wrist:-60,twist:0, grip:30}
-  };
-  const pose = {...configurations.home};
+  const model = window.robotChamberModel;
+  if (!model) throw new Error('Shared robot chamber model did not load');
+  const configurations=model.presets;
+  const layout=document.querySelector('.robot-layout');
+  const pose = {...configurations.home,...(layout?.robotPose||{})};
   let azimuth=-43, elevation=23, width=600, height=460, animation=null;
   const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
   const radians=d=>d*Math.PI/180;
   const vec=(x,y,z)=>({x,y,z});
   const interpolate=(a,b,t)=>vec(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);
   const cssColor=(name)=>getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  const length1=18.5,length2=18.5,toolLength=8.5,baseHeight=3,chamber=36;
+  const chamber=model.chamber;
   function fit(){
     const bounds=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
     width=Math.max(220,bounds.width||540);height=Math.max(220,bounds.height||420);
@@ -60,24 +58,9 @@
     const q=project(p);ctx.fillStyle=color;ctx.font='600 11px system-ui, sans-serif';
     ctx.fillText(text,q.x+9,q.y-8);
   }
-  function pointAt(start,pitch,len,yaw){
-    const plane=radians(pitch),rotation=radians(yaw);
-    return vec(start.x+len*Math.sin(plane)*Math.cos(rotation),
-      start.y+len*Math.sin(plane)*Math.sin(rotation),
-      start.z-len*Math.cos(plane));
-  }
-  function getJoints(){
-    const ceiling=vec(0,0,chamber),shoulder=vec(0,0,chamber-baseHeight);
-    const elbow=pointAt(shoulder,pose.shoulder,length1,pose.yaw);
-    const wrist=pointAt(elbow,pose.shoulder+pose.elbow,length2,pose.yaw);
-    const tip=pointAt(wrist,pose.shoulder+pose.elbow+pose.wrist,toolLength,pose.yaw);
-    return [ceiling,shoulder,elbow,wrist,tip];
-  }
-  function isInside(p){
-    const eps=.0001;
-    return Math.abs(p.x)<=chamber/2+eps && Math.abs(p.y)<=chamber/2+eps
-      && p.z>=-eps && p.z<=chamber+eps;
-  }
+  // The 2D projection and the 3D viewer use the same five joint positions.
+  function getJoints(){return model.joints(pose)}
+  function isInside(point){return model.inside(point)}
   function render(){
     if(!width||!height) return;
     ctx.clearRect(0,0,width,height);
@@ -131,7 +114,7 @@
       status.dataset.warning=String(!inside);
     }
   }
-  function sync(){
+  function sync(emit=true){
     controls.forEach(name=>{
       if(!ranges[name])return;
       ranges[name].value=String(Math.round(pose[name]));
@@ -141,7 +124,11 @@
       const output=document.getElementById('r3d-'+name+'-value');
       if(output)output.textContent=Math.round(pose[name])+(name==='grip'?'%':'°');
     });
+    if(layout)layout.robotPose={...pose};
     render();
+    if(emit)document.dispatchEvent(new CustomEvent('robot:pose-change',{
+      detail:{source:'3d',pose:{...pose}}
+    }));
   }
   function selectPreset(name){
     const target=configurations[name];if(!target)return;
@@ -162,6 +149,21 @@
     presets.forEach(b=>b.setAttribute('aria-pressed','false'));
     pose[name]=Number(ranges[name].value);sync();
   }));
+  // Mirror changes from the 2D side projection without emitting them again.
+  document.addEventListener('robot:pose-change',event=>{
+    if(event.detail?.source!=='2d'||!event.detail.pose)return;
+    if(animation!==null){cancelAnimationFrame(animation);animation=null}
+    controls.forEach(key=>{
+      const value=Number(event.detail.pose[key]);
+      if(Number.isFinite(value))pose[key]=value;
+    });
+    presets.forEach(button=>{
+      const preset=configurations[button.dataset['3dPose']];
+      const matching=preset&&controls.every(key=>Math.abs(preset[key]-pose[key])<.01);
+      button.setAttribute('aria-pressed',String(!!matching));
+    });
+    sync(false);
+  });
   document.getElementById('r3d-view-left')?.addEventListener('click',()=>{azimuth-=20;render()});
   document.getElementById('r3d-view-right')?.addEventListener('click',()=>{azimuth+=20;render()});
   document.getElementById('r3d-view-reset')?.addEventListener('click',()=>{azimuth=-43;elevation=23;render()});
