@@ -38,13 +38,13 @@
 <link rel="stylesheet" href="robot-control-dock.css?v=20261011-dock1" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="robot-control-dock.css?v=20261011-dock1"></noscript>
 <link rel="stylesheet" href="portfolio-photos.css?v=20261012-caption2" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="portfolio-photos.css?v=20261012-caption2"></noscript>
 <link rel="stylesheet" href="case-explorer.css?v=20261012-v2" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="case-explorer.css?v=20261012-v2"></noscript>
-  <script src="robot-chamber-model.js?v=20261012-shared1" defer></script>
-  <script src="script.js?v=20261012-shared1" defer></script>
+  <script src="robot-chamber-model.js?v=20261013-generic-motion" defer></script>
+  <script src="script.js?v=20261013-generic-motion" defer></script>
   <script src="scripts/projects-menu.js?v=20261012-projectsnav1" defer></script>
-  <script src="enhancements.js?v=20261011-pink2" defer></script>
+  <script src="enhancements.js?v=20261013-generic-motion" defer></script>
   <script src="ux.js" defer></script>
   <script src="ambient.js?v=20261011-2" defer></script>
-  <script src="scripts/lazy-features.js?v=20261012-readerfix1" defer></script>
+  <script src="scripts/lazy-features.js?v=20261013-generic-motion" defer></script>
   <script src="bookshelf.js?v=20261012-bookswitch1" defer></script>
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center"><meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="portfolio-upgrade.js?v=20261012-shared1" defer></script>
@@ -680,8 +680,8 @@
         <div class="robot-copy" data-ambient-reveal>
           <p class="eyebrow">KINEMATICS STUDY</p>
           <h2>Interactive <em>robot motion.</em></h2>
-          <p>Switch between a 2D side projection and a rotatable 3D view of the same ceiling-mounted arm. Both views share the chamber dimensions, link lengths and joint angles.</p>
-          <p class="robot-aside" id="robot-view-description">3D mode selected. The 2D projection shows the same arm geometry and joint angles. These are illustrative kinematic centerlines, not validated motion plans or hardware controllers.</p>
+          <p>Switch between a 2D side projection and a rotatable 3D view of a generic robotic arm. The proportions, workspace, poses, and motion ranges are intentionally arbitrary and do not reproduce project hardware.</p>
+          <p class="robot-aside" id="robot-view-description">3D mode selected. Both views show the same intentionally generic motion sketch. It is an educational visualization, not a validated motion plan, hardware controller, or representation of NASA hardware.</p>
         </div>
         <div class="robot-console" data-view="3d">
           <div class="console-header">
@@ -694,71 +694,71 @@
           </div>
           <div class="robot-viewport" aria-label="Robot visualization">
             <div class="robot-2d-viewport" id="robot-2d-viewport" aria-hidden="true">
-              <svg aria-label="Animated radial 2D projection of the same ceiling-mounted robotic arm displayed in 3D" id="arm-svg" role="img" viewBox="0 0 500 430">
+              <svg aria-label="Animated 2D projection of the same generic robotic arm displayed in 3D" id="arm-svg" role="img" viewBox="0 0 500 430">
 <defs><pattern height="25" id="simGrid" patternUnits="userSpaceOnUse" width="25"><path d="M25 0H0V25" fill="none" opacity=".3" stroke="#74526c" stroke-width=".8"></path></pattern><linearGradient id="armGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffc9dd"></stop><stop offset="1" stop-color="#e48ab8"></stop></linearGradient></defs>
 <rect fill="url(#simGrid)" height="430" width="500" x="0" y="0"></rect>
 <rect id="side-chamber-outline" fill="#36283c" fill-opacity=".36" height="322" rx="9" stroke="#ac89a6" stroke-dasharray="6 6" stroke-width="1.5" width="328" x="86" y="65"></rect>
 <path id="side-ceiling-rail" d="M86 65H414" stroke="#d9b6ce" stroke-linecap="round" stroke-width="7"></path><path id="side-floor-rail" d="M86 387H414" stroke="#9e7a99" stroke-width="3"></path>
-<text class="console-svg-label" x="88" y="40">36 × 36 × 36 IN / CHAMBER</text><text class="console-svg-label" x="89" y="410">FLOOR</text><text class="console-svg-label" x="318" y="410">RADIAL SIDE VIEW</text>
+<text class="console-svg-label" x="88" y="40">GENERIC WORKSPACE / NOT TO SCALE</text><text class="console-svg-label" x="89" y="410">REFERENCE BASE</text><text class="console-svg-label" x="318" y="410">SIDE PROJECTION</text>
 <path d="M250 65V91.83" stroke="#b4b7c8" stroke-linecap="round" stroke-width="15"></path>
 <g id="arm-bones" stroke="#e9a9c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="13"><line id="bone-1" stroke="#e9a9c8" x1="250" x2="150" y1="102" y2="210"></line><line id="bone-2" stroke="#b6dbe4" stroke-width="11" x1="150" x2="280" y1="210" y2="290"></line><line id="bone-3" stroke="#eecf8f" stroke-width="8" x1="280" x2="300" y1="290" y2="335"></line></g>
 <g fill="#57334d" id="arm-joints" stroke="#ffe7ee" stroke-width="4"><circle cx="250" cy="91.83" id="joint-0" r="9"></circle><circle cx="150" cy="210" id="joint-1" r="8"></circle><circle cx="280" cy="290" id="joint-2" r="7"></circle></g>
 <g id="gripper" stroke="#f4d9aa" stroke-linecap="round" stroke-width="5"><line id="grip-left" x1="300" x2="291" y1="335" y2="350"></line><line id="grip-right" x1="300" x2="309" y1="335" y2="350"></line></g>
 <circle cx="300" cy="335" fill="#ff9ec4" id="tip-glow" opacity=".12" r="15"></circle><circle cx="300" cy="335" fill="#ffeef5" id="tip-dot" r="4"></circle>
-<text class="console-svg-label" id="side-tip-readout" x="295" y="54">TIP z: -- IN</text>
+<text class="console-svg-label" id="side-tip-readout" x="295" y="54">TIP HEIGHT: --</text>
 <text class="console-svg-label" id="side-projection-status" x="90" y="378">CENTERLINE CHECK</text>
 <g fill="#edc5d8" opacity=".8"><path d="M124 101v-10m-5 5h10M380 144v-10m-5 5h10M133 347v-10m-5 5h10" stroke="#edc5d8" stroke-width="1.4"></path></g>
 </svg>
             </div>
             <div class="robot-3d-canvas-wrap" id="robot-3d-viewport">
-                <canvas id="robot-3d-canvas" class="robot-3d-canvas" width="600" height="460" role="img" tabindex="0" aria-label="Interactive 3D illustration of the robotic arm in a 36 inch cubical chamber. Use arrow keys or drag to rotate the view."></canvas>
-                <div class="robot-3d-caption" aria-hidden="true">36 × 36 × 36 in · ceiling mounted · illustrative geometry</div>
+                <canvas id="robot-3d-canvas" class="robot-3d-canvas" width="600" height="460" role="img" tabindex="0" aria-label="Interactive 3D illustration of a generic robotic arm in an abstract workspace. Use arrow keys or drag to rotate the view."></canvas>
+                <div class="robot-3d-caption" aria-hidden="true">generic geometry · arbitrary proportions · illustrative motion</div>
               </div>
           </div>
           <div class="robot-controls-dock" id="robot-controls-dock">
             <section class="robot-mode-controls robot-2d-controls" id="robot-2d-controls" aria-label="2D motion controls" hidden>
               <div class="robot-control-heading">
-                <div><p class="robot-control-kicker">2D CHAMBER PROJECTION</p><h3>Choose a pose</h3></div>
-                <span class="robot-control-count">3 joints · shared with 3D</span>
+                <div><p class="robot-control-kicker">2D MOTION SKETCH</p><h3>Choose a pose</h3></div>
+                <span class="robot-control-count">3 generic joint controls</span>
               </div>
-              <div class="robot-action-row robot-control-presets" role="group" aria-label="2D motion presets"><button aria-pressed="true" class="pose-button active" data-pose="home" type="button">Home</button><button aria-pressed="false" class="pose-button" data-pose="floor" type="button">Approach floor</button><button aria-pressed="false" class="pose-button" data-pose="inspect" type="button">Inspect</button><button aria-pressed="false" class="pose-button" data-pose="park" type="button">Park</button></div>
+              <div class="robot-action-row robot-control-presets" role="group" aria-label="2D motion presets"><button aria-pressed="true" class="pose-button active" data-pose="neutral" type="button">Neutral</button><button aria-pressed="false" class="pose-button" data-pose="reach" type="button">Reach</button><button aria-pressed="false" class="pose-button" data-pose="fold" type="button">Fold</button><button aria-pressed="false" class="pose-button" data-pose="rest" type="button">Rest</button></div>
               <div class="robot-control-heading robot-control-heading--joints">
                 <div><p class="robot-control-kicker">MANUAL POSITIONING</p><h4>Adjust joint angles</h4></div>
                 <span class="robot-control-count">Illustrative ranges</span>
               </div>
               <div class="robot-control-sliders robot-tuner" role="group" aria-label="2D manual joint angles">
-                <div class="joint-row"><label for="joint-shoulder">Shoulder angle</label><output id="shoulder-input-value" for="joint-shoulder">0°</output><input id="joint-shoulder" data-joint-control type="range" min="-10" max="100" step="1" value="0" aria-describedby="shoulder-input-value"></div>
-                <div class="joint-row"><label for="joint-elbow">Elbow angle</label><output id="elbow-input-value" for="joint-elbow">85°</output><input id="joint-elbow" data-joint-control type="range" min="0" max="120" step="1" value="85" aria-describedby="elbow-input-value"></div>
-                <div class="joint-row"><label for="joint-wrist">Wrist angle</label><output id="wrist-input-value" for="joint-wrist">-60°</output><input id="joint-wrist" data-joint-control type="range" min="-60" max="60" step="1" value="-60" aria-describedby="wrist-input-value"></div>
+                <div class="joint-row"><label for="joint-a">Joint A</label><output id="joint-a-value" for="joint-a">15°</output><input id="joint-a" data-joint-control type="range" min="-60" max="90" step="1" value="15" aria-describedby="joint-a-value"></div>
+                <div class="joint-row"><label for="joint-b">Joint B</label><output id="joint-b-value" for="joint-b">70°</output><input id="joint-b" data-joint-control type="range" min="-110" max="110" step="1" value="70" aria-describedby="joint-b-value"></div>
+                <div class="joint-row"><label for="joint-c">Joint C</label><output id="joint-c-value" for="joint-c">-35°</output><input id="joint-c" data-joint-control type="range" min="-90" max="90" step="1" value="-35" aria-describedby="joint-c-value"></div>
               </div>
               <div class="robot-control-utilities">
-                <div class="sequence-wrap robot-control-secondary"><button type="button" id="animate-button" class="sequence-button">Run motion sequence ↗</button><button type="button" id="stop-button" class="sequence-stop" hidden>Stop sequence</button></div>
-                <div class="tuner-bottom robot-control-reset"><p>2D is the radial side projection of the 3D arm. Yaw is retained but not shown.</p><button class="tuner-reset" type="button" id="reset-robot">Reset to home</button></div>
+                <div class="sequence-wrap robot-control-secondary"><button type="button" id="animate-button" class="sequence-button">Run generic motion sequence ↗</button><button type="button" id="stop-button" class="sequence-stop" hidden>Stop sequence</button></div>
+                <div class="tuner-bottom robot-control-reset"><p>2D is a simplified side projection of the generic 3D motion sketch. Base rotation is retained but not shown.</p><button class="tuner-reset" type="button" id="reset-robot">Reset to neutral</button></div>
               </div>
-              <div class="console-bottom robot-control-footer"><span aria-live="polite" id="pose-status" role="status">Home position · shared chamber geometry</span><div class="telemetry"><span>SHOULDER <b id="shoulder-readout">0°</b></span><span>ELBOW <b id="elbow-readout">85°</b></span></div></div>
+              <div class="console-bottom robot-control-footer"><span aria-live="polite" id="pose-status" role="status">Neutral pose · generic geometry</span><div class="telemetry"><span>JOINT A <b id="joint-a-readout">15°</b></span><span>JOINT B <b id="joint-b-readout">70°</b></span></div></div>
             </section>
             <section class="robot-mode-controls robot-3d-controls" id="robot-3d-controls" aria-label="3D chamber controls">
               <div class="robot-control-heading">
-                <div><p class="robot-control-kicker">3D CHAMBER STUDY</p><h3>Choose a pose</h3></div>
-                <span class="robot-control-count">6 adjustments · 3D view</span>
+                <div><p class="robot-control-kicker">3D MOTION STUDY</p><h3>Choose a pose</h3></div>
+                <span class="robot-control-count">6 generic adjustments · 3D view</span>
               </div>
               <div class="robot-3d-tools robot-control-presets" role="group" aria-label="3D robot pose presets">
-                <button type="button" data-3d-pose="home" aria-pressed="true">Home</button>
-                <button type="button" data-3d-pose="floor" aria-pressed="false">Approach floor</button>
-                <button type="button" data-3d-pose="inspect" aria-pressed="false">Inspect</button>
-                <button type="button" data-3d-pose="park" aria-pressed="false">Park</button>
+                <button type="button" data-3d-pose="neutral" aria-pressed="true">Neutral</button>
+                <button type="button" data-3d-pose="reach" aria-pressed="false">Reach</button>
+                <button type="button" data-3d-pose="fold" aria-pressed="false">Fold</button>
+                <button type="button" data-3d-pose="rest" aria-pressed="false">Rest</button>
               </div>
               <div class="robot-control-heading robot-control-heading--joints">
                 <div><p class="robot-control-kicker">MANUAL POSITIONING</p><h4>Adjust joint angles</h4></div>
-                <span class="robot-control-count">Chamber model ranges</span>
+                <span class="robot-control-count">Illustrative ranges</span>
               </div>
               <div class="robot-control-sliders robot-3d-sliders" role="group" aria-label="3D manual joint angles">
-                <div class="robot-3d-control"><label for="r3d-yaw">Base rotation</label><output id="r3d-yaw-value">45°</output><input id="r3d-yaw" type="range" min="-180" max="180" step="1" value="45"></div>
-                <div class="robot-3d-control"><label for="r3d-shoulder">Shoulder</label><output id="r3d-shoulder-value">0°</output><input id="r3d-shoulder" type="range" min="-10" max="100" step="1" value="0"></div>
-                <div class="robot-3d-control"><label for="r3d-elbow">Elbow</label><output id="r3d-elbow-value">85°</output><input id="r3d-elbow" type="range" min="0" max="120" step="1" value="85"></div>
-                <div class="robot-3d-control"><label for="r3d-wrist">Wrist bend</label><output id="r3d-wrist-value">-60°</output><input id="r3d-wrist" type="range" min="-60" max="60" step="1" value="-60"></div>
-                <div class="robot-3d-control"><label for="r3d-twist">Tool rotation</label><output id="r3d-twist-value">0°</output><input id="r3d-twist" type="range" min="-180" max="180" step="1" value="0"></div>
-                <div class="robot-3d-control"><label for="r3d-grip">Gripper opening</label><output id="r3d-grip-value">35%</output><input id="r3d-grip" type="range" min="0" max="100" step="1" value="35"></div>
+                <div class="robot-3d-control"><label for="r3d-yaw">Base rotation</label><output id="r3d-yaw-value">20°</output><input id="r3d-yaw" type="range" min="-180" max="180" step="1" value="20"></div>
+                <div class="robot-3d-control"><label for="r3d-jointA">Joint A</label><output id="r3d-jointA-value">15°</output><input id="r3d-jointA" type="range" min="-60" max="90" step="1" value="15"></div>
+                <div class="robot-3d-control"><label for="r3d-jointB">Joint B</label><output id="r3d-jointB-value">70°</output><input id="r3d-jointB" type="range" min="-110" max="110" step="1" value="70"></div>
+                <div class="robot-3d-control"><label for="r3d-jointC">Joint C</label><output id="r3d-jointC-value">-35°</output><input id="r3d-jointC" type="range" min="-90" max="90" step="1" value="-35"></div>
+                <div class="robot-3d-control"><label for="r3d-twist">Tool orientation</label><output id="r3d-twist-value">0°</output><input id="r3d-twist" type="range" min="-180" max="180" step="1" value="0"></div>
+                <div class="robot-3d-control"><label for="r3d-grip">Gripper opening</label><output id="r3d-grip-value">40%</output><input id="r3d-grip" type="range" min="0" max="100" step="1" value="40"></div>
               </div>
               <div class="robot-control-utilities">
                 <div class="robot-control-camera-group"><span class="robot-control-utility-label">CAMERA VIEW</span><div class="robot-3d-tools robot-control-camera" role="group" aria-label="Camera controls">
@@ -768,9 +768,9 @@
               </div></div>
               </div>
               <div class="robot-control-footer">
-                <p id="robot-3d-status" class="robot-3d-status" role="status" aria-live="polite">Loading chamber view</p>
+                <p id="robot-3d-status" class="robot-3d-status" role="status" aria-live="polite">Loading generic motion view</p>
               </div>
-              <p class="robot-3d-help">Drag or use the arrow keys to orbit. Uses a 3 in base offset, two 18.5 in links and an 8.5 in tool. Boundary feedback checks arm centerline positions only. This is not self-collision detection, dynamics, validated inverse kinematics, or a real hardware controller.</p>
+              <p class="robot-3d-help">Drag or use the arrow keys to orbit. Geometry is normalized, proportions and poses are intentionally arbitrary, and boundary feedback checks illustrative centerlines only. This does not represent NASA hardware, project dimensions, validated inverse kinematics, dynamics, or a real hardware controller.</p>
             </section>
           </div>
         </div>
