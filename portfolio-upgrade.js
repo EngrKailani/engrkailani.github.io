@@ -127,8 +127,8 @@
     viewport2d?.setAttribute('aria-hidden',String(chosen!=='2d'));
     viewport3d?.setAttribute('aria-hidden',String(chosen!=='3d'));
     if(description)description.textContent=chosen==='2d'
-      ? '2D radial side projection of the same 36-inch chamber and ceiling-mounted robot. The shoulder, elbow and wrist stay synchronized with 3D; yaw and tool twist are retained but not shown.'
-      : '3D perspective of the same arm as 2D. Shared geometry: 3-inch mount, 18.5-inch upper and forearm links, and an 8.5-inch tool. These are educational centerline visualizations, not validated motion plans.';
+      ? '2D side projection of the same generic robot-motion sketch. The generic joints stay synchronized with 3D; base rotation and tool orientation are retained but not shown.'
+      : '3D perspective of the same generic robot-motion sketch. Geometry is normalized and intentionally arbitrary. This is an educational centerline visualization, not a validated motion plan or representation of project hardware.';
     buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.robotView===chosen)));
     document.dispatchEvent(new CustomEvent('robot:view-change',{detail:{mode:chosen}}));
   }
