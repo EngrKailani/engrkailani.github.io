@@ -184,3 +184,9 @@
 }
 @media(forced-colors:active){.ambient-field .ambient-star--extra{display:none!important}}
 @media print{.ambient-field .ambient-star--extra{display:none!important}}
+
+/* Match featured engineering thumbnails to the nonwhite project-directory media. */
+.selected-work .selected-project-preview{background:linear-gradient(145deg,#d7c0d7,#bca8c9);border-color:#bda5bd}
+.selected-work .selected-project-preview img{background:transparent}
+.selected-work .selected-project-preview--paper::after{content:"";position:absolute;inset:0 0 36px;z-index:1;pointer-events:none;background:rgba(174,116,162,.35);mix-blend-mode:multiply}
+:root[data-theme="dark"] .selected-work .selected-project-preview{background:linear-gradient(145deg,#54415d,#40334e);border-color:#786182}

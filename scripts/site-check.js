@@ -145,6 +145,19 @@ check(home.includes('homepage-refinement.css?v=20261013-more-stars1') &&
   'New stars should retain responsive and reduced-motion-safe styles');
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 
+const paperDirectoryPreviews=[...directory.matchAll(/class="directory-card-visual directory-card-visual--paper"/g)];
+const directoryThumbStyles=fs.readFileSync(path.join(projectDir,'directory-thumbnails.css'),'utf8');
+check(paperDirectoryPreviews.length===3 &&
+  ['robotic-arm-geometry.svg','gesture_scene_map.svg','lab_workflows.svg'].every(name=>directory.includes(name)) &&
+  directoryThumbStyles.includes('.directory-card-visual--paper::after') &&
+  directoryThumbStyles.includes('mix-blend-mode:multiply') &&
+  directoryThumbStyles.includes('background:linear-gradient(145deg,#d7c0d7'),
+  'Directory thumbnail surfaces must use plum rather than white, including three originally light SVG previews');
+check(home.includes('selected-project-preview selected-project-preview--paper') &&
+  fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.selected-project-preview--paper::after'),
+  'Homepage NASA featured preview should use the same subtle tinted background');
+
+
 const wayfindingPaths=[
   ['robotics',3],['embedded',4],['measurement',5],['software',4]
 ];

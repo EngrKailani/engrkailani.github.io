@@ -116,6 +116,27 @@ async function audit(){
           if(!await extras.first().evaluate(el=>getComputedStyle(el).pointerEvents==='none'))
             note(id+': background stars should not intercept clicks');
         }
+        if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
+          const wrappers=page.locator('.project-directory-grid .directory-card-visual');
+          const tinted=page.locator('.project-directory-grid .directory-card-visual--paper');
+          if(await wrappers.count()!==16||await tinted.count()!==3)
+            note(id+': project thumbnail surfaces or paper tint missing');
+          const surface=await wrappers.first().evaluate(el=>getComputedStyle(el).backgroundImage);
+          if(!surface.includes('linear-gradient'))note(id+': directory preview should use plum gradient');
+          const overlay=await tinted.first().evaluate(el=>({
+            display:getComputedStyle(el,'::after').content,
+            background:getComputedStyle(el,'::after').backgroundColor,
+            blend:getComputedStyle(el,'::after').mixBlendMode
+          }));
+          if(overlay.display==='none'||overlay.blend!=='multiply')
+            note(id+': originally white preview did not receive the tint overlay');
+        }
+        if(test.path==='/'&&test.theme==='light'&&test.width===390){
+          const featured=page.locator('.selected-project-preview--paper');
+          if(await featured.count()!==1||
+             !((await featured.evaluate(el=>getComputedStyle(el,'::after').mixBlendMode))==='multiply'))
+            note(id+': NASA homepage preview was not tinted');
+        }
         if(test.path==='/projects/index.html'){
           const thumbs=page.locator('.project-directory-grid .directory-card-visual img');
           if(await thumbs.count()!==16) note(id+': expected 16 project thumbnails');
