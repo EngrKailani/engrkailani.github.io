@@ -1,0 +1,1330 @@
+
+/* SOURCE: ux.css */
+
+/* Calm visual polish: the bookshelf remains the primary way to explore projects. */
+html{scroll-padding-top:102px}
+.section[id],#bookshelf,#github-projects,#robot-lab{scroll-margin-top:105px}
+.section{padding-block:clamp(68px,7.5vw,94px)}
+.section-heading{max-width:760px;margin-bottom:34px}
+.hero{min-height:600px;padding-block:68px 80px;gap:clamp(36px,6vw,86px)}
+.hero-description,.about-copy p,.feature-content>p{max-width:62ch}
+.hero-secondary-link{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;color:var(--rose-dark);text-underline-offset:4px;text-decoration:underline}
+.hero-secondary-link:hover{color:var(--plum)}
+.site-header{isolation:isolate}
+.scroll-progress{height:3px;position:absolute;bottom:0;left:0;right:0;overflow:hidden;pointer-events:none}
+.scroll-progress span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#c8879e,#9c6488,#615578);transform:scaleX(0);transform-origin:left center;will-change:transform}
+.pathways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-block:-24px 40px;position:relative;z-index:2}
+.pathway{min-height:85px;padding:15px 18px;display:flex;align-items:center;gap:13px;border:1px solid #e8d8df;background:#fffdfd;border-radius:13px;box-shadow:0 7px 26px #5d3c4e0d;transition:border-color .2s,box-shadow .2s,transform .2s}
+.pathway:hover{border-color:#c894a9;transform:translateY(-3px);box-shadow:0 9px 24px #5d3c4e19}
+.pathway-icon{width:39px;height:39px;border-radius:12px;flex:none;display:grid;place-items:center;background:#f7eef2;color:#92556f;font:24px/1 var(--serif)}
+.pathway strong{font-size:13px;line-height:1.35;display:block;color:#473642}
+.pathway small{font-size:11px;line-height:1.5;color:#806b78;display:block;margin-top:3px}
+.pathway-arrow{margin-left:auto;color:#b27d95;font-size:15px}
+.project-index{border:1px solid #ead8df;border-radius:14px;background:#fffafc;margin-top:22px;overflow:hidden}
+.project-index>summary{min-height:76px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 16px;padding:18px 24px;align-content:center;cursor:pointer;list-style:none;position:relative}
+.project-index>summary::-webkit-details-marker{display:none}
+.project-index>summary:hover{background:#fdf4f7}
+.project-index-heading{color:var(--plum);font-size:15px;line-height:1.4;font-weight:700}
+.project-index-caption{grid-column:1;color:#796470;font-size:12px}
+.project-index-symbol{grid-column:2;grid-row:1/3;width:27px;height:27px;border:1px solid #d8b9c7;background:#fff;border-radius:100%;position:relative;align-self:center}
+.project-index-symbol:before,.project-index-symbol:after{content:"";position:absolute;background:#7e4a65;left:7px;right:7px;top:12px;height:2px;border-radius:2px}
+.project-index-symbol:after{transform:rotate(90deg)}
+.project-index[open] .project-index-symbol:after{transform:rotate(0)}
+.project-index[open]>summary{border-bottom:1px solid #ead8df;background:#fff8fa}
+.project-index .project-cards-wrapper{padding:6px 19px 22px}
+.project-index .project-cards{margin-top:14px}
+.project-index .project-card{min-height:0}
+.bookshelf-section{position:relative;overflow:hidden}
+.bookshelf-heading{position:relative;padding-right:140px}
+.space-orbiter{position:absolute;width:100px;height:100px;right:7px;top:3px;pointer-events:none;opacity:.59}
+.space-orbiter-body{position:absolute;inset:29px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#efd9e3,#c691aa 67%,#845c7c);box-shadow:0 3px 15px #6e4b6330}
+.space-orbiter-ring{position:absolute;inset:35px 6px;border:2px solid #a36c89;border-radius:50%;transform:rotate(-28deg) scaleY(.72);animation:space-tilt 20s ease-in-out infinite alternate}
+.space-orbiter-star{position:absolute;right:0;top:3px;width:10px;height:10px;background:#af8199;clip-path:polygon(50% 0,61% 36%,100% 50%,61% 64%,50% 100%,39% 64%,0 50%,39% 36%)}
+@keyframes space-tilt{from{transform:rotate(-28deg) scaleY(.72)}to{transform:rotate(-10deg) scaleY(.79)}}
+.star-trio{position:absolute;pointer-events:none;width:140px;height:100px;opacity:.54}
+.star-trio-hero{right:28%;top:45px}
+.star-trio span{position:absolute;width:14px;height:14px;background:#b8809e;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);animation:star-flicker 5.6s ease-in-out infinite}
+.star-trio span:nth-child(1){top:12px;left:6px;width:9px;height:9px}
+.star-trio span:nth-child(2){top:55px;left:73px;animation-delay:-1.5s}
+.star-trio span:nth-child(3){top:9px;right:8px;width:7px;height:7px;animation-delay:-3s}
+@keyframes star-flicker{0%,100%{opacity:.28;transform:scale(.88)}50%{opacity:.82;transform:scale(1.09)}}
+.interests-section{position:relative;overflow:hidden}
+.interest-layout{position:relative}
+.constellation-shape{position:absolute;right:10%;top:-61px;pointer-events:none;width:94px;height:56px;opacity:.46;transform:rotate(-8deg)}
+.constellation-shape span{position:absolute;width:7px;height:7px;border-radius:50%;background:#a76d90;animation:star-flicker 7s ease-in-out infinite}
+.constellation-shape span:nth-child(1){left:4px;top:32px}
+.constellation-shape span:nth-child(2){left:38px;top:12px;animation-delay:-1s}
+.constellation-shape span:nth-child(3){right:6px;top:30px;animation-delay:-2.3s}
+.constellation-shape span:nth-child(4){left:56px;bottom:1px;width:5px;height:5px;animation-delay:-3.5s}
+.constellation-shape:before,.constellation-shape:after{content:"";position:absolute;height:1px;background:#b28ca2;transform-origin:left;left:9px;top:35px}
+.constellation-shape:before{width:39px;transform:rotate(-29deg)}
+.constellation-shape:after{left:43px;top:17px;width:46px;transform:rotate(22deg)}
+.robot-section{position:relative;overflow:hidden}
+.robot-section:before{content:"";position:absolute;right:5%;top:41px;width:102px;height:2px;background:linear-gradient(90deg,transparent,#c58caa);transform:rotate(-24deg);opacity:.35;pointer-events:none;animation:streak-glimmer 11s ease-in-out infinite}
+.robot-section:after{content:"";position:absolute;right:4%;top:24px;width:12px;height:12px;background:#c18da8;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:.4;pointer-events:none;animation:star-flicker 5.3s ease-in-out infinite}
+@keyframes streak-glimmer{0%,70%,100%{opacity:.08;transform:translateX(-10px) rotate(-24deg)}83%{opacity:.4;transform:translateX(8px) rotate(-24deg)}}
+.bookshelf-help{max-width:590px;margin-inline:auto}
+a,button,summary{ -webkit-tap-highlight-color:rgba(158,91,123,.12)}
+@media(max-width:1020px){.hero{min-height:0}}
+@media(max-width:760px){
+ .section{padding-block:64px}
+ .hero{padding-block:60px 70px}
+ .pathways{grid-template-columns:1fr;gap:9px;margin-block:-15px 31px}
+ .pathway{min-height:70px;padding:10px 16px}
+ .pathway-icon{width:37px;height:37px}
+ .bookshelf-heading{padding-right:0}
+ .space-orbiter{width:63px;height:63px;right:0;top:-32px;opacity:.3}
+ .space-orbiter-body{inset:20px}
+ .space-orbiter-ring{inset:23px 2px}
+ .star-trio-hero{right:6px;top:70px;opacity:.3}
+ .constellation-shape{right:15px;top:-29px;opacity:.3}
+ .project-index>summary{padding:16px 17px}
+ .project-index .project-cards-wrapper{padding:0 13px 13px}
+}
+@media(min-width:761px) and (max-width:900px){.pathways{gap:10px}.pathway{padding:13px 11px}.pathway-icon{width:33px;height:33px}.pathway strong{font-size:12px}}
+@media(prefers-reduced-motion:reduce){
+ .star-trio span,.constellation-shape span,.space-orbiter-ring,.robot-section:before,.robot-section:after{animation:none}
+ .pathway{transition:none}
+ .pathway:hover{transform:none}
+ .scroll-progress span{will-change:auto}
+}
+
+/* Quiet academic recognition, without a separate crowded awards panel. */
+.about-copy .about-honors{margin-top:16px;font-size:12px;line-height:1.7;color:var(--rose-dark);max-width:540px}
+
+
+/* Space is a navigation motif, not background confetti. Retire scattered effects. */
+.hero-orbit,.star-trio-hero,.space-orbiter-shelf,.constellation-shape{display:none!important}
+.robot-section::before,.robot-section::after{display:none!important}
+.hero-copy{position:relative;z-index:1}
+.intro-planet{position:absolute;top:10%;right:40%;width:70px;height:70px;pointer-events:none;opacity:.48;z-index:0;animation:intro-planet-drift 24s linear infinite}
+.intro-planet-core{position:absolute;inset:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f0cedb 0%,#cc91aa 60%,#895d7f 100%);box-shadow:inset -4px -5px 7px #593d6045}
+.intro-planet-ring{position:absolute;inset:28px 1px;border:1.8px solid #ab6e8c;border-radius:50%;transform:rotate(-24deg) scaleY(.6)}
+.intro-planet-moon{position:absolute;left:10px;top:8px;width:6px;height:6px;border-radius:50%;background:#a57d9d;box-shadow:0 0 0 4px #b385a512}
+@keyframes intro-planet-drift{0%{transform:rotate(0deg) translateX(7px) rotate(0deg)}100%{transform:rotate(360deg) translateX(7px) rotate(-360deg)}}
+.constellation-break{width:280px;max-width:70vw;height:48px;margin:-20px auto;position:relative;color:#ab849f;opacity:.58;pointer-events:none}
+.constellation-break svg{width:100%;height:100%;overflow:visible}
+.constellation-break svg circle{transform-origin:center;transform-box:fill-box}
+html.space-reveal-ready .constellation-break path{stroke-dasharray:320;stroke-dashoffset:320;transition:stroke-dashoffset 1.5s ease}
+html.space-reveal-ready .constellation-break circle{opacity:.15;transform:scale(.65);transition:opacity .9s ease,transform .9s ease}
+html.space-reveal-ready .constellation-break.is-visible path{stroke-dashoffset:0}
+html.space-reveal-ready .constellation-break.is-visible circle{opacity:1;transform:scale(1)}
+.collection-star-trail{position:absolute;top:9px;right:19px;width:50px;height:34px;opacity:0;pointer-events:none}
+.collection-star-trail i{position:absolute;width:7px;height:7px;background:#af7d9b;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+.collection-star-trail i:nth-child(1){left:0;top:15px}
+.collection-star-trail i:nth-child(2){left:9px;top:3px;width:5px;height:5px}
+.collection-star-trail i:nth-child(3){left:18px;top:22px;width:6px;height:6px}
+.shelf-collection-link.is-traveling .collection-star-trail{opacity:1}
+.shelf-collection-link.is-traveling .collection-star-trail i{animation:collection-star-travel .72s ease-out both}
+.shelf-collection-link.is-traveling .collection-star-trail i:nth-child(2){animation-delay:.08s}
+.shelf-collection-link.is-traveling .collection-star-trail i:nth-child(3){animation-delay:.14s}
+@keyframes collection-star-travel{0%{opacity:0;transform:translate(0,0) scale(.6)}35%{opacity:.8}100%{opacity:0;transform:translate(36px,-11px) scale(1.1)}}
+@media(max-width:760px){
+ .intro-planet{width:50px;height:50px;top:0;right:9%;opacity:.35}
+ .intro-planet-core{inset:14px}
+ .intro-planet-ring{inset:20px 1px}
+ .intro-planet-moon{width:4px;height:4px}
+ .constellation-break{width:205px;max-width:65vw;height:36px;margin:-12px auto;opacity:.46}
+}
+@media(prefers-reduced-motion:reduce){
+ .intro-planet{animation:none}
+ html.space-reveal-ready .constellation-break path{stroke-dashoffset:0;transition:none}
+ html.space-reveal-ready .constellation-break circle{opacity:1;transform:none;transition:none}
+ .shelf-collection-link.is-traveling .collection-star-trail{display:none}
+}
+
+
+/* Homepage simplification: one clear identity, two CTAs, books before summaries. */
+.hero{min-height:0;padding-block:clamp(54px,6vw,86px) clamp(58px,7vw,88px);gap:clamp(34px,5vw,76px)}
+.hero h1{font-size:clamp(54px,5.8vw,79px);margin-bottom:18px}
+.hero-subtitle{font-size:clamp(22px,2.6vw,29px);line-height:1.38;margin-bottom:16px}
+.hero-description{max-width:520px;font-size:15px;line-height:1.83;margin-bottom:26px}
+.hero-buttons{gap:12px}
+.hero-buttons .btn{white-space:nowrap;min-height:50px}
+.hero-photo img{height:clamp(340px,38vw,470px);object-position:center 45%}
+.bookshelf-section{padding-block:clamp(65px,7vw,95px)}
+.bookshelf-heading{margin-bottom:28px}
+.about-section,.work-section{padding-block:clamp(60px,6.5vw,85px)}
+.about-copy p:not(.eyebrow){line-height:1.83}
+.work-section .feature-project{grid-template-columns:.8fr 1.2fr}
+.work-section .feature-visual{min-height:330px;padding:20px 22px 49px}
+.work-section .feature-visual img{max-height:290px;width:min(100%,218px);object-fit:contain}
+.work-section .feature-content{padding:clamp(22px,3.4vw,38px)}
+.work-section .feature-content h3{font-size:clamp(26px,3.1vw,36px);margin-bottom:12px}
+.work-section .feature-content>p:not(.project-kicker){font-size:14px;line-height:1.74;margin-bottom:17px}
+.work-section .project-metrics{padding:13px 0;margin:0 0 16px}
+.github-section .repo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.github-section .repo-card{padding:22px;min-height:0}
+.github-section .repo-card h3{font-size:21px;line-height:1.3;margin:13px 0 9px}
+.github-section .repo-card>p{font-size:13px;line-height:1.65;margin-bottom:15px}
+.github-section .repo-card .repo-meta{margin-bottom:15px}
+.github-section .repo-card .repo-link{margin-top:auto;font-size:12px}
+.github-heading{margin-bottom:26px}
+.github-intro{font-size:14px;line-height:1.75}
+.github-refine{border:1px solid #e2ccd4;border-radius:11px;background:#fffafc;margin:0 0 21px;overflow:hidden}
+.github-refine>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;list-style:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--plum);min-height:46px}
+.github-refine>summary::-webkit-details-marker{display:none}
+.github-refine>summary:hover{background:#fff3f7}
+.github-refine>summary span{font-size:19px;color:var(--rose-dark);line-height:1}
+.github-refine[open]>summary{border-bottom:1px solid #eadce1}
+.github-refine[open]>summary span{transform:rotate(45deg)}
+.github-refine .repo-toolbar{padding:18px;margin:0;align-items:end;gap:18px}
+.github-section .repo-result-count{margin:0 0 13px;font-size:11px}
+.github-section .repo-more{font-size:12px}
+@media(max-width:1060px){
+ .github-section .repo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ .hero{padding-block:48px 56px;gap:27px}
+ .hero h1{font-size:clamp(49px,10.5vw,66px)}
+ .hero-subtitle{font-size:23px}
+ .hero-buttons .btn{flex:1 1 158px;padding-inline:15px;justify-content:center}
+ .hero-photo img{height:340px}
+ .bookshelf-section{padding-block:62px}
+ .work-section .feature-project{grid-template-columns:1fr}
+ .work-section .feature-visual{min-height:255px;padding:18px 20px 54px}
+ .work-section .feature-visual img{max-height:205px;width:min(100%,170px)}
+ .github-section .repo-grid{grid-template-columns:1fr;gap:12px}
+ .github-section .repo-card{padding:20px 22px}
+ .github-refine .repo-toolbar{display:block;padding:14px}
+ .github-refine .repo-search-wrap{margin-top:16px}
+}
+
+
+/* October 2026 visual system: stable spacing, quiet detail and clear hierarchy.
+   All floral/celestial ornaments remain in existing background layers. */
+:root{
+  --section-rhythm:clamp(68px,7.2vw,92px);
+  --section-heading-gap:clamp(26px,3.2vw,38px);
+  --reading-ink:#594854;
+}
+.section{padding-block:var(--section-rhythm)}
+.section-heading{margin-bottom:var(--section-heading-gap)}
+.section-heading h2{max-width:780px;line-height:1.19;text-wrap:balance}
+.section-heading p:not(.eyebrow){max-width:64ch;line-height:1.75}
+.hero{padding-block:clamp(60px,7vw,91px) clamp(68px,7vw,92px)}
+.bookshelf-section{padding-block:clamp(78px,8.2vw,104px)}
+.work-section{padding-block:clamp(76px,7.6vw,100px)}
+.about-section,.github-section,.robot-section,.experience-section,
+.skills-section,.interests-section,.resume-section,.contact-section{
+  padding-block:var(--section-rhythm);
+}
+.about-copy,.feature-content,.interest-copy,.robot-copy{line-height:1.75}
+.about-copy p:not(.eyebrow),
+.interest-copy p:not(.eyebrow),
+.robot-copy p:not(.eyebrow){max-width:65ch}
+.feature-project,.repo-card,.resume-note{box-shadow:0 12px 32px rgba(70,43,60,.055)}
+.repo-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .repo-card:hover,.repo-card:focus-within{
+    transform:translateY(-3px);
+    box-shadow:0 15px 34px rgba(70,43,60,.10);
+  }
+}
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible{
+  outline:3px solid #8b5e7c;
+  outline-offset:3px;
+}
+
+/* Preserve the two responsive hero CTAs as the strongest actions. */
+.hero-buttons .btn{min-height:49px}
+.hero-buttons .btn-primary{box-shadow:0 8px 21px rgba(137,75,105,.11)}
+
+/* Constellation lines and floral SVGs never create blank gaps between blocks. */
+main>.constellation-break,main>.botanical-divider{display:none}
+
+@media(max-width:780px){
+  :root{
+    --section-rhythm:56px;
+    --section-heading-gap:27px;
+  }
+  .section{padding-block:var(--section-rhythm)}
+  .bookshelf-section{padding-block:65px}
+  .work-section{padding-block:62px}
+  .hero{padding-block:51px 58px}
+  .section-heading h2{text-wrap:balance}
+  .github-section .repo-card{padding:21px 20px}
+}
+@media(max-width:440px){
+  :root{--section-rhythm:52px;--section-heading-gap:23px}
+  .hero{padding-block:45px 52px}
+  .hero-buttons{gap:10px}
+  .hero-buttons .btn{font-size:12px;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .repo-card{transition:none}
+}
+
+/* SOURCE: botanical.css */
+/*
+ * Botanical background illustrations. Mexican cempasuchil + dahlia and
+ * Samoan teuila + plumeria use inline SVG symbols from index.html.
+ * These are decoration only: no new sections, heights, images or spacer rows.
+ */
+.floral-definitions{
+  position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;
+}
+
+/* Consistent but deliberately asymmetric positions and sizes. */
+.ambient-field .botanical-background{
+  position:absolute;
+  display:block;
+  width:90px;height:90px;
+  overflow:visible;
+  color:#a86f8a;
+  opacity:.28;
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
+}
+.ambient-field .botanical-background.bloom-mexico{color:#a76e87}
+.ambient-field .botanical-background.bloom-samoa{color:#88779a}
+
+/* Placed in the margins; the content containers stack above the scenery. */
+.botanical-background-hero{left:2%;bottom:9%;transform:rotate(-12deg)}
+.botanical-background-bookshelf{right:3%;bottom:11%;transform:rotate(9deg)}
+.botanical-background-about{left:2%;bottom:9%;transform:rotate(-9deg)}
+.botanical-background-work{right:2%;bottom:7%;transform:rotate(14deg)}
+.botanical-background-robot{left:1%;bottom:10%;transform:rotate(10deg)}
+.botanical-background-experience{right:2%;bottom:8%;transform:rotate(-15deg)}
+.botanical-background-interests{left:2%;bottom:8%;transform:rotate(14deg)}
+.botanical-background-contact{right:3%;bottom:14%;transform:rotate(-10deg)}
+
+.botanical-background-hero{width:98px;height:98px;opacity:.27}
+.botanical-background-bookshelf{width:78px;height:78px;opacity:.23}
+.botanical-background-about{width:96px;height:96px;opacity:.25}
+.botanical-background-work{width:82px;height:82px;opacity:.24}
+.botanical-background-robot{width:103px;height:103px;opacity:.23}
+.botanical-background-experience{width:82px;height:82px;opacity:.21}
+.botanical-background-interests{width:102px;height:102px;opacity:.26}
+.botanical-background-contact{width:86px;height:86px;color:#e6b6d1!important;opacity:.32}
+
+/* Even quieter on phones, without colliding with headings or shelf controls. */
+@media(max-width:780px){
+  .ambient-field .botanical-background{width:56px;height:56px;opacity:.17}
+  .botanical-background-hero{left:0;bottom:3%}
+  .botanical-background-bookshelf{right:0;bottom:2%}
+  .botanical-background-about{left:0;bottom:5%}
+  .botanical-background-work{right:0;bottom:4%}
+  .botanical-background-robot{left:0;bottom:4%}
+  .botanical-background-experience{right:0;bottom:4%}
+  .botanical-background-interests{left:0;bottom:4%}
+  .botanical-background-contact{right:1%;bottom:10%;opacity:.23}
+}
+@media(max-width:390px){
+  .ambient-field .botanical-background{width:45px;height:45px;opacity:.14}
+}
+@media(forced-colors:active){
+  .ambient-field .botanical-background{display:none}
+}
+@media print{
+  .ambient-field .botanical-background{display:none!important}
+}
+
+/* SOURCE: ambient.css */
+/*
+ * Quiet ambient visuals for the engineering portfolio.
+ * Decorative CSS-only shapes, no downloaded imagery or canvas render loops.
+ * All effects sit behind content and respect reduced-motion preferences.
+ */
+
+/* Scenery belongs behind meaningful content, never above it. */
+.hero,
+.bookshelf-section,
+.about-section,
+.work-section,
+.github-section,
+.contact-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero > .hero-copy,
+.hero > .hero-photo,
+.bookshelf-section > .container,
+.about-section > .container,
+.work-section > .container,
+.github-section > .container,
+.contact-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Static soft glows. Opacity is deliberately restrained. */
+.hero::before,
+.bookshelf-section::before,
+.about-section::before,
+.work-section::before,
+.github-section::before,
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  background:
+    radial-gradient(ellipse 31% 43% at 89% 40%, rgba(177, 141, 180, .10), transparent 85%),
+    radial-gradient(ellipse 30% 30% at 8% 92%, rgba(220, 173, 194, .075), transparent 92%);
+}
+
+.bookshelf-section::before {
+  background:
+    radial-gradient(circle at 7% 12%, rgba(151, 115, 156, .14) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 89% 19%, rgba(151, 115, 156, .12) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle at 23% 82%, rgba(151, 115, 156, .11) 0 1px, transparent 1.6px),
+    radial-gradient(ellipse 60% 21% at 50% 16%, rgba(217, 190, 206, .105), transparent 85%);
+}
+
+.about-section::before {
+  background:
+    radial-gradient(ellipse 31% 65% at 0% 45%, rgba(184, 139, 167, .09), transparent 90%),
+    radial-gradient(ellipse 26% 45% at 97% 88%, rgba(152, 170, 156, .065), transparent 90%);
+}
+
+.work-section::before {
+  background: radial-gradient(ellipse 28% 42% at 95% 12%, rgba(189, 159, 196, .08), transparent 90%);
+}
+
+/* A drafting-paper grid hint, especially faint behind the GitHub cards. */
+.github-section::before {
+  background-image:
+    linear-gradient(to right, rgba(118, 95, 123, .045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(118, 95, 123, .045) 1px, transparent 1px),
+    radial-gradient(ellipse 40% 45% at 96% 92%, rgba(157, 127, 164, .095), transparent 85%);
+  background-size: 58px 58px, 58px 58px, auto;
+  background-position: center;
+  opacity: .42;
+}
+
+.contact-section::before {
+  background:
+    radial-gradient(circle at 14% 21%, rgba(250, 226, 239, .27) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 82% 17%, rgba(250, 226, 239, .21) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 91% 74%, rgba(250, 226, 239, .2) 0 1.2px, transparent 2px),
+    radial-gradient(ellipse 37% 72% at 94% 54%, rgba(180, 135, 174, .19), transparent 85%),
+    radial-gradient(ellipse 34% 55% at 8% 80%, rgba(229, 163, 190, .09), transparent 95%);
+}
+
+/* Sparse hand-placed stars. Small opacity changes, no flashing. */
+.ambient-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.ambient-star {
+  position: absolute;
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(146, 106, 144, .66);
+  box-shadow: 0 0 0 3px rgba(173, 133, 162, .045), 0 0 10px rgba(177, 140, 181, .12);
+  animation: ambient-twinkle 10.8s ease-in-out infinite;
+}
+
+.ambient-field-hero .ambient-star:nth-child(1){left:6%;top:19%;animation-delay:-1s}
+.ambient-field-hero .ambient-star:nth-child(2){left:51%;top:12%;animation-delay:-6.3s;width:2px;height:2px}
+.ambient-field-hero .ambient-star:nth-child(3){left:93%;top:72%;animation-delay:-3.7s;width:2px;height:2px}
+.ambient-field-hero .ambient-star:nth-child(4){left:43%;top:86%;animation-delay:-8.1s}
+
+.ambient-field-bookshelf .ambient-star:nth-child(1){left:10%;top:9%;animation-delay:-3.1s}
+.ambient-field-bookshelf .ambient-star:nth-child(2){left:89%;top:22%;animation-delay:-6.6s;width:2px;height:2px}
+.ambient-field-bookshelf .ambient-star:nth-child(3){left:94%;top:75%;animation-delay:-1.4s}
+
+.ambient-field-contact .ambient-star{
+  background: rgba(249, 224, 238, .7);
+  box-shadow: 0 0 0 3px rgba(253, 226, 239, .06), 0 0 12px rgba(250, 218, 240, .17);
+}
+.ambient-field-contact .ambient-star:nth-child(1){left:9%;top:17%;animation-delay:-1.5s}
+.ambient-field-contact .ambient-star:nth-child(2){left:24%;top:73%;animation-delay:-6.2s;width:2px;height:2px}
+.ambient-field-contact .ambient-star:nth-child(3){left:74%;top:21%;animation-delay:-3.7s}
+.ambient-field-contact .ambient-star:nth-child(4){left:91%;top:67%;animation-delay:-8s;width:2px;height:2px}
+.ambient-field-contact .ambient-star:nth-child(5){left:58%;top:86%;animation-delay:-4.9s}
+
+
+
+/* Single elliptical orbital sketch at the edge of the hero photograph. */
+.ambient-orbit-track{
+  position:absolute;
+  display:block;
+  right:2%;
+  top:12%;
+  width:clamp(125px,17vw,205px);
+  aspect-ratio:1;
+  border:1px solid rgba(157, 118, 157, .23);
+  border-radius:50%;
+  transform:rotate(-28deg) scaleY(.52);
+}
+
+.ambient-orbit-runner{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  animation:ambient-orbit-travel 38s linear infinite;
+}
+
+.ambient-orbit-dot{
+  position:absolute;
+  top:-3px;
+  left:calc(50% - 3px);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#af8ba6;
+  box-shadow:0 0 0 4px rgba(173, 137, 170, .11);
+}
+
+@keyframes ambient-orbit-travel{
+  to{transform:rotate(360deg)}
+}
+
+/* A rare, short streak, only active while the contact section is visible. */
+.ambient-comet{
+  position:absolute;
+  top:20%;
+  right:13%;
+  width:74px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(251, 225, 239, .63),rgba(255, 245, 253, .9));
+  transform:rotate(-28deg);
+  transform-origin:100% 50%;
+  opacity:0;
+  animation:ambient-comet-cross 19s linear infinite;
+  animation-play-state:paused;
+}
+
+.contact-section.ambient-active .ambient-comet{
+  animation-play-state:running;
+}
+
+@keyframes ambient-comet-cross{
+  0%,85%,100%{opacity:0;translate:0 0}
+  87%{opacity:0;translate:12px -8px}
+  89%{opacity:.5}
+  93%{opacity:0;translate:-125px 68px}
+}
+
+/* One-time scroll reveals, enabled only by ambient.js when observer + motion
+   support exist. With JS off, content is never hidden. */
+html.ambient-ready [data-ambient-reveal]{
+  opacity:0;
+  transform:translate3d(0,12px,0);
+  transition:opacity .64s ease, transform .64s cubic-bezier(.2,.68,.28,1);
+}
+html.ambient-ready [data-ambient-reveal].ambient-visible{
+  opacity:1;
+  transform:none;
+}
+
+/* Only meaningful hover/focus feedback, not looping CTA shimmer. */
+.hero .btn-primary:is(:hover,:focus-visible),
+.resume-section .btn-primary:is(:hover,:focus-visible){
+  box-shadow:0 8px 24px rgba(135,75,107,.15);
+}
+
+@media(max-width:760px){
+  .ambient-orbit-track{width:115px;top:48%;right:-19px;opacity:.5}
+  .ambient-field-hero .ambient-star:nth-child(3),
+  .ambient-field-bookshelf .ambient-star:nth-child(3){display:none}
+  .bookshelf-section::before{opacity:.65}
+  .github-section::before{opacity:.25;background-size:70px 70px,70px 70px,auto}
+  .ambient-comet{width:48px;right:8%;top:17%}
+  html.ambient-ready [data-ambient-reveal]{transform:translate3d(0,8px,0);transition-duration:.48s}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ambient-star,
+  .ambient-orbit-runner,
+  .ambient-comet,
+  .floral-accent > svg{
+    animation:none!important;
+  }
+  .ambient-star{opacity:.48!important}
+  .ambient-comet{display:none}
+  html.ambient-ready [data-ambient-reveal]{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
+
+@media(forced-colors:active){
+  .ambient-field,.ambient-orbit-track{display:none}
+  .hero::before,.bookshelf-section::before,.about-section::before,
+  .work-section::before,.github-section::before,.contact-section::before{display:none}
+  html.ambient-ready [data-ambient-reveal]{opacity:1;transform:none}
+}
+
+@media print{
+  .ambient-field{display:none!important}
+  .hero::before,.bookshelf-section::before,.about-section::before,
+  .work-section::before,.github-section::before,.contact-section::before{display:none}
+  html.ambient-ready [data-ambient-reveal]{opacity:1!important;transform:none!important}
+}
+
+
+/* Full-site visual rhythm. Every section has a restrained star layer and
+   a corner glow, reusing the exact same decorative language as the hero. */
+.robot-section,
+.experience-section,
+.skills-section,
+.interests-section,
+.resume-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.robot-section > .container,
+.experience-section > .container,
+.skills-section > .container,
+.interests-section > .container,
+.resume-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.robot-section::before,
+.experience-section::before,
+.skills-section::before,
+.interests-section::before,
+.resume-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Older robot-section decorations are disabled in ux.css. Re-enable only
+   this subtle gradient layer; the old shooting-star pseudo remains off. */
+.robot-section::before {
+  display: block!important;
+  background:
+    radial-gradient(ellipse 27% 42% at 97% 22%, rgba(179, 146, 190, .085), transparent 90%),
+    radial-gradient(ellipse 33% 42% at 3% 85%, rgba(167, 132, 162, .065), transparent 92%);
+}
+
+.experience-section::before {
+  background:
+    radial-gradient(ellipse 36% 57% at 1% 65%, rgba(181, 140, 169, .085), transparent 88%),
+    radial-gradient(ellipse 28% 40% at 97% 9%, rgba(179, 173, 201, .06), transparent 90%);
+}
+
+.skills-section::before {
+  background:
+    radial-gradient(ellipse 26% 58% at 95% 36%, rgba(178, 137, 166, .105), transparent 90%),
+    radial-gradient(ellipse 34% 35% at 4% 89%, rgba(146, 168, 158, .06), transparent 90%);
+}
+
+.interests-section::before {
+  background:
+    radial-gradient(ellipse 35% 52% at 0% 15%, rgba(169, 135, 181, .075), transparent 90%),
+    radial-gradient(ellipse 37% 56% at 100% 91%, rgba(210, 164, 184, .08), transparent 89%);
+}
+
+.resume-section::before {
+  background:
+    radial-gradient(ellipse 26% 48% at 94% 15%, rgba(149, 116, 163, .115), transparent 90%),
+    radial-gradient(ellipse 32% 58% at 3% 83%, rgba(185, 146, 181, .075), transparent 92%);
+}
+
+/* Position only the new sections' stars. Existing hero/shelf/contact star
+   placement is left unchanged. Values keep the points at section edges. */
+.ambient-field-section{
+  --star-a-x:5%; --star-a-y:18%;
+  --star-b-x:93%; --star-b-y:20%;
+  --star-c-x:96%; --star-c-y:81%;
+}
+.ambient-field-section .ambient-star:nth-child(1){
+  left:var(--star-a-x);top:var(--star-a-y);animation-delay:-1.7s;
+}
+.ambient-field-section .ambient-star:nth-child(2){
+  left:var(--star-b-x);top:var(--star-b-y);
+  width:2px;height:2px;animation-delay:-6.6s;
+}
+.ambient-field-section .ambient-star:nth-child(3){
+  left:var(--star-c-x);top:var(--star-c-y);animation-delay:-3.4s;
+}
+.ambient-field-about{
+  --star-a-x:4%;--star-a-y:16%;--star-b-x:89%;--star-b-y:9%;--star-c-x:96%;--star-c-y:79%;
+}
+.ambient-field-work{
+  --star-a-x:6%;--star-a-y:14%;--star-b-x:92%;--star-b-y:9%;--star-c-x:96%;--star-c-y:83%;
+}
+.ambient-field-github{
+  --star-a-x:5%;--star-a-y:12%;--star-b-x:91%;--star-b-y:18%;--star-c-x:95%;--star-c-y:86%;
+}
+.ambient-field-robot{
+  --star-a-x:4%;--star-a-y:17%;--star-b-x:93%;--star-b-y:12%;--star-c-x:96%;--star-c-y:85%;
+}
+.ambient-field-experience{
+  --star-a-x:5%;--star-a-y:14%;--star-b-x:93%;--star-b-y:34%;--star-c-x:95%;--star-c-y:88%;
+}
+.ambient-field-skills{
+  --star-a-x:4%;--star-a-y:23%;--star-b-x:92%;--star-b-y:14%;--star-c-x:94%;--star-c-y:79%;
+}
+.ambient-field-interests{
+  --star-a-x:5%;--star-a-y:11%;--star-b-x:91%;--star-b-y:19%;--star-c-x:96%;--star-c-y:85%;
+}
+.ambient-field-resume{
+  --star-a-x:5%;--star-a-y:13%;--star-b-x:92%;--star-b-y:16%;--star-c-x:95%;--star-c-y:83%;
+}
+
+/* Occasional extra orbital sketches: three quiet echoes of the hero orbit,
+   not additional foreground planets. */
+.ambient-sky-arc{
+  position:absolute;
+  display:block;
+  width:170px;
+  aspect-ratio:1;
+  border:1px solid rgba(157, 118, 157, .24);
+  border-radius:50%;
+  transform:rotate(-25deg) scaleY(.54);
+  opacity:.36;
+}
+.ambient-sky-arc .ambient-orbit-runner{animation-duration:57s}
+.ambient-sky-arc .ambient-orbit-dot{
+  width:4px;height:4px;top:-2px;left:calc(50% - 2px);
+  background:#ab91a9;box-shadow:0 0 0 3px rgba(164, 128, 166, .09);
+}
+.ambient-field-robot .ambient-sky-arc{right:2%;top:7%;width:165px}
+.ambient-field-experience .ambient-sky-arc{left:-20px;bottom:2%;width:154px}
+.ambient-field-resume .ambient-sky-arc{right:3%;top:0;width:140px}
+
+/* Only visible sections animate. On a slow connection or without JS, all
+   scenery and content still render normally; this class is JS-enabled only. */
+html.ambient-ready .ambient-field .ambient-star,
+html.ambient-ready .ambient-field .ambient-orbit-runner{
+  animation-play-state:paused;
+}
+html.ambient-ready .ambient-active > .ambient-field .ambient-star,
+html.ambient-ready .ambient-active > .ambient-field .ambient-orbit-runner{
+  animation-play-state:running;
+}
+
+@media(max-width:760px){
+  .ambient-field-section .ambient-star:nth-child(3){display:none}
+  .ambient-sky-arc{width:105px!important;opacity:.22}
+  .ambient-field-experience .ambient-sky-arc{left:-22px;bottom:0}
+  .ambient-field-resume .ambient-sky-arc{right:-10px;top:7%}
+  .ambient-watermark{width:54px;height:54px;opacity:.085}
+  .ambient-watermark-contact{width:49px;height:49px;opacity:.11}
+  .robot-section::before,.experience-section::before,
+  .skills-section::before,.interests-section::before,.resume-section::before{
+    opacity:.72;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ambient-sky-arc .ambient-orbit-runner,
+  .ambient-watermark svg{animation:none!important}
+}
+
+@media(forced-colors:active){
+  .ambient-sky-arc,.ambient-watermark{display:none}
+  .robot-section::before,.experience-section::before,.skills-section::before,
+  .interests-section::before,.resume-section::before{display:none!important}
+}
+
+@media print{
+  .ambient-sky-arc,.ambient-watermark{display:none!important}
+  .robot-section::before,.experience-section::before,.skills-section::before,
+  .interests-section::before,.resume-section::before{display:none!important}
+}
+
+
+/* Visibility pass: the earlier 2-3px stars and 0.1-alpha glows were barely
+   perceptible at normal desktop zoom. Keep the same style but give it form. */
+.ambient-field{
+  background:
+    radial-gradient(ellipse 30% 40% at 98% 11%,rgba(178,132,173,.075),transparent 90%),
+    radial-gradient(ellipse 27% 44% at 1% 88%,rgba(194,153,183,.065),transparent 88%);
+}
+
+.ambient-field .ambient-star{
+  width:4px;
+  height:4px;
+  background:rgba(143,91,134,.82);
+  box-shadow:0 0 0 5px rgba(165,109,147,.07),0 0 17px rgba(141,86,133,.19);
+}
+.ambient-field .ambient-star:nth-child(2){width:3px;height:3px}
+.ambient-field-contact .ambient-star{
+  background:rgba(255,232,246,.92);
+  box-shadow:0 0 0 5px rgba(254,222,241,.10),0 0 16px rgba(255,223,244,.26);
+}
+
+
+
+/* Discernible but quiet orbit details in the engineering sections. */
+.ambient-sky-arc{
+  border-width:1.5px;
+  border-color:rgba(139,99,151,.5);
+  opacity:.69;
+}
+.ambient-sky-arc .ambient-orbit-dot{
+  width:5px;height:5px;top:-3px;left:calc(50% - 2.5px);
+  background:#936d99;
+}
+.ambient-orbit-track{
+  border-color:rgba(143,101,149,.39);
+}
+.ambient-watermark{opacity:.25}
+.ambient-watermark-contact{opacity:.23}
+
+/* Keep the distinctive palette in every area. The backgrounds have more
+   presence now, while portraits, books and text remain the visual anchors. */
+.hero::before,
+.about-section::before,
+.work-section::before,
+.experience-section::before,
+.skills-section::before,
+.interests-section::before,
+.resume-section::before{
+  background-image:
+    radial-gradient(ellipse 33% 45% at 97% 13%,rgba(168,125,175,.125),transparent 84%),
+    radial-gradient(ellipse 33% 46% at 3% 89%,rgba(204,163,188,.11),transparent 88%);
+}
+.bookshelf-section::before{
+  background:radial-gradient(ellipse 54% 32% at 50% 14%,rgba(191,145,186,.13),transparent 90%);
+}
+.github-section::before{opacity:.68}
+
+/* Paused offscreen with the same observer used for stars and orbital dots. */
+html.ambient-ready .ambient-field .ambient-constellation{animation-play-state:paused}
+html.ambient-ready .ambient-active > .ambient-field .ambient-constellation{animation-play-state:running}
+
+@media(max-width:760px){
+  .ambient-constellation{width:125px;opacity:.36;filter:none}
+  .ambient-field-hero .ambient-constellation{width:100px;right:0;top:1%;opacity:.38}
+  .ambient-field-bookshelf .ambient-constellation{left:auto;right:1%;top:2%;opacity:.34}
+  .ambient-field-about .ambient-constellation{right:1%;top:2%;opacity:.34}
+  .ambient-field-robot .ambient-constellation{right:0;left:auto;top:3%;opacity:.38}
+  .ambient-field-experience .ambient-constellation{width:100px}
+  .ambient-field-github .ambient-constellation{left:auto;right:1%;top:1%;opacity:.36}
+  .ambient-field-contact .ambient-constellation{width:116px;opacity:.4}
+  .ambient-field .ambient-star{width:3px;height:3px}
+  .ambient-field .ambient-star:nth-child(2){width:2.5px;height:2.5px}
+  .ambient-sky-arc{opacity:.40}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ambient-constellation{animation:none!important}
+}
+@media(forced-colors:active){
+  .ambient-constellation{display:none}
+}
+@media print{
+  .ambient-constellation{display:none!important}
+}
+
+
+/* Layout correction: stop treating every section heading as a star-map canvas.
+   The eleven repeated maps were removed from the HTML to prevent collisions.
+   Keep the two dedicated constellation breaks, planet and sparse starfields. */
+.constellation-break {
+  margin:20px auto;
+  height:48px;
+  pointer-events:none;
+}
+.ambient-sky-arc {
+  width:112px;
+  opacity:.28;
+}
+.ambient-field-robot .ambient-sky-arc {
+  left:auto;right:0;top:auto;bottom:2%;width:110px;
+}
+.ambient-field-experience .ambient-sky-arc {
+  left:0;right:auto;top:auto;bottom:2%;width:108px;
+}
+.ambient-field-resume .ambient-sky-arc {
+  left:auto;right:0;top:auto;bottom:2%;width:104px;
+}
+.ambient-sky-arc .ambient-orbit-dot {
+  width:4px;height:4px;top:-2px;left:calc(50% - 2px);
+}
+@media(max-width:760px){
+  .constellation-break {
+    margin:16px auto;
+    max-width:54vw;
+    height:36px;
+  }
+  /* Keep all moving orbital shapes away from small-screen text and buttons. */
+  .ambient-sky-arc {display:none!important}
+  .ambient-field .ambient-star:nth-child(3){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .ambient-sky-arc .ambient-orbit-runner{animation:none!important}
+}
+
+
+/* No inserted gaps: the two legacy constellation illustrations live as
+   absolutely-positioned ornaments inside existing section backgrounds. */
+.ambient-field .constellation-break{
+  position:absolute;
+  display:block;
+  margin:0;
+  width:clamp(120px,15vw,185px);
+  max-width:24vw;
+  height:34px;
+  pointer-events:none;
+  color:#a686a0;
+  opacity:.26;
+  z-index:0;
+}
+.ambient-field-work .constellation-break{
+  left:2%;bottom:9%;top:auto;right:auto;
+}
+.ambient-field-skills .constellation-break{
+  right:2%;bottom:8%;top:auto;left:auto;
+}
+
+/* Stars gently float as they twinkle. The existing scene observer pauses
+   them outside the viewport; reduced-motion users see static stars. */
+/* Gentle stars rather than constant large movement.
+   One definition of ambient-twinkle now controls all sections. */
+@keyframes ambient-twinkle{
+  0%,100%{opacity:.10;transform:translate3d(0,0,0) scale(.84)}
+  24%{opacity:.35;transform:translate3d(2px,-2px,0) scale(.91)}
+  52%{opacity:.90;transform:translate3d(var(--star-dx,8px),var(--star-dy,-9px),0) scale(1.09)}
+  78%{opacity:.42;transform:translate3d(var(--star-dx,8px),var(--star-dy,-9px),0) scale(.94)}
+}
+@media(max-width:760px){
+  .ambient-field .constellation-break{display:none!important}
+  .ambient-field .ambient-star{box-shadow:0 0 0 3px rgba(165,109,147,.045)}
+}
+@media(prefers-reduced-motion:reduce){
+  .ambient-field .ambient-star{animation:none!important;translate:0 0}
+  .ambient-field .constellation-break{opacity:.25}
+}
+@media(forced-colors:active){
+  .ambient-field .constellation-break{display:none!important}
+}
+@media print{
+  .ambient-field .constellation-break{display:none!important}
+}
+
+
+/* Celestial motion pass: slow, non-flashing stars and rotating pastel planets.
+   Decorative shapes stay in existing clipped background fields behind content.
+   Only viewport-visible scenes animate, and reduced-motion disables everything. */
+.ambient-field .ambient-star{
+  animation-name:ambient-twinkle;
+  animation-duration:var(--twinkle-time,18s);
+  animation-timing-function:ease-in-out;
+  animation-iteration-count:infinite;
+  --star-dx:8px;
+  --star-dy:-9px;
+}
+.ambient-field .ambient-star:nth-child(2){
+  --twinkle-time:22s;--star-dx:-10px;--star-dy:7px;
+}
+.ambient-field .ambient-star:nth-child(3){
+  --twinkle-time:25s;--star-dx:5px;--star-dy:11px;
+}
+.ambient-field .ambient-star:nth-child(4){
+  --twinkle-time:20s;--star-dx:-7px;--star-dy:-6px;
+}
+.ambient-field .ambient-star:nth-child(5){
+  --twinkle-time:24s;--star-dx:9px;--star-dy:-6px;
+}
+/* An extra pair of tiny distant stars per section, without added markup. */
+.ambient-field::before,.ambient-field::after{
+  content:"";
+  display:block;
+  position:absolute;
+  z-index:0;
+  width:2px;height:2px;
+  border-radius:50%;
+  background:rgba(141,104,149,.70);
+  box-shadow:0 0 8px rgba(164,121,170,.27);
+  pointer-events:none;
+  animation:ambient-twinkle 22s ease-in-out infinite;
+}
+.ambient-field::before{
+  left:23%;top:71%;animation-delay:-9s;
+  --star-dx:9px;--star-dy:-7px;
+}
+.ambient-field::after{
+  right:17%;top:39%;animation-duration:27s;animation-delay:-16s;
+  --star-dx:-10px;--star-dy:8px;
+}
+.ambient-field-contact::before,.ambient-field-contact::after{
+  background:rgba(255,237,247,.77);
+  box-shadow:0 0 8px rgba(255,228,242,.27);
+}
+/* The independent case-study section has its own quiet star coordinates. */
+.case-studies-section{position:relative;isolation:isolate}
+.case-studies-section>.technical-dossiers{position:relative;z-index:1}
+.ambient-field-cases .ambient-star:nth-child(1){left:4%;top:13%;animation-delay:-5s}
+.ambient-field-cases .ambient-star:nth-child(2){right:6%;top:37%;animation-delay:-12s;--twinkle-time:22s}
+.ambient-field-cases .ambient-star:nth-child(3){left:9%;bottom:13%;animation-delay:-18s;--twinkle-time:25s}
+
+/* Actual slowly rotating sphere textures, not static planet circles. */
+.ambient-planet{
+  --planet-light:#f4dce9;
+  --planet-mid:#c3a1c5;
+  --planet-dark:#816f9a;
+  --planet-ring:rgba(157,117,165,.61);
+  position:absolute;
+  display:block;
+  width:clamp(75px,9vw,125px);
+  aspect-ratio:1;
+  pointer-events:none;
+  opacity:.57;
+  isolation:isolate;
+  filter:saturate(.86);
+  animation:ambient-planet-hover 32s ease-in-out infinite;
+}
+.ambient-planet--rose{
+  --planet-light:#f8e6ec;--planet-mid:#dbabbf;
+  --planet-dark:#a0799b;--planet-ring:rgba(183,120,154,.56);
+}
+.ambient-planet--sage{
+  --planet-light:#f2eadf;--planet-mid:#b9c8bc;
+  --planet-dark:#829c9e;--planet-ring:rgba(129,156,153,.58);
+}
+.ambient-planet-body{
+  position:absolute;
+  inset:15%;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse at 29% 33%,rgba(255,255,255,.52) 0 7%,transparent 11%),
+    radial-gradient(ellipse at 76% 66%,rgba(255,255,255,.25) 0 9%,transparent 12%),
+    repeating-linear-gradient(155deg,transparent 0 12px,rgba(255,255,255,.19) 14px 18px,transparent 22px 34px),
+    radial-gradient(circle at 33% 29%,var(--planet-light) 0%,var(--planet-mid) 54%,var(--planet-dark) 100%);
+  box-shadow:
+    inset -10px -9px 16px rgba(77,65,98,.19),
+    inset 5px 5px 10px rgba(255,255,255,.33),
+    0 0 22px rgba(166,135,178,.14);
+  animation:ambient-planet-spin 74s linear infinite;
+}
+.ambient-planet-body::after{
+  content:"";
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 28% 25%,rgba(255,255,255,.32),transparent 45%);
+}
+.ambient-planet-ring{
+  position:absolute;
+  display:block;
+  inset:11% -9%;
+  border:2px solid var(--planet-ring);
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(250,247,251,.18);
+  transform:rotate(-29deg) scaleY(.42);
+  animation:ambient-planet-ring-turn 112s linear infinite;
+}
+@keyframes ambient-planet-spin{to{transform:rotate(360deg)}}
+@keyframes ambient-planet-hover{
+  0%,100%{translate:0 0}
+  50%{translate:3px -9px}
+}
+@keyframes ambient-planet-ring-turn{
+  from{transform:rotate(-29deg) scaleY(.42)}
+  to{transform:rotate(331deg) scaleY(.42)}
+}
+.ambient-planet-work{right:2%;top:6%;width:105px}
+.ambient-planet-cases{right:1.5%;top:2%;width:115px}
+.ambient-planet-bookshelf{left:1%;top:5%;width:105px}
+.ambient-planet-robot{right:2%;bottom:6%;width:119px}
+.ambient-planet-experience{left:1%;top:5%;width:98px}
+.ambient-planet-interests{right:3%;bottom:5%;width:110px}
+
+/* Include the existing hero planet in the slow rotation language. */
+.intro-planet-core{animation:ambient-planet-spin 86s linear infinite}
+
+/* Extend the existing visibility observer's pause policy to every new effect. */
+html.ambient-ready .ambient-field::before,
+html.ambient-ready .ambient-field::after,
+html.ambient-ready .ambient-field .ambient-planet,
+html.ambient-ready .ambient-field .ambient-planet-body,
+html.ambient-ready .ambient-field .ambient-planet-ring{
+  animation-play-state:paused;
+}
+html.ambient-ready .ambient-active>.ambient-field::before,
+html.ambient-ready .ambient-active>.ambient-field::after,
+html.ambient-ready .ambient-active>.ambient-field .ambient-planet,
+html.ambient-ready .ambient-active>.ambient-field .ambient-planet-body,
+html.ambient-ready .ambient-active>.ambient-field .ambient-planet-ring{
+  animation-play-state:running;
+}
+@media(max-width:760px){
+  .ambient-field .ambient-star{--star-dx:4px;--star-dy:-5px}
+  .ambient-field::before,.ambient-field::after{width:2px;height:2px}
+  .ambient-planet{width:64px!important;opacity:.33;filter:saturate(.70)}
+  .ambient-planet-work,.ambient-planet-cases{right:0;top:3%}
+  .ambient-planet-bookshelf{left:0;top:3%}
+  .ambient-planet-robot{right:0;bottom:4%}
+  .ambient-planet-experience{left:0;top:3%}
+  .ambient-planet-interests{right:0;bottom:3%}
+}
+@media(prefers-reduced-motion:reduce){
+  .ambient-field::before,.ambient-field::after,
+  .ambient-planet,.ambient-planet-body,.ambient-planet-ring,
+  .intro-planet-core{
+    animation:none!important;
+  }
+  .ambient-field::before,.ambient-field::after{opacity:.38;transform:none}
+  .ambient-planet{translate:0 0}
+}
+@media(forced-colors:active){
+  .ambient-field::before,.ambient-field::after,.ambient-planet{display:none!important}
+}
+@media print{
+  .ambient-field::before,.ambient-field::after,.ambient-planet{display:none!important}
+}
+
+/* SOURCE: engineering.css */
+/*
+ * Engineering-first visual layer.
+ * Existing space, botanical artwork, book colors and interactions are preserved.
+ * All graphical drafting details are CSS-only, behind the real content.
+ */
+
+:root{
+  --eng-ink:#333f51;
+  --eng-graphite:#566272;
+  --eng-rule:#cdd2db;
+  --eng-accent:#77657e;
+  --eng-surface:rgba(255,253,253,.88);
+  --eng-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+}
+
+/* Typography: editorial name, unmistakably technical supporting information. */
+.hero .eyebrow,
+.section .eyebrow,
+.project-kicker,
+.repo-category,
+.shelf-preview-label,
+.book-edition,
+.timeline-date,
+.book-page-topline,
+.book-page-bottomline,
+.book-project-facts dt{
+  font-family:var(--eng-mono);
+  font-weight:650;
+  letter-spacing:.075em;
+}
+.hero .eyebrow{font-size:10px;color:#785871;letter-spacing:.09em}
+.hero h1{
+  font-size:clamp(47px,5.6vw,72px);
+  line-height:1.09;
+  letter-spacing:-.047em;
+  text-wrap:balance;
+  margin-bottom:17px;
+}
+.hero .hero-subtitle{
+  font-size:clamp(23px,2.1vw,28px);
+  line-height:1.38;
+  max-width:520px;
+  margin-bottom:17px;
+  color:#51445b;
+}
+.hero .hero-description{font-size:14px;line-height:1.85;max-width:62ch}
+.hero .hero-buttons{margin-top:22px}
+
+/* Three factual focus areas, like a compact instrument legend.
+   This is within the hero, not an inserted spacer between sections. */
+.engineering-focus{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  max-width:575px;
+  margin-top:30px;
+  border-block:1px solid var(--eng-rule);
+  background:rgba(255,252,253,.5);
+}
+.engineering-focus>div{
+  padding:13px 12px 13px 0;
+  min-width:0;
+}
+.engineering-focus>div+div{
+  border-left:1px solid var(--eng-rule);
+  padding-left:13px;
+}
+.engineering-focus .focus-code{
+  display:block;
+  margin-bottom:8px;
+  color:#786779;
+  font:700 10px/1.5 var(--eng-mono);
+  letter-spacing:.035em;
+}
+.engineering-focus strong{
+  display:block;
+  color:var(--eng-ink);
+  font:700 12px/1.35 var(--sans);
+  letter-spacing:-.012em;
+}
+.engineering-focus small{
+  display:block;
+  margin-top:5px;
+  color:var(--eng-graphite);
+  font:400 10px/1.5 var(--sans);
+}
+.figure-index{
+  font:700 10px/1.5 var(--eng-mono);
+  color:#77647d;
+  letter-spacing:.06em;
+  margin-right:8px;
+}
+.hero-photo figcaption{font-style:normal;line-height:1.7}
+
+/* Technically informed line/grid details. Only background layers; content
+   remains above the scenery in its existing stacking context. */
+.ambient-field-github{
+  background-image:
+    linear-gradient(to right,rgba(82,100,117,.048) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(82,100,117,.048) 1px,transparent 1px);
+  background-size:46px 46px;
+}
+.ambient-field-work,
+.ambient-field-robot,
+.ambient-field-skills{
+  background-image:
+    linear-gradient(90deg,transparent 0 92%,rgba(90,104,122,.085) 92% 92.18%,transparent 92.18%),
+    linear-gradient(0deg,transparent 0 86%,rgba(90,104,122,.075) 86% 86.2%,transparent 86.2%);
+  background-size:146px 146px;
+  opacity:.92;
+}
+.ambient-field-robot{background-size:172px 172px}
+.ambient-field-skills{background-size:162px 162px}
+
+.section-heading h2{letter-spacing:-.038em}
+.section-heading .eyebrow{color:#765a70}
+.section-heading>p:not(.eyebrow){font-size:14px;color:#646272}
+
+/* Distinct engineering assessment panel, not fabricated numerical data. */
+.work-section .feature-project{
+  border-color:#d4cbd6;
+  box-shadow:0 10px 34px rgba(53,58,75,.06);
+}
+.work-section .feature-content{position:relative}
+.work-section .feature-content::before{
+  content:"CASE STUDY / 01";
+  position:absolute;
+  top:13px;
+  right:18px;
+  font:700 9px/1.35 var(--eng-mono);
+  letter-spacing:.11em;
+  color:#a399aa;
+}
+.feature-content .project-kicker{font-size:10px;color:#775b74}
+.feature-content>p:not(.project-kicker){color:#5a5662}
+.engineering-flow{
+  margin:16px 0 10px;
+  padding:13px 0 14px;
+  border-block:1px solid #ded6de;
+}
+.engineering-flow .flow-label{
+  display:block;
+  font:700 10px/1.5 var(--eng-mono);
+  letter-spacing:.065em;
+  color:#736177;
+  margin-bottom:9px;
+}
+.engineering-flow ol{
+  display:flex;
+  align-items:stretch;
+  flex-wrap:wrap;
+  list-style:none;
+  padding:0;
+  margin:0;
+  gap:6px;
+}
+.engineering-flow li{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 9px;
+  border:1px solid #ddd5dc;
+  background:#f8f7f9;
+  border-radius:4px;
+  color:#4a5160;
+  font:650 11px/1.35 var(--sans);
+  white-space:normal;
+}
+.engineering-flow li>span{
+  color:#795f7c;
+  font:700 10px/1 var(--eng-mono);
+}
+.engineering-flow li+li::before{
+  content:"→";
+  margin-left:-5px;
+  margin-right:3px;
+  color:#836e82;
+  font:700 12px/1 var(--eng-mono);
+}
+.project-metrics strong{font-family:var(--eng-mono);font-variant-numeric:tabular-nums;letter-spacing:-.05em}
+.project-metrics span{font-size:11px}
+
+/* Cards and the project-library pages present methods and evidence clearly. */
+.github-section .repo-card{
+  border:1px solid #d9d5df;
+  border-top:2px solid #b1a2b8;
+  box-shadow:0 8px 26px rgba(45,55,73,.055);
+}
+.github-section .repo-category,.repo-meta,.repo-result-count{
+  font-family:var(--eng-mono);
+  letter-spacing:.01em;
+}
+.github-section .repo-card>p{color:#5d5e6a}
+.shelf-label-row h3>span{font-size:12px;letter-spacing:0}
+.shelf-preview-label,.shelf-collection-description{font-family:var(--eng-mono)}
+.shelf-collection-description{font-size:11px;line-height:1.6}
+.shelf-preview [data-preview-text]{color:#565d69}
+.book-project-facts dt{color:#795b74;font-size:10px;letter-spacing:.065em}
+.book-project-facts dd{line-height:1.75}
+.skill-column{
+  border-top:2px solid #ada3b5;
+  padding-top:17px;
+}
+.skill-column h3{font-size:22px}
+.skill-column p{font-size:13px;line-height:1.85;color:#57606b}
+.timeline-date{font-size:10px;letter-spacing:.04em}
+
+/* Decorative flowers and drifting stars stay subtle and noninteractive.
+   No changes to their position, number, or accessibility properties. */
+@media(max-width:1100px){
+  .engineering-focus small{font-size:9.5px}
+  .engineering-focus>div{padding-right:8px}
+  .engineering-focus>div+div{padding-left:9px}
+  .engineering-flow li{padding:6px 7px}
+}
+@media(max-width:780px){
+  .hero h1{font-size:clamp(46px,10vw,65px)}
+  .engineering-focus{margin-top:24px;max-width:650px}
+  .engineering-focus>div{padding-block:11px}
+  .engineering-focus strong{font-size:11px}
+  .engineering-focus small{font-size:10px}
+  .ambient-field-work,.ambient-field-robot,.ambient-field-skills{opacity:.57}
+  .work-section .feature-content::before{top:9px;right:12px}
+  .engineering-flow li+li::before{display:none}
+}
+@media(max-width:480px){
+  .hero h1{font-size:clamp(42px,10.3vw,55px)}
+  .engineering-focus .focus-code{font-size:9px}
+  .engineering-focus strong{font-size:10px;line-height:1.38}
+  .engineering-focus small{display:none}
+  .engineering-focus>div{padding:10px 6px 10px 0}
+  .engineering-focus>div+div{padding-left:9px}
+  .engineering-flow ol{gap:6px}
+  .engineering-flow li{font-size:10px}
+  .figure-index{display:block;margin-bottom:3px}
+  .skill-column h3{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  .engineering-focus,.engineering-flow{transition:none}
+}
+@media print{
+  .ambient-field-github,.ambient-field-work,.ambient-field-robot,
+  .ambient-field-skills{background-image:none}
+}

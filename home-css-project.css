@@ -1,0 +1,207 @@
+
+/* SOURCE: project-pages.css */
+/*
+ * Engineering drafting paper and project navigation.
+ * 20px subdivisions and 100px heavy 5-by-5 engineering grid.
+ * Decoration remains underneath content, photos, project books and controls.
+ */
+:root{
+  --draft-minor:rgba(84,108,130,.070);
+  --draft-major:rgba(83,103,131,.17);
+  --draft-major-warm:rgba(145,106,137,.075);
+  --draft-paper:#fcfaf9;
+}
+body{background-color:var(--draft-paper)}
+.hero,.section{position:relative;isolation:isolate}
+.robot-section::after{display:block!important}
+.hero::after,.section::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(90deg,var(--draft-minor) 1px,transparent 1px),
+    linear-gradient(var(--draft-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--draft-major) 1px,transparent 1px),
+    linear-gradient(var(--draft-major) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+  background-position:0 0;
+  opacity:.66;
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.27) 25%,rgba(0,0,0,.14) 74%,rgba(0,0,0,.66));
+  mask-image:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.27) 25%,rgba(0,0,0,.14) 74%,rgba(0,0,0,.66));
+}
+.hero>.hero-copy,.hero>.hero-photo,
+.section>.container,.section>.technical-dossiers,.section>.featured-projects-inner{
+  position:relative;z-index:1;
+}
+.section .feature-project,.section .technical-dossier{background-color:rgba(255,253,254,.96)}
+.case-studies-section{background-color:#faf8fb}
+.contact-section::after{opacity:.22}
+@media(max-width:760px){
+  .hero::after,.section::after{opacity:.42;background-size:18px 18px,18px 18px,90px 90px,90px 90px}
+}
+/* Four quick, keyboard-accessible ways to enter the strongest engineering work. */
+.featured-projects-section{padding:32px 0 40px!important}
+.featured-projects-inner{width:min(1120px,calc(100% - 64px));margin:auto}
+.featured-projects-head{
+  display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;
+  gap:6px 20px;margin-bottom:15px
+}
+.featured-projects-head .eyebrow{margin:0}
+.featured-projects-head p:last-child{margin:0;font-size:12px;color:#77717e}
+.featured-project-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.featured-project-card{
+  display:flex;flex-direction:column;gap:7px;
+  padding:18px 17px 16px;border:1px solid #d8d4df;
+  border-top:3px solid #9b83a0;border-radius:8px;
+  background:rgba(255,253,254,.94);
+  text-decoration:none;min-width:0;min-height:155px;
+  box-shadow:0 8px 20px rgba(60,46,72,.033);
+  transition:transform .20s ease,box-shadow .20s ease,border-color .20s ease;
+}
+.featured-project-card:nth-child(2){border-top-color:#a5a2b3}
+.featured-project-card:nth-child(3){border-top-color:#8d9eae}
+.featured-project-card:nth-child(4){border-top-color:#a89987}
+.featured-project-card .featured-category{
+  color:#795b78;font:700 10px/1.5 var(--eng-mono,monospace);letter-spacing:.055em
+}
+.featured-project-card strong{
+  color:#414154;font:600 20px/1.22 var(--serif)
+}
+.featured-project-card small{color:#625e6c;font:400 12px/1.55 var(--sans);flex:1}
+.featured-project-card .featured-more{
+  color:#735775;font:700 11px/1.45 var(--sans)
+}
+.featured-project-card:hover,.featured-project-card:focus-visible{
+  border-color:#ab8dae;box-shadow:0 12px 25px rgba(69,53,80,.10);
+  transform:translateY(-2px)
+}
+.featured-project-card:focus-visible{outline:3px solid #795f86;outline-offset:3px}
+/* A simple scope and responsibility note on case studies. */
+.dossier-role{
+  display:grid;grid-template-columns:120px minmax(0,1fr);
+  gap:12px;align-items:baseline;margin:16px 0 23px;
+  border:1px solid #e0d9e4;border-left:3px solid #aa8eab;
+  border-radius:6px;background:#f9f7fa;padding:12px 15px;
+}
+.dossier-role strong{
+  color:#705975;font:700 10px/1.5 var(--eng-mono,monospace);
+  text-transform:uppercase;letter-spacing:.04em
+}
+.dossier-role p{margin:0;color:#565563;font-size:12px;line-height:1.7}
+.dossier-detail-link{
+  display:inline-flex;align-items:center;gap:5px;font-weight:700;
+  font-size:11px;color:#725574;text-decoration:underline;text-underline-offset:3px
+}
+/* Individual static pages: no JavaScript needed, one durable share URL per book. */
+body.project-page{min-height:100vh;background-color:var(--draft-paper);color:#414050}
+.project-page .detail-navigation{
+  background:rgba(255,253,254,.94);border-bottom:1px solid #e1d9e2;
+  position:relative;z-index:1
+}
+.detail-nav-inner{
+  width:min(980px,calc(100% - 46px));margin:auto;
+  display:flex;gap:20px;align-items:center;justify-content:space-between;
+  min-height:68px;flex-wrap:wrap;
+}
+.detail-home{
+  color:#604967;text-decoration:none;font:600 26px/1.3 var(--serif)
+}
+.detail-nav-actions{display:flex;flex-wrap:wrap;gap:9px 19px}
+.detail-nav-actions a,.detail-home-link{
+  color:#6d536d;text-decoration:underline;text-underline-offset:4px;
+  font:600 12px/1.5 var(--sans)
+}
+.project-page .project-paper{
+  position:relative;isolation:isolate;padding:clamp(42px,7vw,86px) 0 94px
+}
+.project-page .project-paper::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(90deg,var(--draft-minor) 1px,transparent 1px),
+    linear-gradient(var(--draft-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--draft-major) 1px,transparent 1px),
+    linear-gradient(var(--draft-major) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+  opacity:.55;
+}
+.project-page .project-paper>.detail-container{
+  position:relative;z-index:1;width:min(980px,calc(100% - 46px));margin:auto
+}
+.project-page .detail-heading{max-width:850px;margin-bottom:27px}
+.project-page .detail-heading .eyebrow{margin-bottom:12px}
+.project-page .detail-heading h1{
+  font:500 clamp(38px,5vw,62px)/1.1 var(--serif);
+  letter-spacing:-.04em;color:#3d3749;margin:0 0 13px
+}
+.project-page .detail-heading>p:last-child{max-width:67ch;color:#665f6d;line-height:1.8}
+.project-page .detail-card{
+  padding:clamp(19px,3.4vw,35px);border:1px solid #dcd5df;
+  background:rgba(255,253,254,.97);border-radius:12px
+}
+.project-page .detail-tag{
+  display:inline-block;font:700 10px/1.4 var(--eng-mono,monospace);
+  color:#715a7b;letter-spacing:.05em;margin-bottom:13px
+}
+.project-page .detail-lead{
+  font-size:15px;line-height:1.85;color:#555160;
+  max-width:90ch;margin:0 0 20px
+}
+.project-page .detail-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:19px 0
+}
+.project-page .detail-panel{
+  padding:17px 18px;border:1px solid #e2dce4;border-radius:7px;
+  background:#faf8fb;min-width:0
+}
+.project-page .detail-panel h2,.project-page .detail-results h2{
+  color:#67566e;font:700 11px/1.5 var(--eng-mono,monospace);
+  text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px
+}
+.project-page .detail-panel p,.project-page .detail-results p{
+  color:#545563;font-size:13px;line-height:1.75;margin:0
+}
+.project-page .detail-results{
+  border-left:3px solid #9c85a4;background:#f8f5f9;
+  padding:16px 20px;margin-top:17px
+}
+.project-page .detail-source-note{
+  font-size:11px;line-height:1.7;color:#77717e;
+  margin:18px 0 0
+}
+.project-page .detail-buttons{
+  display:flex;flex-wrap:wrap;gap:11px;margin-top:24px
+}
+.project-page .detail-buttons a{
+  padding:11px 16px;border:1px solid #927896;border-radius:5px;
+  color:#563d5d;text-decoration:none;font:700 12px/1.4 var(--sans);
+  background:#fff;transition:background-color .18s ease
+}
+.project-page .detail-buttons a:first-child{
+  color:#fff;background:#645067;border-color:#645067
+}
+.project-page .detail-buttons a:hover,.project-page .detail-buttons a:focus-visible{
+  outline:2px solid #927896;outline-offset:2px;background:#eee6f0;color:#4e4056
+}
+.project-page .detail-footer{
+  margin-top:36px;color:#77717e;font-size:12px;line-height:1.6
+}
+@media(max-width:850px){.featured-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){
+  .featured-projects-inner{width:calc(100% - 36px)}
+  .featured-projects-section{padding:22px 0 27px!important}
+  .featured-project-card{min-height:146px;padding:13px}
+  .featured-project-card strong{font-size:18px}
+  .featured-project-card small{font-size:11px}
+  .dossier-role{grid-template-columns:1fr;gap:3px}
+  .project-page .detail-grid{grid-template-columns:1fr}
+  .project-page .detail-nav-inner{padding:10px 0}
+}
+@media(max-width:400px){.featured-project-grid{grid-template-columns:1fr}.featured-project-card{min-height:0}}
+@media(prefers-reduced-motion:reduce){
+  .featured-project-card,.project-page .detail-buttons a{transition:none!important;transform:none!important}
+}
+@media(forced-colors:active){
+  .hero::after,.section::after,.project-page .project-paper::before{display:none!important}
+}
+@media print{
+  .hero::after,.section::after,.project-page .project-paper::before{display:none!important}
+  .featured-project-card,.detail-card{box-shadow:none}
+}
