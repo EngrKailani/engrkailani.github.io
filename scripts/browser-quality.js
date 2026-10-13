@@ -107,6 +107,15 @@ async function audit(){
              new URL(page.url()).searchParams.has('q'))
             note(id+': clear filters did not restore all sixteen projects and clean URL');
         }
+        if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
+          const extras=page.locator('.ambient-field .ambient-star--extra');
+          const extraTotal=await extras.count();
+          const visibleExtras=await extras.evaluateAll(stars=>stars.filter(el=>getComputedStyle(el).display!=='none').length);
+          if(extraTotal!==44 || visibleExtras!==(test.width===390?22:44))
+            note(id+': background star density mismatch: '+extraTotal+' total, '+visibleExtras+' displayed');
+          if(!await extras.first().evaluate(el=>getComputedStyle(el).pointerEvents==='none'))
+            note(id+': background stars should not intercept clicks');
+        }
         if(test.path==='/projects/index.html'){
           const thumbs=page.locator('.project-directory-grid .directory-card-visual img');
           if(await thumbs.count()!==16) note(id+': expected 16 project thumbnails');

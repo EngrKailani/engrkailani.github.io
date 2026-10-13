@@ -154,3 +154,33 @@
  .book-modal-actions #book-counter{width:100%;order:-1;text-align:center;margin-bottom:5px}
 }
 @media(prefers-reduced-motion:reduce){.bookshelf-index-link{transition:none}}
+
+/* More slow-moving stardust across the existing decorative background fields.
+   All dots remain behind the content and use the current viewport animation gate. */
+.ambient-field .ambient-star--extra{
+  left:var(--star-x);
+  top:var(--star-y);
+  width:2.5px;
+  height:2.5px;
+  background:rgba(146,100,150,.78);
+  box-shadow:0 0 0 3px rgba(175,130,174,.045),0 0 9px rgba(168,121,164,.18);
+  animation-delay:var(--star-delay);
+  animation-duration:var(--twinkle-time,21s);
+}
+.ambient-field-contact .ambient-star--extra{
+  background:rgba(255,229,245,.86);
+  box-shadow:0 0 0 3px rgba(255,231,246,.07),0 0 10px rgba(255,226,244,.22);
+}
+:root[data-theme="dark"] .ambient-field .ambient-star--extra{
+  background:rgba(239,199,232,.8);
+  box-shadow:0 0 9px rgba(231,186,231,.19);
+}
+@media(max-width:760px){
+  .ambient-field .ambient-star--extra:not(.ambient-star--mobile){display:none}
+  .ambient-field .ambient-star--extra{width:2px;height:2px;box-shadow:0 0 5px rgba(166,121,168,.11)}
+}
+@media(prefers-reduced-motion:reduce){
+  .ambient-field .ambient-star--extra{animation:none!important;transform:none;opacity:.48}
+}
+@media(forced-colors:active){.ambient-field .ambient-star--extra{display:none!important}}
+@media print{.ambient-field .ambient-star--extra{display:none!important}}

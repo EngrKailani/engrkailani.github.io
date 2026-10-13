@@ -128,6 +128,21 @@ check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
   .includes('.featured-next-step-links .btn'),
   'Featured project actions need mobile-responsive styles');
 
+
+/* Subtle background star density without obscuring portfolio content. */
+const ambientFields=[...home.matchAll(/<div class="ambient-field(?: ambient-field-[^"]+)*" aria-hidden="true">/g)];
+const addedStars=[...home.matchAll(/<span class="ambient-star ambient-star--extra(?: ambient-star--mobile)?" style="[^"]+"><\/span>/g)];
+check(ambientFields.length===11&&addedStars.length===44&&
+  (home.match(/<span class="ambient-star"><\/span>/g)||[]).length===36 &&
+  addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
+  'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
+const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
+check(home.includes('homepage-refinement.css?v=20261013-more-stars1') &&
+  moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
+  moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
+  moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
+  moreStarsCss.includes('animation:none!important'),
+  'New stars should retain responsive and reduced-motion-safe styles');
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 
 const wayfindingPaths=[
