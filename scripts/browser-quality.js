@@ -273,6 +273,23 @@ async function audit(){
 await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
           await page.screenshot({path:path.join(out,'screenshots',id+'.png'),animations:'disabled'});
           if(test.path==='/'){
+            // Capture both robot renderers, not just text/status assertions.
+            const robotPane=page.locator('.robot-viewport');
+            if(await robotPane.count()){
+              await page.locator('[data-robot-view="3d"]').click();
+              await page.waitForTimeout(300);
+              await robotPane.screenshot({
+                path:path.join(out,'screenshots',id+'-robot-3d.png'),
+                animations:'disabled',timeout:12000
+              });
+              await page.locator('[data-robot-view="2d"]').click();
+              await page.waitForTimeout(100);
+              await robotPane.screenshot({
+                path:path.join(out,'screenshots',id+'-robot-2d.png'),
+                animations:'disabled',timeout:12000
+              });
+              await page.locator('[data-robot-view="3d"]').click();
+            }
             for(const [name,selector] of [
               ['featured-projects','#featured-projects'],
               ['nasa-photo-accents','#portfolio-photo-gallery'],
