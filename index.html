@@ -32,7 +32,8 @@
   <script src="enhancements.js?v=20261011-pink2" defer></script>
   <script src="ux.js" defer></script>
   <script src="ambient.js?v=20261011-2" defer></script>
-  <script src="scripts/lazy-features.js?v=20261012-perf1" defer></script>
+  <script src="scripts/lazy-features.js?v=20261012-readerfix1" defer></script>
+  <script src="bookshelf.js?v=20261012-readerfix1" defer></script>
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center"><meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="portfolio-upgrade.js?v=20261011-dock1" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Kailani Alarcon","url":"https://engrkailani.github.io/","jobTitle":"Electrical engineering graduate student","alumniOf":{"@type":"CollegeOrUniversity","name":"University of Nevada, Reno"},"knowsAbout":["Robotics","Embedded systems","Electrical engineering","Engineering verification"],"sameAs":["https://github.com/EngrKailani","https://www.linkedin.com/in/kailani-alarcon/"]}</script>
@@ -382,6 +383,52 @@
         <p class="bookshelf-help">Each book opens to its project story. On mobile, swipe across shelves and turn one page at a time.</p>
       </div>
     </section>
+
+    <dialog id="project-book-dialog" class="project-book-dialog" aria-labelledby="book-modal-title" aria-describedby="book-modal-intro">
+      <div class="project-book-shell">
+        <div class="project-book-toolbar">
+          <span class="project-book-eyebrow">FROM THE ENGINEERING LIBRARY · SELECTED WORKS</span>
+          <button id="close-project-book" class="project-book-close return-bookshelf" type="button" aria-label="Return to bookshelf"><span aria-hidden="true">←</span> Return to Bookshelf</button>
+        </div>
+        <p id="book-page-status" class="book-page-status" aria-live="polite">Page 1 of 2 · Project story</p>
+        <div id="book-open-stage" class="book-open-stage is-closed" data-mobile-page="1">
+          <div class="book-spread">
+            <article class="book-page book-page-left">
+              <div class="book-page-topline"><span>THE WORKS OF KAILANI ALARCON</span><span class="book-page-chapter">I</span></div>
+              <p class="book-edition" id="book-edition">PROJECT STORY</p>
+              <h2 id="book-modal-title"></h2>
+              <p class="book-modal-subtitle" id="book-modal-intro"></p>
+              <div class="book-page-rule" aria-hidden="true"></div>
+              <h3 class="book-chapter-heading">The story</h3>
+              <p id="book-story" class="book-story-prose"></p>
+              <div class="book-page-bottomline"><span>CHAPTER ONE · THE PROJECT</span><span class="book-page-number">01</span></div>
+              <button class="book-mobile-turn book-mobile-forward" id="book-next-page" type="button">Turn to engineering details <span aria-hidden="true">→</span></button>
+            </article>
+            <article class="book-page book-page-right">
+              <div class="book-page-topline"><span>NOTES FROM THE WORKSHOP</span><span class="book-page-chapter">II</span></div>
+              <h3 class="book-chapter-heading">Behind the build</h3>
+              <dl class="book-project-facts">
+                <div><dt>The challenge</dt><dd id="book-challenge"></dd></div>
+                <div><dt>Design &amp; methods</dt><dd id="book-approach"></dd></div>
+                <div><dt>Tools &amp; methods</dt><dd id="book-tools"></dd></div>
+                <div><dt>Results &amp; lessons</dt><dd id="book-outcome"></dd></div>
+              </dl>
+              <a id="book-project-link" class="book-project-link" href="#work">See project details <span aria-hidden="true">↗</span></a>
+              <div class="book-page-bottomline"><span>CHAPTER TWO · THE ENGINEERING</span><span class="book-page-number">02</span></div>
+              <button class="book-mobile-turn book-mobile-backward" id="book-prev-page" type="button"><span aria-hidden="true">←</span> Return to project story</button>
+            </article>
+          </div>
+          <div class="book-turning-page" aria-hidden="true"><span class="book-turning-lines"></span></div>
+          <div class="book-flipping-cover" aria-hidden="true"><span class="book-cover-emblem">✦</span><span class="book-cover-title" id="book-cover-title">ENGINEERING STORIES</span><span class="book-cover-foot">EST. 2026</span></div>
+        </div>
+        <div class="book-modal-actions">
+          <button id="book-previous" class="book-page-control" type="button">← Previous book</button>
+          <span id="book-counter" aria-live="polite"></span>
+          <button id="book-next" class="book-page-control" type="button">Next book →</button>
+        </div>
+      </div>
+    </dialog>
+
 <section class="section github-section" id="github-projects" aria-labelledby="github-title">
       <div class="ambient-field ambient-field-section ambient-field-github" aria-hidden="true">
         <span class="ambient-star"></span><span class="ambient-star"></span><span class="ambient-star"></span>

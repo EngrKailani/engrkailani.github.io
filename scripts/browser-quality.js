@@ -103,6 +103,33 @@ async function audit(){
           if(await page.locator('[data-open-book]').count()!==16) note(id+': expected 16 project books');
           if(await page.locator('.repo-planet').count()!==5) note(id+': expected 5 repository planets');
         }
+        if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
+          // Exercise the actual book interaction, not just the presence of spines.
+          const reader=page.locator('#project-book-dialog');
+          if(!await reader.count())note(id+': bookshelf reader dialog missing');
+          else{
+            await page.locator('[data-open-book="nasa"]').click();
+            try{
+              await page.waitForFunction(()=>document.getElementById('project-book-dialog')?.open,{},{timeout:5000});
+            }catch{note(id+': clicking NASA project book did not open the reader')}
+            if(await reader.evaluate(el=>el.open)){
+              const title=(await page.locator('#book-modal-title').textContent()||'').trim();
+              if(title!=='Robotics for Another World')note(id+': unexpected book title after click: '+title);
+              const url=await page.locator('#book-project-link').getAttribute('href');
+              if(url!=='projects/nasa.html')note(id+': reader project link incorrect: '+url);
+              await page.locator('#book-next').click();
+              const second=(await page.locator('#book-modal-title').textContent()||'').trim();
+              if(second!=='UR3e Robot Kinematics')note(id+': next-book control failed: '+second);
+              if(test.width===390){
+                await page.locator('#book-next-page').click();
+                const status=await page.locator('#book-page-status').textContent();
+                if(!status?.includes('Page 2 of 2'))note(id+': mobile book page turn failed');
+              }
+              await page.locator('#close-project-book').click();
+              if(await reader.evaluate(el=>el.open))note(id+': book close control failed');
+            }
+          }
+        }
         // Captions are supporting technical content and must remain readable,
         // not merely visible. Check every rendered case-study and homepage figure.
         const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>{

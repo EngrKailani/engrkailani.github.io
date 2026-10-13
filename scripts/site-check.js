@@ -462,6 +462,19 @@ for(const group of ['robotics','embedded','measurement','software']){
     'Project directory missing discipline '+group);
 }
 
+check(home.includes('<dialog id="project-book-dialog"') &&
+  home.includes('id="book-open-stage"') &&
+  home.includes('id="book-modal-title"') &&
+  home.includes('id="book-project-link"') &&
+  home.includes('id="book-next-page"') &&
+  home.includes('id="book-prev-page"') &&
+  home.includes('id="close-project-book"') &&
+  home.includes('id="book-next"') && home.includes('id="book-previous"'),
+  'Interactive bookshelf reader dialog, page controls and story fields must exist');
+check(home.includes('src="bookshelf.js?v=20261012-readerfix1" defer') &&
+  !fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes("{id:'bookshelf'"),
+  'Reader should initialize exactly once on initial load, not only on scroll');
+
 /* Keep the overview concise and restore permanently visible books and planets. */
 const expectedFeaturedPreviews=[
   'projects/nasa-figures/robotic-arm-geometry.svg',

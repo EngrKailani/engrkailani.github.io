@@ -88,7 +88,8 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
         const books = page.locator('[data-open-book]');
         if (await books.count()) {
           await books.first().click();
-          await page.waitForTimeout(150);
+          try { await page.locator('#project-book-dialog[open]').waitFor({state:'visible',timeout:5000}); }
+          catch {note(id+': clicking a book did not open the reader modal');}
           await inspect('open book');
           const turn = page.locator('.book-mobile-turn:visible').first();
           if (await turn.count()) { await turn.click(); await page.waitForTimeout(100); await inspect('book second page'); }
