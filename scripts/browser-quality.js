@@ -117,9 +117,27 @@ async function audit(){
               if(title!=='Robotics for Another World')note(id+': unexpected book title after click: '+title);
               const url=await page.locator('#book-project-link').getAttribute('href');
               if(url!=='projects/nasa.html')note(id+': reader project link incorrect: '+url);
+              const select=page.locator('#book-switch-select');
+              if(await select.locator('option').count()!==16)
+                note(id+': sixteen project options required in switcher');
+              if(await select.inputValue()!=='nasa')
+                note(id+': project switcher not synchronized with selected book');
               await page.locator('#book-next').click();
               const second=(await page.locator('#book-modal-title').textContent()||'').trim();
               if(second!=='UR3e Robot Kinematics')note(id+': next-book control failed: '+second);
+              if(await select.inputValue()!=='ur3e')
+                note(id+': switcher not updated after Next');
+              await select.selectOption('powershell');
+              if((await page.locator('#book-modal-title').textContent()||'').trim()!=='PowerShell Systems & Concurrency')
+                note(id+': direct jump to project 16 failed');
+              if((await page.locator('#book-counter').textContent()||'').trim()!=='Book 16 of 16')
+                note(id+': book counter did not update on direct jump');
+              if(await page.locator('#book-next').isEnabled())note(id+': Next must be disabled for project 16');
+              await select.selectOption('thermal');
+              if((await page.locator('#book-modal-title').textContent()||'').trim()!=='Thermal Controller & Logger')
+                note(id+': direct jump to Thermal Logger failed');
+              if(await page.locator('#book-project-link').getAttribute('href')!=='projects/thermal.html')
+                note(id+': project detail link not synchronized');
               if(test.width===390){
                 await page.locator('#book-next-page').click();
                 const status=await page.locator('#book-page-status').textContent();
