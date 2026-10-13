@@ -148,6 +148,42 @@ async function audit(){
             }
           }
         }
+        if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
+          // Moving between 2D and 3D must not change arm geometry or joint pose.
+          await page.locator('[data-robot-view="2d"]').click();
+          const floor2d=page.locator('[data-pose="floor"]');
+          await floor2d.click();
+          const first2d=(await page.locator('#side-tip-readout').textContent()||'');
+          const z2d=Number(first2d.match(/z:\\s*([+-]?[\\d.]+)/i)?.[1]);
+          if(!Number.isFinite(z2d)||Math.abs(z2d-.5)>.2)
+            note(id+': 2D floor preset should approach 0.5in, got '+first2d);
+          await page.locator('[data-robot-view="3d"]').click();
+          try{await page.waitForFunction(()=>
+            document.getElementById('robot-3d-status')?.textContent?.includes('Tip z:'),
+            null,{timeout:6000});
+          }catch{note(id+': 3D renderer did not initialize when switched from 2D')}
+          if(await page.locator('#r3d-elbow').inputValue()!=='72')
+            note(id+': 2D floor preset did not transfer elbow angle into 3D');
+          const first3d=(await page.locator('#robot-3d-status').textContent()||'');
+          const z3d=Number(first3d.match(/Tip z:\\s*([+-]?[\\d.]+)/)?.[1]);
+          if(!Number.isFinite(z3d)||Math.abs(z3d-z2d)>.12)
+            note(id+': 2D and 3D floor heights disagree: '+first2d+' / '+first3d);
+          await page.locator('#r3d-shoulder').evaluate(input=>{
+            input.value='20';
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          await page.locator('[data-robot-view="2d"]').click();
+          if(await page.locator('#joint-shoulder').inputValue()!=='20')
+            note(id+': shoulder angle did not transfer from 3D back to 2D');
+          await page.locator('#joint-elbow').evaluate(input=>{
+            input.value='100';
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          await page.locator('[data-robot-view="3d"]').click();
+          if(await page.locator('#r3d-elbow').inputValue()!=='100')
+            note(id+': manual 2D elbow angle did not transfer to 3D');
+          await page.locator('[data-3d-pose="home"]').click();
+        }
         // Captions are supporting technical content and must remain readable,
         // not merely visible. Check every rendered case-study and homepage figure.
         const captions=await page.locator('figure figcaption:visible').evaluateAll(elements=>{
