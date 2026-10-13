@@ -1,37 +1,44 @@
-/* Shared illustrative ceiling-mounted arm geometry for the 2D and 3D lab.
- * Inches, with floor z=0 and ceiling z=36. Centerlines only, not hardware.
+/* Generic illustrative robot-motion model shared by the 2D and 3D demos.
+ * Geometry is normalized and intentionally arbitrary. It does not represent
+ * project hardware, dimensions, joint limits, or validated motion plans.
  */
 (() => {
   'use strict';
-  const chamber=36, mount=3, link1=18.5, link2=18.5, tool=8.5;
+  const workspace=1;
+  const mount=.08;
+  const segmentA=.30;
+  const segmentB=.27;
+  const tool=.11;
   const presets=Object.freeze({
-    home: Object.freeze({yaw:45,shoulder:0,elbow:85,wrist:-60,twist:0,grip:35}),
-    floor: Object.freeze({yaw:45,shoulder:0,elbow:72,wrist:-60,twist:0,grip:10}),
-    inspect: Object.freeze({yaw:-45,shoulder:-10,elbow:110,wrist:-60,twist:20,grip:65}),
-    park: Object.freeze({yaw:45,shoulder:0,elbow:110,wrist:-60,twist:0,grip:30})
+    neutral: Object.freeze({yaw:20,jointA:15,jointB:70,jointC:-35,twist:0,grip:40}),
+    reach: Object.freeze({yaw:45,jointA:35,jointB:35,jointC:-20,twist:15,grip:25}),
+    fold: Object.freeze({yaw:-30,jointA:10,jointB:105,jointC:-45,twist:-20,grip:65}),
+    rest: Object.freeze({yaw:0,jointA:25,jointB:80,jointC:-30,twist:0,grip:35})
   });
   const radians=d=>d*Math.PI/180;
   function next(start,pitch,length,yaw){
     const p=radians(pitch),a=radians(yaw);
-    return {x:start.x+length*Math.sin(p)*Math.cos(a),
+    return {
+      x:start.x+length*Math.sin(p)*Math.cos(a),
       y:start.y+length*Math.sin(p)*Math.sin(a),
-      z:start.z-length*Math.cos(p)};
+      z:start.z-length*Math.cos(p)
+    };
   }
   function joints(pose){
-    const ceiling={x:0,y:0,z:chamber};
-    const shoulder={x:0,y:0,z:chamber-mount};
-    const elbow=next(shoulder,pose.shoulder,link1,pose.yaw);
-    const wrist=next(elbow,pose.shoulder+pose.elbow,link2,pose.yaw);
-    const tip=next(wrist,pose.shoulder+pose.elbow+pose.wrist,tool,pose.yaw);
-    return [ceiling,shoulder,elbow,wrist,tip];
+    const anchor={x:0,y:0,z:workspace};
+    const root={x:0,y:0,z:workspace-mount};
+    const joint1=next(root,pose.jointA,segmentA,pose.yaw);
+    const joint2=next(joint1,pose.jointA+pose.jointB,segmentB,pose.yaw);
+    const tip=next(joint2,pose.jointA+pose.jointB+pose.jointC,tool,pose.yaw);
+    return [anchor,root,joint1,joint2,tip];
   }
   function inside(point){
-    const tolerance=.0001,half=chamber/2;
+    const tolerance=.0001,half=workspace/2;
     return Math.abs(point.x)<=half+tolerance &&
       Math.abs(point.y)<=half+tolerance &&
-      point.z>=-tolerance && point.z<=chamber+tolerance;
+      point.z>=-tolerance && point.z<=workspace+tolerance;
   }
-  window.robotChamberModel=Object.freeze({
-    chamber,mount,link1,link2,tool,presets,radians,joints,inside
+  window.robotMotionModel=Object.freeze({
+    workspace,mount,segmentA,segmentB,tool,presets,radians,joints,inside
   });
 })();
