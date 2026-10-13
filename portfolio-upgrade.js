@@ -95,8 +95,8 @@
     viewport2d?.setAttribute('aria-hidden',String(chosen!=='2d'));
     viewport3d?.setAttribute('aria-hidden',String(chosen!=='3d'));
     if(description)description.textContent=chosen==='2d'
-      ? '2D mode selected. Choose a pose or adjust shoulder, elbow and wrist in the control panel beneath the viewer. Angles are illustrative, not mechanical limits.'
-      : '3D mode selected. Choose a pose, adjust the joints below the viewer, or rotate the camera. Both models are educational illustrations, not hardware controllers or validated motion plans.';
+      ? '2D radial side projection of the same 36-inch chamber and ceiling-mounted robot. The shoulder, elbow and wrist stay synchronized with 3D; yaw and tool twist are retained but not shown.'
+      : '3D perspective of the same arm as 2D. Shared geometry: 3-inch mount, 18.5-inch upper and forearm links, and an 8.5-inch tool. These are educational centerline visualizations, not validated motion plans.';
     buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.robotView===chosen)));
     document.dispatchEvent(new CustomEvent('robot:view-change',{detail:{mode:chosen}}));
   }
