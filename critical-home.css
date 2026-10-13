@@ -38,14 +38,3 @@
 .featured-project-card .featured-more{margin-top:auto;padding-top:12px}
 .featured-project-card .featured-project-visual{right:8px;bottom:8px;width:90px;height:90px;opacity:.075}
 @media(max-width:760px){.featured-project-card{gap:8px;padding:19px}.featured-project-card strong{margin-top:4px}.featured-project-card .featured-project-visual{width:74px;height:74px;opacity:.06}}
-
-/* First-paint geometry for decorative layers. Without these rules the large
-   inline botanical SVG participates in normal layout until ambient.css loads,
-   causing a major shift on slow mobile connections. The full ambient styling
-   still supplies the original flowers, planets, and animations. */
-.hero{position:relative;isolation:isolate}
-.hero>.hero-copy,.hero>.hero-photo{position:relative;z-index:1}
-.hero>.ambient-field{position:absolute;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden}
-.floral-definitions{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
-.hero .ambient-field .botanical-background{position:absolute;display:block;width:56px;height:56px;opacity:.17;pointer-events:none}
-.hero .intro-planet{position:absolute;top:0;right:9%;width:50px;height:50px;pointer-events:none;z-index:0}
