@@ -95,6 +95,35 @@ async function audit(){
           }
           if(!await page.locator('a[href="../index.html#bookshelf"]').count()) note(id+': bookshelf link missing');
         }
+        if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
+          // The menu must expose every individual project without navigating away
+          // from the homepage or breaking the existing bookshelf and planets.
+          const projectsMenu=page.locator('#projects-nav-menu');
+          if(test.width===390)await page.locator('#menu-toggle').click();
+          await projectsMenu.locator('summary').click();
+          if(!await projectsMenu.evaluate(el=>el.open))
+            note(id+': Projects disclosure did not open');
+          const projectsMenuLinks=projectsMenu.locator('.nav-projects__group a');
+          if(await projectsMenuLinks.count()!==16)
+            note(id+': expected 16 directly linked projects in the navigation');
+          const menuDestinations=await projectsMenuLinks.evaluateAll(links=>links.map(a=>a.getAttribute('href')));
+          if(new Set(menuDestinations).size!==16 ||
+             !menuDestinations.includes('projects/nasa.html') ||
+             !menuDestinations.includes('projects/powershell.html'))
+            note(id+': project menu targets missing or duplicated');
+          if(!await projectsMenu.locator('a[href="projects/thermal.html"]').isVisible())
+            note(id+': project links should become visible in open navigation');
+          if(!await projectsMenu.locator('a[href="projects/index.html"]').isVisible())
+            note(id+': project-directory overview link not visible');
+          await page.keyboard.press('Escape');
+          if(await projectsMenu.evaluate(el=>el.open))
+            note(id+': Projects dropdown should close with Escape');
+          if(test.width===390){
+            await page.locator('#menu-toggle').click();
+            if(await page.locator('#nav-links').isVisible())
+              note(id+': mobile menu did not close');
+          }
+        }
         if(test.path==='/') {
           if(await page.locator('.selected-project-preview img').count()!==3)
             note(id+': expected three illustrated featured engineering projects');

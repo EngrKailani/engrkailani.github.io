@@ -129,6 +129,19 @@ check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
   'Featured project actions need mobile-responsive styles');
 
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
+const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
+const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]);
+const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
+check(menuItems.length===16&&new Set(menuItems).size===16&&
+  directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
+  'Homepage Projects menu must link directly to all 16 project pages, exactly once');
+check(menuMarkup.includes('href="projects/index.html"') &&
+  home.includes('projects-menu.css?v=20261012-projectsnav1') &&
+  home.includes('scripts/projects-menu.js?v=20261012-projectsnav1') &&
+  fs.existsSync(path.join(root,'projects-menu.css')) &&
+  fs.existsSync(path.join(root,'scripts/projects-menu.js')),
+  'Projects dropdown, directory link, accessible styling and behavior must be installed');
+
 const thumbs=[...directory.matchAll(/<span class="directory-card-visual"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
 check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
 check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
