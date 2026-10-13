@@ -137,7 +137,7 @@ check(ambientFields.length===11&&addedStars.length===44&&
   addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
   'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
 const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261013-more-stars1') &&
+check(home.includes('homepage-refinement.css?v=20261013-plum-backdrop1') &&
   moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
   moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
   moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
@@ -194,7 +194,7 @@ check(menuMarkup.includes('href="projects/index.html"') &&
   fs.existsSync(path.join(root,'scripts/projects-menu.js')),
   'Projects dropdown, directory link, accessible styling and behavior must be installed');
 
-const thumbs=[...directory.matchAll(/<span class="directory-card-visual"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
+const thumbs=[...directory.matchAll(/<span class="directory-card-visual(?: directory-card-visual--paper)?"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
 check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
 check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
   'Each project thumbnail must have a labeled evidence type');
@@ -604,7 +604,7 @@ const expectedFeaturedPreviews=[
   'projects/thermal/media/logger-interface-concept.svg'
 ];
 const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredPreviews.match(/class="selected-project-preview"/g)||[]).length===3 &&
+check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===3 &&
   expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
   (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=3,
   'Featured engineering work must include three source-labeled visual previews');
