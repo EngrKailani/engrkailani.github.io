@@ -85,6 +85,28 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
+          await page.goto(origin+'/projects/index.html?area=robotics',{waitUntil:'load'});
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 3 of 16 engineering projects')
+            note(id+': robotics deep link did not filter to three projects');
+          if(await page.locator('[data-gallery-filter="robotics"]').getAttribute('aria-pressed')!=='true')
+            note(id+': shared discipline filter was not active');
+          if(!await page.locator('#directory-clear').isVisible())
+            note(id+': filter-clear action should appear when filtered');
+          await page.locator('#directory-search').fill('UR3e');
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 16 engineering projects'||
+             !new URL(page.url()).searchParams.get('q'))
+            note(id+': project search did not filter or preserve its query in URL');
+          await page.reload({waitUntil:'load'});
+          if(await page.locator('#directory-search').inputValue()!=='UR3e'||
+             (await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 16 engineering projects')
+            note(id+': reloading a shared project search lost its filters');
+          await page.locator('#directory-clear').click();
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 16 of 16 engineering projects'||
+             new URL(page.url()).searchParams.has('area')||
+             new URL(page.url()).searchParams.has('q'))
+            note(id+': clear filters did not restore all sixteen projects and clean URL');
+        }
         if(test.path==='/projects/index.html'){
           const thumbs=page.locator('.project-directory-grid .directory-card-visual img');
           if(await thumbs.count()!==16) note(id+': expected 16 project thumbnails');

@@ -129,6 +129,30 @@ check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
   'Featured project actions need mobile-responsive styles');
 
 const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
+
+const wayfindingPaths=[
+  ['robotics',3],['embedded',4],['measurement',5],['software',4]
+];
+const pathwaySection=home.match(/<nav class="work-pathways"[\s\S]*?<\/nav>/)?.[0]||'';
+check(wayfindingPaths.every(([area,n])=>
+  pathwaySection.includes('href="projects/index.html?area='+area+'"') &&
+  (directory.match(new RegExp('data-gallery-category="'+area+'"','g'))||[]).length===n) &&
+  home.includes('href="projects/index.html">View all 16 projects') &&
+  home.includes('href="#explore">Interactive</a>'),
+  'Engineering wayfinding should expose all sixteen projects and accurate discipline counts');
+check(directory.includes('class="directory-breadcrumb"') &&
+  directory.includes('id="directory-clear"') &&
+  directory.includes('../site-ux.css?v=20261013-wayfinding1') &&
+  home.includes('site-ux.css?v=20261013-wayfinding1') &&
+  fs.existsSync(path.join(root,'site-ux.css')),
+  'The project directory needs breadcrumbs, clear filters and responsive wayfinding styles');
+const upgradedDirectoryJS=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
+check(upgradedDirectoryJS.includes('restoreDirectoryFromUrl()') &&
+  upgradedDirectoryJS.includes("url.searchParams.set('area',category)") &&
+  upgradedDirectoryJS.includes("url.searchParams.set('q',query)") &&
+  upgradedDirectoryJS.includes("history.replaceState("),
+  'Project searches and discipline filters must be shareable by URL');
+
 const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
 const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]).filter(name=>name!=='index.html');
 const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
