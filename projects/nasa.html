@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="project-photo-context.css?v=20261012">
 <link rel="stylesheet" href="case-study-summary.css?v=20261012-evidence1">
-<link rel="stylesheet" href="nasa-figures.css?v=20261013-generic-geometry">
+<link rel="stylesheet" href="nasa-figures.css?v=20261013-disclaimer-thumb">
 <meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,6 +34,10 @@
 <header class="detail-heading">
 <p class="eyebrow">NASA · 2026 · Robotics</p><h1>NASA Robotic-Arm Assessment</h1><p>Connecting robotic motion, actuation, thermal behavior, and verification planning for lunar-dust testing.</p>
 </header>
+<aside class="nasa-disclaimer" aria-label="NASA affiliation disclaimer">
+  <strong>Personal portfolio disclaimer.</strong>
+  <p>I am not an official representative or spokesperson for NASA. The descriptions, interpretations, and illustrative graphics on this page reflect my individual internship experience and are not official NASA statements or representations of NASA programs, systems, capabilities, performance, or endorsements.</p>
+</aside>
 <section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Evaluate a robotic-arm concept for chamber access, actuator suitability, and high-vacuum operation.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Supported robotic controls and calibration, thermal analysis, mechanical assessment, and requirements-driven verification planning.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>ROS2, Thermal Desktop, Creo, workspace analysis, and verification planning.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed workspace, actuator loading, thermal behavior, and planned operating scenarios against system requirements.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Identified engineering considerations and next-step verification needs to support continued design review and testing.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>This public summary does not include detailed NASA test data, proprietary geometry, calibration results, or qualification results.</p></div></div></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical context</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#project-results">Assessment status</a><a href="#project-evidence">Evidence</a></nav>
 
@@ -41,8 +45,13 @@
   <header class="nasa-figures__intro">
     <p class="nasa-figures__eyebrow">TECHNICAL CONTEXT</p>
     <h2 id="nasa-figures-title">Engineering workstreams</h2>
-    <p>This public portfolio page presents the project at a general level. The visual below uses an intentionally generic robotic-arm representation to explain the thermal-analysis workstream. It does not reproduce project-specific dimensions, link lengths, joint locations, chamber geometry, or mechanical configuration, and it is not an official NASA engineering drawing, solver output, or qualification result.</p>
+    <p>This public portfolio page presents the project at a general level. The visuals below use intentionally generic robotic-arm representations and do not reproduce project-specific dimensions, link lengths, joint locations, chamber geometry, or mechanical configuration. They are illustrative portfolio graphics, not official NASA engineering drawings, solver outputs, or qualification results.</p>
   </header>
+  <figure class="nasa-figure" id="nasa-fig-01">
+    <div class="nasa-figure__top"><span>ROBOTIC-ARM CONCEPT</span><span>GENERIC · NOT TO SCALE</span></div>
+    <img src="nasa-figures/robotic-arm-geometry.svg?v=20261013-no-numbers" alt="Generic reconstructed illustration of a ceiling-mounted robotic arm inside an enclosure, with no project-specific dimensions shown." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Robotic-arm concept.</strong> This reconstructed illustration is intentionally generic and not to scale. It does not represent project-specific dimensions, proportions, hardware configuration, or validated NASA CAD.</figcaption>
+  </figure>
   <figure class="nasa-figure" id="nasa-fig-thermal">
     <div class="nasa-figure__top"><span>THERMAL MODELING</span><span>QUALITATIVE RECONSTRUCTION</span></div>
     <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project-specific geometry or measurements." width="1200" height="760" loading="lazy" decoding="async">
