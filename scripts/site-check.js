@@ -316,9 +316,11 @@ check(home.includes('id="case-explorer"') &&
   lazyFeatureJS.includes('case-explorer.js'),
   'Engineering case studies need their interactive explorer and assets');
 check(home.includes('scripts/lazy-features.js') &&
-  ['bookshelf.js','robot-3d.js','case-explorer.js'].every(file=>
-    lazyFeatureJS.includes(file) && !home.includes('<script src="'+file)),
-  'Interactive below-fold modules should load on demand, not block the first screen');
+  ['robot-3d.js','case-explorer.js'].every(file=>
+    lazyFeatureJS.includes(file) && !home.includes('<script src="'+file)) &&
+  home.includes('<script src="bookshelf.js?v=20261012-readerfix1" defer></script>') &&
+  !lazyFeatureJS.includes("{id:'bookshelf'"),
+  'Keep the robot and case explorer lazy-loaded while initializing the bookshelf reader once');
 check((home.match(/data-case-select="/g)||[]).length===3,
   'Case explorer must offer NASA, IVerify and instrumentation views');
 check((home.match(/data-case-step="/g)||[]).length===4,
