@@ -36,7 +36,8 @@
 <link rel="stylesheet" href="robot-control-dock.css?v=20261011-dock1" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="robot-control-dock.css?v=20261011-dock1"></noscript>
 <link rel="stylesheet" href="portfolio-photos.css?v=20261012-caption2" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="portfolio-photos.css?v=20261012-caption2"></noscript>
 <link rel="stylesheet" href="case-explorer.css?v=20261012-v2" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="case-explorer.css?v=20261012-v2"></noscript>
-  <script src="script.js?v=20261012-audit1" defer></script>
+  <script src="robot-chamber-model.js?v=20261012-shared1" defer></script>
+  <script src="script.js?v=20261012-shared1" defer></script>
   <script src="enhancements.js?v=20261011-pink2" defer></script>
   <script src="ux.js" defer></script>
   <script src="ambient.js?v=20261011-2" defer></script>
@@ -593,8 +594,8 @@
         <div class="robot-copy" data-ambient-reveal>
           <p class="eyebrow">KINEMATICS STUDY</p>
           <h2>Interactive <em>robot motion.</em></h2>
-          <p>Switch between a simplified 2D motion study and a 3D chamber view. Both modes use the same control area, with presets above manual joint adjustments.</p>
-          <p class="robot-aside" id="robot-view-description">3D mode selected. Choose a pose, adjust the joints below the viewer, or rotate the camera. Both models are educational illustrations, not hardware controllers or validated motion plans.</p>
+          <p>Switch between a 2D side projection and a rotatable 3D view of the same ceiling-mounted arm. Both views share the chamber dimensions, link lengths and joint angles.</p>
+          <p class="robot-aside" id="robot-view-description">3D mode selected. The 2D projection shows the same arm geometry and joint angles. These are illustrative kinematic centerlines, not validated motion plans or hardware controllers.</p>
         </div>
         <div class="robot-console" data-view="3d">
           <div class="console-header">
@@ -607,17 +608,19 @@
           </div>
           <div class="robot-viewport" aria-label="Robot visualization">
             <div class="robot-2d-viewport" id="robot-2d-viewport" aria-hidden="true">
-              <svg aria-label="Animated side view of a robotic arm hanging from the ceiling of a test chamber" id="arm-svg" role="img" viewbox="0 0 500 430">
-<defs><pattern height="25" id="simGrid" patternunits="userSpaceOnUse" width="25"><path d="M25 0H0V25" fill="none" opacity=".3" stroke="#74526c" stroke-width=".8"></path></pattern><lineargradient id="armGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffc9dd"></stop><stop offset="1" stop-color="#e48ab8"></stop></lineargradient></defs>
+              <svg aria-label="Animated side view of a robotic arm hanging from the ceiling of a test chamber" id="arm-svg" role="img" viewBox="0 0 500 430">
+<defs><pattern height="25" id="simGrid" patternUnits="userSpaceOnUse" width="25"><path d="M25 0H0V25" fill="none" opacity=".3" stroke="#74526c" stroke-width=".8"></path></pattern><linearGradient id="armGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffc9dd"></stop><stop offset="1" stop-color="#e48ab8"></stop></linearGradient></defs>
 <rect fill="url(#simGrid)" height="430" width="500" x="0" y="0"></rect>
 <rect fill="#36283c" fill-opacity=".36" height="322" rx="9" stroke="#ac89a6" stroke-dasharray="6 6" stroke-width="1.5" width="328" x="86" y="65"></rect>
 <path d="M86 65H414" stroke="#d9b6ce" stroke-linecap="round" stroke-width="7"></path><path d="M86 387H414" stroke="#9e7a99" stroke-width="3"></path>
-<text class="console-svg-label" x="88" y="40">36 × 36 × 36 IN / CHAMBER</text><text class="console-svg-label" x="89" y="410">FLOOR</text><text class="console-svg-label" x="318" y="410">SIDE VIEW</text>
-<path d="M250 65V102" stroke="#ffb3cc" stroke-linecap="round" stroke-width="15"></path>
-<g id="arm-bones" stroke="url(#armGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><line id="bone-1" x1="250" x2="150" y1="102" y2="210"></line><line id="bone-2" x1="150" x2="280" y1="210" y2="290"></line><line id="bone-3" stroke-width="12" x1="280" x2="300" y1="290" y2="335"></line></g>
-<g fill="#57334d" id="arm-joints" stroke="#ffe7ee" stroke-width="4"><circle cx="250" cy="102" id="joint-0" r="15"></circle><circle cx="150" cy="210" id="joint-1" r="13"></circle><circle cx="280" cy="290" id="joint-2" r="11"></circle></g>
-<g id="gripper" stroke="#ffdae7" stroke-linecap="round" stroke-width="5"><line id="grip-left" x1="300" x2="291" y1="335" y2="350"></line><line id="grip-right" x1="300" x2="309" y1="335" y2="350"></line></g>
+<text class="console-svg-label" x="88" y="40">36 × 36 × 36 IN / CHAMBER</text><text class="console-svg-label" x="89" y="410">FLOOR</text><text class="console-svg-label" x="318" y="410">RADIAL SIDE VIEW</text>
+<path d="M250 65V91.83" stroke="#ffb3cc" stroke-linecap="round" stroke-width="15"></path>
+<g id="arm-bones" stroke="url(#armGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="13"><line id="bone-1" x1="250" x2="150" y1="102" y2="210"></line><line id="bone-2" stroke="#b6dbe4" stroke-width="11" x1="150" x2="280" y1="210" y2="290"></line><line id="bone-3" stroke="#eecf8f" stroke-width="8" x1="280" x2="300" y1="290" y2="335"></line></g>
+<g fill="#57334d" id="arm-joints" stroke="#ffe7ee" stroke-width="4"><circle cx="250" cy="91.83" id="joint-0" r="15"></circle><circle cx="150" cy="210" id="joint-1" r="13"></circle><circle cx="280" cy="290" id="joint-2" r="11"></circle></g>
+<g id="gripper" stroke="#f4d9aa" stroke-linecap="round" stroke-width="5"><line id="grip-left" x1="300" x2="291" y1="335" y2="350"></line><line id="grip-right" x1="300" x2="309" y1="335" y2="350"></line></g>
 <circle cx="300" cy="335" fill="#ff9ec4" id="tip-glow" opacity=".12" r="15"></circle><circle cx="300" cy="335" fill="#ffeef5" id="tip-dot" r="4"></circle>
+<text class="console-svg-label" id="side-tip-readout" x="295" y="54">TIP z: -- IN</text>
+<text class="console-svg-label" id="side-projection-status" x="90" y="378">CENTERLINE CHECK</text>
 <g fill="#edc5d8" opacity=".8"><path d="M124 101v-10m-5 5h10M380 144v-10m-5 5h10M133 347v-10m-5 5h10" stroke="#edc5d8" stroke-width="1.4"></path></g>
 </svg>
             </div>
@@ -629,24 +632,24 @@
           <div class="robot-controls-dock" id="robot-controls-dock">
             <section class="robot-mode-controls robot-2d-controls" id="robot-2d-controls" aria-label="2D motion controls" hidden>
               <div class="robot-control-heading">
-                <div><p class="robot-control-kicker">2D MOTION STUDY</p><h3>Choose a pose</h3></div>
-                <span class="robot-control-count">3 joints · planar view</span>
+                <div><p class="robot-control-kicker">2D CHAMBER PROJECTION</p><h3>Choose a pose</h3></div>
+                <span class="robot-control-count">3 joints · shared with 3D</span>
               </div>
-              <div class="robot-action-row robot-control-presets" role="group" aria-label="2D motion presets"><button aria-pressed="true" class="pose-button active" data-pose="home" type="button">Home</button><button aria-pressed="false" class="pose-button" data-pose="hello" type="button">Say hello</button><button aria-pressed="false" class="pose-button" data-pose="reach" type="button">Reach</button><button aria-pressed="false" class="pose-button" data-pose="inspect" type="button">Inspect</button></div>
+              <div class="robot-action-row robot-control-presets" role="group" aria-label="2D motion presets"><button aria-pressed="true" class="pose-button active" data-pose="home" type="button">Home</button><button aria-pressed="false" class="pose-button" data-pose="floor" type="button">Approach floor</button><button aria-pressed="false" class="pose-button" data-pose="park" type="button">Park</button><button aria-pressed="false" class="pose-button" data-pose="inspect" type="button">Inspect</button></div>
               <div class="robot-control-heading robot-control-heading--joints">
                 <div><p class="robot-control-kicker">MANUAL POSITIONING</p><h4>Adjust joint angles</h4></div>
                 <span class="robot-control-count">Illustrative ranges</span>
               </div>
               <div class="robot-control-sliders robot-tuner" role="group" aria-label="2D manual joint angles">
-                <div class="joint-row"><label for="joint-shoulder">Shoulder angle</label><output id="shoulder-input-value" for="joint-shoulder">-48°</output><input id="joint-shoulder" data-joint-control type="range" min="-90" max="90" step="1" value="-48" aria-describedby="shoulder-input-value"></div>
-                <div class="joint-row"><label for="joint-elbow">Elbow angle</label><output id="elbow-input-value" for="joint-elbow">96°</output><input id="joint-elbow" data-joint-control type="range" min="-120" max="135" step="1" value="96" aria-describedby="elbow-input-value"></div>
-                <div class="joint-row"><label for="joint-wrist">Wrist angle</label><output id="wrist-input-value" for="joint-wrist">0°</output><input id="joint-wrist" data-joint-control type="range" min="-90" max="90" step="1" value="0" aria-describedby="wrist-input-value"></div>
+                <div class="joint-row"><label for="joint-shoulder">Shoulder angle</label><output id="shoulder-input-value" for="joint-shoulder">0°</output><input id="joint-shoulder" data-joint-control type="range" min="-10" max="100" step="1" value="0" aria-describedby="shoulder-input-value"></div>
+                <div class="joint-row"><label for="joint-elbow">Elbow angle</label><output id="elbow-input-value" for="joint-elbow">85°</output><input id="joint-elbow" data-joint-control type="range" min="0" max="120" step="1" value="85" aria-describedby="elbow-input-value"></div>
+                <div class="joint-row"><label for="joint-wrist">Wrist angle</label><output id="wrist-input-value" for="joint-wrist">-60°</output><input id="joint-wrist" data-joint-control type="range" min="-60" max="60" step="1" value="-60" aria-describedby="wrist-input-value"></div>
               </div>
               <div class="robot-control-utilities">
                 <div class="sequence-wrap robot-control-secondary"><button type="button" id="animate-button" class="sequence-button">Run motion sequence ↗</button><button type="button" id="stop-button" class="sequence-stop" hidden>Stop sequence</button></div>
-                <div class="tuner-bottom robot-control-reset"><p>Angles are illustrative, not mechanical joint limits.</p><button class="tuner-reset" type="button" id="reset-robot">Reset to home</button></div>
+                <div class="tuner-bottom robot-control-reset"><p>2D is the radial side projection of the 3D arm. Yaw is retained but not shown.</p><button class="tuner-reset" type="button" id="reset-robot">Reset to home</button></div>
               </div>
-              <div class="console-bottom robot-control-footer"><span aria-live="polite" id="pose-status" role="status">✳ In home position</span><div class="telemetry"><span>SHOULDER <b id="shoulder-readout">-48°</b></span><span>ELBOW <b id="elbow-readout">96°</b></span></div></div>
+              <div class="console-bottom robot-control-footer"><span aria-live="polite" id="pose-status" role="status">Home position · shared chamber geometry</span><div class="telemetry"><span>SHOULDER <b id="shoulder-readout">0°</b></span><span>ELBOW <b id="elbow-readout">85°</b></span></div></div>
             </section>
             <section class="robot-mode-controls robot-3d-controls" id="robot-3d-controls" aria-label="3D chamber controls">
               <div class="robot-control-heading">
