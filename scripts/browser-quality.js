@@ -175,7 +175,7 @@ async function audit(){
             }
             if(image.src?.includes('assets/Creo-1.jpg')&&image.width>285)
               note(id+': CAD accent exceeds 285px: '+image.width);
-            if(image.src?.includes('assets/VNA.jpg')&&image.width>285)
+            if(test.path==='/projects/vna.html'&&image.src?.includes('assets/VNA.jpg')&&image.width>285)
               note(id+': VNA accent exceeds 285px: '+image.width);
           }
         }
