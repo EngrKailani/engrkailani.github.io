@@ -33,11 +33,11 @@
   <script src="ux.js" defer></script>
   <script src="ambient.js?v=20261011-2" defer></script>
   <script src="scripts/lazy-features.js?v=20261012-readerfix1" defer></script>
-  <script src="bookshelf.js?v=20261012-readerfix1" defer></script>
+  <script src="bookshelf.js?v=20261012-bookswitch1" defer></script>
 <meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center"><meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
 <script src="portfolio-upgrade.js?v=20261011-dock1" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Kailani Alarcon","url":"https://engrkailani.github.io/","jobTitle":"Electrical engineering graduate student","alumniOf":{"@type":"CollegeOrUniversity","name":"University of Nevada, Reno"},"knowsAbout":["Robotics","Embedded systems","Electrical engineering","Engineering verification"],"sameAs":["https://github.com/EngrKailani","https://www.linkedin.com/in/kailani-alarcon/"]}</script>
-<link rel="stylesheet" href="homepage-refinement.css?v=20261012-engineering1">
+<link rel="stylesheet" href="homepage-refinement.css?v=20261012-bookswitch1">
 <script src="homepage-refinement.js?v=20261012-focus1" defer></script>
 </head>
 <body class="portfolio-home">
@@ -328,7 +328,8 @@
         <div class="bookshelf-heading section-heading" data-ambient-reveal><div class="space-orbiter space-orbiter-shelf" aria-hidden="true"><span class="space-orbiter-body"></span><span class="space-orbiter-ring"></span><span class="space-orbiter-star"></span></div>
           <p class="eyebrow">PROJECT LIBRARY</p>
           <h2 id="bookshelf-heading">The engineering <em>library.</em></h2>
-          <p>Sixteen projects in robotics, digital design, controls, and measurement. Open a book for the story or <a href="projects/index.html">browse the full project directory ↗</a> for direct technical pages.</p>
+          <p>Sixteen projects in robotics, digital design, controls, and measurement. Open any book, then jump straight to another project inside the reader.</p>
+          <a class="bookshelf-index-link" href="projects/index.html">Browse all 16 project pages <span aria-hidden="true">↗</span></a>
         </div>
         <div class="bookshelf-cabinet" aria-label="Interactive bookshelf with sixteen engineering project books on two shelves">
           <div class="shelf-level shelf-space" id="shelf-collection-one">
@@ -389,6 +390,16 @@
         <div class="project-book-toolbar">
           <span class="project-book-eyebrow">FROM THE ENGINEERING LIBRARY · SELECTED WORKS</span>
           <button id="close-project-book" class="project-book-close return-bookshelf" type="button" aria-label="Return to bookshelf"><span aria-hidden="true">←</span> Return to Bookshelf</button>
+        </div>
+        <div class="book-switcher" role="group" aria-label="Navigate between all sixteen project books">
+          <div class="book-switcher__heading">
+            <label for="book-switch-select">Switch between all 16 projects</label>
+            <span id="book-switch-hint">Choose any title to jump directly to its book.</span>
+          </div>
+          <div class="book-switcher__actions">
+            <select id="book-switch-select" aria-describedby="book-switch-hint"></select>
+            <a href="projects/index.html" class="book-switcher__directory">All 16 project pages <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
         <p id="book-page-status" class="book-page-status" aria-live="polite">Page 1 of 2 · Project story</p>
         <div id="book-open-stage" class="book-open-stage is-closed" data-mobile-page="1">
