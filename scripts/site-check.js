@@ -64,37 +64,34 @@ check(htmlResume.includes('aria-label="Open one-page résumé PDF for printing"'
       'Résumé print action must open the verified one-page PDF');
 
 check(htmlResume.includes('href="https://github.com/EngrKailani"') &&
-      htmlResume.includes('href="https://engrkailani.github.io/"') &&
       htmlResume.includes('href="mailto:kailanip.alarcon@gmail.com"') &&
       htmlResume.includes('linkedin.com/in/kailani-alarcon'),
-      'HTML résumé must include working email, verified GitHub, LinkedIn and portfolio links');
+      'HTML résumé must include working GitHub, email and LinkedIn links');
 check(!htmlResume.includes('https://github.com/kalarcon775'),
-      'HTML résumé should use the verified connected GitHub username');
-check(htmlResume.includes('Kailani_Alarcon_Resume_Full_Detail.pdf?v=20261012-r6'),
-      'The full-detail résumé should be accessible when required');
-
-check(htmlResume.includes('Aug. 2026–Present') &&
-      !htmlResume.includes('Aug. 2026 - Dec. 2026') &&
-      htmlResume.includes('potential shoulder-actuator torque shortfall') &&
-      htmlResume.includes('27.23 lbf-in') &&
-      htmlResume.includes('18.6–24.9 lbf-in'),
-      'Résumé must highlight NASA torque shortfall and current internship date');
+      'HTML résumé should link to the verified connected GitHub account');
+check(fs.existsSync(path.join(root,'assets','Kailani_Alarcon_Resume_Full_Detail.pdf')),
+      'Legacy alternate résumé path must still serve an updated PDF');
+check(htmlResume.includes('Aug. 2026 - Dec. 2026') &&
+      htmlResume.includes('Performed load analysis using Creo mass properties') &&
+      !htmlResume.includes('27.23 lbf-in'),
+      'HTML résumé must match the uploaded NASA dates and load-analysis description');
 const resumeGenerator=fs.readFileSync(path.join(root,'scripts/build-resume-pdf.py'),'utf8');
-check(resumeGenerator.includes('Aug. 2026–Present') &&
-      resumeGenerator.includes('potential shoulder-actuator torque shortfall'),
-      'PDF résumé generator must include revised NASA accomplishment');
+check(resumeGenerator.includes('Aug. 2026 - Dec. 2026') &&
+      resumeGenerator.includes('Performed load analysis using Creo mass properties'),
+      'PDF generator must match the uploaded NASA dates and accomplishment');
+check(htmlResume.includes('<h1>Kailani Alarcon</h1>') &&
+      !htmlResume.includes('<p class="resume-professional-headline">'),
+      'HTML résumé should match the uploaded header');
 
-check(htmlResume.includes('Electrical Engineer | Robotics, Embedded Systems &amp; Verification'),
-  'HTML résumé must display the engineering specialization beneath the name');
 const currentResume=path.join(root,'assets','Kailani_Alarcon_Resume.pdf');
 check(fs.existsSync(currentResume) && fs.statSync(currentResume).size>30000,
   'A complete October 2026 resume PDF must be deployed at the canonical asset path');
-for(const phrase of ['27.23 lbf-in','34 hierarchical system requirements',
+for(const phrase of ['Performed load analysis using Creo mass properties','34 hierarchical system requirements',
   '12+ LED products','236 points','57,600 and 115,200 baud']){
   check(htmlResume.includes(phrase),
     'The HTML resume must reflect uploaded resume evidence: '+phrase);
 }
-check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261012-r6'),
+check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261014-resume'),
   'HTML resume PDF download must use the newest cached version');
 
 // All 16 cases explain ownership, methods, results and evidentiary limits.
@@ -117,7 +114,7 @@ for(const id of ['nasa-controls','nasa-thermal','nasa-requirements','nasa-verifi
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261012-r6"') &&
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261014-resume"') &&
   home.includes('aria-label="View résumé PDF in a new tab"'),
   'Main navigation must link directly to the résumé PDF');
 check(home.includes('class="featured-next-step"') &&
