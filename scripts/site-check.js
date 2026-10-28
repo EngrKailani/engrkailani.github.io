@@ -5,7 +5,7 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const domain='https://engrkailani.github.io';
 const projectDir=path.join(root,'projects');
-const htmlFiles=['index.html','resume.html',
+const htmlFiles=['index.html','resume.html','research.html',
   ...fs.readdirSync(projectDir).filter(name=>name.endsWith('.html')).map(name=>'projects/'+name)];
 let checks=0,failed=0;
 function check(condition,message){
@@ -58,6 +58,41 @@ check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
   'Thermal controller mobile diagrams need keyboard-scrolling focus');
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
+
+/* Phase 4: research-page evidence status, navigation and publication accuracy. */
+const research=fs.readFileSync(path.join(root,'research.html'),'utf8');
+const researchCSS=fs.readFileSync(path.join(root,'research.css'),'utf8');
+const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
+const researchIds=[...research.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
+check(new Set(researchIds).size===researchIds.length &&
+  researchIds.includes('research-main') &&
+  ['directions','investigations','writing'].every(id=>researchIds.includes(id)),
+  'Research page needs unique identifiers and all three main sections');
+check(research.includes('No peer-reviewed journal or conference publications are claimed') &&
+  research.includes('Two technical white papers') &&
+  research.includes('not hosted or represented as public publications') &&
+  !research.includes('projects/nasa.html'),
+  'Research writing must distinguish internal white papers from publications');
+check(['ur3e','thermal','controls','iverify'].every(slug=>
+  research.includes('href="projects/'+slug+'.html"')),
+  'Research investigations must link to source case studies');
+check(research.includes('id="theme-toggle"') &&
+  research.includes('class="research-skip" href="#research-main"') &&
+  research.includes('aria-current="page"') &&
+  researchCSS.includes('@media(max-width:410px)') &&
+  researchCSS.includes(':focus-visible'),
+  'Research page needs theme, skip link, active navigation and phone/focus styles');
+check(sitemap.includes('<loc>https://engrkailani.github.io/research.html</loc>') &&
+  home.includes('href="research.html"') &&
+  home.includes('class="section research-home-section"') &&
+  home.indexOf('id="experience"')<home.indexOf('id="research"') &&
+  home.indexOf('id="research"')<home.indexOf('id="about"'),
+  'Homepage and sitemap must discover research without burying experience');
+check(fs.readFileSync(path.join(root,'workbench.html'),'utf8').includes('href="research.html"') &&
+  fs.readFileSync(path.join(root,'projects/index.html'),'utf8').includes('href="../research.html"') &&
+  htmlResume.includes('href="research.html"'),
+  'Research must be reachable from Workbench, directory and HTML resume');
+
 check(htmlResume.includes('aria-label="Open one-page résumé PDF for printing"') &&
       !htmlResume.includes('onclick="window.print()"'),
       'Résumé print action must open the verified one-page PDF');
