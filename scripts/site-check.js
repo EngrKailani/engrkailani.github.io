@@ -231,9 +231,13 @@ const directoryItems=[...directory.matchAll(/<a class="featured-project-card" da
 check(menuItems.length===16&&new Set(menuItems).size===16&&
   directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
   'Homepage Projects menu must link directly to all 16 project pages, exactly once');
+// Keep search previews and assistive labels aligned with the actual project set.
+check(!/\b(?:15|fifteen)\s+(?:engineering\s+)?project/i.test(home),
+  'Homepage project counts must match the sixteen available projects');
+
 check(menuMarkup.includes('href="projects/index.html"') &&
   home.includes('projects-menu.css?v=20261012-projectsnav1') &&
-  home.includes('scripts/projects-menu.js?v=20261012-projectsnav1') &&
+  home.includes('scripts/projects-menu.js?v=20261028-cleanup') &&
   fs.existsSync(path.join(root,'projects-menu.css')) &&
   fs.existsSync(path.join(root,'scripts/projects-menu.js')),
   'Projects dropdown, directory link, accessible styling and behavior must be installed');
@@ -559,7 +563,7 @@ check(home.includes('data-robot-mode="3d"'),'3D view should start as the selecte
 const sharedRobotJS=fs.readFileSync(path.join(root,'robot-chamber-model.js'),'utf8');
 const robot2dJS=fs.readFileSync(path.join(root,'script.js'),'utf8');
 check(home.includes('robot-chamber-model.js?v=20261013-generic-motion2') &&
-  home.indexOf('robot-chamber-model.js?v=20261013-generic-motion2')<home.indexOf('script.js?v=20261013-generic-motion2'),
+  home.indexOf('robot-chamber-model.js?v=20261013-generic-motion2')<home.indexOf('script.js?v=20261028-cleanup'),
   'Shared chamber model must load before 2D script');
 check(sharedRobotJS.includes('const workspace=1') &&
   sharedRobotJS.includes('const segmentA=.30') &&

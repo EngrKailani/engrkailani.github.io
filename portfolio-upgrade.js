@@ -1,4 +1,4 @@
-/* Progressive enhancements: color mode, project discovery and menu polish.
+/* Progressive enhancements: color mode and project discovery.
  * Functional content remains accessible without this script. */
 (() => {
   'use strict';
@@ -89,22 +89,7 @@
   });
   if(cards.length){restoreDirectoryFromUrl();updateDirectory()}
 
-  const menu=document.getElementById('menu-toggle');
-  const links=document.getElementById('nav-links');
-  function closeMenu(){
-    if(!menu||!links)return;
-    links.classList.remove('open');
-    menu.setAttribute('aria-expanded','false');
-    menu.setAttribute('aria-label','Open menu');
-  }
-  document.addEventListener('keydown',event=>{
-    if(event.key==='Escape'&&links?.classList.contains('open')){
-      closeMenu();menu.focus();
-    }
-  });
-  document.addEventListener('pointerdown',event=>{
-    if(links?.classList.contains('open')&&!event.target.closest('.site-header'))closeMenu();
-  });
+
 })();
 /* Keep the original 2D learning exercise available alongside the new 3D viewer. */
 (() => {

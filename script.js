@@ -431,7 +431,7 @@ function closeNav(){
   menuToggle.setAttribute('aria-label','Open menu');
 }
 document.addEventListener('keydown', event => {
-  if(event.key === 'Escape' && navLinks?.classList.contains('open')) {closeNav();menuToggle.focus();}
+  if(event.key === 'Escape' && !event.defaultPrevented && navLinks?.classList.contains('open')) {closeNav();menuToggle.focus();}
 });
 document.addEventListener('click', event => {
   if(navLinks?.classList.contains('open') && !navLinks.contains(event.target) && !menuToggle?.contains(event.target)) closeNav();

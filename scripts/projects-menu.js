@@ -5,8 +5,9 @@
   const menu=document.getElementById('projects-nav-menu');
   if(!menu)return;
   const heading=menu.querySelector('summary');
-  document.addEventListener('keydown',event=>{
+  menu.addEventListener('keydown',event=>{
     if(event.key==='Escape'&&menu.open){
+      event.preventDefault();
       menu.open=false;
       heading?.focus();
     }
