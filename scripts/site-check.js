@@ -621,6 +621,38 @@ const workbenchJS=fs.readFileSync(path.join(root,'workbench.js'),'utf8');
 const workbenchCSS=fs.readFileSync(path.join(root,'workbench.css'),'utf8');
 const workbenchIDs=[...workbench.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
 check(new Set(workbenchIDs).size===workbenchIDs.length,'Workbench must not duplicate element IDs');
+
+check((workbench.match(/<h1\b/g)||[]).length===1,
+  'Workbench must have exactly one page heading');
+check(workbench.includes('class="wb-light-stage" role="img"') &&
+  !workbench.includes('<div class="wb-channel-readouts" aria-live="polite"') &&
+  !workbench.includes('id="scope-read-rms" aria-live='),
+  'Workbench visuals and continuously updating values need accessible semantics');
+const wbIDs=new Set(workbenchIDs);
+for(const match of workbench.matchAll(/\bhref="#([^"]+)"/g)){
+  check(wbIDs.has(match[1]),'Workbench broken in-page anchor #'+match[1]);
+}
+for(const match of workbench.matchAll(/\s(?:href|src)="([^"]+)"/g)){
+  const ref=match[1];
+  if(/^(?:#|[a-z]+:|\/\/)/i.test(ref))continue;
+  const pathname=ref.split(/[?#]/)[0];
+  if(!pathname)continue;
+  const destination=path.resolve(root,pathname);
+  check(destination.startsWith(root+path.sep)&&fs.existsSync(destination),
+    'Workbench missing local link or asset '+pathname);
+}
+const workbenchMobileCSS=workbenchCSS;
+check(workbenchMobileCSS.includes('.wb-theme{min-height:44px') &&
+  workbenchMobileCSS.includes('.wb-small-button{min-height:44px') &&
+  workbenchMobileCSS.includes('@media(max-width:360px)') &&
+  workbenchMobileCSS.includes('@media(max-width:540px)'),
+  'Workbench must provide narrow-screen layouts and usable touch targets');
+const projectNavLinks=[...home.matchAll(/href="projects\/([^"]+\.html)"/g)].map(match=>match[1]);
+const directoryDetailLinks=[...directory.matchAll(/data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(match=>match[1]);
+check(directoryDetailLinks.length===15 &&
+  directoryDetailLinks.every(name=>projectNavLinks.includes(name)),
+  'Every directory project must be reachable through homepage navigation');
+
 for(const slug of ['scope','robot','lights','thermal']){
   check(workbench.includes('id="wb-tab-'+slug+'"')&&
     workbench.includes('id="wb-panel-'+slug+'"')&&
