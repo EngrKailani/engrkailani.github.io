@@ -110,6 +110,7 @@
           <p class="wb-control-note">Trigger placement uses the ideal waveform before noise. Single capture freezes a generated trace; it is not an actual acquisition. Displayed RMS and Vpp are numerical estimates over the visible window, and very fast signals can be visually aliased.</p>
         </aside>
       </div>
+      <details class="wb-model-note"><summary>Signal model &amp; measurement definition</summary><p>The generator produces an ideal sine, triangle, square or 0-to-peak PWM waveform, with optional deterministic synthetic noise. The horizontal window is <strong>10 × time/div</strong> and the full vertical range is <strong>8 × volts/div</strong>. A trigger aligns an ideal rising or falling threshold crossing near 20% of the screen; a missing crossing is explicitly reported as no trigger. The displayed RMS is √(mean(V²)) across numerical points in the current window. A/B cursors report the signed time and voltage differences between two generated points. 1/|Δt| is only the inverse cursor separation, not the detected signal frequency.</p></details>
       <div class="wb-project-link">Related work <a href="projects/controls.html">Control &amp; Measurement Labs <span aria-hidden="true">↗</span></a></div>
     </section>
 
@@ -151,6 +152,7 @@
           <p class="wb-control-note">Planar 3R chain: L1=140 mm, L2=110 mm, L3=75 mm. IK fixes the target (X, Y, φ), solves the two-link wrist geometry, and rejects unreachable or ±170° joint-limit solutions. No collision, torque, dynamic, or physical robot model is implied. Dragging changes the target; sliders provide a keyboard alternative.</p>
         </aside>
       </div>
+      <details class="wb-model-note"><summary>Kinematic model &amp; solution limits</summary><p>Forward kinematics sums each link displacement: <strong>x = Σ Lᵢ cos(θ₁ + … + θᵢ)</strong> and <strong>y = Σ Lᵢ sin(θ₁ + … + θᵢ)</strong>. For inverse kinematics, the wrist target is the selected tool position minus the final link projected along tool orientation φ. The remaining two links form a triangle solved using the cosine law. Each elbow branch is evaluated independently. Goals beyond the wrist workspace, or solutions requiring a joint outside ±170°, are rejected without silently moving to a different target. The displayed residual is caused by rounding computed angles to the 0.1° joint-slider resolution.</p></details>
       <div class="wb-project-link">Related work <a href="projects/leg.html">3-Link Leg Simulation <span aria-hidden="true">↗</span></a> <a href="projects/ur3e.html">UR3e Kinematics <span aria-hidden="true">↗</span></a></div>
     </section>
 
