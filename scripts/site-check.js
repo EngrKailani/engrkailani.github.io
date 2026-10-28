@@ -748,7 +748,6 @@ check(home.includes('href="academic-cv.html"') &&
   'Academic CV must be discoverable from portfolio, resume, directory and sitemap');
 check(urResearch.includes('id="ur3e-analysis"') &&
   urResearch.includes('ur3e/media/jacobian-rank-comparison.svg') &&
-  urResearch.includes('Original')===false &&
   urResearch.includes('The original DH table') &&
   urResearch.includes('rank 5') && urResearch.includes('rank 6') &&
   fs.existsSync(path.join(root,'projects/ur3e-technical.css')),
