@@ -83,12 +83,12 @@ check(new Set(researchIds).size===researchIds.length &&
   researchIds.includes('research-main') &&
   ['directions','investigations','writing'].every(id=>researchIds.includes(id)),
   'Research page needs unique identifiers and all three main sections');
-check(research.includes('No peer-reviewed journal or conference publications are claimed') &&
-  research.includes('Two technical white papers') &&
-  research.includes('not hosted or represented as public publications') &&
-  !research.includes('projects/nasa.html'),
-  'Research writing must distinguish internal white papers from publications');
-check(['ur3e','thermal','controls','iverify'].every(slug=>
+check(research.includes('No peer-reviewed journal or conference articles are claimed') &&
+  research.includes('Two authored LUX Dynamics industry white papers') &&
+  research.includes('two posters') &&
+  research.includes('href="projects/nasa.html"'),
+  'Research must distinguish industry white papers, posters and NASA work');
+check(['nasa','ur3e','thermal','controls','iverify'].every(slug=>
   research.includes('href="projects/'+slug+'.html"')),
   'Research investigations must link to source case studies');
 check(research.includes('id="theme-toggle"') &&
@@ -150,8 +150,8 @@ for(const phrase of ['Performed load analysis using Creo mass properties','34 hi
 check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261027-resume2'),
   'HTML resume PDF download must use the newest cached version');
 
-// All 15 cases explain ownership, methods, results and evidentiary limits.
-const caseTitles=['iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
+// All 16 cases explain ownership, methods, results and evidentiary limits.
+const caseTitles=['nasa','iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
   'hall','huemotion','leg','motor','powershell','prodriver','vhdl','vna'];
 const evidenceHeadings=['Problem','My contribution','Engineering tools',
   'Validation method','Documented result','Limitations'];
@@ -184,7 +184,7 @@ check(ambientFields.length===11&&addedStars.length===44&&
   addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
   'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
 const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261027-audit2') &&
+check(home.includes('homepage-refinement.css?v=20261028-nasa-return') &&
   moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
   moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
   moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
@@ -203,15 +203,15 @@ check(paperDirectoryPreviews.length===2 &&
 
 
 const wayfindingPaths=[
-  ['robotics',2],['embedded',4],['measurement',5],['software',4]
+  ['robotics',3],['embedded',4],['measurement',5],['software',4]
 ];
 const pathwaySection=home.match(/<nav class="work-pathways"[\s\S]*?<\/nav>/)?.[0]||'';
 check(wayfindingPaths.every(([area,n])=>
   pathwaySection.includes('href="projects/index.html?area='+area+'"') &&
   (directory.match(new RegExp('data-gallery-category="'+area+'"','g'))||[]).length===n) &&
-  home.includes('href="projects/index.html">View all 15 projects') &&
+  home.includes('href="projects/index.html">View all 16 projects') &&
   home.includes('href="#explore">Explore more</a>'),
-  'Engineering wayfinding should expose all fifteen projects and accurate discipline counts');
+  'Engineering wayfinding should expose all sixteen projects and accurate discipline counts');
 check(directory.includes('class="directory-breadcrumb"') &&
   directory.includes('id="directory-clear"') &&
   directory.includes('../site-ux.css?v=20261013-wayfinding1') &&
@@ -228,9 +228,9 @@ check(upgradedDirectoryJS.includes('restoreDirectoryFromUrl()') &&
 const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
 const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]).filter(name=>name!=='index.html');
 const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
-check(menuItems.length===15&&new Set(menuItems).size===15&&
-  directoryItems.length===15&&directoryItems.every(name=>menuItems.includes(name)),
-  'Homepage Projects menu must link directly to all 15 project pages, exactly once');
+check(menuItems.length===16&&new Set(menuItems).size===16&&
+  directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
+  'Homepage Projects menu must link directly to all 16 project pages, exactly once');
 check(menuMarkup.includes('href="projects/index.html"') &&
   home.includes('projects-menu.css?v=20261012-projectsnav1') &&
   home.includes('scripts/projects-menu.js?v=20261012-projectsnav1') &&
@@ -239,8 +239,8 @@ check(menuMarkup.includes('href="projects/index.html"') &&
   'Projects dropdown, directory link, accessible styling and behavior must be installed');
 
 const thumbs=[...directory.matchAll(/<span class="directory-card-visual(?: directory-card-visual--paper)?"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
-check(thumbs.length===15,'Project directory needs all fifteen image thumbnails');
-check((directory.match(/class="directory-card-badge"/g)||[]).length===15,
+check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
+check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
   'Each project thumbnail must have a labeled evidence type');
 check(directory.includes('directory-thumbnails.css'),'Directory must link scoped thumbnail CSS');
 for(const [,source,alt] of thumbs){
@@ -248,7 +248,7 @@ for(const [,source,alt] of thumbs){
   check(fs.existsSync(path.resolve(projectDir,source.split('?')[0])),
     'Project thumbnail image not found: '+source);
 }
-check((directory.match(/data-gallery-category=/g)||[]).length===15 &&
+check((directory.match(/data-gallery-category=/g)||[]).length===16 &&
   directory.includes('id="directory-search"') &&
   directory.includes('data-gallery-filter="robotics"'),
   'Searchable categorized project directory must remain intact');
@@ -482,7 +482,7 @@ check(explorerSyntaxValid,'Case explorer JavaScript must parse');
 check(home.includes('id="robot-3d-canvas"'),'3D viewer missing');
 check(home.includes('id="theme-toggle"'),'Theme toggle missing');
 check(home.includes('data-robot-view="3d"'),'Robot view picker missing');
-check((directory.match(/data-gallery-category=/g)||[]).length===15,'15 categorized gallery cards required');
+check((directory.match(/data-gallery-category=/g)||[]).length===16,'16 categorized gallery cards required');
 check(fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(domain),'robots.txt wrong host');
 check(fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').includes(domain),'sitemap.xml wrong host');
 
@@ -593,7 +593,7 @@ for(const file of caseStudyFiles){
   const evidence=html.indexOf('id="project-evidence"');
   check(overview>=0&&method>overview&&findings>method&&evidence>findings,
     file+' needs overview → methods → findings → evidence ordering');
-  const featuredCase=/projects\/(iverify|thermal)\.html$/.test(file);
+  const featuredCase=/projects\/(nasa|iverify|thermal)\.html$/.test(file);
   const visualIds=['dmx-visuals','hall-visuals','huemotion-visuals',
     'iverify-reconstruction','prodriver-visuals','thermal-visuals','vna-visuals'];
   for(const id of visualIds){
@@ -610,7 +610,7 @@ for(const file of caseStudyFiles){
       file+' missing readable '+title+' subsection heading');
   }
   if(featuredCase){
-    check(html.includes('Engineering decisions')&&html.includes('Testing and results')&&
+    check(html.includes('Engineering decisions')&&(file==='projects/nasa.html'||html.includes('Testing and results'))&&
       html.includes('Next verification step')&&html.includes('class="case-contact"'),
       file+' needs decision rationale, results, next verification, and contact actions');
   }
@@ -634,7 +634,7 @@ check(home.includes('<dialog id="project-book-dialog"') &&
   home.includes('<select id="book-switch-select"') &&
   home.includes('class="bookshelf-index-link"') &&
   home.includes('class="book-switcher__directory"'),
-  'Book reader, direct 15-project chooser, and controls must all exist');
+  'Book reader, direct 16-project chooser, and controls must all exist');
 check(fs.readFileSync(path.join(root,'bookshelf.js'),'utf8').includes("bookSwitchSelect?.addEventListener('change'") &&
   fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.book-switcher__heading'),
   'Direct chooser must be interactive and visibly styled');
@@ -644,22 +644,23 @@ check(home.includes('src="bookshelf.js?v=20261012-bookswitch1" defer') &&
 
 /* Keep the overview concise and restore permanently visible books and planets. */
 const expectedFeaturedPreviews=[
+  'projects/nasa-figures/robotic-arm-geometry.svg',
   'projects/directory-thumbnails/ur3e.svg',
   'projects/iverify/media/exploded-concept.svg',
   'projects/thermal/media/logger-interface-concept.svg'
 ];
 const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===3 &&
+check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===4 &&
   expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
-  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=3,
-  'Featured engineering work must include three source-labeled visual previews');
+  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=4,
+  'Featured engineering work must include four source-labeled visual previews');
 
 const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
-  'Homepage must feature exactly three focused project cards');
-check(['ur3e','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')) &&
-  featuredSection.indexOf('projects/ur3e.html')<featuredSection.indexOf('projects/iverify.html'),
-  'UR3e must lead the three featured projects');
+check((featuredSection.match(/class="featured-project-card(?: featured-project-card--nasa)?"/g)||[]).length===4,
+  'Homepage must feature four engineering case studies including the NASA assessment');
+check(['nasa','ur3e','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')) &&
+  featuredSection.indexOf('projects/nasa.html')<featuredSection.indexOf('projects/ur3e.html'),
+  'NASA assessment must lead the four featured engineering case studies');
 check(home.indexOf('id="featured-projects"')<home.indexOf('id="home-workbench"') &&
   home.indexOf('id="home-workbench"')<home.indexOf('id="experience"') &&
   home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
@@ -680,7 +681,7 @@ check(home.includes('homepage-refinement.js?v=20261027-phase2')&&
 /* Phase 2: comparable evidence summaries, direct result links, and preview metadata. */
 
 const expectedSocialImages=[...caseTitles,'portfolio','projects','workbench'];
-check(expectedSocialImages.length===18,'Social preview set must include 15 projects plus three hubs');
+check(expectedSocialImages.length===19,'Social preview set must include 16 projects plus three hubs');
 for(const slug of expectedSocialImages){
   const name=path.join(root,'social',slug+'.png');
   check(fs.existsSync(name),'Missing social sharing preview: '+slug+'.png');
@@ -691,10 +692,10 @@ for(const slug of expectedSocialImages){
     'Share preview must be a genuine 1200x630 PNG: '+slug);
 }
 
-check((directory.match(/class="directory-evidence"/g)||[]).length===15 &&
+check((directory.match(/class="directory-evidence"/g)||[]).length===16 &&
   directory.includes('directory-thumbnails.css?v=20261027-phase2') &&
   directoryThumbStyles.includes('.directory-evidence'),
-  'All 15 directory cards must show qualified evidence summaries');
+  'All 16 directory cards must show qualified evidence summaries');
 for(const slug of caseTitles){
   const caseHtml=fs.readFileSync(path.join(projectDir,slug+'.html'),'utf8');
   check(caseHtml.includes('class="project-reading-shortcuts"') &&
@@ -789,7 +790,7 @@ check(workbenchMobileCSS.includes('.wb-theme{min-height:44px') &&
   'Workbench must provide narrow-screen layouts and usable touch targets');
 const projectNavLinks=[...home.matchAll(/href="projects\/([^"]+\.html)"/g)].map(match=>match[1]);
 const directoryDetailLinks=[...directory.matchAll(/data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(match=>match[1]);
-check(directoryDetailLinks.length===15 &&
+check(directoryDetailLinks.length===16 &&
   directoryDetailLinks.every(name=>projectNavLinks.includes(name)),
   'Every directory project must be reachable through homepage navigation');
 
