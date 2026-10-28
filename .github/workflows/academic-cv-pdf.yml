@@ -1,24 +1,17 @@
-name: Build academic CV PDF
+name: Preview HTML academic CV as PDF
 
+# The public definitive CV is assets/Kailani_Alarcon_CV.pdf, uploaded
+# byte-for-byte from the user-supplied three-page PDF.
+# This manual workflow only previews the site's HTML adaptation; it never
+# commits or overwrites a CV in the repository.
 on:
-  push:
-    paths:
-      - academic-cv.html
-      - academic-cv.css
-      - research.css
-      - scripts/build-academic-cv-pdf.js
-      - .github/workflows/academic-cv-pdf.yml
   workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: academic-cv-pdf
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  pdf:
+  pdf-preview:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -26,43 +19,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install existing site tooling
+      - name: Install test tooling
         run: npm install --no-audit --no-fund
-      - name: Install Chromium for PDF rendering
+      - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Sync latest site source before rendering
-        run: |
-          git fetch origin main
-          git checkout -B main origin/main
-      - name: Render printable academic CV
+      - name: Render optional HTML-derived CV preview
         run: node scripts/build-academic-cv-pdf.js
-      - name: Archive printable academic CV for review
+      - name: Archive optional preview without publishing
         uses: actions/upload-artifact@v4
         with:
-          name: academic-cv-pdf
+          name: html-cv-preview-not-official
           path: assets/Kailani_Alarcon_Academic_CV.pdf
           if-no-files-found: error
-      - name: Publish PDF to the portfolio
-        run: |
-          git add assets/Kailani_Alarcon_Academic_CV.pdf
-          if git diff --cached --quiet; then
-            echo "Academic CV PDF already up to date."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish printable academic CV PDF"
-          if git push origin HEAD:main; then
-            exit 0
-          fi
-          # A concurrent commit may have moved main. Regenerate on the newest
-          # source instead of attempting to rebase a binary PDF.
-          git fetch origin main
-          git reset --hard origin/main
-          node scripts/build-academic-cv-pdf.js
-          git add assets/Kailani_Alarcon_Academic_CV.pdf
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "Regenerate academic CV PDF on latest main"
-          git push origin HEAD:main
