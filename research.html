@@ -60,7 +60,7 @@
     </div>
   </section>
   <div class="research-disclosure" role="note"><strong>Evidence and status.</strong> Research directions below are interests, not claims of completed doctoral research. Linked projects are engineering case studies, not peer-reviewed papers. Two authored industry white papers and two student posters are listed in the uploaded CV; these categories are distinct from peer-reviewed journal or conference publications.</div>
-  <nav class="research-jumps" aria-label="Research page sections"><strong>ON THIS PAGE</strong><a href="#directions">Research interests</a><a href="#questions">Research questions</a><a href="#investigations">Documented investigations</a><a href="#writing">Publications &amp; writing</a></nav>
+  <nav class="research-jumps" aria-label="Research page sections"><strong>ON THIS PAGE</strong><a href="#directions">Research interests</a><a href="#questions">Research questions</a><a href="#research-concept">Proposed study</a><a href="#investigations">Documented investigations</a><a href="#writing">Publications &amp; writing</a></nav>
 
   <section id="directions" class="research-section" aria-labelledby="directions-title">
     <div class="research-section-heading">
@@ -102,6 +102,24 @@
       </article>
     </div>
     <p class="research-questions-caveat">Methodological intent: define baseline tasks and operating assumptions first, report uncertainty and failure cases, and distinguish synthetic evidence from instrumented tests.</p>
+  </section>
+
+  <section id="research-concept" class="research-section research-concept" aria-labelledby="research-concept-title">
+    <div class="research-section-heading">
+      <p class="research-eyebrow">02B / PROPOSED GRADUATE RESEARCH CONCEPT</p>
+      <h2 id="research-concept-title">Manipulation with <em>incomplete feedback.</em></h2>
+      <p>A proposed independent simulation study, not a completed experiment, NASA task, or established research novelty.</p>
+    </div>
+    <div class="research-concept__intro">
+      <p><strong>Research question.</strong> Under simulated sensing uncertainty, can estimation-informed control reduce robotic end-effector tracking error or task failures compared with an otherwise comparable nominal controller?</p>
+      <p><strong>Motivation.</strong> My publicly described NASA robotic-arm assessment involved workspace, actuator loading, preliminary controls, and verification planning. That engineering experience motivates my interest in designing manipulation controllers whose performance can be evaluated under uncertainty. The study proposed here is independent future research; it does not describe additional work performed for NASA.</p>
+    </div>
+    <div class="research-concept__grid">
+      <article><span class="research-card-index">01 / PROPOSED METHOD</span><h3>Generic simulation</h3><p>Use a non-project-specific manipulator model with clearly disclosed assumptions. Introduce synthetic noise, delayed measurements, and intermittent feedback. Do not use or imply unreleased NASA geometry, test conditions, or data.</p></article>
+      <article><span class="research-card-index">02 / COMPARISON</span><h3>Reference versus uncertainty-aware approach</h3><p>Compare a fixed-model control baseline with an estimation-informed alternative over the same predeclared tasks and disturbance cases. Report when either approach fails, not only when it succeeds.</p></article>
+      <article><span class="research-card-index">03 / CANDIDATE MEASURES</span><h3>Quantitative evaluation plan</h3><p>Evaluate RMS and peak tool-position error, recovery rate following simulated feedback loss, constraint violations, and computation time. These are proposed metrics—not measured results or performance targets.</p></article>
+    </div>
+    <div class="research-concept__boundary" role="note"><strong>Research status and NASA boundary:</strong> No controller, experiment, numerical result, or new NASA-specific technical detail is claimed by this proposal. For the previously published internship facts and limitations, see the <a href="projects/nasa.html">NASA robotic-arm assessment and its affiliation disclaimer</a>.</div>
   </section>
 
   <section id="investigations" class="research-section" aria-labelledby="investigations-title">
