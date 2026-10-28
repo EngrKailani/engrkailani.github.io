@@ -199,3 +199,11 @@ body.wb-page{margin:0;background:var(--wb-bg);color:var(--wb-ink);font:400 15px/
 }
 @media(max-width:340px){.wb-robot-options{grid-template-columns:1fr}.wb-cursor-readouts{grid-template-columns:1fr 1fr}.wb-cursor-readouts>div:last-child{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){.wb-advanced>summary>span{transition:none}}
+
+/* Plain-language mathematical definitions for the simulated instruments. */
+.wb-model-note{margin:22px 0 3px;border:1px solid var(--wb-line);border-radius:11px;background:var(--wb-tint)}
+.wb-model-note>summary{cursor:pointer;min-height:44px;padding:11px 16px;font:750 13px/1.6 var(--wb-sans);color:var(--wb-ink)}
+.wb-model-note>summary:is(:hover,:focus-visible){color:var(--wb-rose)}
+.wb-model-note>summary:focus-visible{outline:3px solid #b9719b;outline-offset:2px}
+.wb-model-note>p{margin:0;padding:0 16px 17px;color:var(--wb-muted);font-size:12px;line-height:1.85}
+.wb-model-note strong{font-weight:750;color:var(--wb-ink)}
