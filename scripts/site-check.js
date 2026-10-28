@@ -607,5 +607,33 @@ check(home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
 check(home.includes('homepage-refinement.js')&&
   fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true"),
   'Deep links must reveal nested interactive sections');
+
+/* Workbench integrity: all four browser-only demos and their controls remain linked. */
+const workbench=fs.readFileSync(path.join(root,'workbench.html'),'utf8');
+const workbenchJS=fs.readFileSync(path.join(root,'workbench.js'),'utf8');
+const workbenchCSS=fs.readFileSync(path.join(root,'workbench.css'),'utf8');
+const workbenchIDs=[...workbench.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
+check(new Set(workbenchIDs).size===workbenchIDs.length,'Workbench must not duplicate element IDs');
+for(const slug of ['scope','robot','lights','thermal']){
+  check(workbench.includes('id="wb-tab-'+slug+'"')&&
+    workbench.includes('id="wb-panel-'+slug+'"')&&
+    workbench.includes('aria-controls="wb-panel-'+slug+'"'),
+    'Workbench instrument and tab must match: '+slug);
+}
+for(const id of ['scope-canvas','robot-canvas','thermal-canvas','lights-scene',
+  'scope-freq','robot-j1','lights-r','thermal-power','thermal-export']){
+  check(workbench.includes('id="'+id+'"'),'Workbench required interactive control: '+id);
+}
+check(home.includes('href="workbench.html"')&&home.includes('home-lab-spotlight')&&
+  directory.includes('href="../workbench.html"'),
+  'Workbench must be discoverable on the homepage and project directory');
+check(workbench.includes('workbench.js?v=20261027-1')&&
+  workbench.includes('workbench.css?v=20261027-1')&&
+  workbenchJS.includes('requestAnimationFrame')&&
+  workbenchJS.includes('createObjectURL')&&
+  workbenchCSS.includes('.wb-instrument-grid'),
+  'Workbench must load its interaction and layout assets');
+try{new (require('node:vm').Script)(workbenchJS,{filename:'workbench.js'});check(true,'Workbench JS must parse')}
+catch(error){check(false,'Workbench JS must parse: '+error.message)}
 console.log((failed?'FAIL':'PASS')+': '+(checks-failed)+'/'+checks+' static checks');
 if(failed)process.exitCode=1;
