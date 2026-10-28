@@ -71,7 +71,7 @@
             <canvas id="scope-canvas" width="800" height="410" role="img" aria-label="Generated voltage waveform versus time, using the current waveform controls">Canvas not supported. Use the numerical readouts.</canvas>
             <div class="wb-screen-foot"><span id="scope-timebase">3 periods displayed</span><span>CH1 · VOLTS</span></div>
           </div>
-          <div class="wb-readouts" aria-live="polite" aria-atomic="true">
+          <div class="wb-readouts">
             <div><span>Frequency</span><strong id="scope-read-freq">120 Hz</strong></div><div><span>Peak to peak</span><strong id="scope-read-pp">4.00 V</strong></div><div><span>RMS</span><strong id="scope-read-rms">1.41 V</strong></div>
           </div>
         </div>
@@ -119,7 +119,7 @@
       <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 03 / EMBEDDED CONTROL</p><h3>Virtual DMX lighting studio</h3><p>Mix RGB values, adjust brightness, and test presets across four virtual fixtures.</p></div><span class="wb-mode-label">VIRTUAL FIXTURES / NO DMX OUTPUT</span></div>
       <div class="wb-instrument-grid">
         <div class="wb-display-column">
-          <div class="wb-light-stage" aria-label="Four virtual LED light fixtures showing the selected lighting color">
+          <div class="wb-light-stage" role="img" aria-label="Four virtual LED light fixtures showing the selected lighting color">
             <div class="wb-stage-top"><span>STAGE A / RGB WASH</span><span id="lights-stage-status">SCENE: AURORA</span></div>
             <div class="wb-fixture-row">
               <div class="wb-fixture" data-fixture="0"><span class="wb-fixture-head"></span><span class="wb-fixture-beam"></span><span class="wb-fixture-pool"></span><span class="wb-fixture-number">01</span></div>
@@ -155,7 +155,7 @@
             <canvas id="thermal-canvas" width="800" height="410" role="img" aria-label="Four synthetic temperature traces with a movable time cursor">Canvas not supported. Generated channel temperatures are shown below.</canvas>
             <div class="wb-screen-foot"><span>0 TO 120 MIN / °C</span><span>MODELLED EXPONENTIAL RESPONSE</span></div>
           </div>
-          <div class="wb-channel-readouts" aria-live="polite">
+          <div class="wb-channel-readouts">
             <div><span class="wb-temp-dot" style="--dot:#f6b37d"></span><span>TC 01</span><strong id="thermal-read-0">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#83d9d3"></span><span>TC 02</span><strong id="thermal-read-1">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#d6a6e8"></span><span>TC 03</span><strong id="thermal-read-2">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#d9de85"></span><span>TC 04</span><strong id="thermal-read-3">23.0°C</strong></div>
           </div>
         </div>
