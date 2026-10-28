@@ -114,13 +114,13 @@ def project_cards() -> list[tuple[str, str, Path]]:
             raise FileNotFoundError(source)
         text = html.unescape(re.sub(r"<[^>]+>", "", title.group(1)))
         output.append((slug, text, source))
-    if len(output) != 15 or len({s for s, _, _ in output}) != 15:
-        raise ValueError("Expected exactly 15 unique project thumbnails")
+    if len(output) != 16 or len({s for s, _, _ in output}) != 15:
+        raise ValueError("Expected exactly 16 unique project thumbnails")
     return output
 
 
 def write_project(slug: str, title: str, source: Path, number: int) -> None:
-    im, d = base(f"Case Study {number:02d} / 15")
+    im, d = base(f"Case Study {number:02d} / 16")
     d.text((57, 151), "PROJECT CASE STUDY", font=font(18, True), fill=TURQUOISE)
     y = draw_lines(d, title, 54, 202, 415, 51, PAPER, limit=4, spacing=13)
     d.text((54, min(y + 19, 459)), "Methods  ·  Results  ·  Evidence", 
@@ -130,9 +130,9 @@ def write_project(slug: str, title: str, source: Path, number: int) -> None:
 
 
 def write_directory(cards: list[tuple[str, str, Path]]) -> None:
-    im, d = base("15 Projects / Directory")
+    im, d = base("16 Projects / Directory")
     draw_lines(d, "Engineering projects.", 52, 150, 485, 53, PAPER)
-    d.text((54, 343), "Explore fifteen documented projects", font=font(21), fill=MUTED)
+    d.text((54, 343), "Explore sixteen documented projects", font=font(21), fill=MUTED)
     d.text((54, 377), "across robotics, sensing, digital", font=font(21), fill=MUTED)
     d.text((54, 411), "systems and test automation.", font=font(21), fill=MUTED)
     for (slug, _, source), bounds in zip(
