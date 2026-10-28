@@ -97,7 +97,7 @@ for(const phrase of ['Performed load analysis using Creo mass properties','34 hi
   check(htmlResume.includes(phrase),
     'The HTML resume must reflect uploaded resume evidence: '+phrase);
 }
-check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261014-resume'),
+check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261027-resume2'),
   'HTML resume PDF download must use the newest cached version');
 
 // All 15 cases explain ownership, methods, results and evidentiary limits.
@@ -114,7 +114,7 @@ for(const slug of caseTitles){
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261014-resume"') &&
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2"') &&
   home.includes('aria-label="View résumé PDF in a new tab"'),
   'Main navigation must link directly to the résumé PDF');
 check(home.includes('class="featured-next-step"') &&
@@ -635,7 +635,7 @@ check(home.includes('href="workbench.html"')&&home.includes('home-lab-spotlight'
   directory.includes('href="../workbench.html"'),
   'Workbench must be discoverable on the homepage and project directory');
 check(workbench.includes('workbench.js?v=20261027-1')&&
-  workbench.includes('workbench.css?v=20261027-1')&&
+  workbench.includes('workbench.css?v=20261027-phase1')&&
   workbenchJS.includes('requestAnimationFrame')&&
   workbenchJS.includes('createObjectURL')&&
   workbenchCSS.includes('.wb-instrument-grid'),
