@@ -177,7 +177,7 @@ async function audit(){
           if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 16 of 16 engineering projects'||
              new URL(page.url()).searchParams.has('area')||
              new URL(page.url()).searchParams.has('q'))
-            note(id+': clear filters did not restore all fifteen projects and clean URL');
+            note(id+': clear filters did not restore all sixteen projects and clean URL');
         }
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
           const extras=page.locator('.ambient-field .ambient-star--extra');
@@ -240,9 +240,14 @@ async function audit(){
           if(test.width===390){
             const nav=page.locator('#nav-links');
             const mobileToggle=page.locator('#menu-toggle');
-            // Escape also closes the containing hamburger menu via the site's
-            // existing keyboard handler. Test reopening and closing separately.
-            if(await nav.isVisible())await mobileToggle.click();
+            // Dismiss only the innermost disclosure, retaining a visible focus target.
+            if(!await nav.isVisible() || await mobileToggle.getAttribute('aria-expanded')!=='true')
+              note(id+': closing Projects must keep its parent navigation open');
+            if(!await projectsMenu.locator('summary').evaluate(el=>el===document.activeElement))
+              note(id+': closing Projects must return focus to its summary');
+            await page.keyboard.press('Escape');
+            if(!await mobileToggle.evaluate(el=>el===document.activeElement))
+              note(id+': closing mobile navigation must return focus to the menu button');
             if(await nav.isVisible())
               note(id+': mobile navigation stayed open after dismissal');
             await mobileToggle.click();
@@ -273,7 +278,7 @@ async function audit(){
           if(!await page.locator('#repo-planetarium').isVisible())
             note(id+': expanded repository planets should be visible');
           if(await page.locator('[data-open-book]').count()!==16)
-            note(id+': expected 15 project books');
+            note(id+': expected 16 project books');
           if(await page.locator('.repo-planet').count()!==5)
             note(id+': expected 5 repository planets');
         }
