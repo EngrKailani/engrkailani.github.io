@@ -1,4 +1,4 @@
-"""Build branded 1200×630 social-sharing previews from existing project artwork.
+"""Build branded 1200×630 social-sharing previews from existing project artwork and photos.
 
 All diagrams are derived from the portfolio's own project thumbnails.
 Illustrative images are not presented as experimental measurements.
@@ -73,14 +73,17 @@ def base(label: str) -> tuple[Image.Image, ImageDraw.ImageDraw]:
     return im, d
 
 
-def art(svg: Path, width: int = 628, height: int = 360) -> Image.Image:
-    result = subprocess.run(
-        ["rsvg-convert", "--width", str(width), "--height", str(height), str(svg)],
-        check=True, capture_output=True,
-    )
-    png = Image.open(BytesIO(result.stdout)).convert("RGBA")
-    # Dark frame remains visible around light source schematics.
-    return ImageOps.contain(png, (width, height), Image.Resampling.LANCZOS)
+def art(source: Path, width: int = 628, height: int = 360) -> Image.Image:
+    if source.suffix.lower() == ".svg":
+        result = subprocess.run(
+            ["rsvg-convert", "--width", str(width), "--height", str(height), str(source)],
+            check=True, capture_output=True,
+        )
+        artwork = Image.open(BytesIO(result.stdout)).convert("RGBA")
+    else:
+        # The VNA directory entry intentionally uses an equipment photograph.
+        artwork = Image.open(source).convert("RGBA")
+    return ImageOps.contain(artwork, (width, height), Image.Resampling.LANCZOS)
 
 
 def place_art(im: Image.Image, svg: Path, area: tuple[int, int, int, int]) -> None:
@@ -102,7 +105,7 @@ def project_cards() -> list[tuple[str, str, Path]]:
     output = []
     for href, markup in cards:
         slug = href[:-5]
-        image = re.search(r'<img src="([^"]+\.svg)"', markup)
+        image = re.search(r'<img src="([^"]+\.(?:svg|jpe?g|png|webp))"', markup)
         title = re.search(r'<strong>([\s\S]*?)</strong>', markup)
         if not image or not title:
             raise ValueError(f"Incomplete thumbnail markup for {slug}")
