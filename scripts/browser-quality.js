@@ -15,6 +15,9 @@ const cases=[
   {path:'/',width:320,theme:'light'},
   {path:'/',width:390,theme:'dark',screenshot:true},
   {path:'/',width:1440,theme:'dark'},
+  {path:'/workbench.html',width:1440,theme:'light',screenshot:true},
+  {path:'/workbench.html',width:390,theme:'light',screenshot:true},
+  {path:'/workbench.html',width:390,theme:'dark'},
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
@@ -185,6 +188,31 @@ async function audit(){
           if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
           if(await page.locator('[data-open-book]').count()!==15) note(id+': expected 15 project books');
           if(await page.locator('.repo-planet').count()!==5) note(id+': expected 5 repository planets');
+        }
+        if(test.path==='/workbench.html' && test.theme==='light' && test.width===390){
+          const tabs=page.locator('[data-instrument][role="tab"]');
+          if(await tabs.count()!==4)note(id+': workbench must show four instrument tabs');
+          await page.locator('#scope-freq').evaluate(el=>{
+            el.value='250';el.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          if((await page.locator('#scope-read-freq').textContent()||'').trim()!=='250 Hz')
+            note(id+': oscilloscope frequency readout did not update');
+          await page.locator('#wb-tab-robot').click();
+          await page.locator('#robot-j1').evaluate(el=>{
+            el.value='90';el.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          if((await page.locator('#robot-j1-out').textContent()||'').trim()!=='90°')
+            note(id+': robot joint control did not update');
+          await page.locator('#wb-tab-lights').click();
+          await page.locator('#lights-scene').selectOption('blackout');
+          if((await page.locator('#lights-read-dim').textContent()||'').trim()!=='0%')
+            note(id+': lighting blackout did not set dimmer to zero');
+          await page.locator('#wb-tab-thermal').click();
+          await page.locator('#thermal-time').evaluate(el=>{
+            el.value='120';el.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          if(!((await page.locator('#thermal-read-0').textContent()||'').includes('°C')))
+            note(id+': thermal simulated temperature readout missing');
         }
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
           // Exercise the actual book interaction, not just the presence of spines.
