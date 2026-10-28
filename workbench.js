@@ -169,12 +169,14 @@
     $('scope-read-invdt').textContent=dt>1e-9?fmt(1000/dt,1)+' Hz':'—';
     $('scope-read-dv').textContent=(dv>=0?'+':'')+fmt(dv,2)+' V';
     $('scope-timebase').textContent=scope.msdiv+' ms/div · '+scope.vdiv+' V/div';
-    if(scope.mode==='captured')$('scope-status').textContent='SINGLE / GENERATED';
-    else if(scope.mode==='no-trigger')$('scope-status').textContent='NO TRIGGER / HOLD';
+    let status='HOLD';
+    if(scope.mode==='captured')status='SINGLE / GENERATED';
+    else if(scope.mode==='no-trigger')status='NO TRIGGER / HOLD';
     else if(scope.trigger!=='off'&&crossing===null)
-      $('scope-status').textContent=scope.running?'NO TRIGGER / FREE RUN':'NO TRIGGER / HOLD';
-    else if(scope.running)$('scope-status').textContent=scope.trigger==='off'?'FREE RUN / GENERATED':'TRIGGERED / GENERATED';
-    else $('scope-status').textContent='HOLD';
+      status=scope.running?'NO TRIGGER / FREE RUN':'NO TRIGGER / HOLD';
+    else if(scope.running)status=scope.trigger==='off'?'FREE RUN / GENERATED':'TRIGGERED / GENERATED';
+    // This is a polite live region: don't announce the same status every frame.
+    if($('scope-status').textContent!==status)$('scope-status').textContent=status;
   }
   function scopeFrame(t){
     if(!scope.running)return;
