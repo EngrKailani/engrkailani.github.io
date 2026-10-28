@@ -15,9 +15,6 @@ const cases=[
   {path:'/',width:320,theme:'light'},
   {path:'/',width:390,theme:'dark',screenshot:true},
   {path:'/',width:1440,theme:'dark'},
-  {path:'/projects/nasa.html',width:390,theme:'light',imageCheck:true,screenshot:true},
-  {path:'/projects/nasa.html',width:1440,theme:'light',imageCheck:true,screenshot:true},
-  {path:'/projects/nasa.html',width:390,theme:'dark',screenshot:true},
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
@@ -87,25 +84,25 @@ async function audit(){
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
         if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
           await page.goto(origin+'/projects/index.html?area=robotics',{waitUntil:'load'});
-          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 3 of 16 engineering projects')
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 3 of 15 engineering projects')
             note(id+': robotics deep link did not filter to three projects');
           if(await page.locator('[data-gallery-filter="robotics"]').getAttribute('aria-pressed')!=='true')
             note(id+': shared discipline filter was not active');
           if(!await page.locator('#directory-clear').isVisible())
             note(id+': filter-clear action should appear when filtered');
           await page.locator('#directory-search').fill('UR3e');
-          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 16 engineering projects'||
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 15 engineering projects'||
              !new URL(page.url()).searchParams.get('q'))
             note(id+': project search did not filter or preserve its query in URL');
           await page.reload({waitUntil:'load'});
           if(await page.locator('#directory-search').inputValue()!=='UR3e'||
-             (await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 16 engineering projects')
+             (await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 15 engineering projects')
             note(id+': reloading a shared project search lost its filters');
           await page.locator('#directory-clear').click();
-          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 16 of 16 engineering projects'||
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 16 of 15 engineering projects'||
              new URL(page.url()).searchParams.has('area')||
              new URL(page.url()).searchParams.has('q'))
-            note(id+': clear filters did not restore all sixteen projects and clean URL');
+            note(id+': clear filters did not restore all fifteen projects and clean URL');
         }
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
           const extras=page.locator('.ambient-field .ambient-star--extra');
@@ -119,7 +116,7 @@ async function audit(){
         if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
           const wrappers=page.locator('.project-directory-grid .directory-card-visual');
           const tinted=page.locator('.project-directory-grid .directory-card-visual--paper');
-          if(await wrappers.count()!==16||await tinted.count()!==3)
+          if(await wrappers.count()!==15||await tinted.count()!==2)
             note(id+': project thumbnail surfaces or paper tint missing');
           const surface=await wrappers.first().evaluate(el=>getComputedStyle(el).backgroundImage);
           if(!surface.includes('linear-gradient'))note(id+': directory preview should use plum gradient');
@@ -131,15 +128,10 @@ async function audit(){
           if(overlay.display==='none'||overlay.blend!=='multiply')
             note(id+': originally white preview did not receive the tint overlay');
         }
-        if(test.path==='/'&&test.theme==='light'&&test.width===390){
-          const featured=page.locator('.selected-project-preview--paper');
-          if(await featured.count()!==1||
-             !((await featured.evaluate(el=>getComputedStyle(el,'::after').mixBlendMode))==='multiply'))
-            note(id+': NASA homepage preview was not tinted');
-        }
+
         if(test.path==='/projects/index.html'){
           const thumbs=page.locator('.project-directory-grid .directory-card-visual img');
-          if(await thumbs.count()!==16) note(id+': expected 16 project thumbnails');
+          if(await thumbs.count()!==15) note(id+': expected 15 project thumbnails');
           const first=thumbs.first();
           if(await first.count()){
             await first.evaluate(el=>el.decode().catch(()=>{}));
@@ -156,10 +148,10 @@ async function audit(){
           if(!await projectsMenu.evaluate(el=>el.open))
             note(id+': Projects disclosure did not open');
           const projectsMenuLinks=projectsMenu.locator('.nav-projects__group a');
-          if(await projectsMenuLinks.count()!==16)
-            note(id+': expected 16 directly linked projects in the navigation');
+          if(await projectsMenuLinks.count()!==15)
+            note(id+': expected 15 directly linked projects in the navigation');
           const menuDestinations=await projectsMenuLinks.evaluateAll(links=>links.map(a=>a.getAttribute('href')));
-          if(new Set(menuDestinations).size!==16 ||
+          if(new Set(menuDestinations).size!==15 ||
              !menuDestinations.includes('projects/nasa.html') ||
              !menuDestinations.includes('projects/powershell.html'))
             note(id+': project menu targets missing or duplicated');
@@ -188,10 +180,10 @@ async function audit(){
         }
         if(test.path==='/') {
           if(await page.locator('.selected-project-preview img').count()!==3)
-            note(id+': expected three illustrated featured engineering projects');
+            note(id+': expected two illustrated featured engineering projects');
           if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf should be visible');
           if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
-          if(await page.locator('[data-open-book]').count()!==16) note(id+': expected 16 project books');
+          if(await page.locator('[data-open-book]').count()!==15) note(id+': expected 15 project books');
           if(await page.locator('.repo-planet').count()!==5) note(id+': expected 5 repository planets');
         }
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
@@ -199,31 +191,31 @@ async function audit(){
           const reader=page.locator('#project-book-dialog');
           if(!await reader.count())note(id+': bookshelf reader dialog missing');
           else{
-            await page.locator('[data-open-book="nasa"]').click();
+            await page.locator('[data-open-book="ur3e"]').click();
             try{
               await page.waitForFunction(()=>document.getElementById('project-book-dialog')?.open,{},{timeout:5000});
-            }catch{note(id+': clicking NASA project book did not open the reader')}
+            }catch{note(id+': clicking UR3e project book did not open the reader')}
             if(await reader.evaluate(el=>el.open)){
               const title=(await page.locator('#book-modal-title').textContent()||'').trim();
-              if(title!=='Robotics for Another World')note(id+': unexpected book title after click: '+title);
+              if(title!=='UR3e Robot Kinematics')note(id+': unexpected book title after click: '+title);
               const url=await page.locator('#book-project-link').getAttribute('href');
-              if(url!=='projects/nasa.html')note(id+': reader project link incorrect: '+url);
+              if(url!=='projects/ur3e.html')note(id+': reader project link incorrect: '+url);
               const select=page.locator('#book-switch-select');
-              if(await select.locator('option').count()!==16)
-                note(id+': sixteen project options required in switcher');
-              if(await select.inputValue()!=='nasa')
+              if(await select.locator('option').count()!==15)
+                note(id+': fifteen project options required in switcher');
+              if(await select.inputValue()!=='ur3e')
                 note(id+': project switcher not synchronized with selected book');
               await page.locator('#book-next').click();
               const second=(await page.locator('#book-modal-title').textContent()||'').trim();
-              if(second!=='UR3e Robot Kinematics')note(id+': next-book control failed: '+second);
+              if(second!=='3-Link Leg Simulation')note(id+': next-book control failed: '+second);
               if(await select.inputValue()!=='ur3e')
                 note(id+': switcher not updated after Next');
               await select.selectOption('powershell');
               if((await page.locator('#book-modal-title').textContent()||'').trim()!=='PowerShell Systems & Concurrency')
-                note(id+': direct jump to project 16 failed');
-              if((await page.locator('#book-counter').textContent()||'').trim()!=='Book 16 of 16')
+                note(id+': direct jump to project 15 failed');
+              if((await page.locator('#book-counter').textContent()||'').trim()!=='Book 15 of 15')
                 note(id+': book counter did not update on direct jump');
-              if(await page.locator('#book-next').isEnabled())note(id+': Next must be disabled for project 16');
+              if(await page.locator('#book-next').isEnabled())note(id+': Next must be disabled for project 15');
               await select.selectOption('thermal');
               if((await page.locator('#book-modal-title').textContent()||'').trim()!=='Thermal Controller & Logger')
                 note(id+': direct jump to Thermal Logger failed');
@@ -326,12 +318,7 @@ async function audit(){
             note(id+': figure caption has insufficient contrast ('+
               caption.contrast.toFixed(2)+':1): '+caption.text);
         }
-        if(test.path==='/projects/nasa.html'){
-          const figures=page.locator('.nasa-figure');
-          const links=page.locator('.nasa-figure .nasa-figure__zoom');
-          if(await figures.count()!==4 || await links.count()!==4)
-            note(id+': expected four technical figures with full-size links');
-        }
+
         if(test.imageCheck){
           for(const img of await page.locator('img:visible').all()){
             await img.scrollIntoViewIfNeeded({timeout:6500});
@@ -361,14 +348,7 @@ async function audit(){
               note(id+': VNA accent exceeds 285px: '+image.width);
           }
         }
-        if(test.screenshot && test.path==='/projects/nasa.html'){
-          for(const figureId of ['nasa-fig-01','nasa-fig-02','nasa-fig-03','nasa-fig-04']){
-            await page.locator('#'+figureId).screenshot({
-              path:path.join(out,'screenshots',id+'-'+figureId+'.png'),
-              animations:'disabled',timeout:20000
-            });
-          }
-        }
+
         if(test.screenshot){
 
 await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
