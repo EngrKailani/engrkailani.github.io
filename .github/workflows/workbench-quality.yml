@@ -1,0 +1,47 @@
+name: Engineering Workbench Quality
+
+on:
+  push:
+    paths:
+      - workbench.html
+      - workbench.js
+      - workbench-models.js
+      - workbench.css
+      - scripts/workbench-models-test.js
+      - scripts/workbench-smoke.js
+      - scripts/site-check.js
+      - scripts/browser-quality.js
+      - scripts/mobile-layout.js
+      - package.json
+      - .github/workflows/workbench-quality.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  models-and-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Waveform and planar inverse kinematics tests
+        run: node scripts/workbench-models-test.js
+      - name: Portfolio static and accessibility-structure checks
+        run: node scripts/site-check.js
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test instrument controls at phone and desktop widths
+        run: node scripts/workbench-smoke.js
