@@ -76,3 +76,16 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
 @media(max-width:700px){.research-hero{grid-template-columns:1fr;padding-top:34px}.research-hero-visual{max-width:580px}.research-nav{flex-wrap:wrap;padding-block:12px;gap:10px}.research-nav-links{width:100%;justify-content:space-between}.research-theme-grid,.research-study-grid,.research-writing-layout{grid-template-columns:1fr}.research-next{grid-template-columns:1fr}.research-next .research-action{justify-self:start}.research-section{padding-top:48px}.research-footer .research-container{padding-block:17px;flex-wrap:wrap}}
 @media(max-width:410px){.research-container{width:calc(100% - 28px)}.research-nav-links{gap:5px 10px}.research-nav-links a{font-size:11px}.research-theme{padding:6px 10px}.research-hero h1{font-size:45px}.research-theme-card,.research-study,.research-writing-card{padding:17px}.research-hero-visual{min-height:230px}.research-next{padding:20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Research proposal questions: methods and candidate metrics, not observed results. */
+.research-questions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.research-question{border:1px solid var(--r-border);background:var(--r-paper);border-radius:15px;padding:22px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.research-question .research-card-index{margin-bottom:7px}
+.research-question h3{font-size:clamp(22px,2.3vw,29px);margin:0}
+.research-question p{font-size:13px;line-height:1.85;color:var(--r-muted);margin:0}
+.research-question-metrics{border-left:3px solid #bc86a5;background:var(--r-panel);margin-top:auto;padding:12px}
+.research-question-metrics strong{display:block;font:800 10px/1.6 var(--r-sans);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.research-question-metrics span{font-size:12px;line-height:1.7;color:var(--r-muted)}
+.research-questions-caveat{font-size:12px;line-height:1.8;color:var(--r-muted);margin:16px 0 0}
+@media(max-width:940px){.research-questions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.research-question:last-child{grid-column:1/-1}}
+@media(max-width:650px){.research-questions-grid{grid-template-columns:1fr}.research-question:last-child{grid-column:auto}}
