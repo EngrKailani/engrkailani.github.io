@@ -5,7 +5,7 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const domain='https://engrkailani.github.io';
 const projectDir=path.join(root,'projects');
-const htmlFiles=['index.html','resume.html','research.html',
+const htmlFiles=['index.html','resume.html','research.html','academic-cv.html',
   ...fs.readdirSync(projectDir).filter(name=>name.endsWith('.html')).map(name=>'projects/'+name)];
 let checks=0,failed=0;
 function check(condition,message){
@@ -644,20 +644,22 @@ check(home.includes('src="bookshelf.js?v=20261012-bookswitch1" defer') &&
 
 /* Keep the overview concise and restore permanently visible books and planets. */
 const expectedFeaturedPreviews=[
+  'projects/directory-thumbnails/ur3e.svg',
   'projects/iverify/media/exploded-concept.svg',
   'projects/thermal/media/logger-interface-concept.svg'
 ];
 const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===2 &&
+check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===3 &&
   expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
-  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=2,
-  'Featured engineering work must include two source-labeled visual previews');
+  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=3,
+  'Featured engineering work must include three source-labeled visual previews');
 
 const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredSection.match(/class="featured-project-card"/g)||[]).length===2,
-  'Homepage must feature exactly two focused project cards');
-check(['iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
-  'IVerify and Thermal Logger must be the featured work');
+check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
+  'Homepage must feature exactly three focused project cards');
+check(['ur3e','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')) &&
+  featuredSection.indexOf('projects/ur3e.html')<featuredSection.indexOf('projects/iverify.html'),
+  'UR3e must lead the three featured projects');
 check(home.indexOf('id="featured-projects"')<home.indexOf('id="home-workbench"') &&
   home.indexOf('id="home-workbench"')<home.indexOf('id="experience"') &&
   home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
@@ -713,6 +715,44 @@ for(const [file,slug] of [
   check(source.includes('https://engrkailani.github.io/social/'+slug+'.png'),
     file+': correct branded social sharing card');
 }
+
+/* Research-first academic portfolio invariants. */
+const academicCV=fs.readFileSync(path.join(root,'academic-cv.html'),'utf8');
+const urResearch=fs.readFileSync(path.join(projectDir,'ur3e.html'),'utf8');
+check(home.includes('Engineering reliable robots for space exploration.') &&
+  home.includes('academic-cv.html') &&
+  home.includes('My experience includes robotic-arm assessment at NASA Marshall'),
+  'Homepage should foreground space robotics, graduate research and academic CV');
+check(home.includes('class="featured-project-card"') &&
+  home.includes('three-person group') &&
+  home.includes('three-person group, I contributed') &&
+  featuredSection.indexOf('projects/ur3e.html')<featuredSection.indexOf('projects/iverify.html'),
+  'Homepage should fairly attribute the featured group robotics study');
+check(research.includes('id="questions"') &&
+  (research.match(/class="research-question"/g)||[]).length===3 &&
+  research.includes('research.css?v=20261027-research2') &&
+  research.includes('No experiments or results are claimed') &&
+  research.includes('href="academic-cv.html"'),
+  'Research page must give three explicit proposed questions without claiming results');
+check(academicCV.includes('id="cv-main"') &&
+  academicCV.includes('No peer-reviewed journal or conference publication is claimed') &&
+  academicCV.includes('Expected May 2028') &&
+  academicCV.includes('assets/')===false &&
+  academicCV.includes('academic-cv.css?v=20261027-academic1') &&
+  academicCV.includes('onclick="window.print()"'),
+  'Academic CV should be distinct, print-ready, truthful and initially independent of an unpublished PDF');
+check(home.includes('href="academic-cv.html"') &&
+  htmlResume.includes('href="academic-cv.html"') &&
+  directory.includes('href="../academic-cv.html"') &&
+  sitemap.includes('https://engrkailani.github.io/academic-cv.html'),
+  'Academic CV must be discoverable from portfolio, resume, directory and sitemap');
+check(urResearch.includes('id="ur3e-analysis"') &&
+  urResearch.includes('ur3e/media/jacobian-rank-comparison.svg') &&
+  urResearch.includes('Original')===false &&
+  urResearch.includes('The original DH table') &&
+  urResearch.includes('rank 5') && urResearch.includes('rank 6') &&
+  fs.existsSync(path.join(root,'projects/ur3e-technical.css')),
+  'UR3e must show reported ranks, methods, and reproducibility caveats');
 
 /* Workbench integrity: all four browser-only demos and their controls remain linked. */
 const workbench=fs.readFileSync(path.join(root,'workbench.html'),'utf8');
