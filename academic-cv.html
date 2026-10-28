@@ -15,7 +15,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="research.css?v=20261027-research2">
-<link rel="stylesheet" href="academic-cv.css?v=20261027-academic1">
+<link rel="stylesheet" href="academic-cv.css?v=20261028-uploaded-cv">
 <script src="portfolio-upgrade.js?v=20261013-directorynav1" defer></script>
 </head><body class="research-page cv-page">
 <a class="research-skip" href="#cv-main">Skip to academic CV</a>
@@ -24,62 +24,87 @@
 <div class="research-nav-links"><a href="index.html">Home</a><a href="projects/index.html">Projects</a><a href="research.html">Research</a><a href="academic-cv.html" aria-current="page">Academic CV</a><a href="resume.html">Industry résumé</a><button class="research-theme" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾ Dark mode</button></div>
 </nav></header>
 <main id="cv-main" class="cv-main" tabindex="-1">
-<div class="cv-topline"><a href="research.html">← Research &amp; technical writing</a><a class="cv-pdf-link" href="assets/Kailani_Alarcon_Academic_CV.pdf?v=20261027-cv1" download="Kailani_Alarcon_Academic_CV.pdf">Download CV PDF</a><button class="cv-print" type="button" onclick="window.print()">Print / save PDF</button></div>
-<div class="cv-paper">
+<div class="cv-topline"><a href="research.html">← Research &amp; technical writing</a><a class="cv-pdf-link" href="assets/Kailani_Alarcon_Academic_CV.pdf?v=20261027-cv1" download="Kailani_Alarcon_Academic_CV.pdf">Download CV PDF</a><button class="cv-print" type="button" onclick="window.print()">Print / save CV PDF</button></div>
+<div class="cv-paper cv-source-version">
 <header class="cv-heading">
-<h1>Kailani Alarcon</h1>
-<p class="cv-focus">Electrical Engineering · Robotics &amp; Control Systems · Space Exploration</p>
-<div class="cv-contact"><a href="mailto:kailanip.alarcon@gmail.com">kailanip.alarcon@gmail.com</a><a href="https://www.linkedin.com/in/kailani-alarcon/">LinkedIn</a><a href="https://engrkailani.github.io/">Engineering portfolio</a><a href="https://engrkailani.github.io/research.html">Research profile</a></div>
+<p class="cv-document-type">CURRICULUM VITAE</p>
+<h1>KAILANI P. ALARCON</h1>
+<p class="cv-focus">University of Nevada, Reno · Graduate Study, Electrical Engineering</p>
+<div class="cv-contact"><span>(775) 432-9365</span><a href="mailto:kailanip.alarcon@gmail.com">kailanip.alarcon@gmail.com</a><a href="https://www.linkedin.com/in/kailani-alarcon/">linkedin.com/in/kailani-alarcon</a><a href="https://engrkailani.github.io/">engrkailani.github.io</a></div>
 </header>
-<section class="cv-section" aria-labelledby="cv-interest-title">
-<h2 id="cv-interest-title">Research interests</h2>
-<p>Space robotic manipulation and controls; autonomous and human-supervised robotic operations; sensor feedback and state estimation; simulation-to-test verification for lunar and planetary exploration tasks.</p>
-<p class="cv-note">These are prospective research directions. See the <a href="research.html#questions">proposed research questions</a>; no externally reviewed publication is implied.</p>
+
+<section class="cv-section" aria-labelledby="cv-education-title"><h2 id="cv-education-title">Education</h2>
+<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno | Graduate Study in Electrical Engineering</h3><span class="cv-entry-date">Fall 2026 – Present</span></div><p>Graduate coursework in progress: Independent Study in Control Systems (EE 793E), Principles of Computer Operating Systems (CS 646), and Game Theory for Cybersecurity (CS 703).</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno | B.S. in Electrical Engineering</h3><span class="cv-entry-date">August 2026</span></div><p>Emphasis: Robotics, Autonomous/Aerial Vehicles, and Embedded Systems; Minor in Mathematics; Honors Baccalaureate (conferred August 2026).</p><p>Selected coursework: Control Systems I and II, Introduction to Robotics, Signals and Systems, Digital Signal Processing, Linear Algebra, Probability and Statistics, Embedded Systems Design, and Microprocessor Applications.</p></div>
 </section>
-<section class="cv-section" aria-labelledby="cv-education-title">
-<h2 id="cv-education-title">Education</h2>
-<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno — M.S., Electrical Engineering</h3><span class="cv-entry-date">Expected May 2028</span></div><p class="cv-meta">Focus: robotics, autonomous vehicles, and embedded systems</p></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno — B.S., Electrical Engineering</h3><span class="cv-entry-date">2026</span></div><p class="cv-meta">Minor in Mathematics · Honors Baccalaureate</p></div>
-<p><strong>Relevant coursework:</strong> Robotics; Control Systems I &amp; II; Digital Signal Processing; Embedded Systems; Microprocessor Applications.</p>
+
+<section class="cv-section" aria-labelledby="cv-interest-title"><h2 id="cv-interest-title">Research Focus</h2><p>Research interests: Reliable robotic manipulation under degraded vision and variable contact, with a focus on sensor fusion, state estimation, and adaptive impedance control. NASA lunar-dust arm feasibility work motivated questions about when a robot should adjust its estimates or contact behavior to complete tasks safely.</p></section>
+
+<section class="cv-section" aria-labelledby="cv-research-title"><h2 id="cv-research-title">Research Experience</h2>
+<div class="cv-entry"><div class="cv-entry-header"><h3>NASA Marshall Space Flight Center | Office of STEM Engagement (OSTEM) Intern</h3><span class="cv-entry-date">Aug 2026 – Present</span></div><p class="cv-meta">Human Factors Engineering and Mechanical Design | Technical mentor: Elizabeth (Liz) Bowman-Langley | Huntsville, AL</p>
+<ul><li>Independently evaluated a robotic arm for proposed lunar-dust mitigation tests in high vacuum, analyzing geometry, joint travel, reachable workspace, loading, and actuator compatibility.</li>
+<li>Calculated an estimated 3.1 N·m shoulder self-load moment for a horizontal arm configuration; identified excluded rocker and actuator masses requiring further center-of-gravity analysis before actuator selection.</li>
+<li>Developed 34 hierarchical system requirements from six operating scenarios addressing manipulation, vacuum compatibility, workspace constraints, emergency shutdown, and verification.</li>
+<li>Developed preliminary control software and atmospheric bench-test procedures for the existing Pololu Micro Maestro 6-channel controller; documented verification needs for proposed vacuum-compatible actuators.</li></ul>
+</div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno | Three-Link Human-Leg Dynamics</h3><span class="cv-entry-date">Jan – May 2025</span></div><p class="cv-meta">Honors Signature Experience | Faculty mentor: Dr. Sesh Commuri | Student-initiated, faculty-mentored research</p>
+<ul><li>Developed a MATLAB Level-2 S-function for a planar three-link leg model in Simulink; computed foot position, Cartesian velocity, and approximate joint torques from hip, knee, and ankle states.</li><li>Implemented forward kinematics and Jacobian velocity mapping; formulated an inertia matrix and used Coriolis/centrifugal and gravitational terms in simplified joint-torque calculations.</li></ul>
+</div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno | Virtual Vector Network Analyzer for Stepped-Frequency Radar</h3><span class="cv-entry-date">Jan – May 2025</span></div><p class="cv-meta">EE 330 Honors Contract / Honors Signature Experience | Faculty mentor: Dr. Jihwan Yoon | Student-initiated project</p>
+<ul><li>Developed a MATLAB-based two-port virtual vector network analyzer (VNA) workflow for stepped-frequency continuous-wave (SFCW) radar, with 236 measurement points from 100 MHz to 6 GHz.</li><li>Implemented 12-term short-open-load-through (SOLT) calibration, corrected-versus-uncorrected S-parameter visualization, and automated Touchstone (.s2p) exports.</li></ul>
+</div>
 </section>
-<section class="cv-section" aria-labelledby="cv-research-title">
-<h2 id="cv-research-title">Engineering research and technical experience</h2>
-<div class="cv-entry"><div class="cv-entry-header"><h3>NASA Marshall Space Flight Center — OSTEM Intern</h3><span class="cv-entry-date">Aug.–Dec. 2026</span></div><p class="cv-meta">Human Factors Engineering &amp; Mechanical Design · Huntsville, Alabama</p><ul>
-<li>Independently carried out engineering assessment of a legacy robotic arm for a proposed high-vacuum lunar-dust test context, with NASA mentor oversight.</li>
-<li>Examined geometry, mass, actuator travel, workspace and operational constraints; used Python, Linux, Creo, ROS 2 and MuJoCo in evaluation and simulation work.</li>
-<li>Translated six operational scenarios into 34 hierarchical system requirements addressing manipulation, safety and verification.</li>
-</ul><p class="cv-note">Only previously public, résumé-level information is summarized here; confidential design materials and NASA approval are not implied.</p></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3>LUX Dynamics — Product Development Intern</h3><span class="cv-entry-date">Sep. 2023–Aug. 2026</span></div><p class="cv-meta">Electrical, thermal and photometric validation · Reno, Nevada</p><ul>
-<li>Performed validation work across 12+ LED products and developed thermal-testing procedures and Python/Arduino logging automation.</li>
-<li>Managed 4–5 concurrent development efforts and communicated technical results to engineering teams and stakeholders.</li>
-<li>Documented thermal and optical/lens-related work in two internal technical white papers.</li>
+
+<section class="cv-section" aria-labelledby="cv-writing-title"><h2 id="cv-writing-title">Technical Publications and Presentations</h2>
+<h3 class="cv-subheading">Industry White Papers</h3>
+<ol><li>Alarcon, K. P. (2026, February 5). <em>Thermal Validation of Commercial LED Luminaires.</em> LUX Dynamics.</li><li>Alarcon, K. P. (2026, March 10). <em>Understanding Optical Lens Performance in LED Luminaires.</em> LUX Dynamics.</li></ol>
+<h3 class="cv-subheading">Posters</h3>
+<ol><li><em>IVerify: Noninvasive IV Occlusion Detection System.</em> Poster presented at Innovation Day, May 2026. Senior capstone design and preliminary validation.</li><li><em>Designing LEGO: Environmental Sustainability and Engineering Design Review.</em> Poster presented at the ENGR 301 Poster Session, University of Nevada, Reno, May 2025.</li></ol>
+<p class="cv-note">Industry white papers and student posters are identified by type; they are not represented as peer-reviewed journal or conference articles.</p>
+</section>
+
+<section class="cv-section" aria-labelledby="cv-investigations-title"><h2 id="cv-investigations-title">Selected Engineering Projects</h2>
+<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/iverify.html">IVerify: Noninvasive IV Occlusion Detector | Senior Capstone</a></h3><span class="cv-entry-date">Spring 2026</span></div><p>Project and systems integration lead for a four-person team. Coordinated system architecture, requirements, integration, and documentation across the clamp, force sensor, analog front end, microcontroller, and indicator subsystems. Integrated a proof-of-concept bench prototype with repeatable force-response sensing, approximately 5 N clamp preload, and two-LED status indication; organized requirements-to-test traceability.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/ur3e.html">UR3e Robot Kinematics | Robotics Team Project</a></h3><span class="cv-entry-date">Spring 2026</span></div><p>Modeled robot kinematics using Denavit-Hartenberg transforms, MATLAB Jacobians, and singularity analysis; evaluated a configuration with Jacobian rank five.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/huemotion.html">HueMotion: Camera-Based Gesture Control | LUX Dynamics</a></h3><span class="cv-entry-date">2026</span></div><p>Developed a real-time MediaPipe hand-tracking interface using gesture stabilization and two-hand recognition to trigger RGBW lighting scenes; extended control from wired DMX hardware to wireless Casambi API scene activation.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/fingerprint.html">Fingerprint-Based Authentication | Embedded Systems Team Project</a></h3><span class="cv-entry-date">Fall 2025</span></div><p>Designed and integrated an STM32 fingerprint authentication prototype in a four-person team, using UART sensor communication, enrollment and identification of 24 templates, packet handling, and status indicators.</p></div>
+</section>
+
+<section class="cv-section" aria-labelledby="cv-professional-title"><h2 id="cv-professional-title">Professional Experience</h2>
+<div class="cv-entry"><div class="cv-entry-header"><h3>LUX Dynamics | Product Development Intern</h3><span class="cv-entry-date">Sep 2023 – Aug 2026</span></div><p class="cv-meta">Reno, NV</p><ul>
+<li>Conducted electrical, thermal, and photometric evaluations for more than 12 LED products, informing product-validation and manufacturing-release decisions.</li>
+<li>Independently developed a team-adopted Python/Arduino thermal-validation workflow with eight Pico TC-08 thermocouple channels, programmable setpoints, heater control, stability checks, and automated reporting.</li>
+<li>Developed a tablet-based RGBW lighting quality-control interface using Arduino Mega and DMX512; authored two publicly available LUX Dynamics technical white papers.</li>
 </ul></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3>University of Nevada, Reno — Engineering Peer Tutor</h3><span class="cv-entry-date">Aug. 2024–May 2026</span></div><p>Provided individualized support to approximately 12–15 students each week on circuits, embedded C, microcontrollers and real-time control.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>Sonic Drive-In | Associate Manager</h3><span class="cv-entry-date">Aug 2020 – Aug 2023</span></div><p class="cv-meta">Reno-Sparks, NV</p><p>Managed daily operations, training, scheduling, and compliance while pursuing engineering studies.</p></div>
 </section>
-<section class="cv-section" aria-labelledby="cv-investigations-title">
-<h2 id="cv-investigations-title">Selected technical investigations</h2>
-<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/ur3e.html">UR3e Robot Kinematics and Jacobian Analysis</a></h3><span class="cv-entry-date">Spring 2026 · Team of three</span></div><p>Contributed to a group analysis of Denavit–Hartenberg kinematics and singularities; the team documented Jacobian rank 5 at the zero-angle pose and rank 6 at another evaluated configuration. Individual mathematical derivations were not separately attributed.</p></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/iverify.html">IVerify Capstone — Systems Integration Lead</a></h3><span class="cv-entry-date">Spring 2026 · Team of four</span></div><p>Led integration of sensing, analog electronics, firmware and indication subsystems for an IV-tubing monitoring concept. A two-LED bench path was demonstrated; clinical performance was not validated.</p></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/thermal.html">Thermal Controller &amp; Logger</a></h3><span class="cv-entry-date">2025–2026</span></div><p>Built and documented a Python-based temperature logging and reporting workflow. Recovered software supports eight thermocouple channels; published display illustrations and offline tests are synthetic.</p></div>
-<div class="cv-entry"><div class="cv-entry-header"><h3><a href="projects/controls.html">Control &amp; Measurement Laboratories</a></h3><span class="cv-entry-date">Spring 2025</span></div><p>Compared measured vibration and control behavior with models, including a reported vibration feature near 49.3 Hz and discrepancies motivating additional validation.</p></div>
+
+<section class="cv-section" aria-labelledby="cv-teaching-title"><h2 id="cv-teaching-title">Teaching, Mentoring and Outreach</h2>
+<div class="cv-entry"><div class="cv-entry-header"><h3>Engineering Peer Tutor | University of Nevada, Reno</h3><span class="cv-entry-date">Aug 2024 – May 2026</span></div><p class="cv-meta">Engineering Study Hub / Engineering Tutoring Center</p><p>Tutored approximately 12 to 15 engineering students weekly in circuits, signals, controls, embedded C, STM32 microcontrollers, MATLAB, and Simulink.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>Teacher Assistant Intern | University of Nevada, Reno</h3><span class="cv-entry-date">Nov 2024 – May 2025</span></div><p class="cv-meta">Academic Support Program</p><p>Assisted with grading, academic support, course logistics, and communication among students, mentors, and program leadership.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>E-FIT Mentor | University of Nevada, Reno</h3><span class="cv-entry-date">May – Aug 2025</span></div><p class="cv-meta">Academic Support Program</p><p>Guided incoming engineering students during university transition activities.</p></div>
+<div class="cv-entry"><div class="cv-entry-header"><h3>Honors College Ambassador | University of Nevada, Reno</h3><span class="cv-entry-date">May – Aug 2025</span></div><p class="cv-meta">Honors College Outreach</p><p>Assisted with campus tours, recruitment events, and student orientation.</p></div>
 </section>
-<section class="cv-section" aria-labelledby="cv-tech-title">
-<h2 id="cv-tech-title">Technical methods and tools</h2>
-<p><strong>Robotics and controls:</strong> Forward kinematics, Jacobians, MATLAB/Simulink, ROS 2, MuJoCo, PID control, test planning.</p>
-<p><strong>Programming and embedded:</strong> Python, C, C++, STM32, UART, SPI, I²C, PWM, VHDL, Git, Arduino.</p>
-<p><strong>Instrumentation and analysis:</strong> Oscilloscopes, thermocouples, VNA/S-parameters, FFT, thermal and photometric validation; Creo and Thermal Desktop.</p>
+
+<section class="cv-section" aria-labelledby="cv-awards-title"><h2 id="cv-awards-title">Awards, Honors and Scholarships</h2><ul>
+<li>August 2026 — Honors Baccalaureate, University of Nevada, Reno</li>
+<li>May 2026 — Outstanding Service Award, College of Engineering</li>
+<li>May 2026 — Outstanding Service Award, Department of Electrical Engineering</li>
+<li>May 2026 — Innovation Day Finalist, IVerify Senior Capstone Team</li>
+<li>January 2026 — TC Energy Scholarship</li>
+<li>May 2025 — Honors College Global Travel Award</li>
+<li>August 2022 — Presidential Scholarship, University of Nevada, Reno</li></ul></section>
+
+<section class="cv-section" aria-labelledby="cv-international-title"><h2 id="cv-international-title">International Academic Experience</h2><div class="cv-entry"><div class="cv-entry-header"><h3>Università degli Studi della Tuscia | Honors Abroad with USAC, Italy</h3><span class="cv-entry-date">May – Jul 2024</span></div><p>Coursework: Italian language, photography, and art crime (USAC Honors Abroad).</p></div></section>
+
+<section class="cv-section" aria-labelledby="cv-tech-title"><h2 id="cv-tech-title">Technical Skills</h2>
+<p><strong>Robotics and controls:</strong> MATLAB, Simulink, robot kinematics and Jacobians, rigid-body dynamics, PID and lead-lag controllers, actuator loading; hands-on ROS 2 and MuJoCo.</p>
+<p><strong>Programming and embedded systems:</strong> Python, C/C++, VHDL, STM32, Arduino, Linux, Git; UART, SPI, I²C, PWM, ADC, GPIO, and interrupt-driven design.</p>
+<p><strong>Engineering tools:</strong> Creo, STM32CubeIDE, Tkinter, Flask, PyQt6, Excel-based analysis and reporting; hands-on Thermal Desktop; introductory AutoCAD and SolidWorks.</p>
+<p><strong>Measurement and verification:</strong> Oscilloscopes, thermocouples/Pico TC-08, thermal and photometric testing, radar S-parameter calibration, requirements development, and test planning.</p>
 </section>
-<section class="cv-section" aria-labelledby="cv-writing-title">
-<h2 id="cv-writing-title">Technical writing and publication status</h2>
-<p><strong>Internal professional reports (2):</strong> Thermal validation of commercial LED luminaires; optical/lens performance in LED luminaires. Written in an engineering workplace context and not publicly distributed here.</p>
-<p class="cv-status"><strong>Scholarly record:</strong> No peer-reviewed journal or conference publication is claimed as of October 2026. Public project documentation is available through the <a href="projects/index.html">engineering case studies</a>.</p>
-</section>
-<section class="cv-section" aria-labelledby="cv-service-title">
-<h2 id="cv-service-title">Service, honors and professional memberships</h2>
-<p><strong>Service:</strong> University of Nevada, Reno Honors College Ambassador (tours, recruitment and orientation); Engineering Peer Tutor.</p>
-<p><strong>Honors:</strong> Presidential Scholarship; TC Energy Scholarship; engineering department and electrical engineering outstanding service awards.</p>
-<p><strong>Memberships:</strong> IEEE, Society of Women Engineers (SWE), and American Society of Mechanical Engineers (ASME). Memberships are not represented as officer positions.</p>
-</section>
+<section class="cv-section" aria-labelledby="cv-languages-title"><h2 id="cv-languages-title">Languages</h2><p>English: fluent | Spanish: intermediate (speaking, reading, writing) | Italian: intermediate speaking; beginner reading and writing | Samoan: beginner | Russian: beginner</p></section>
+<section class="cv-section" aria-labelledby="cv-memberships-title"><h2 id="cv-memberships-title">Professional Affiliations</h2><p>Member: Institute of Electrical and Electronics Engineers (IEEE); Society of Women Engineers (SWE); American Society of Mechanical Engineers (ASME).</p></section>
 </div>
 <p class="cv-footer">Academic-focused CV · Updated October 2026 · Printable using your browser's Print / Save PDF control</p>
 </main>
