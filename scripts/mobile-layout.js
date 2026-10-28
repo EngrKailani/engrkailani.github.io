@@ -10,6 +10,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
     ...[320, 375, 430, 768].map(width => ({url:'/', width, height:900})),
     {url:'/', width:844, height:390},
     ...[320,390,768].map(width => ({url:'/workbench.html', width, height:740})),
+    ...[320,390,768].map(width => ({url:'/research.html', width, height:740})),
     ...['/resume.html', ...pages].map(url => ({url, width:320, height:740}))
   ];
   for (const test of cases) {
@@ -28,7 +29,9 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
           '.btn,.repo-featured,.repo-featured__link,.robot-control-sliders>div,' +
           '.robot-control-presets button,.robot-view-picker button,.nav-links a,' +
           '.wb-nav-links,.wb-tab,.wb-panel,.wb-controls,.wb-readouts>div,' +
-          '.wb-channel-readouts>div,.wb-project-link,.wb-method,.wb-disclaimer';
+          '.wb-channel-readouts>div,.wb-project-link,.wb-method,.wb-disclaimer,' +
+          '.research-nav,.research-nav-links,.research-theme-card,.research-study,' +
+          '.research-writing-card,.research-next,.research-actions,.research-disclosure';
         const found = [];
         const viewport = document.documentElement.clientWidth;
         if (Math.max(document.body.scrollWidth,document.documentElement.scrollWidth) > viewport+3)
@@ -62,6 +65,14 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
       await page.goto(origin+test.url,{waitUntil:'load'});
       await page.evaluate(() => document.fonts.ready);
       await inspect('initial layout');
+      if(test.url==='/research.html'){
+         if(!await page.locator('#research-main').isVisible())
+           note(id+': research main content missing');
+         await inspect('research layout');
+         await page.locator('a[href="#writing"]').click();
+         if(!await page.locator('#writing').isVisible())
+           note(id+': research writing anchor missing');
+       }
       if(test.url==='/workbench.html') {
         await page.locator('#scope-msdiv').selectOption('10');
         await page.locator('#scope-vdiv').selectOption('2');
