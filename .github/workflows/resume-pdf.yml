@@ -1,0 +1,42 @@
+name: Resume PDF source consistency
+
+on:
+  push:
+    paths:
+      - scripts/build-resume-pdf.py
+      - .github/workflows/resume-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-resume:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-crosextra-carlito
+          python -m pip install --disable-pip-version-check PyMuPDF
+      - name: Rebuild and verify both published resume PDFs
+        run: |
+          python scripts/build-resume-pdf.py
+          python scripts/build-resume-pdf.py --full-detail
+      - name: Commit refreshed resume PDFs
+        run: |
+          git add assets/Kailani_Alarcon_Resume.pdf assets/Kailani_Alarcon_Resume_Full_Detail.pdf
+          if git diff --cached --quiet; then
+            echo "Resume PDFs already match the generator."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Regenerate resume PDFs from verified source"
+          git push
