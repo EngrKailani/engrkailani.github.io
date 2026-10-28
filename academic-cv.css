@@ -84,3 +84,8 @@
   .cv-source-version .cv-section:has(> #cv-writing-title),
   .cv-source-version .cv-section:has(> #cv-teaching-title){break-before:page;page-break-before:always}
 }
+
+/* Exact original uploaded PDF is the definitive CV; HTML is a readable adaptation. */
+.cv-original-note{border:1px solid var(--r-border);border-left:4px solid var(--r-accent);border-radius:0 10px 10px 0;background:var(--r-panel);color:var(--r-muted);font-size:12px;line-height:1.75;padding:12px 17px;margin:0 0 17px}
+.cv-original-note strong{color:var(--r-ink)}
+@media print{.cv-original-note{display:none!important}}
