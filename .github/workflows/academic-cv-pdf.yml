@@ -32,6 +32,12 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Render printable academic CV
         run: node scripts/build-academic-cv-pdf.js
+      - name: Archive printable academic CV for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: academic-cv-pdf
+          path: assets/Kailani_Alarcon_Academic_CV.pdf
+          if-no-files-found: error
       - name: Publish PDF to the portfolio
         run: |
           git add assets/Kailani_Alarcon_Academic_CV.pdf
