@@ -87,154 +87,321 @@
     });
   });
 
-  // Module 01: waveform generator and synthetic measurements.
-  const scope = { wave: 'sine', freq: 120, amp: 2, duty: 50, noise: 0,
-    phase: 0, running: false, raf: null, previous: 0 };
-  const TAU = 2 * Math.PI;
-  function phaseValue(t) {
-    const u = ((t % 1) + 1) % 1;
-    if (scope.wave === 'sine') return Math.sin(TAU * u);
-    if (scope.wave === 'triangle') return 1 - 4 * Math.abs(u - .5);
-    if (scope.wave === 'pwm') return u < scope.duty / 100 ? 1 : 0;
-    return u < scope.duty / 100 ? 1 : -1;
+  // Phase 3: independent oscilloscope display scales and a synthetic trigger.
+  const models=window.WorkbenchModels;
+  if(!models)throw new Error('Workbench models must load before the instrument UI');
+  const TAU=2*Math.PI;
+  const scope={
+    wave:'sine',freq:120,amp:2,duty:50,noise:0,msdiv:2,vdiv:1,
+    trigger:'rising',level:0,cursorA:25,cursorB:75,phase:0,
+    running:false,mode:'hold',raf:null,previous:0
+  };
+  const scopeWindowMs=()=>scope.msdiv*10;
+  const sampleSignal=cycle=>models.voltageAt(scope,cycle);
+  function scopeStartCycle(){
+    const crossing=models.triggerPhase(scope,scope.trigger,scope.level);
+    if(crossing===null)return {crossing:null,start:scope.phase};
+    const cyclesPerWindow=scope.freq*scopeWindowMs()/1000;
+    // A clean signal edge is placed at the 20% graticule marker.
+    return {crossing,start:crossing-.2*cyclesPerWindow};
   }
-  function sampleSignal(cycle) {
-    const noise = (Math.sin(cycle * 171.7) * .66 + Math.sin(cycle * 367.1) * .34) *
-      scope.amp * scope.noise / 100;
-    return scope.amp * phaseValue(cycle) + noise;
-  }
-  function drawScope() {
-    const obj = configureCanvas('scope-canvas'); if (!obj) return;
-    const {ctx, w, h} = obj;
-    const g = screenGrid(ctx, w, h, 48, 20, 17, 31);
-    const displayTimeMs = 3000 / scope.freq;
-    const yScale = Math.max(.5, scope.amp * 1.3);
-    label(ctx, '+' + fmt(yScale, 1) + ' V', g.left - 5, g.top + 7, 'right');
-    label(ctx, '0 V', g.left - 5, g.top + g.ph / 2, 'right');
-    label(ctx, '-' + fmt(yScale, 1) + ' V', g.left - 5, g.top + g.ph - 7, 'right');
-    label(ctx, '0', g.left, h - 13, 'left');
-    label(ctx, fmt(displayTimeMs / 2, displayTimeMs < 10 ? 1 : 0) + ' ms', g.left + g.pw / 2, h - 13, 'center');
-    label(ctx, fmt(displayTimeMs, displayTimeMs < 10 ? 1 : 0) + ' ms', g.left + g.pw, h - 13, 'right');
-    ctx.strokeStyle = '#707785';ctx.lineWidth = 1.2;
-    ctx.setLineDash([5, 5]);ctx.beginPath();
-    ctx.moveTo(g.left, g.top + g.ph / 2);ctx.lineTo(g.left + g.pw, g.top + g.ph / 2);ctx.stroke();ctx.setLineDash([]);
-    const N = Math.max(360, Math.round(g.pw));
-    let min = Infinity, max = -Infinity, squared = 0;
-    ctx.beginPath();
-    for (let i = 0; i <= N; i++) {
-      const cycle = scope.phase + 3 * i / N;
-      const voltage = sampleSignal(cycle);
-      const x = g.left + g.pw * i / N;
-      const y = g.top + g.ph / 2 - voltage / yScale * g.ph * .45;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      if (i < N) {min = Math.min(min, voltage);max = Math.max(max, voltage);squared += voltage * voltage;}
+  function drawScope(){
+    const obj=configureCanvas('scope-canvas');if(!obj)return;
+    const {ctx,w,h}=obj,g=screenGrid(ctx,w,h,51,21,18,34);
+    const windowMs=scopeWindowMs(),cycleSpan=scope.freq*windowMs/1000;
+    const {crossing,start}=scopeStartCycle();
+    const voltsLimit=scope.vdiv*4;
+    const yVoltage=v=>g.top+g.ph/2-v/(scope.vdiv*8)*g.ph;
+    const timeAtFraction=f=>f*windowMs;
+    const sampleAtFraction=f=>sampleSignal(start+cycleSpan*f);
+    label(ctx,'+'+fmt(voltsLimit,1)+' V',g.left-6,g.top+7,'right');
+    label(ctx,'0 V',g.left-6,g.top+g.ph/2,'right');
+    label(ctx,'-'+fmt(voltsLimit,1)+' V',g.left-6,g.top+g.ph-7,'right');
+    label(ctx,'0 ms',g.left,h-13,'left');
+    label(ctx,fmt(windowMs/2,2)+' ms',g.left+g.pw/2,h-13,'center');
+    label(ctx,fmt(windowMs,2)+' ms',g.left+g.pw,h-13,'right');
+    ctx.save();ctx.beginPath();ctx.rect(g.left,g.top,g.pw,g.ph);ctx.clip();
+    const neutral=yVoltage(0);
+    ctx.strokeStyle='#758091';ctx.lineWidth=1;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(g.left,neutral);ctx.lineTo(g.left+g.pw,neutral);ctx.stroke();
+    if(scope.trigger!=='off'&&scope.level>=-voltsLimit&&scope.level<=voltsLimit){
+      const ty=yVoltage(scope.level);
+      ctx.strokeStyle='#e7d38b';ctx.setLineDash([4,4]);ctx.beginPath();
+      ctx.moveTo(g.left,ty);ctx.lineTo(g.left+g.pw,ty);ctx.stroke();
+      if(crossing!==null){
+        ctx.fillStyle='#e7d38b';ctx.setLineDash([]);
+        ctx.beginPath();ctx.arc(g.left+g.pw*.2,ty,3.5,0,TAU);ctx.fill();
+      }
     }
-    ctx.strokeStyle = '#f5a8c9';ctx.lineWidth = 2.3;ctx.lineJoin = 'round';ctx.stroke();
-    $('scope-read-freq').textContent = scope.freq + ' Hz';
-    $('scope-read-pp').textContent = fmt(max - min, 2) + ' V';
-    $('scope-read-rms').textContent = fmt(Math.sqrt(squared / N), 2) + ' V';
-    $('scope-timebase').textContent = fmt(displayTimeMs, displayTimeMs < 10 ? 1 : 0) + ' ms window / 3 cycles';
+    ctx.setLineDash([]);
+    // Subpixel sample spacing avoids dramatic visual undersampling at fast timebases.
+    const n=Math.min(4500,Math.max(900,Math.ceil(cycleSpan*48)));
+    let lo=Infinity,hi=-Infinity,sum=0;
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const fraction=i/n,voltage=sampleAtFraction(fraction);
+      const x=g.left+g.pw*fraction,y=yVoltage(voltage);
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      if(i<n){lo=Math.min(lo,voltage);hi=Math.max(hi,voltage);sum+=voltage*voltage;}
+    }
+    ctx.strokeStyle='#f5a8c9';ctx.lineWidth=2;ctx.lineJoin='round';ctx.stroke();
+    for(const [id,fraction,color] of [
+      ['A',scope.cursorA/100,'#92dfd1'],['B',scope.cursorB/100,'#dcc4f3']
+    ]){
+      const x=g.left+g.pw*fraction,voltage=sampleAtFraction(fraction);
+      ctx.strokeStyle=color;ctx.setLineDash([6,4]);ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(x,g.top);ctx.lineTo(x,g.top+g.ph);ctx.stroke();
+      ctx.setLineDash([]);
+      const y=yVoltage(voltage);
+      if(y>=g.top&&y<=g.top+g.ph){
+        ctx.beginPath();ctx.arc(x,y,4,0,TAU);ctx.fillStyle=color;ctx.fill();
+      }
+      label(ctx,id,clamp(x, g.left+9,g.left+g.pw-9),g.top+11,'center',color);
+    }
+    ctx.restore();
+    const ta=timeAtFraction(scope.cursorA/100),tb=timeAtFraction(scope.cursorB/100);
+    const dv=sampleAtFraction(scope.cursorB/100)-sampleAtFraction(scope.cursorA/100);
+    const dt=Math.abs(tb-ta);
+    $('scope-read-freq').textContent=scope.freq+' Hz';
+    $('scope-read-pp').textContent=fmt(hi-lo,2)+' V';
+    $('scope-read-rms').textContent=fmt(Math.sqrt(sum/n),2)+' V';
+    $('scope-read-dt').textContent=fmt(tb-ta,2)+' ms';
+    $('scope-read-invdt').textContent=dt>1e-9?fmt(1000/dt,1)+' Hz':'—';
+    $('scope-read-dv').textContent=(dv>=0?'+':'')+fmt(dv,2)+' V';
+    $('scope-timebase').textContent=scope.msdiv+' ms/div · '+scope.vdiv+' V/div';
+    if(scope.mode==='captured')$('scope-status').textContent='SINGLE / GENERATED';
+    else if(scope.mode==='no-trigger')$('scope-status').textContent='NO TRIGGER / HOLD';
+    else if(scope.trigger!=='off'&&crossing===null)
+      $('scope-status').textContent=scope.running?'NO TRIGGER / FREE RUN':'NO TRIGGER / HOLD';
+    else if(scope.running)$('scope-status').textContent=scope.trigger==='off'?'FREE RUN / GENERATED':'TRIGGERED / GENERATED';
+    else $('scope-status').textContent='HOLD';
   }
-  function scopeFrame(time) {
-    if (!scope.running) return;
-    if (!scope.previous) scope.previous = time;
-    const dt = Math.min(80, time - scope.previous);
-    scope.previous = time;
-    if (!document.hidden && active === 'scope') {
-      scope.phase = (scope.phase + dt * .0006) % 1;
+  function scopeFrame(t){
+    if(!scope.running)return;
+    if(!scope.previous)scope.previous=t;
+    const dt=Math.min(100,t-scope.previous);
+    scope.previous=t;
+    if(!document.hidden&&active==='scope'&&dt>=0){
+      scope.phase=(scope.phase+dt*.0007)%1;
+      // The trigger locks the display when a valid ideal threshold exists.
       drawScope();
     }
-    scope.raf = requestAnimationFrame(scopeFrame);
+    scope.raf=requestAnimationFrame(scopeFrame);
   }
-  function setScopeRunning(running) {
-    scope.running = running;
-    $('scope-run').textContent = running ? 'Pause trace' : 'Run trace';
-    $('scope-run').setAttribute('aria-pressed', String(running));
-    $('scope-status').textContent = running ? 'RUNNING / SIMULATED' : 'HOLD';
-    if (scope.raf !== null) cancelAnimationFrame(scope.raf);
-    scope.raf = null; scope.previous = 0;
-    if (running) scope.raf = requestAnimationFrame(scopeFrame);
-    else drawScope();
+  function setScopeRunning(running){
+    scope.running=running;
+    scope.mode=running?'running':'hold';
+    if(scope.raf!==null)cancelAnimationFrame(scope.raf);
+    scope.raf=null;scope.previous=0;
+    $('scope-run').textContent=running?'Pause trace':'Run trace';
+    $('scope-run').setAttribute('aria-pressed',String(running));
+    if(running)scope.raf=requestAnimationFrame(scopeFrame);
+    if(active==='scope')drawScope();
   }
-  function updateScope() {
-    scope.wave = $('scope-wave').value;
-    scope.freq = num('scope-freq');scope.amp = num('scope-amp');
-    scope.duty = num('scope-duty');scope.noise = num('scope-noise');
-    $('scope-freq-out').textContent = scope.freq + ' Hz';
-    $('scope-amp-out').textContent = fmt(scope.amp, 1) + ' V';
-    $('scope-duty-out').textContent = scope.duty + '%';
-    $('scope-noise-out').textContent = scope.noise + '%';
-    $('scope-duty').disabled = !['square', 'pwm'].includes(scope.wave);
-    if (active === 'scope') drawScope();
+  function updateScope(){
+    scope.wave=$('scope-wave').value;scope.freq=num('scope-freq');
+    scope.amp=num('scope-amp');scope.duty=num('scope-duty');scope.noise=num('scope-noise');
+    scope.msdiv=num('scope-msdiv');scope.vdiv=num('scope-vdiv');
+    scope.trigger=$('scope-trigger').value;scope.level=num('scope-level');
+    scope.cursorA=num('scope-cursor-a');scope.cursorB=num('scope-cursor-b');
+    $('scope-freq-out').textContent=scope.freq+' Hz';
+    $('scope-amp-out').textContent=fmt(scope.amp,1)+' V';
+    $('scope-duty-out').textContent=scope.duty+'%';
+    $('scope-noise-out').textContent=scope.noise+'%';
+    $('scope-level-out').textContent=fmt(scope.level,1)+' V';
+    $('scope-cursor-a-out').textContent=scope.cursorA+'%';
+    $('scope-cursor-b-out').textContent=scope.cursorB+'%';
+    $('scope-duty').disabled=!['square','pwm'].includes(scope.wave);
+    $('scope-level').disabled=scope.trigger==='off';
+    if(scope.mode==='captured'||scope.mode==='no-trigger')scope.mode='hold';
+    if(active==='scope')drawScope();
   }
-  for (const id of ['scope-wave', 'scope-freq', 'scope-amp', 'scope-duty', 'scope-noise'])
-    $(id).addEventListener('input', updateScope);
-  $('scope-run').addEventListener('click', () => setScopeRunning(!scope.running));
-  $('scope-reset').addEventListener('click', () => {
+  for(const id of ['scope-wave','scope-freq','scope-amp','scope-duty','scope-noise',
+    'scope-msdiv','scope-vdiv','scope-trigger','scope-level',
+    'scope-cursor-a','scope-cursor-b'])$(id).addEventListener('input',updateScope);
+  $('scope-run').addEventListener('click',()=>setScopeRunning(!scope.running));
+  $('scope-single').addEventListener('click',()=>{
     setScopeRunning(false);
-    for (const [id, value] of Object.entries({
-      'scope-wave':'sine','scope-freq':'120','scope-amp':'2','scope-duty':'50','scope-noise':'0'
-    })) $(id).value = value;
-    scope.phase = 0;updateScope();
+    const good=scope.trigger==='off'||models.triggerPhase(scope,scope.trigger,scope.level)!==null;
+    scope.mode=good?'captured':'no-trigger';
+    drawScope();
+  });
+  $('scope-reset').addEventListener('click',()=>{
+    setScopeRunning(false);
+    for(const [id,value] of Object.entries({
+      'scope-wave':'sine','scope-freq':'120','scope-amp':'2','scope-duty':'50',
+      'scope-noise':'0','scope-msdiv':'2','scope-vdiv':'1','scope-trigger':'rising',
+      'scope-level':'0','scope-cursor-a':'25','scope-cursor-b':'75'
+    }))$(id).value=value;
+    scope.phase=0;scope.mode='hold';updateScope();
   });
 
-  // Module 02: direct forward kinematics for a generic three-link planar chain.
-  const lengths = [140, 110, 75];
-  function robotPoints(angles) {
-    let theta = 0, x = 0, y = 0;
-    const result = [[x, y]];
-    for (let i = 0; i < 3; i++) {
-      theta += deg(angles[i]);
-      x += lengths[i] * Math.cos(theta);
-      y += lengths[i] * Math.sin(theta);
-      result.push([x, y]);
-    }
-    return {points: result, x, y, theta: angles.reduce((a,b)=>a+b,0)};
+  // Phase 3: planar 3R forward/inverse kinematics. Not a UR3e model.
+  const lengths=[140,110,75];
+  const robot={trail:[],status:'Target ready. Select Solve target or drag the plot.',
+    statusType:'ready',dragging:false,solved:false};
+  const jointAngles=()=>[1,2,3].map(i=>num('robot-j'+i));
+  const getTarget=()=>({x:num('robot-target-x'),y:num('robot-target-y'),
+    phi:num('robot-target-phi')});
+  const readableAngle=v=>(Number(v.toFixed(1)).toString()+'°');
+  const currentPose=()=>models.forward3(jointAngles(),lengths);
+  function syncRobotControls(){
+    [1,2,3].forEach(i=>{$('robot-j'+i+'-out').textContent=readableAngle(num('robot-j'+i));});
+    const target=getTarget();
+    $('robot-target-x-out').textContent=target.x+' mm';
+    $('robot-target-y-out').textContent=target.y+' mm';
+    $('robot-target-phi-out').textContent=target.phi+'°';
+    $('robot-ik-status').textContent=robot.status;
+    $('robot-ik-status').dataset.state=robot.statusType;
   }
-  function drawRobot() {
-    const obj = configureCanvas('robot-canvas'); if (!obj) return;
-    const {ctx,w,h} = obj;
-    const a = [num('robot-j1'), num('robot-j2'), num('robot-j3')];
-    a.forEach((v,i) => $('robot-j'+(i+1)+'-out').textContent = v + '°');
-    const pos = robotPoints(a), g = screenGrid(ctx,w,h,18,13,18,14);
-    const scale = Math.min((w - 80) / 690, (h - 45) / 690);
-    const ox = w * .51, oy = h * .51;
-    const point = p => [ox + p[0] * scale, oy - p[1] * scale];
-    ctx.strokeStyle='#606a7b';ctx.lineWidth=1.5;ctx.beginPath();
-    ctx.moveTo(g.left,oy);ctx.lineTo(w-g.left,oy);ctx.moveTo(ox,g.top);ctx.lineTo(ox,h-g.top);ctx.stroke();
-    label(ctx,'+X',w-24,oy-13,'right');label(ctx,'+Y',ox+10,20,'left');
-    if ($('robot-envelope').checked) {
-      ctx.strokeStyle='#8b7997';ctx.lineWidth=1.3;ctx.setLineDash([7,5]);ctx.beginPath();
-      ctx.arc(ox,oy,lengths.reduce((a,b)=>a+b,0)*scale,0,TAU);ctx.stroke();ctx.setLineDash([]);
+  function trackTool(){
+    const pos=currentPose(),last=robot.trail[robot.trail.length-1];
+    if(!last||Math.hypot(pos.x-last[0],pos.y-last[1])>.3){
+      robot.trail.push([pos.x,pos.y]);
+      if(robot.trail.length>180)robot.trail.shift();
     }
-    const strokes = ['#e9a8cf','#85d9ce','#d5c3f7'];
-    for (let i=0;i<3;i++){
+  }
+  function drawRobot(){
+    const obj=configureCanvas('robot-canvas');if(!obj)return;
+    const {ctx,w,h}=obj,pos=currentPose(),target=getTarget();
+    const g=screenGrid(ctx,w,h,14,13,14,13);
+    const scale=Math.min((w-52)/690,(h-42)/690);
+    const ox=w*.5,oy=h*.51;
+    const point=p=>[ox+p[0]*scale,oy-p[1]*scale];
+    syncRobotControls();
+    const tx=point([target.x,target.y])[0],ty=point([target.x,target.y])[1];
+    ctx.strokeStyle='#657284';ctx.lineWidth=1.5;ctx.beginPath();
+    ctx.moveTo(g.left,oy);ctx.lineTo(w-g.left,oy);
+    ctx.moveTo(ox,g.top);ctx.lineTo(ox,h-g.top);ctx.stroke();
+    label(ctx,'+X',w-16,oy-12,'right');label(ctx,'+Y',ox+10,20);
+    if($('robot-envelope').checked){
+      ctx.strokeStyle='#8d7899';ctx.lineWidth=1.3;ctx.setLineDash([7,5]);
+      ctx.beginPath();ctx.arc(ox,oy,325*scale,0,TAU);ctx.stroke();ctx.setLineDash([]);
+    }
+    if($('robot-trail').checked&&robot.trail.length>1){
+      ctx.strokeStyle='#d8c7f2';ctx.lineWidth=1.5;ctx.setLineDash([3,4]);
+      ctx.beginPath();robot.trail.forEach((p,i)=>{
+        const [x,y]=point(p);if(!i)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      });ctx.stroke();ctx.setLineDash([]);
+    }
+    // World frame at base, then link frames (X along link; Y normal to link).
+    if($('robot-frames').checked){
+      let orientation=0;
+      const angles=jointAngles();
+      for(let i=0;i<=3;i++){
+        if(i)orientation+=deg(angles[i-1]);
+        const [jx,jy]=point(pos.points[i]),length=17,xx=Math.cos(orientation),xy=Math.sin(orientation);
+        ctx.lineWidth=1.8;
+        ctx.strokeStyle='#f4a8ae';ctx.beginPath();
+        ctx.moveTo(jx,jy);ctx.lineTo(jx+length*xx,jy-length*xy);ctx.stroke();
+        ctx.strokeStyle='#8bdccf';ctx.beginPath();
+        ctx.moveTo(jx,jy);ctx.lineTo(jx-length*xy,jy-length*xx);ctx.stroke();
+        label(ctx,'F'+i,clamp(jx+8,8,w-32),clamp(jy-11,11,h-8),'left','#cdd7e1');
+      }
+    }
+    const strokes=['#e9a8cf','#85d9ce','#d5c3f7'];
+    ctx.lineCap='round';ctx.lineJoin='round';
+    for(let i=0;i<3;i++){
       const [x1,y1]=point(pos.points[i]),[x2,y2]=point(pos.points[i+1]);
-      ctx.strokeStyle='#101821';ctx.lineWidth=12;ctx.lineCap='round';
-      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-      ctx.strokeStyle=strokes[i];ctx.lineWidth=7;
-      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-      ctx.fillStyle='#242a38';ctx.strokeStyle='#dce9e9';ctx.lineWidth=2;
-      ctx.beginPath();ctx.arc(x1,y1,7,0,TAU);ctx.fill();ctx.stroke();
+      ctx.strokeStyle='#101821';ctx.lineWidth=12;ctx.beginPath();
+      ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.strokeStyle=strokes[i];ctx.lineWidth=7;ctx.beginPath();
+      ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.fillStyle='#242a38';ctx.strokeStyle='#e4edec';ctx.lineWidth=2;ctx.beginPath();
+      ctx.arc(x1,y1,6.5,0,TAU);ctx.fill();ctx.stroke();
     }
-    const [tx,ty]=point(pos.points[3]);ctx.fillStyle='#bcebd9';ctx.strokeStyle='#1d252c';ctx.lineWidth=2;
-    ctx.beginPath();ctx.arc(tx,ty,8,0,TAU);ctx.fill();ctx.stroke();
-    const offset = deg(pos.theta), vx=Math.cos(offset), vy=-Math.sin(offset);
-    ctx.strokeStyle='#bcebd9';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(tx+vx*21,ty+vy*21);ctx.stroke();
-    ctx.fillStyle='#bcebd9';ctx.beginPath();ctx.arc(tx+vx*21,ty+vy*21,3,0,TAU);ctx.fill();
-    label(ctx,'TOOL',clamp(tx+12,12,w-50),clamp(ty-16,15,h-14),'left','#e4eee9');
-    label(ctx,'BASE',clamp(ox+11,15,w-80),clamp(oy+18,20,h-16),'left');
-    $('robot-read-x').textContent = fmt(pos.x,1)+' mm';
-    $('robot-read-y').textContent = fmt(pos.y,1)+' mm';
-    $('robot-read-angle').textContent = fmt(pos.theta,0)+'°';
+    const [ex,ey]=point(pos.points[3]);
+    ctx.fillStyle='#bcebd9';ctx.strokeStyle='#1d252c';ctx.lineWidth=2;ctx.beginPath();
+    ctx.arc(ex,ey,7.5,0,TAU);ctx.fill();ctx.stroke();
+    const rad=deg(pos.theta);ctx.strokeStyle='#bcebd9';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex+Math.cos(rad)*23,ey-Math.sin(rad)*23);ctx.stroke();
+    const error=Math.hypot(pos.x-target.x,pos.y-target.y);
+    // Target and wrist pose are distinct; a red target is an unsatisfied goal.
+    const targetColor=robot.solved&&error<2?'#9be6b7':'#f0bf83';
+    ctx.lineWidth=2;ctx.strokeStyle=targetColor;ctx.beginPath();
+    ctx.arc(tx,ty,9,0,TAU);ctx.moveTo(tx-14,ty);ctx.lineTo(tx+14,ty);
+    ctx.moveTo(tx,ty-14);ctx.lineTo(tx,ty+14);ctx.stroke();
+    label(ctx,'GOAL',clamp(tx+13,12,w-47),clamp(ty-18,15,h-14),'left',targetColor);
+    label(ctx,'TOOL',clamp(ex+12,12,w-50),clamp(ey+16,15,h-14),'left','#d8f2e9');
+    $('robot-read-x').textContent=fmt(pos.x,1)+' mm';
+    $('robot-read-y').textContent=fmt(pos.y,1)+' mm';
+    $('robot-read-angle').textContent=readableAngle(models.wrap180(pos.theta));
+    $('robot-read-error').textContent=fmt(error,1)+' mm';
   }
-  for(let i=1;i<=3;i++) $('robot-j'+i).addEventListener('input',()=>{if(active==='robot')drawRobot()});
-  $('robot-envelope').addEventListener('change',()=>{if(active==='robot')drawRobot()});
-  const poses = {extend:[0,0,0],fold:[120,-150,120],inspect:[25,-55,40]};
+  function setRobotStatus(message,type='ready'){
+    robot.status=message;robot.statusType=type;syncRobotControls();
+  }
+  function solveTarget(){
+    const goal=getTarget();
+    const answer=models.inverse3(goal,lengths,$('robot-elbow').value,170);
+    if(!answer.ok){
+      robot.solved=false;
+      setRobotStatus(answer.reason==='outside-reach'?
+        'Unreachable wrist position at this tool orientation. Change X, Y, or φ.':
+        'Joint limit: this elbow branch exceeds ±170°. Try the other branch or a new target.','error');
+      if(active==='robot')drawRobot();
+      return false;
+    }
+    answer.angles.forEach((value,i)=>{$('robot-j'+(i+1)).value=value.toFixed(1)});
+    trackTool();
+    const actual=currentPose(),error=Math.hypot(actual.x-goal.x,actual.y-goal.y);
+    robot.solved=true;
+    setRobotStatus('IK solved ('+$('robot-elbow').value+' branch). Position error '+
+      fmt(error,2)+' mm from 0.1° slider rounding.','success');
+    if(active==='robot')drawRobot();
+    return true;
+  }
+  function updateRobotGoal(){
+    robot.solved=false;
+    setRobotStatus('New target selected. Choose Solve target to update the joints.');
+    if(active==='robot')drawRobot();
+  }
+  [1,2,3].forEach(i=>$('robot-j'+i).addEventListener('input',()=>{
+    robot.solved=false;trackTool();
+    setRobotStatus('Manual joint adjustment. Solve target to fit the selected goal.');
+    if(active==='robot')drawRobot();
+  }));
+  for(const id of ['robot-target-x','robot-target-y','robot-target-phi','robot-elbow']){
+    $(id).addEventListener('input',updateRobotGoal);
+  }
+  for(const id of ['robot-envelope','robot-frames','robot-trail'])
+    $(id).addEventListener('change',()=>{if(active==='robot')drawRobot()});
+  const poses={extend:[0,0,0],fold:[120,-150,120],inspect:[25,-55,40]};
   document.querySelectorAll('[data-robot-preset]').forEach(b=>b.addEventListener('click',()=>{
-    poses[b.dataset.robotPreset].forEach((value,i)=>{ $('robot-j'+(i+1)).value = value; });
+    poses[b.dataset.robotPreset].forEach((value,i)=>{$('robot-j'+(i+1)).value=value});
+    robot.solved=false;trackTool();
+    setRobotStatus('Preset joint pose applied. Use target controls to solve a goal.');
     drawRobot();
   }));
+  $('robot-solve').addEventListener('click',solveTarget);
+  $('robot-clear-path').addEventListener('click',()=>{
+    robot.trail=[];trackTool();
+    if(active==='robot')drawRobot();
+  });
+  const robotCanvas=$('robot-canvas');
+  function setTargetFromPointer(event){
+    const bounds=robotCanvas.getBoundingClientRect(),w=bounds.width,h=bounds.height;
+    if(w<1||h<1)return;
+    const scale=Math.min((w-52)/690,(h-42)/690);
+    const x=(event.clientX-bounds.left-w*.5)/scale;
+    const y=(h*.51-(event.clientY-bounds.top))/scale;
+    $('robot-target-x').value=Math.round(clamp(x,-325,325));
+    $('robot-target-y').value=Math.round(clamp(y,-325,325));
+    solveTarget();
+  }
+  robotCanvas.addEventListener('pointerdown',event=>{
+    if(event.button!==0&&event.pointerType==='mouse')return;
+    robot.dragging=true;
+    if(robotCanvas.setPointerCapture)robotCanvas.setPointerCapture(event.pointerId);
+    setTargetFromPointer(event);event.preventDefault();
+  });
+  robotCanvas.addEventListener('pointermove',event=>{
+    if(!robot.dragging)return;
+    setTargetFromPointer(event);
+  });
+  for(const name of ['pointerup','pointercancel','lostpointercapture'])
+    robotCanvas.addEventListener(name,()=>{robot.dragging=false});
+  trackTool();
 
   // Module 03: browser-only RGB/DMX-style stage visualization.
   const scenes = {
