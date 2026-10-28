@@ -51,3 +51,30 @@
 
 .cv-pdf-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 15px;background:#6c354e;color:#fff!important;border-radius:8px;text-decoration:none!important;font-size:13px;font-weight:750}
 :root[data-theme="dark"] .cv-pdf-link{background:#65344c;color:#fff!important}
+
+/* Uploaded CV: preserve section structure, date columns and citation numbering. */
+.cv-source-version .cv-document-type{text-align:center;font-size:11px;font-weight:800;letter-spacing:.16em;margin:0 0 3px}
+.cv-source-version .cv-heading h1{font-family:var(--r-sans);font-weight:750;letter-spacing:.065em;font-size:clamp(27px,4.1vw,34px)}
+.cv-source-version .cv-subheading{font-family:var(--r-sans);font-size:13px;font-weight:750;letter-spacing:0;margin:10px 0 4px}
+.cv-source-version .cv-section ol{padding-left:23px;margin:4px 0 10px}
+.cv-source-version .cv-section ol li{padding-left:3px}
+.cv-source-version .cv-entry-header h3{overflow-wrap:anywhere}
+.cv-source-version .cv-section{break-inside:auto}
+.cv-source-version .cv-entry{break-inside:avoid-page}
+.cv-source-version .cv-heading .cv-contact{row-gap:3px}
+@media print{
+  @page{size:letter;margin:.5in .6in}
+  .cv-source-version .cv-heading h1{font:700 15pt Arial,sans-serif}
+  .cv-source-version .cv-document-type{font-size:8.5pt;letter-spacing:.12em}
+  .cv-source-version .cv-section{margin-top:11px}
+  .cv-source-version .cv-section h2{margin-bottom:5px;font-size:9.1pt}
+  .cv-source-version .cv-section :is(p,li){font-size:8.35pt;line-height:1.32}
+  .cv-source-version .cv-entry{margin-bottom:7px}
+  .cv-source-version .cv-entry h3{font-size:8.7pt}
+  .cv-source-version .cv-entry-date,.cv-source-version .cv-meta{font-size:7.9pt!important}
+  .cv-source-version .cv-subheading{font-size:8.4pt;margin:8px 0 2px}
+  .cv-source-version .cv-heading{padding-bottom:8px;margin-bottom:8px}
+  .cv-source-version .cv-section ul{margin-top:3px}
+  .cv-source-version .cv-section li{margin:2px 0}
+  .cv-source-version .cv-note{font-size:7.7pt!important}
+}
