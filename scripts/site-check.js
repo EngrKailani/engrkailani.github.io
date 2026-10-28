@@ -401,7 +401,7 @@ check(['case-iverify','case-controls'].every(id=>home.includes('id="'+id+'"')),
 check(home.indexOf('id="case-explorer"') < home.indexOf('id="case-iverify"'),
   'Legacy case-study anchors should follow the interactive explorer heading');
 check((home.match(/class="technical-dossier(?: nasa-dossier)?"/g)||[]).length===0,
-  'Do not repeat three full technical dossiers beneath the interactive explorer');
+  'Do not repeat two full technical dossiers beneath the interactive explorer');
 check(!home.includes('The full case studies are preserved below.'),
   'Interactive explorer should link to full project pages, not duplicate content below');
 check(['iverify','controls'].every(project=>
@@ -425,7 +425,7 @@ check(explorerSyntaxValid,'Case explorer JavaScript must parse');
 check(home.includes('id="robot-3d-canvas"'),'3D viewer missing');
 check(home.includes('id="theme-toggle"'),'Theme toggle missing');
 check(home.includes('data-robot-view="3d"'),'Robot view picker missing');
-check((directory.match(/data-gallery-category=/g)||[]).length===15,'16 categorized gallery cards required');
+check((directory.match(/data-gallery-category=/g)||[]).length===15,'15 categorized gallery cards required');
 check(fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(domain),'robots.txt wrong host');
 check(fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').includes(domain),'sitemap.xml wrong host');
 
@@ -575,7 +575,7 @@ check(home.includes('<dialog id="project-book-dialog"') &&
   home.includes('<select id="book-switch-select"') &&
   home.includes('class="bookshelf-index-link"') &&
   home.includes('class="book-switcher__directory"'),
-  'Book reader, direct 16-project chooser, and controls must all exist');
+  'Book reader, direct 15-project chooser, and controls must all exist');
 check(fs.readFileSync(path.join(root,'bookshelf.js'),'utf8').includes("bookSwitchSelect?.addEventListener('change'") &&
   fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.book-switcher__heading'),
   'Direct chooser must be interactive and visibly styled');
