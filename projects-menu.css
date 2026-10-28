@@ -1,5 +1,5 @@
 /* Scoped, accessible Projects dropdown in the original homepage navigation.
-   All sixteen links work as regular anchors even when JavaScript is disabled. */
+   All fifteen links work as regular anchors even when JavaScript is disabled. */
 #nav-links .nav-projects{position:relative;flex:0 0 auto;align-self:center;min-width:0}
 #nav-links .nav-projects>summary{display:flex;align-items:center;gap:7px;min-height:44px;padding:9px 2px;cursor:pointer;list-style:none;color:#4e414e;font:650 12px/1.5 var(--sans,Arial,sans-serif);white-space:nowrap;user-select:none}
 #nav-links .nav-projects>summary::-webkit-details-marker{display:none}
