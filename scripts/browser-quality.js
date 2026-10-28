@@ -16,6 +16,7 @@ const cases=[
   {path:'/',width:390,theme:'dark',screenshot:true},
   {path:'/',width:1440,theme:'dark'},
   {path:'/workbench.html',width:1440,theme:'light',screenshot:true},
+  {path:'/workbench.html',width:320,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'dark'},
   {path:'/projects/iverify.html',width:390,theme:'light'},
@@ -85,6 +86,25 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/workbench.html' && test.width===320 && test.theme==='light'){
+          for(const target of ['scope','robot','lights','thermal']){
+            const tab=page.locator('#wb-tab-'+target);
+            await tab.click();
+            if(await tab.getAttribute('aria-selected')!=='true' ||
+               !await page.locator('#wb-panel-'+target).isVisible())
+              note(id+': workbench instrument did not open: '+target);
+          }
+          await page.locator('#wb-tab-scope').focus();
+          await page.keyboard.press('ArrowRight');
+          if(await page.locator('#wb-tab-robot').getAttribute('aria-selected')!=='true')
+            note(id+': workbench keyboard tab navigation failed');
+          await page.locator('#wb-tab-lights').click();
+          await page.locator('#lights-scene').selectOption('blackout');
+          if((await page.locator('#lights-read-dim').textContent()||'').trim()!=='0%')
+            note(id+': lighting blackout failed');
+          if(!await page.locator('#wb-theme').isVisible())
+            note(id+': workbench color scheme control missing on narrow screens');
+        }
         if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
           await page.goto(origin+'/projects/index.html?area=robotics',{waitUntil:'load'});
           if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 2 of 15 engineering projects')
@@ -236,7 +256,7 @@ async function audit(){
               await page.locator('#book-next').click();
               const second=(await page.locator('#book-modal-title').textContent()||'').trim();
               if(second!=='3-Link Leg Simulation')note(id+': next-book control failed: '+second);
-              if(await select.inputValue()!=='ur3e')
+              if(await select.inputValue()!=='leg')
                 note(id+': switcher not updated after Next');
               await select.selectOption('powershell');
               if((await page.locator('#book-modal-title').textContent()||'').trim()!=='PowerShell Systems & Concurrency')
