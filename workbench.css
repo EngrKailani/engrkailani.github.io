@@ -31,7 +31,7 @@ body.wb-page{margin:0;background:var(--wb-bg);color:var(--wb-ink);font:400 15px/
 .wb-brand span{color:var(--wb-rose)}
 .wb-nav-links{display:flex;align-items:center;gap:23px;font-weight:700;font-size:12px}
 .wb-nav-links a:hover{color:var(--wb-rose)}
-.wb-theme{border:1px solid var(--wb-line);background:var(--wb-paper);color:var(--wb-ink);border-radius:999px;padding:7px 13px;font-size:12px}
+.wb-theme{min-height:44px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--wb-line);background:var(--wb-paper);color:var(--wb-ink);border-radius:999px;padding:7px 13px;font-size:12px}
 .wb-theme:hover{background:var(--wb-tint)}
 .wb-breadcrumb{display:flex;align-items:center;gap:9px;padding-top:27px;font-size:12px;font-weight:700;color:var(--wb-muted)}
 .wb-breadcrumb a{text-decoration:underline;text-underline-offset:3px;color:var(--wb-rose)}
@@ -87,17 +87,17 @@ body.wb-page{margin:0;background:var(--wb-bg);color:var(--wb-ink);font:400 15px/
 .wb-control-title{display:flex;justify-content:space-between;gap:8px;align-items:center;padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid var(--wb-line)}
 .wb-control-title strong{font-size:14px}
 .wb-control-title span{font:750 10px var(--wb-sans);color:var(--wb-rose);letter-spacing:.06em;white-space:nowrap}
-.wb-field{display:block;margin:0 0 19px;color:var(--wb-ink);font-size:12px;font-weight:700}
+.wb-field{display:block;margin:0 0 19px;color:var(--wb-ink);font-size:13px;font-weight:700}
 .wb-field>span{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
 .wb-field output{font-size:12px;color:var(--wb-rose);font-weight:800;font-variant-numeric:tabular-nums}
 .wb-field input[type="range"]{width:100%;display:block;accent-color:#ae628a;cursor:pointer;height:22px;margin:0}
-.wb-field select{display:block;width:100%;min-height:42px;padding:8px 12px;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-paper);color:var(--wb-ink);font-size:13px}
+.wb-field select{display:block;width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-paper);color:var(--wb-ink);font-size:13px}
 .wb-control-actions,.wb-preset-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.wb-small-button{min-height:41px;background:#904461;border:1px solid #904461;border-radius:9px;color:white;padding:9px 14px;font-size:12px;font-weight:800;flex:1}
+.wb-small-button{min-height:44px;background:#904461;border:1px solid #904461;border-radius:9px;color:white;padding:9px 14px;font-size:12px;font-weight:800;flex:1}
 .wb-small-button:hover{filter:brightness(1.13)}
 .wb-small-button-light{background:var(--wb-paper);border-color:var(--wb-line);color:var(--wb-ink)}
 .wb-control-note{font-size:11px;line-height:1.75;color:var(--wb-muted);margin:21px 0 0;padding-top:15px;border-top:1px solid var(--wb-line)}
-.wb-check{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:650;cursor:pointer}
+.wb-check{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:650;cursor:pointer}
 .wb-check input{width:16px;height:16px;accent-color:#904461}
 .wb-controls>.wb-check{margin-top:10px}
 .wb-project-link{display:flex;align-items:center;gap:9px 17px;flex-wrap:wrap;border-top:1px solid var(--wb-line);padding-top:22px;margin-top:25px;color:var(--wb-muted);font-size:12px;font-weight:700}
@@ -131,3 +131,26 @@ body.wb-page{margin:0;background:var(--wb-bg);color:var(--wb-ink);font:400 15px/
 @media(max-width:540px){.wb-container{width:min(100% - 28px,1180px)}.wb-header .wb-nav{height:auto;min-height:72px;flex-wrap:wrap;gap:10px;padding-block:11px}.wb-nav-links{gap:13px;flex-wrap:wrap}.wb-nav-links a{font-size:11px}.wb-theme{padding:5px 8px;font-size:11px}.wb-theme span{display:none}.wb-breadcrumb{padding-top:18px}.wb-intro{padding:30px 0}.wb-intro h1{font-size:clamp(44px,10vw,61px)}.wb-intro-graphic{max-width:none}.wb-instruments{padding-top:45px}.wb-tab{min-height:95px;padding:12px}.wb-tab strong{font-size:20px}.wb-tab>span:last-child{font-size:11px}.wb-panel{padding:14px}.wb-mode-label{white-space:normal}.wb-screen-bar,.wb-screen-foot{padding:10px;font-size:9px}.wb-instrument-screen canvas{height:250px}.wb-readouts{gap:6px}.wb-readouts>div{padding:10px 9px}.wb-readouts span{font-size:10px}.wb-readouts strong{font-size:15px}.wb-channel-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}.wb-light-stage{height:300px}.wb-fixture-row{inset-inline:8px;gap:2px}.wb-footer-inner{padding:20px 0;flex-wrap:wrap}.wb-method{padding-bottom:60px}}
 @media(max-width:350px){.wb-nav-links{gap:8px}.wb-tab strong{font-size:18px}.wb-tab-number{font-size:9px}.wb-light-readouts strong{font-size:13px}.wb-fixture-head{width:28px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.wb-tab,.wb-fixture-beam,.wb-fixture-pool{transition:none}}
+
+/* Comfortable narrow-phone controls without changing the large-screen visual hierarchy. */
+@media(max-width:540px){
+  html{scroll-padding-top:140px}
+  .wb-nav-links{width:100%;justify-content:space-between;gap:8px 10px}
+  .wb-nav-links a{min-height:40px;display:inline-flex;align-items:center;font-size:12px}
+  .wb-tab-number,.wb-tab>span:last-child{font-size:11px}
+  .wb-tab{min-height:106px}
+  .wb-screen-bar,.wb-screen-foot{font-size:10px;letter-spacing:.035em}
+  .wb-stage-top,.wb-stage-bottom{font-size:11px;letter-spacing:.035em}
+  .wb-mode-label{font-size:11px}
+  .wb-readouts span,.wb-channel-readouts span:not(.wb-temp-dot){font-size:11px}
+  .wb-field output{font-size:13px}
+  .wb-fixture-number{font-size:11px}
+  .wb-button,.wb-small-button{min-height:44px}
+}
+@media(max-width:360px){
+  .wb-nav{align-items:start}
+  .wb-nav-links{row-gap:3px}
+  .wb-tab{padding:11px}
+  .wb-controls{padding:15px}
+  .wb-panel-heading h3{font-size:30px}
+}
