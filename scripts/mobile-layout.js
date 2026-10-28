@@ -11,6 +11,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
     {url:'/', width:844, height:390},
     ...[320,390,768].map(width => ({url:'/workbench.html', width, height:740})),
     ...[320,390,768].map(width => ({url:'/research.html', width, height:740})),
+    ...[320,390,768].map(width => ({url:'/academic-cv.html', width, height:740})),
     ...['/resume.html', ...pages].map(url => ({url, width:320, height:740}))
   ];
   for (const test of cases) {
