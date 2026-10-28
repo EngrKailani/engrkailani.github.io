@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fcfaf8">
+<link rel="canonical" href="https://engrkailani.github.io/projects/nasa.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta name="description" content="Robotic-systems engineering for lunar-dust testing in a high-vacuum environment. Project summary, methods, tools, and design approach.">
+<meta property="og:type" content="article"><meta property="og:title" content="NASA Robotic-Arm Assessment | Kailani Alarcon">
+<meta property="og:description" content="Robotic systems engineering for lunar-dust testing in a high-vacuum environment"><meta property="og:url" content="https://engrkailani.github.io/projects/nasa.html">
+<title>NASA Robotic-Arm Assessment | Kailani Alarcon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="../portfolio.css?v=20261011-14">
+<link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
+<link rel="stylesheet" href="project-photo-context.css?v=20261012">
+<link rel="stylesheet" href="case-study-summary.css?v=20261027-phase2">
+<link rel="stylesheet" href="nasa-figures.css?v=20261013-large-disclaimer">
+<meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
+<meta property="og:image:alt" content="Kailani at NASA Marshall Space Flight Center">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
+<script src="../portfolio-upgrade.js?v=20261011-readability" defer></script>
+<link rel="stylesheet" href="../homepage-refinement.css?v=20261027-audit2">
+</head>
+<body class="project-page featured-case">
+<a class="skip-link" href="#project-main">Skip to project details</a>
+<header class="detail-navigation"><nav class="detail-nav-inner" aria-label="Project navigation">
+<a class="detail-home" href="../index.html">kailani.</a>
+<div class="detail-nav-actions">
+<a href="index.html">All 16 projects</a><a href="../index.html#case-studies">Case studies</a><a href="../academic-cv.html">Academic CV</a><a href="../index.html#bookshelf">Interactive bookshelf</a><a href="../assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2">Resume PDF</a>
+</div></nav></header>
+<main class="project-paper" id="project-main" tabindex="-1"><div class="detail-container">
+<header class="detail-heading">
+<p class="eyebrow">NASA MARSHALL · OSTEM · 2026 · INDEPENDENT ENGINEERING ASSESSMENT</p><h1>NASA Robotic-Arm Assessment</h1><p>Connecting robotic motion, actuation, thermal behavior, and verification planning for lunar-dust testing.</p>
+</header>
+<aside class="nasa-disclaimer" aria-label="NASA affiliation disclaimer">
+  <span class="nasa-disclaimer__eyebrow">IMPORTANT AFFILIATION DISCLAIMER</span>
+  <h2>Personal portfolio. Not an official NASA publication.</h2>
+  <p>I am not an official representative or spokesperson for NASA. This is an independently written portfolio summary of my own internship work, conducted with NASA mentor oversight; the descriptions, interpretations, analyses, and illustrative graphics are not official NASA publications.</p>
+  <p>Nothing on this page should be interpreted as an official NASA statement, technical specification, endorsement, representation of agency capabilities, or description of the performance or status of any NASA program, system, hardware, mission, or organization.</p>
+</aside>
+<section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Evaluate a robotic-arm concept for chamber access, actuator suitability, and high-vacuum operation.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Independently evaluated arm geometry, joint travel, reachable workspace, loading, actuator suitability, preliminary controls, and verification planning under NASA mentor oversight.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Creo, Python, ROS 2, MuJoCo, actuator load calculations, Pololu Micro Maestro 6, and structured system requirements.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed workspace, actuator loading, thermal behavior, and planned operating scenarios against system requirements.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Developed 34 hierarchical requirements from six operating scenarios, calculated an estimated 3.1 N·m shoulder self-load moment for one horizontal configuration, and identified further actuator-loading and vacuum verification needs.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>The estimated 3.1 N·m shoulder moment excludes rocker and actuator masses, so it is not an actuator-selection result. No project-specific design drawings, calibration data, vacuum qualification or validated operation are presented.</p></div></div></section>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical context</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#project-results">Assessment status</a><a href="#project-evidence">Evidence</a></nav>
+
+<section class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
+  <header class="nasa-figures__intro">
+    <p class="nasa-figures__eyebrow">TECHNICAL CONTEXT</p>
+    <h2 id="nasa-figures-title">Engineering workstreams</h2>
+    <p>This public portfolio page presents the project at a general level. The visuals below use intentionally generic robotic-arm representations and do not reproduce project-specific dimensions, link lengths, joint locations, chamber geometry, or mechanical configuration. They are illustrative portfolio graphics, not official NASA engineering drawings, solver outputs, or qualification results.</p>
+  </header>
+  <figure class="nasa-figure" id="nasa-fig-01">
+    <div class="nasa-figure__top"><span>ROBOTIC-ARM CONCEPT</span><span>GENERIC · NOT TO SCALE</span></div>
+    <img src="nasa-figures/robotic-arm-geometry.svg?v=20261013-no-numbers" alt="Generic reconstructed illustration of a ceiling-mounted robotic arm inside an enclosure, with no project-specific dimensions shown." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Robotic-arm concept.</strong> This reconstructed illustration is intentionally generic and not to scale. It does not represent project-specific dimensions, proportions, hardware configuration, or validated NASA CAD.</figcaption>
+  </figure>
+  <figure class="nasa-figure" id="nasa-fig-thermal">
+    <div class="nasa-figure__top"><span>THERMAL MODELING</span><span>QUALITATIVE RECONSTRUCTION</span></div>
+    <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project-specific geometry or measurements." width="1200" height="760" loading="lazy" decoding="async">
+    <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration using a generic arm silhouette. The geometry, proportions, and joint placement are illustrative only and do not represent the project hardware. The colors are explanatory only and do not represent measured or qualified thermal performance.</figcaption>
+  </figure>
+</section>
+
+<article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>Estimated a 3.1 N·m shoulder self-load moment for a horizontal configuration; the calculation excludes rocker and actuator masses. The remaining center-of-gravity and joint-loading work must be completed before determining actuator adequacy. Project-specific geometry remains outside this public summary.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
+<h2 id="nasa-workstreams-title">Implementation and verification scope</h2>
+<div class="nasa-workstreams__grid">
+<section id="nasa-controls"><h3>Control &amp; calibration</h3><p>Developed preliminary control software and atmospheric bench-test procedures for the existing Pololu Micro Maestro 6-channel controller, while documenting further verification needs for replacement vacuum-compatible actuators. ROS 2 and MuJoCo were used in control/simulation development.</p></section>
+<section id="nasa-thermal"><h3>Thermal modeling</h3><p>Used Thermal Desktop for steady-state and transient analysis relevant to high-vacuum operation. The public visual illustrates the workstream qualitatively and is not a solver output.</p></section>
+<section id="nasa-requirements"><h3>Requirements &amp; constraints</h3><p>Developed 34 hierarchical requirements from six operating scenarios addressing manipulation, high-vacuum compatibility, workspace constraints, emergency shutdown and verification. These requirements describe planned engineering work, not completed qualifications.</p></section>
+<section id="nasa-verification"><h3>Verification planning</h3><p>Connected planned verification activities to system requirements and operating scenarios to support future testing and qualification work.</p></section>
+</div>
+</section><div id="project-results" class="detail-results"><h2>Assessment status</h2><p>The assessment identified areas for continued engineering review across actuator capability, mechanical packaging, controls, thermal behavior, and high-vacuum operation. These are design and analytical findings rather than completed acceptance or qualification tests.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Validate actuator assumptions, refine the mechanical and control design, characterize calibration performance, and complete thermal and vacuum verification against the project requirements.</p></div></article>
+
+<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>This page summarizes the engineering methods and general project work that can be shared publicly. Detailed NASA source data, project-specific dimensions, link lengths, joint locations, mechanical configuration, quantitative performance margins, calibration results, and completed qualification results are not public here. Any robotic-arm geometry shown on this page is intentionally generic and illustrative.</p></section>
+<aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=nasa%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2" target="_blank" rel="noopener noreferrer">View résumé ↗</a></div></aside>
+<nav class="detail-footer" aria-label="Adjacent projects">
+<a class="detail-home-link" href="powershell.html">← PowerShell Systems &amp; Concurrency</a>
+<span aria-hidden="true"> · </span>
+<a class="detail-home-link" href="ur3e.html">UR3e Robot Kinematics →</a>
+</nav></div></main>
+<footer class="footer"><div class="container footer-inner"><span class="footer-logo">kailani<span>.</span></span><p>Engineering work and project evidence · © 2026</p><a href="../index.html">Return home ↑</a></div></footer>
+</body></html>
