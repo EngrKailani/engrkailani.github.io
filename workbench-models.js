@@ -40,6 +40,9 @@
       const crosses=edge==='rising'?(prev<level&&next>=level):
         (prev>level&&next<=level);
       if(crosses){
+        // A square/PWM edge is discontinuous: report the boundary sample,
+        // rather than interpolating a fictitious voltage ramp across the jump.
+        if(cfg.wave==='square'||cfg.wave==='pwm')return phase%1;
         const denom=next-prev;
         const alpha=Math.abs(denom)<1e-12?0:(level-prev)/denom;
         return (((i-1+Math.max(0,Math.min(1,alpha)))/steps)%1+1)%1;
