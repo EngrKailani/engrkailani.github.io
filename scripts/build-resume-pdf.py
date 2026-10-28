@@ -92,6 +92,8 @@ assert required_links.issubset(link_targets), (
     "Missing contact links: "+repr(required_links-link_targets)
 )
 assert "GitHub: EngrKailani" in check[0].get_text()
+assert "2 technical white papers" in check[0].get_text()
+assert "3 technical white papers" not in check[0].get_text()
 
 assert len(check[0].get_links())==3, "Expected exactly three embedded contact links"
 
