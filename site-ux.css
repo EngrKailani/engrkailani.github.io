@@ -43,3 +43,26 @@
 }
 @media(max-width:350px){.work-pathways__grid{grid-template-columns:1fr}.work-pathways__item{min-height:68px}}
 @media(prefers-reduced-motion:reduce){.work-pathways__item{transition:none}}
+
+
+/* Engineering workbench preview. Scoped to avoid affecting project cards. */
+.home-lab-spotlight{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:clamp(20px,4vw,62px);border:1px solid var(--border,#e9dce0);border-radius:20px;background:var(--paper,#fff);padding:clamp(22px,3vw,39px);margin-bottom:36px;box-shadow:0 13px 36px #6142550c}
+.home-lab-copy h2{font-size:clamp(29px,3.4vw,44px);line-height:1.22;margin:0 0 15px}
+.home-lab-copy>p:not(.eyebrow){max-width:510px;color:var(--secondary,#665462);font-size:13px;line-height:1.85;margin:0 0 18px}
+.home-lab-copy .btn{margin-bottom:14px}
+.home-lab-copy .home-lab-disclosure{font-size:11px!important;line-height:1.6!important;margin:0!important}
+.home-lab-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border-radius:13px;background:#251e2e;padding:14px}
+.home-lab-mini{display:flex;flex-direction:column;justify-content:space-between;gap:9px;background:#352a3f;border:1px solid #51425e;border-radius:10px;min-width:0;min-height:123px;padding:13px;color:#f4e5f1}
+.home-lab-mini>span{font:750 9px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.11em;color:#d5b9d0}
+.home-lab-mini svg{height:42px;width:100%;display:block}
+.home-lab-mini strong{font:750 12px/1.4 var(--sans,Arial,sans-serif)}
+.home-lab-lights{display:flex;gap:8px;align-items:end;justify-content:space-evenly;min-height:42px}
+.home-lab-lights i{height:34px;width:16%;background:linear-gradient(180deg,#b772ed70,#a66ee8);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);filter:drop-shadow(0 0 6px #a66ee8)}
+.home-lab-lights i:nth-child(2){background:linear-gradient(180deg,#83dbd070,#83dbd0)}
+.home-lab-lights i:nth-child(3){background:linear-gradient(180deg,#f3b07f70,#f3b07f)}
+.home-lab-lights i:nth-child(4){background:linear-gradient(180deg,#f6c0db70,#f6c0db)}
+:root[data-theme="dark"] .home-lab-spotlight{background:#27212d;border-color:#5c4b5e}
+:root[data-theme="dark"] .home-lab-copy>p:not(.eyebrow){color:#e3cfde}
+@media(max-width:830px){.home-lab-spotlight{grid-template-columns:1fr;gap:21px}.home-lab-preview{max-width:600px}}
+@media(max-width:540px){.home-lab-spotlight{padding:16px;margin-bottom:20px}.home-lab-preview{padding:9px;gap:7px}.home-lab-mini{padding:10px;min-height:105px}.home-lab-mini>span{font-size:8px}.home-lab-mini strong{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.home-lab-spotlight .btn{transition:none}}
