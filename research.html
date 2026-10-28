@@ -36,6 +36,7 @@
       <a href="workbench.html">Workbench</a>
       <a href="research.html" aria-current="page">Research</a>
       <a href="resume.html">Résumé</a>
+      <a href="academic-cv.html">Academic CV</a>
       <button class="research-theme" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾ Dark mode</button>
     </div>
   </nav>
@@ -59,13 +60,13 @@
     </div>
   </section>
   <div class="research-disclosure" role="note"><strong>Evidence and status.</strong> Research directions below are interests, not claims of completed doctoral research. Linked projects are engineering case studies, not peer-reviewed papers. Two professional technical white papers are counted separately and are not hosted or represented as public publications.</div>
-  <nav class="research-jumps" aria-label="Research page sections"><strong>ON THIS PAGE</strong><a href="#directions">Research interests</a><a href="#investigations">Documented investigations</a><a href="#writing">Publications &amp; writing</a></nav>
+  <nav class="research-jumps" aria-label="Research page sections"><strong>ON THIS PAGE</strong><a href="#directions">Research interests</a><a href="#questions">Research questions</a><a href="#investigations">Documented investigations</a><a href="#writing">Publications &amp; writing</a></nav>
 
   <section id="directions" class="research-section" aria-labelledby="directions-title">
     <div class="research-section-heading">
       <p class="research-eyebrow">01 / RESEARCH INTERESTS</p>
       <h2 id="directions-title">Problems I want to <em>investigate.</em></h2>
-      <p>These are prospective directions for graduate research rather than descriptions of awarded research projects.</p>
+      <p>These are prospective directions for graduate research, not claims of completed doctoral investigations. The proposed tests below are research plans, not experimental findings.</p>
     </div>
     <div class="research-theme-grid">
       <article class="research-theme-card"><span class="research-card-index">DIRECTION / 01</span><h3>Space robotic manipulation</h3><p>Dexterous arms, kinematic planning, and operational robustness for exploration tasks such as handling tools and interacting with uncertain surfaces.</p></article>
@@ -74,9 +75,38 @@
     </div>
   </section>
 
+  <section id="questions" class="research-section research-questions-section" aria-labelledby="questions-title">
+    <div class="research-section-heading">
+      <p class="research-eyebrow">02 / PROPOSED RESEARCH QUESTIONS</p>
+      <h2 id="questions-title">Questions with <em>measurable outcomes.</em></h2>
+      <p>The following are candidate research directions for graduate study. No experiments or results are claimed; simulation models, scenarios and baselines would need to be developed and validated.</p>
+    </div>
+    <div class="research-questions-grid">
+      <article class="research-question">
+        <span class="research-card-index">QUESTION / MANIPULATION</span>
+        <h3>How does modeling error affect robotic manipulation accuracy?</h3>
+        <p>Compare nominal and uncertainty-aware kinematic models under controlled link-length, encoder-offset, and joint-backlash perturbations. Begin with simulation and validate with hardware only if an appropriate test system becomes available.</p>
+        <div class="research-question-metrics"><strong>Candidate measures</strong><span>Tool-position error (mm), orientation error (°), reachability, solver success rate</span></div>
+      </article>
+      <article class="research-question">
+        <span class="research-card-index">QUESTION / HUMAN–ROBOT OPERATIONS</span>
+        <h3>When should a robot ask an astronaut for assistance?</h3>
+        <p>Compare supervised and autonomy-first approaches for representative lunar or planetary tool-handling tasks, focusing on useful operator intervention rather than assuming fully independent operation.</p>
+        <div class="research-question-metrics"><strong>Candidate measures</strong><span>Task completion, operator interventions, response time, collision or constraint violations</span></div>
+      </article>
+      <article class="research-question">
+        <span class="research-card-index">QUESTION / SENSING &amp; VERIFICATION</span>
+        <h3>How robust is robot control when sensing becomes incomplete?</h3>
+        <p>Introduce known delays, drift, intermittent samples, and noisy feedback in a repeatable simulation and compare controller responses against a documented nominal baseline.</p>
+        <div class="research-question-metrics"><strong>Candidate measures</strong><span>Tracking RMS error, settling time, recovery rate, constraint violations</span></div>
+      </article>
+    </div>
+    <p class="research-questions-caveat">Methodological intent: define baseline tasks and operating assumptions first, report uncertainty and failure cases, and distinguish synthetic evidence from instrumented tests.</p>
+  </section>
+
   <section id="investigations" class="research-section" aria-labelledby="investigations-title">
     <div class="research-section-heading">
-      <p class="research-eyebrow">02 / ENGINEERING EVIDENCE</p>
+      <p class="research-eyebrow">03 / ENGINEERING EVIDENCE</p>
       <h2 id="investigations-title">Documented <em>investigations.</em></h2>
       <p>Selected project work that illustrates experimental methods, modeling, and evidence-based conclusions. The linked case studies provide team context and limits on what can be claimed.</p>
     </div>
@@ -110,7 +140,7 @@
 
   <section id="writing" class="research-section" aria-labelledby="writing-title">
     <div class="research-section-heading">
-      <p class="research-eyebrow">03 / PUBLICATION RECORD</p>
+      <p class="research-eyebrow">04 / PUBLICATION RECORD</p>
       <h2 id="writing-title">Technical writing &amp; <em>publications.</em></h2>
       <p>Clear distinctions between internal reports, public project documentation, and externally reviewed scholarly publications.</p>
     </div>
@@ -124,7 +154,7 @@
       <article class="research-writing-card">
         <span class="research-status">PUBLICATIONS STATUS · OCTOBER 2026</span>
         <h3>Scholarly publication record</h3>
-        <p>No peer-reviewed journal or conference publications are claimed on this page. The publicly accessible evidence currently consists of engineering project case studies and educational simulations.</p>
+        <p>No peer-reviewed journal or conference publications are claimed on this page. The publicly accessible evidence currently consists of engineering project case studies and educational simulations. <a href="academic-cv.html">An academic CV</a> lists research-relevant experience and technical writing separately.</p>
         <ul>
           <li><a href="projects/index.html">Explore the 15 project case studies</a></li>
           <li><a href="workbench.html">Try the browser-only engineering workbench</a></li>
