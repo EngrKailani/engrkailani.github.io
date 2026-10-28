@@ -61,6 +61,21 @@ const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
 
 /* Phase 4: research-page evidence status, navigation and publication accuracy. */
 const research=fs.readFileSync(path.join(root,'research.html'),'utf8');
+
+const reservedWebP=[
+  ['nasa-mission-training-complex-home.webp',360,480],
+  ['cleanroom-suit-home.webp',280,373],
+  ['graduation-flowers-home.webp',340,453],
+  ['Arm-home.webp',480,360],
+  ['space-helmet-home.webp',340,453]
+];
+for(const [name,width,height] of reservedWebP){
+  const tag=[...home.matchAll(/<img\b[^>]*>/g)].map(m=>m[0]).find(x=>x.includes('src="assets/'+name+'"'));
+  check(!!tag && tag.includes('width="'+width+'"') && tag.includes('height="'+height+'"') &&
+    tag.includes('loading="lazy"') && tag.includes('decoding="async"'),
+    'Below-the-fold image must reserve intrinsic size and load lazily: '+name);
+}
+
 const researchCSS=fs.readFileSync(path.join(root,'research.css'),'utf8');
 const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
 const researchIds=[...research.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
