@@ -524,7 +524,7 @@ const robotDockCss=fs.readFileSync(path.join(root,'robot-control-dock.css'),'utf
 const robotViewJs=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
 const robot3dJs=fs.readFileSync(path.join(root,'robot-3d.js'),'utf8');
 const robotSection=home.slice(home.indexOf('<section class="section robot-section"'),
-  home.indexOf('<section class="section skills-section"'));
+  home.indexOf('<section class="section work-section"'));
 const dock=robotSection.indexOf('class="robot-controls-dock"');
 check(home.includes('robot-control-dock.css'),
   'Robot mode design should load the shared controls stylesheet');
