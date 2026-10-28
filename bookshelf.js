@@ -5,16 +5,6 @@
   // Portfolio stories reflect the project descriptions already presented on the site.
   const books = [
     {
-      id: 'nasa', title: 'Robotics for Another World', edition: 'NASA · 2026 · Robotics',
-      subtitle: 'Lunar-dust testing in a high-vacuum environment',
-      story: 'At NASA Marshall Space Flight Center, I worked on a legacy robotic arm for lunar-dust mitigation testing. Within that project I used ROS2 to control and calibrate the arm and Thermal Desktop for both steady-state and transient thermal analysis of the arm in high vacuum. The wider assessment connected workspace geometry, actuator constraints, and verification planning.',
-      challenge: 'Evaluate whether a robotic arm could meet test-surface access and chamber constraints.',
-      approach: 'Use ROS2 for robotic-arm control and calibration, Thermal Desktop for steady-state and transient thermal analysis in high vacuum, and workspace/actuator analysis to organize planned verification across six operational scenarios and 34 system requirements.',
-      tools: 'ROS2 (arm control and calibration), Thermal Desktop (steady-state and transient high-vacuum thermal analysis), Creo, robotics, systems engineering, verification planning.',
-      outcome: 'Integrated control/calibration and thermal modeling into the requirements-led evaluation of a high-vacuum robotic-arm application. The 34 requirements and six scenarios describe assessment scope, not completed vacuum qualification or proven thermal margins.',
-      link: 'projects/nasa.html', action: 'Read the complete project page'
-    },
-    {
       id: 'ur3e', title: 'UR3e Robot Kinematics', edition: 'ME422 · Spring 2026 · Group study',
       subtitle: 'Modeling six degrees of freedom with Jacobians',
       story: 'In a three-person robotics analysis project, our team studied the Universal Robots UR3e, a six-joint collaborative arm. We assigned Denavit–Hartenberg frames and derived the transformations that describe how each joint contributes to the end-effector pose. The project connected the mathematics of robot motion to an industrial manipulator.',
@@ -392,7 +382,7 @@
     if (index >= 0) beginOpening(index, button);
   }));
 
-  // Open the featured NASA case study directly while retaining a working
+  // Open a featured case study directly while retaining a working
   // hash destination if JavaScript is unavailable.
   document.querySelectorAll('[data-open-feature-book]').forEach(link => {
     link.addEventListener('click', event => {
