@@ -1,0 +1,46 @@
+name: Build academic CV PDF
+
+on:
+  push:
+    paths:
+      - academic-cv.html
+      - academic-cv.css
+      - research.css
+      - scripts/build-academic-cv-pdf.js
+      - .github/workflows/academic-cv-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: academic-cv-pdf
+  cancel-in-progress: true
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install existing site tooling
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium for PDF rendering
+        run: npx playwright install --with-deps chromium
+      - name: Render printable academic CV
+        run: node scripts/build-academic-cv-pdf.js
+      - name: Publish PDF to the portfolio
+        run: |
+          git add assets/Kailani_Alarcon_Academic_CV.pdf
+          if git diff --cached --quiet; then
+            echo "Academic CV PDF already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Publish printable academic CV PDF"
+          git pull --rebase origin main
+          git push origin main
