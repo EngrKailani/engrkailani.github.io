@@ -9,6 +9,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
   const cases = [
     ...[320, 375, 430, 768].map(width => ({url:'/', width, height:900})),
     {url:'/', width:844, height:390},
+    ...[320,390,768].map(width => ({url:'/workbench.html', width, height:740})),
     ...['/resume.html', ...pages].map(url => ({url, width:320, height:740}))
   ];
   for (const test of cases) {
@@ -25,7 +26,9 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
           '.case-explorer__insight,.case-explorer__limit,.case-explorer__stats>div,' +
           '.case-explorer__flow button,.case-explorer__tabs button,.case-explorer__actions button,' +
           '.btn,.repo-featured,.repo-featured__link,.robot-control-sliders>div,' +
-          '.robot-control-presets button,.robot-view-picker button,.nav-links a';
+          '.robot-control-presets button,.robot-view-picker button,.nav-links a,' +
+          '.wb-nav-links,.wb-tab,.wb-panel,.wb-controls,.wb-readouts>div,' +
+          '.wb-channel-readouts>div,.wb-project-link,.wb-method,.wb-disclaimer';
         const found = [];
         const viewport = document.documentElement.clientWidth;
         if (Math.max(document.body.scrollWidth,document.documentElement.scrollWidth) > viewport+3)
@@ -59,6 +62,14 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
       await page.goto(origin+test.url,{waitUntil:'load'});
       await page.evaluate(() => document.fonts.ready);
       await inspect('initial layout');
+      if(test.url==='/workbench.html') {
+        for (const instrument of ['scope','robot','lights','thermal']) {
+          await page.locator('#wb-tab-'+instrument).click();
+          if(!await page.locator('#wb-panel-'+instrument).isVisible())
+            note(id+': workbench module not visible: '+instrument);
+          await inspect('workbench '+instrument);
+        }
+      }
       if(test.url==='/') {
          if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf must be visible');
          if(!await page.locator('#repo-planetarium').isVisible()) note(id+': repository planets must be visible');
