@@ -623,6 +623,19 @@ check(home.includes('homepage-refinement.js?v=20261027-phase2')&&
 
 
 /* Phase 2: comparable evidence summaries, direct result links, and preview metadata. */
+
+const expectedSocialImages=[...caseTitles,'portfolio','projects','workbench'];
+check(expectedSocialImages.length===18,'Social preview set must include 15 projects plus three hubs');
+for(const slug of expectedSocialImages){
+  const name=path.join(root,'social',slug+'.png');
+  check(fs.existsSync(name),'Missing social sharing preview: '+slug+'.png');
+  if(!fs.existsSync(name))continue;
+  const image=fs.readFileSync(name);
+  check(image.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])) &&
+    image.readUInt32BE(16)===1200 && image.readUInt32BE(20)===630,
+    'Share preview must be a genuine 1200x630 PNG: '+slug);
+}
+
 check((directory.match(/class="directory-evidence"/g)||[]).length===15 &&
   directory.includes('directory-thumbnails.css?v=20261027-phase2') &&
   directoryThumbStyles.includes('.directory-evidence'),
