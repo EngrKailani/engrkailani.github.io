@@ -84,8 +84,8 @@ async function audit(){
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
         if(test.path==='/projects/index.html'&&test.theme==='light'&&test.width===390){
           await page.goto(origin+'/projects/index.html?area=robotics',{waitUntil:'load'});
-          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 3 of 15 engineering projects')
-            note(id+': robotics deep link did not filter to three projects');
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 2 of 15 engineering projects')
+            note(id+': robotics deep link did not filter to two projects');
           if(await page.locator('[data-gallery-filter="robotics"]').getAttribute('aria-pressed')!=='true')
             note(id+': shared discipline filter was not active');
           if(!await page.locator('#directory-clear').isVisible())
@@ -99,7 +99,7 @@ async function audit(){
              (await page.locator('#directory-count').textContent()||'').trim()!=='Showing 1 of 15 engineering projects')
             note(id+': reloading a shared project search lost its filters');
           await page.locator('#directory-clear').click();
-          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 16 of 15 engineering projects'||
+          if((await page.locator('#directory-count').textContent()||'').trim()!=='Showing 15 of 15 engineering projects'||
              new URL(page.url()).searchParams.has('area')||
              new URL(page.url()).searchParams.has('q'))
             note(id+': clear filters did not restore all fifteen projects and clean URL');
@@ -152,7 +152,7 @@ async function audit(){
             note(id+': expected 15 directly linked projects in the navigation');
           const menuDestinations=await projectsMenuLinks.evaluateAll(links=>links.map(a=>a.getAttribute('href')));
           if(new Set(menuDestinations).size!==15 ||
-             !menuDestinations.includes('projects/nasa.html') ||
+             !menuDestinations.includes('projects/ur3e.html') ||
              !menuDestinations.includes('projects/powershell.html'))
             note(id+': project menu targets missing or duplicated');
           if(!await projectsMenu.locator('a[href="projects/thermal.html"]').isVisible())
@@ -179,7 +179,7 @@ async function audit(){
           }
         }
         if(test.path==='/') {
-          if(await page.locator('.selected-project-preview img').count()!==3)
+          if(await page.locator('.selected-project-preview img').count()!==2)
             note(id+': expected two illustrated featured engineering projects');
           if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf should be visible');
           if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
