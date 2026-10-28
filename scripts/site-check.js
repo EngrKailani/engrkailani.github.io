@@ -164,9 +164,9 @@ for(const slug of caseTitles){
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2"') &&
-  home.includes('aria-label="View résumé PDF in a new tab"'),
-  'Main navigation must link directly to the résumé PDF');
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Academic_CV.pdf?v=20261028-uploaded-cv2"') &&
+  home.includes('aria-label="View academic CV PDF in a new tab"'),
+  'Main navigation must link directly to the uploaded academic CV PDF');
 check(home.includes('class="featured-next-step"') &&
   home.includes('href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity"') &&
   home.includes('class="featured-next-step-links"'),
@@ -718,6 +718,14 @@ for(const [file,slug] of [
     file+': correct branded social sharing card');
 }
 
+
+check(home.includes('href="projects/nasa.html"') &&
+  home.includes('3.1 N·m') &&
+  home.includes('34 hierarchical requirements') &&
+  home.includes('class="featured-project-card featured-project-card--nasa"') &&
+  fs.existsSync(path.join(root,'projects/nasa.html')),
+  'Restored NASA project must be featured with properly qualified estimates');
+
 /* Research-first academic portfolio invariants. */
 const academicCV=fs.readFileSync(path.join(root,'academic-cv.html'),'utf8');
 const urResearch=fs.readFileSync(path.join(projectDir,'ur3e.html'),'utf8');
@@ -739,9 +747,9 @@ check(research.includes('id="questions"') &&
 check(academicCV.includes('id="cv-main"') &&
   academicCV.includes('not represented as peer-reviewed journal or conference articles') &&
   academicCV.includes('Fall 2026 – Present') &&
-  academicCV.includes('assets/Kailani_Alarcon_Academic_CV.pdf?v=20261027-cv1') &&
+  academicCV.includes('assets/Kailani_Alarcon_Academic_CV.pdf?v=20261028-uploaded-cv2') &&
   fs.existsSync(path.join(root,'assets/Kailani_Alarcon_Academic_CV.pdf')) &&
-  academicCV.includes('academic-cv.css?v=20261028-uploaded-cv') &&
+  academicCV.includes('academic-cv.css?v=20261028-uploaded-cv2') &&
   academicCV.includes('onclick="window.print()"'),
   'Academic CV should follow the uploaded three-page research record and remain printable');
 
