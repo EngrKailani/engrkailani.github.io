@@ -94,7 +94,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
           const switcher=page.locator('#book-switch-select');
           if(await switcher.count()){
             if(await switcher.locator('option').count()!==16)
-              note(id+': missing direct chooser options for all sixteen books');
+              note(id+': missing direct chooser options for all fifteen books');
             await switcher.selectOption('iverify');
             if((await page.locator('#book-modal-title').textContent()||'').trim()!=='IVerify')
               note(id+': mobile book selector did not open IVerify');
