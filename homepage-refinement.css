@@ -285,3 +285,22 @@
   .portfolio-home .home-lab-spotlight{margin-block:18px 0}
 }
 @media(prefers-reduced-motion:reduce){.portfolio-home .extras-chevron{transition:none}}
+
+/* Phase 4: research intro between professional experience and about. */
+.portfolio-home .research-home-section{padding:clamp(44px,6vw,83px) 0;border-top:1px solid var(--border,#e5d6e0);border-bottom:1px solid var(--border,#e5d6e0);background:var(--paper,#fff);scroll-margin-top:110px}
+.portfolio-home .research-home-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(24px,5vw,72px);align-items:center}
+.portfolio-home .research-home-intro h2{font-size:clamp(32px,4.1vw,52px);line-height:1.19;margin:0 0 18px}
+.portfolio-home .research-home-intro>p:not(.eyebrow){font-size:14px;line-height:1.9;max-width:560px;color:var(--secondary,#655662);margin:0 0 23px}
+.portfolio-home .research-home-intro .btn{min-height:44px;display:inline-flex;align-items:center;gap:13px}
+.portfolio-home .research-home-details{display:grid;gap:10px}
+.portfolio-home .research-home-details>div{padding:17px 20px;border:1px solid var(--border,#e5d6e0);border-radius:12px;background:var(--soft,#f8eff5)}
+.portfolio-home .research-home-details span{font:800 10px/1.55 var(--sans,Arial,sans-serif);letter-spacing:.1em;color:#884967;display:block;margin-bottom:5px}
+.portfolio-home .research-home-details strong{font:500 clamp(21px,2.4vw,27px)/1.3 var(--serif,Georgia,serif);color:var(--ink,#352937)}
+.portfolio-home .research-home-details p{font-size:12px;color:var(--secondary,#655662);line-height:1.75;margin:6px 0 0}
+:root[data-theme="dark"] .portfolio-home .research-home-section{background:#28212e;border-color:#614d61}
+:root[data-theme="dark"] .portfolio-home .research-home-details>div{background:#372a3c;border-color:#65506d}
+:root[data-theme="dark"] .portfolio-home .research-home-details :is(strong,p){color:#f2e0ef}
+:root[data-theme="dark"] .portfolio-home .research-home-details span{color:#eeb2d0}
+:root[data-theme="dark"] .portfolio-home .research-home-intro>p:not(.eyebrow){color:#ebd6e5}
+@media(max-width:810px){.portfolio-home .research-home-layout{grid-template-columns:1fr}.portfolio-home .research-home-details{grid-template-columns:repeat(3,minmax(0,1fr))}.portfolio-home .research-home-details>div{padding:14px}}
+@media(max-width:580px){.portfolio-home .research-home-details{grid-template-columns:1fr}.portfolio-home .research-home-section{padding:43px 0}.portfolio-home .research-home-intro h2{font-size:36px}}
