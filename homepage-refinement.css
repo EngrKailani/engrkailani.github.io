@@ -276,7 +276,7 @@
 :root[data-theme="dark"] .portfolio-home details.portfolio-extras{background:#29222f;border-color:#655068}
 :root[data-theme="dark"] .portfolio-home details.portfolio-extras>.extras-heading:hover{background:#392a3e}
 :root[data-theme="dark"] .portfolio-home .extras-summary-copy :is(.extras-title,.extras-description){color:#f1e2ee}
-:root[data-theme="dark"] .portfolio-home .extras-expand-cta{background:#af7399;color:#fff}
+:root[data-theme="dark"] .portfolio-home .extras-expand-cta{background:#713451;color:#fff}
 @media(max-width:680px){
   .portfolio-home details.portfolio-extras>.extras-heading{align-items:stretch;flex-direction:column;padding:19px;gap:15px}
   .portfolio-home .extras-expand-cta{align-self:flex-start}
