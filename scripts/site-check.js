@@ -134,7 +134,7 @@ check(ambientFields.length===11&&addedStars.length===44&&
   addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
   'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
 const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261013-nasa-disclaimer') &&
+check(home.includes('homepage-refinement.css?v=20261027-phase2') &&
   moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
   moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
   moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
@@ -160,7 +160,7 @@ check(wayfindingPaths.every(([area,n])=>
   pathwaySection.includes('href="projects/index.html?area='+area+'"') &&
   (directory.match(new RegExp('data-gallery-category="'+area+'"','g'))||[]).length===n) &&
   home.includes('href="projects/index.html">View all 15 projects') &&
-  home.includes('href="#explore">Interactive</a>'),
+  home.includes('href="#explore">Explore more</a>'),
   'Engineering wayfinding should expose all fifteen projects and accurate discipline counts');
 check(directory.includes('class="directory-breadcrumb"') &&
   directory.includes('id="directory-clear"') &&
@@ -606,14 +606,48 @@ check((featuredSection.match(/class="featured-project-card"/g)||[]).length===2,
   'Homepage must feature exactly two focused project cards');
 check(['iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
   'IVerify and Thermal Logger must be the featured work');
-check(home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
-  home.includes('<section class="portfolio-extras" id="explore"') &&
+check(home.indexOf('id="featured-projects"')<home.indexOf('id="home-workbench"') &&
+  home.indexOf('id="home-workbench"')<home.indexOf('id="experience"') &&
+  home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
+  home.includes('<details class="portfolio-extras" id="explore"') &&
+  home.includes('class="extras-expand-cta"') &&
   home.includes('id="bookshelf"') && home.includes('id="repo-planetarium"') &&
-  !home.includes('<details class="portfolio-extras"'),
-  'Books and planets must remain visible on the homepage');
-check(home.includes('homepage-refinement.js')&&
-  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true"),
-  'Deep links must reveal nested interactive sections');
+  home.includes('</details></div>') &&
+  home.indexOf('</details></div>')<home.indexOf('<section class="section skills-section"'),
+  'Optional archive must start collapsed; selected work and technical skills stay in main portfolio');
+check(home.includes('homepage-refinement.js?v=20261027-phase2')&&
+  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true") &&
+  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("if (target.matches('details')) target.open=true") &&
+  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("dispatchEvent(new Event('resize'))"),
+  'Deep links must expand archive and recalculate canvas layouts');
+
+
+/* Phase 2: comparable evidence summaries, direct result links, and preview metadata. */
+check((directory.match(/class="directory-evidence"/g)||[]).length===15 &&
+  directory.includes('directory-thumbnails.css?v=20261027-phase2') &&
+  directoryThumbStyles.includes('.directory-evidence'),
+  'All 15 directory cards must show qualified evidence summaries');
+for(const slug of caseTitles){
+  const caseHtml=fs.readFileSync(path.join(projectDir,slug+'.html'),'utf8');
+  check(caseHtml.includes('class="project-reading-shortcuts"') &&
+    caseHtml.includes('href="#project-results"') &&
+    caseHtml.includes('href="#project-evidence"') &&
+    caseHtml.includes('case-study-summary.css?v=20261027-phase2') &&
+    caseHtml.includes('https://engrkailani.github.io/social/'+slug+'.png') &&
+    caseHtml.includes('<meta property="og:image:width" content="1200">'),
+    slug+': case study must have results shortcuts and unique sharing-preview metadata');
+}
+check(fs.readFileSync(path.join(projectDir,'case-study-summary.css'),'utf8')
+  .includes('.project-reading-shortcuts a'),
+  'Case-study shortcuts require visible, accessible styling');
+for(const [file,slug] of [
+  ['index.html','portfolio'],['resume.html','portfolio'],
+  ['workbench.html','workbench'],['projects/index.html','projects']
+]){
+  const source=fs.readFileSync(path.join(root,file),'utf8');
+  check(source.includes('https://engrkailani.github.io/social/'+slug+'.png'),
+    file+': correct branded social sharing card');
+}
 
 /* Workbench integrity: all four browser-only demos and their controls remain linked. */
 const workbench=fs.readFileSync(path.join(root,'workbench.html'),'utf8');
