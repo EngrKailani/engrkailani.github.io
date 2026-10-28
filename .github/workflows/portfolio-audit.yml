@@ -1,0 +1,124 @@
+name: Portfolio accessibility and performance audit
+
+on:
+  push:
+    paths:
+      - index.html
+      - research.html
+      - research.css
+      - homepage-refinement.css
+      - projects/index.html
+      - workbench.html
+      - scripts/site-check.js
+      - scripts/browser-quality.js
+      - scripts/mobile-layout.js
+      - scripts/lighthouse-phase4-report.js
+      - .github/workflows/portfolio-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-audit
+  cancel-in-progress: true
+
+jobs:
+  static-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test tooling
+        run: npm install --no-audit --no-fund
+      - name: Static navigation and evidence checks
+        run: node scripts/site-check.js
+      - name: Parse and validate all CSS
+        run: node scripts/css-quality.js
+      - name: Oscilloscope and inverse-kinematics unit tests
+        run: node scripts/workbench-models-test.js
+
+  browser-accessibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test tooling
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local preview
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/portfolio-server.log 2>&1 &
+          for attempt in $(seq 1 25); do
+            if curl --fail --silent http://127.0.0.1:4173/research.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/portfolio-server.log
+          exit 1
+      - name: Full responsive and axe accessibility audit
+        run: node scripts/browser-quality.js
+      - name: Upload browser audits and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-accessibility-results
+          path: quality-artifacts/
+          if-no-files-found: warn
+
+  lighthouse-lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test tooling
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Configure Lighthouse Chromium
+        run: echo "CHROME_PATH=$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" >> "$GITHUB_ENV"
+      - name: Start local preview
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/portfolio-server.log 2>&1 &
+          for attempt in $(seq 1 25); do
+            if curl --fail --silent http://127.0.0.1:4173/research.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/portfolio-server.log
+          exit 1
+      - name: Run mobile and desktop Lighthouse for four entry points
+        run: |
+          mkdir -p quality-artifacts
+          for pair in home:/ research:/research.html projects:/projects/index.html workbench:/workbench.html; do
+            slug="$(echo "$pair" | cut -d: -f1)"
+            target="$(echo "$pair" | cut -d: -f2-)"
+            url="http://127.0.0.1:4173$target"
+            npx lighthouse "$url" \
+              --only-categories=performance,accessibility,best-practices,seo \
+              --output=json --output-path="quality-artifacts/lighthouse-$slug-mobile.json" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet
+            npx lighthouse "$url" \
+              --preset=desktop \
+              --only-categories=performance,accessibility,best-practices,seo \
+              --output=json --output-path="quality-artifacts/lighthouse-$slug-desktop.json" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet
+          done
+      - name: Generate measured scorecard and review queue
+        if: always()
+        run: node scripts/lighthouse-phase4-report.js
+      - name: Upload raw Lighthouse measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-performance-results
+          path: quality-artifacts/
+          if-no-files-found: warn
