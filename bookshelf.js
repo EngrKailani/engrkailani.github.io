@@ -5,6 +5,16 @@
   // Portfolio stories reflect the project descriptions already presented on the site.
   const books = [
     {
+      id: 'nasa', title: 'NASA Robotic-Arm Assessment', edition: 'NASA Marshall · OSTEM internship · 2026',
+      subtitle: 'Independent lunar-dust robotic-arm feasibility and verification planning',
+      story: 'During my NASA Marshall OSTEM internship, I independently evaluated a robotic arm for proposed lunar-dust mitigation testing in a high-vacuum context, with NASA technical mentor oversight. This is a personal portfolio summary, not an official NASA report.',
+      challenge: 'Assess reachability, loading, actuator and environmental constraints before choosing a test-ready robotic-arm configuration.',
+      approach: 'Examine arm geometry, joint travel and workspace; estimate shoulder load; derive hierarchical requirements from operating scenarios; prepare preliminary control and atmospheric bench-test procedures.',
+      tools: 'Creo, Python, Pololu Micro Maestro 6, ROS 2, MuJoCo, structured system requirements and verification planning.',
+      outcome: 'Developed 34 requirements from six scenarios. The preliminary 3.1 N·m shoulder estimate excludes rocker and actuator masses; actuator selection and vacuum qualification remain unverified.',
+      link: 'projects/nasa.html', action: 'Read the project and NASA disclaimer'
+    },
+    {
       id: 'ur3e', title: 'UR3e Robot Kinematics', edition: 'ME422 · Spring 2026 · Group study',
       subtitle: 'Modeling six degrees of freedom with Jacobians',
       story: 'In a three-person robotics analysis project, our team studied the Universal Robots UR3e, a six-joint collaborative arm. We assigned Denavit–Hartenberg frames and derived the transformations that describe how each joint contributes to the end-effector pose. The project connected the mathematics of robot motion to an industrial manipulator.',
