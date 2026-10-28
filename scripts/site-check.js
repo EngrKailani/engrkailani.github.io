@@ -530,7 +530,7 @@ check(home.includes('robot-control-dock.css'),
   'Robot mode design should load the shared controls stylesheet');
 check(dock>robotSection.indexOf('class="robot-viewport"')&&
   robotSection.indexOf('id="robot-2d-controls" aria-label="2D motion controls" hidden')>dock&&
-  robotSection.indexOf('id="robot-3d-controls" aria-label="3D chamber controls"')>dock,
+  robotSection.indexOf('id="robot-3d-controls" aria-label="3D motion controls"')>dock,
   'Both robot control panels must be inside the same dock, below the viewer');
 check((robotSection.match(/data-joint-control/g)||[]).length===3 &&
   (robotSection.match(/class="robot-3d-control"/g)||[]).length===6,
@@ -561,17 +561,19 @@ const robot2dJS=fs.readFileSync(path.join(root,'script.js'),'utf8');
 check(home.includes('robot-chamber-model.js?v=20261013-generic-motion2') &&
   home.indexOf('robot-chamber-model.js?v=20261013-generic-motion2')<home.indexOf('script.js?v=20261013-generic-motion2'),
   'Shared chamber model must load before 2D script');
-check(sharedRobotJS.includes('link1=18.5, link2=18.5, tool=8.5') &&
-  sharedRobotJS.includes('chamber=36, mount=3') &&
+check(sharedRobotJS.includes('const workspace=1') &&
+  sharedRobotJS.includes('const segmentA=.30') &&
+  sharedRobotJS.includes('const segmentB=.27') &&
+  sharedRobotJS.includes('const tool=.11') &&
   robot3dJs.includes('model.joints(pose)') &&
   robot2dJS.includes('robotModel.joints(pose)'),
-  'Both robot views must derive joint locations from the same physical lengths');
-check(['home','floor','inspect','park'].every(name=>
+  'Both illustrative robot views must share the same normalized joint geometry');
+check(['neutral','reach','fold','rest'].every(name=>
   robotSection.includes('data-pose="'+name+'"')&&
   robotSection.includes('data-3d-pose="'+name+'"')) &&
   robotSection.includes('id="side-tip-readout"') &&
   robotSection.includes('id="side-projection-status"'),
-  '2D and 3D must expose matching presets and chamber clearance feedback');
+  '2D and 3D must expose matching generic presets and boundary feedback');
 check(robot2dJS.includes("source:'2d'") &&
   robot3dJs.includes("source:'3d'") &&
   robot2dJS.includes("event.detail?.source!=='3d'") &&
