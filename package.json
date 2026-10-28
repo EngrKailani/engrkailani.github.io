@@ -6,7 +6,8 @@
   "scripts": {
     "check:css": "node scripts/css-quality.js",
     "check:browser": "node scripts/browser-quality.js",
-    "report:lighthouse": "node scripts/lighthouse-report.js"
+    "report:lighthouse": "node scripts/lighthouse-report.js",
+    "check:models": "node scripts/workbench-models-test.js"
   },
   "devDependencies": {
     "axe-core": "4.10.3",
