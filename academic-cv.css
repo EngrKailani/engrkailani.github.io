@@ -1,7 +1,7 @@
 /* Research-focused, print-friendly curriculum vitae. */
 .cv-page{background:var(--r-bg);color:var(--r-ink)}
 .cv-main{width:min(990px,calc(100% - 40px));margin:32px auto 75px;line-height:1.65}
-.cv-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}
+.cv-topline{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:17px}.cv-topline>a:first-child{margin-right:auto}
 .cv-topline a{color:var(--r-accent);font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .cv-print{border:1px solid var(--r-border);border-radius:8px;background:var(--r-panel);color:var(--r-ink);padding:10px 14px;font:700 13px var(--r-sans);cursor:pointer;min-height:44px}
 .cv-paper{background:var(--r-paper);border:1px solid var(--r-border);border-radius:15px;padding:clamp(24px,4vw,51px)}
@@ -48,3 +48,6 @@
   .cv-status{background:#f5f5f5}
   a{color:#111!important}
 }
+
+.cv-pdf-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 15px;background:#6c354e;color:#fff!important;border-radius:8px;text-decoration:none!important;font-size:13px;font-weight:750}
+:root[data-theme="dark"] .cv-pdf-link{background:#65344c;color:#fff!important}
