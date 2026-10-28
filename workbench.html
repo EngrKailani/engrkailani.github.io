@@ -17,8 +17,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
-<link rel="stylesheet" href="workbench.css?v=20261027-phase1">
-<script src="workbench.js?v=20261027-1" defer></script>
+<link rel="stylesheet" href="workbench.css?v=20261027-phase3">
+<script src="workbench-models.js?v=20261027-phase3" defer></script>
+<script src="workbench.js?v=20261027-phase3" defer></script>
 <title>Engineering Workbench | Kailani Alarcon</title>
 </head>
 <body class="wb-page">
@@ -40,7 +41,7 @@
     <div>
       <p class="wb-eyebrow">INTERACTIVE SYSTEMS / PERSONAL ENGINEERING LAB</p>
       <h1 id="wb-title">The engineering <em>workbench.</em></h1>
-      <p class="wb-intro-copy">Four instruments. One place to experiment. Change a signal, pose a robot, mix light, or explore a thermal response and see what the models do.</p>
+      <p class="wb-intro-copy">Four browser-based engineering demonstrations. Adjust signal triggering and scales, solve a robot pose, mix light, or explore a thermal response.</p>
       <div class="wb-intro-actions">
         <a class="wb-button wb-button-primary" href="#instruments">Explore instruments <span aria-hidden="true">↗</span></a>
         <a class="wb-button wb-button-outline" href="projects/index.html">Project case studies <span aria-hidden="true">↗</span></a>
@@ -57,24 +58,30 @@
   <section id="instruments" class="wb-instruments" aria-labelledby="wb-instruments-title">
     <div class="wb-section-heading"><div><p class="wb-eyebrow">SELECT AN INSTRUMENT</p><h2 id="wb-instruments-title">Choose your experiment.</h2></div><span class="wb-session"><span class="wb-session-light"></span> Browser-only interactive demos</span></div>
     <div class="wb-tabs" role="tablist" aria-label="Workbench instruments">
-      <button class="wb-tab" id="wb-tab-scope" role="tab" aria-selected="true" aria-controls="wb-panel-scope" tabindex="0" data-instrument="scope"><span class="wb-tab-number">01 / SIGNALS</span><strong>Oscilloscope</strong><span>Explore waveforms</span></button>
-      <button class="wb-tab" id="wb-tab-robot" role="tab" aria-selected="false" aria-controls="wb-panel-robot" tabindex="-1" data-instrument="robot"><span class="wb-tab-number">02 / ROBOTICS</span><strong>Robot arm</strong><span>Forward kinematics</span></button>
+      <button class="wb-tab" id="wb-tab-scope" role="tab" aria-selected="true" aria-controls="wb-panel-scope" tabindex="0" data-instrument="scope"><span class="wb-tab-number">01 / SIGNALS</span><strong>Oscilloscope</strong><span>Triggers &amp; cursors</span></button>
+      <button class="wb-tab" id="wb-tab-robot" role="tab" aria-selected="false" aria-controls="wb-panel-robot" tabindex="-1" data-instrument="robot"><span class="wb-tab-number">02 / ROBOTICS</span><strong>Robot arm</strong><span>Forward &amp; inverse kinematics</span></button>
       <button class="wb-tab" id="wb-tab-lights" role="tab" aria-selected="false" aria-controls="wb-panel-lights" tabindex="-1" data-instrument="lights"><span class="wb-tab-number">03 / LIGHTING</span><strong>DMX studio</strong><span>Mix RGB light</span></button>
       <button class="wb-tab" id="wb-tab-thermal" role="tab" aria-selected="false" aria-controls="wb-panel-thermal" tabindex="-1" data-instrument="thermal"><span class="wb-tab-number">04 / THERMAL</span><strong>Thermal logger</strong><span>Simulate heat-up</span></button>
     </div>
 
     <section id="wb-panel-scope" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-scope">
-      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 01 / INSTRUMENTATION</p><h3>Virtual oscilloscope</h3><p>Shape a test signal and observe amplitude, duty cycle, and RMS behavior on a gridded trace.</p></div><span class="wb-mode-label">SYNTHETIC SIGNAL</span></div>
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 01 / INSTRUMENTATION</p><h3>Virtual oscilloscope</h3><p>Set time and voltage divisions independently, align a simulated trigger crossing, and compare two waveform cursors.</p></div><span class="wb-mode-label">SYNTHETIC SIGNAL</span></div>
       <div class="wb-instrument-grid">
         <div class="wb-display-column">
           <div class="wb-instrument-screen">
             <div class="wb-screen-bar"><span><i class="wb-status-dot"></i> CH1 / SIGNAL VIEW</span><span id="scope-status">HOLD</span></div>
-            <canvas id="scope-canvas" width="800" height="410" role="img" aria-label="Generated voltage waveform versus time, using the current waveform controls">Canvas not supported. Use the numerical readouts.</canvas>
-            <div class="wb-screen-foot"><span id="scope-timebase">3 periods displayed</span><span>CH1 · VOLTS</span></div>
+            <canvas id="scope-canvas" width="800" height="410" role="img" aria-label="Synthetic voltage waveform plotted against an independently set timebase and volts per division; vertical measurement cursors A and B are controlled by sliders.">Canvas not supported. Use the numerical readouts.</canvas>
+            <div class="wb-screen-foot"><span id="scope-timebase">2 ms/div · 1 V/div</span><span>CH1 · VOLTS</span></div>
           </div>
           <div class="wb-readouts">
-            <div><span>Frequency</span><strong id="scope-read-freq">120 Hz</strong></div><div><span>Peak to peak</span><strong id="scope-read-pp">4.00 V</strong></div><div><span>RMS</span><strong id="scope-read-rms">1.41 V</strong></div>
+            <div><span>Generator frequency</span><strong id="scope-read-freq">120 Hz</strong></div><div><span>Displayed peak to peak</span><strong id="scope-read-pp">4.00 V</strong></div><div><span>Displayed RMS</span><strong id="scope-read-rms">1.41 V</strong></div>
           </div>
+          <div class="wb-cursor-readouts" aria-label="Synthetic waveform cursor measurements">
+            <div><span>Δt (B−A)</span><strong id="scope-read-dt">10.00 ms</strong></div>
+            <div><span>1 / Δt</span><strong id="scope-read-invdt">100.0 Hz</strong></div>
+            <div><span>ΔV (B−A)</span><strong id="scope-read-dv">0.00 V</strong></div>
+          </div>
+          <p class="wb-instrument-caption">Cursor readings are calculated from generated samples at A and B. The inverse interval is not an automatic frequency measurement.</p>
         </div>
         <aside class="wb-controls" aria-label="Oscilloscope controls">
           <div class="wb-control-title"><strong>Signal generator</strong><span>CH 01</span></div>
@@ -83,34 +90,65 @@
           <label class="wb-field"><span>Peak amplitude <output id="scope-amp-out">2.0 V</output></span><input id="scope-amp" type="range" min="0.2" max="5" step="0.2" value="2"></label>
           <label class="wb-field"><span>Duty cycle <output id="scope-duty-out">50%</output></span><input id="scope-duty" type="range" min="5" max="95" step="5" value="50"></label>
           <label class="wb-field"><span>Added noise <output id="scope-noise-out">0%</output></span><input id="scope-noise" type="range" min="0" max="20" step="1" value="0"></label>
-          <div class="wb-control-actions"><button class="wb-small-button" id="scope-run" type="button" aria-pressed="false">Run trace</button><button class="wb-small-button wb-small-button-light" id="scope-reset" type="button">Reset</button></div>
-          <p class="wb-control-note">The waveform is mathematical, not sampled from a physical oscilloscope. RMS is estimated from simulated samples.</p>
+          <details class="wb-advanced" open>
+            <summary>Display &amp; triggering <span aria-hidden="true">⌄</span></summary>
+            <div class="wb-advanced-content">
+              <label class="wb-field"><span>Timebase</span><select id="scope-msdiv"><option value="0.2">0.2 ms/div</option><option value="0.5">0.5 ms/div</option><option value="1">1 ms/div</option><option value="2" selected>2 ms/div</option><option value="5">5 ms/div</option><option value="10">10 ms/div</option><option value="20">20 ms/div</option><option value="50">50 ms/div</option></select></label>
+              <label class="wb-field"><span>Vertical scale</span><select id="scope-vdiv"><option value="0.2">0.2 V/div</option><option value="0.5">0.5 V/div</option><option value="1" selected>1 V/div</option><option value="2">2 V/div</option><option value="5">5 V/div</option></select></label>
+              <label class="wb-field"><span>Trigger edge</span><select id="scope-trigger"><option value="rising" selected>Rising edge</option><option value="falling">Falling edge</option><option value="off">Off / free run</option></select></label>
+              <label class="wb-field"><span>Trigger level <output id="scope-level-out">0.0 V</output></span><input id="scope-level" type="range" min="-5" max="5" step="0.2" value="0"></label>
+            </div>
+          </details>
+          <details class="wb-advanced" open>
+            <summary>Measurement cursors <span aria-hidden="true">⌄</span></summary>
+            <div class="wb-advanced-content">
+              <label class="wb-field"><span>Cursor A <output id="scope-cursor-a-out">25%</output></span><input id="scope-cursor-a" type="range" min="0" max="100" step="1" value="25"></label>
+              <label class="wb-field"><span>Cursor B <output id="scope-cursor-b-out">75%</output></span><input id="scope-cursor-b" type="range" min="0" max="100" step="1" value="75"></label>
+            </div>
+          </details>
+          <div class="wb-control-actions"><button class="wb-small-button" id="scope-run" type="button" aria-pressed="false">Run trace</button><button class="wb-small-button wb-small-button-light" id="scope-single" type="button">Single capture</button><button class="wb-small-button wb-small-button-light" id="scope-reset" type="button">Reset</button></div>
+          <p class="wb-control-note">Trigger placement uses the ideal waveform before noise. Single capture freezes a generated trace; it is not an actual acquisition. Displayed RMS and Vpp are numerical estimates over the visible window, and very fast signals can be visually aliased.</p>
         </aside>
       </div>
       <div class="wb-project-link">Related work <a href="projects/controls.html">Control &amp; Measurement Labs <span aria-hidden="true">↗</span></a></div>
     </section>
 
     <section id="wb-panel-robot" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-robot" hidden>
-      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 02 / ROBOTICS</p><h3>Three-link kinematics</h3><p>Change the three joint angles to see how forward kinematics determines the tool position.</p></div><span class="wb-mode-label">PLANAR MODEL / NOT TO SCALE</span></div>
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 02 / ROBOTICS</p><h3>Three-link kinematics</h3><p>Move the joints, or set a tool target to solve planar inverse kinematics with explicit joint limits and elbow-branch choices.</p></div><span class="wb-mode-label">PLANAR MODEL / NOT TO SCALE</span></div>
       <div class="wb-instrument-grid">
         <div class="wb-display-column">
           <div class="wb-instrument-screen">
             <div class="wb-screen-bar"><span><i class="wb-status-dot"></i> ARM / XY PLANE</span><span>3 REVOLUTE JOINTS</span></div>
-            <canvas id="robot-canvas" width="800" height="410" role="img" aria-label="Interactive three-link planar robot and its tool position">Canvas not supported. Joint positions are given in the readouts.</canvas>
-            <div class="wb-screen-foot"><span>L1 140 mm · L2 110 mm · L3 75 mm</span><span>ORIGIN / BASE</span></div>
+            <canvas id="robot-canvas" width="800" height="410" role="img" aria-label="Three-link planar robot with joint coordinate frames, a crosshair target for inverse kinematics, and an optional tool trajectory. Adjust the accessible sliders or drag the canvas to change the target.">Canvas not supported. Joint positions are given in the readouts.</canvas>
+            <div class="wb-screen-foot"><span>L1 140 mm · L2 110 mm · L3 75 mm</span><span>±170° DEMONSTRATION LIMITS</span></div>
           </div>
-          <div class="wb-readouts" aria-live="polite" aria-atomic="true">
-            <div><span>Tool X</span><strong id="robot-read-x">0 mm</strong></div><div><span>Tool Y</span><strong id="robot-read-y">0 mm</strong></div><div><span>Tool orientation</span><strong id="robot-read-angle">0°</strong></div>
+          <div class="wb-readouts wb-robot-readouts">
+            <div><span>Tool X</span><strong id="robot-read-x">0 mm</strong></div><div><span>Tool Y</span><strong id="robot-read-y">0 mm</strong></div><div><span>Tool orientation</span><strong id="robot-read-angle">0°</strong></div><div><span>Target position error</span><strong id="robot-read-error">—</strong></div>
           </div>
         </div>
         <aside class="wb-controls" aria-label="Robot kinematics controls">
           <div class="wb-control-title"><strong>Joint configuration</strong><span>3 DOF</span></div>
-          <label class="wb-field"><span>Shoulder θ1 <output id="robot-j1-out">25°</output></span><input id="robot-j1" type="range" min="-170" max="170" step="1" value="25"></label>
-          <label class="wb-field"><span>Elbow θ2 <output id="robot-j2-out">-55°</output></span><input id="robot-j2" type="range" min="-170" max="170" step="1" value="-55"></label>
-          <label class="wb-field"><span>Wrist θ3 <output id="robot-j3-out">40°</output></span><input id="robot-j3" type="range" min="-170" max="170" step="1" value="40"></label>
+          <label class="wb-field"><span>Shoulder θ1 <output id="robot-j1-out">25°</output></span><input id="robot-j1" type="range" min="-170" max="170" step="0.1" value="25"></label>
+          <label class="wb-field"><span>Elbow θ2 <output id="robot-j2-out">-55°</output></span><input id="robot-j2" type="range" min="-170" max="170" step="0.1" value="-55"></label>
+          <label class="wb-field"><span>Wrist θ3 <output id="robot-j3-out">40°</output></span><input id="robot-j3" type="range" min="-170" max="170" step="0.1" value="40"></label>
           <div class="wb-preset-row" role="group" aria-label="Arm position presets"><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="extend">Extend</button><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="fold">Fold</button><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="inspect">Inspect</button></div>
-          <label class="wb-check"><input id="robot-envelope" type="checkbox" checked> Show maximum reach envelope</label>
-          <p class="wb-control-note">Educational 2D serial-link model. Lengths are illustrative and do not represent the geometry or capabilities of any specific robot.</p>
+          <details class="wb-advanced" open>
+            <summary>Target pose / inverse kinematics <span aria-hidden="true">⌄</span></summary>
+            <div class="wb-advanced-content">
+              <label class="wb-field"><span>Target X <output id="robot-target-x-out">275 mm</output></span><input id="robot-target-x" type="range" min="-325" max="325" step="1" value="275"></label>
+              <label class="wb-field"><span>Target Y <output id="robot-target-y-out">75 mm</output></span><input id="robot-target-y" type="range" min="-325" max="325" step="1" value="75"></label>
+              <label class="wb-field"><span>Tool orientation <output id="robot-target-phi-out">10°</output></span><input id="robot-target-phi" type="range" min="-180" max="180" step="1" value="10"></label>
+              <label class="wb-field"><span>Elbow solution</span><select id="robot-elbow"><option value="down" selected>Elbow-down (θ2 negative)</option><option value="up">Elbow-up (θ2 positive)</option></select></label>
+              <div class="wb-control-actions"><button class="wb-small-button" type="button" id="robot-solve">Solve target</button><button class="wb-small-button wb-small-button-light" type="button" id="robot-clear-path">Clear path</button></div>
+              <p class="wb-ik-status" id="robot-ik-status" role="status" aria-live="polite" aria-atomic="true">Target ready. Select Solve target or drag the plot.</p>
+            </div>
+          </details>
+          <div class="wb-robot-options">
+            <label class="wb-check"><input id="robot-envelope" type="checkbox" checked> Maximum reach</label>
+            <label class="wb-check"><input id="robot-frames" type="checkbox" checked> Joint frames</label>
+            <label class="wb-check"><input id="robot-trail" type="checkbox" checked> Tool path</label>
+          </div>
+          <p class="wb-control-note">Planar 3R chain: L1=140 mm, L2=110 mm, L3=75 mm. IK fixes the target (X, Y, φ), solves the two-link wrist geometry, and rejects unreachable or ±170° joint-limit solutions. No collision, torque, dynamic, or physical robot model is implied. Dragging changes the target; sliders provide a keyboard alternative.</p>
         </aside>
       </div>
       <div class="wb-project-link">Related work <a href="projects/leg.html">3-Link Leg Simulation <span aria-hidden="true">↗</span></a> <a href="projects/ur3e.html">UR3e Kinematics <span aria-hidden="true">↗</span></a></div>
