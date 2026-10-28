@@ -707,18 +707,42 @@ for(const slug of ['scope','robot','lights','thermal']){
     'Workbench instrument and tab must match: '+slug);
 }
 for(const id of ['scope-canvas','robot-canvas','thermal-canvas','lights-scene',
-  'scope-freq','robot-j1','lights-r','thermal-power','thermal-export']){
+  'scope-freq','scope-msdiv','scope-vdiv','scope-trigger','scope-level','scope-single',
+  'scope-cursor-a','scope-cursor-b','scope-read-dt','scope-read-dv',
+  'robot-j1','robot-j2','robot-j3','robot-target-x','robot-target-y','robot-target-phi',
+  'robot-elbow','robot-solve','robot-ik-status','robot-read-error',
+  'robot-frames','robot-trail','robot-clear-path','lights-r','thermal-power','thermal-export']){
   check(workbench.includes('id="'+id+'"'),'Workbench required interactive control: '+id);
 }
 check(home.includes('href="workbench.html"')&&home.includes('home-lab-spotlight')&&
   directory.includes('href="../workbench.html"'),
   'Workbench must be discoverable on the homepage and project directory');
-check(workbench.includes('workbench.js?v=20261027-1')&&
-  workbench.includes('workbench.css?v=20261027-phase1')&&
+const mathJS=fs.readFileSync(path.join(root,'workbench-models.js'),'utf8');
+check(workbench.includes('workbench-models.js?v=20261027-phase3')&&
+  workbench.includes('workbench.js?v=20261027-phase3')&&
+  workbench.includes('workbench.css?v=20261027-phase3')&&
+  workbench.indexOf('workbench-models.js?v=20261027-phase3')<
+  workbench.indexOf('workbench.js?v=20261027-phase3')&&
+  workbenchJS.includes('window.WorkbenchModels')&&
   workbenchJS.includes('requestAnimationFrame')&&
   workbenchJS.includes('createObjectURL')&&
-  workbenchCSS.includes('.wb-instrument-grid'),
-  'Workbench must load its interaction and layout assets');
+  workbenchCSS.includes('.wb-advanced'),
+  'Phase 3 models must load before the workbench interface and scale controls');
+try{new (require('node:vm').Script)(mathJS,{filename:'workbench-models.js'});
+  check(true,'Workbench mathematical models must parse')}
+catch(error){check(false,'Workbench model syntax: '+error.message)}
+const model=require(path.join(root,'workbench-models.js'));
+const sample=model.forward3([0,0,0],[140,110,75]);
+check(Math.abs(sample.x-325)<1e-6&&Math.abs(sample.y)<1e-6,
+  'Forward kinematics must reach 325 mm at the zero pose');
+const sampleGoal=model.forward3([25,-55,40],[140,110,75]);
+const solve=model.inverse3({x:sampleGoal.x,y:sampleGoal.y,phi:10},[140,110,75],'down',170);
+check(solve.ok===true && solve.errorMm<1e-6 &&
+  model.inverse3({x:325,y:325,phi:0},[140,110,75],'down',170).ok===false,
+  'Inverse kinematics must solve reachable and reject unreachable poses');
+check(fs.existsSync(path.join(root,'scripts/workbench-models-test.js')) &&
+  fs.readFileSync(path.join(root,'package.json'),'utf8').includes('"check:models"'),
+  'Numerical workbench regression tests must be installed');
 try{new (require('node:vm').Script)(workbenchJS,{filename:'workbench.js'});check(true,'Workbench JS must parse')}
 catch(error){check(false,'Workbench JS must parse: '+error.message)}
 console.log((failed?'FAIL':'PASS')+': '+(checks-failed)+'/'+checks+' static checks');
