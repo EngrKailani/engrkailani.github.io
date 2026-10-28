@@ -19,6 +19,8 @@ const cases=[
   {path:'/workbench.html',width:320,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'dark'},
+  {path:'/academic-cv.html',width:1440,theme:'light',screenshot:true},
+  {path:'/academic-cv.html',width:320,theme:'light',screenshot:true},
   {path:'/research.html',width:1440,theme:'light',screenshot:true},
   {path:'/research.html',width:320,theme:'light',screenshot:true},
   {path:'/research.html',width:390,theme:'dark'},
@@ -89,6 +91,22 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/academic-cv.html'){
+          if(await page.locator('.cv-entry').count()<7)
+            note(id+': academic CV should include documented experience and project entries');
+          if(!await page.locator('#cv-writing-title').isVisible())
+            note(id+': academic CV must distinguish scholarly publishing from internal reports');
+          if(!await page.locator('.cv-print').isVisible())
+            note(id+': academic CV printable save control missing');
+          if(test.width===320){
+            const flow=await page.evaluate(()=>({
+              scroll:Math.max(document.body.scrollWidth,document.documentElement.scrollWidth),
+              width:document.documentElement.clientWidth
+            }));
+            if(flow.scroll>flow.width+3)
+              note(id+': academic CV has mobile horizontal overflow');
+          }
+        }
         if(test.path==='/research.html'){
           const heading=page.getByRole('heading',{name:'Research in motion.'});
           if(await heading.count()!==1)note(id+': research page heading missing');
@@ -235,8 +253,8 @@ async function audit(){
           }
         }
         if(test.path==='/') {
-          if(await page.locator('.selected-project-preview img').count()!==2)
-            note(id+': expected two illustrated featured engineering projects');
+          if(await page.locator('.selected-project-preview img').count()!==3)
+            note(id+': expected three illustrated featured engineering projects');
           const archive=page.locator('#explore');
           if(await archive.evaluate(el=>el.open))
             note(id+': optional interactive gallery must be initially collapsed');
