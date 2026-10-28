@@ -19,6 +19,9 @@ const cases=[
   {path:'/workbench.html',width:320,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'light',screenshot:true},
   {path:'/workbench.html',width:390,theme:'dark'},
+  {path:'/research.html',width:1440,theme:'light',screenshot:true},
+  {path:'/research.html',width:320,theme:'light',screenshot:true},
+  {path:'/research.html',width:390,theme:'dark'},
   {path:'/projects/iverify.html',width:390,theme:'light'},
   {path:'/projects/controls.html',width:390,theme:'light'},
   {path:'/projects/vna.html',width:390,theme:'light',imageCheck:true},
@@ -86,6 +89,36 @@ async function audit(){
         if(layout.scrollWidth>layout.viewport+3)note(id+': horizontal overflow '+layout.scrollWidth+' > '+layout.viewport+'; '+layout.culprits.join(', '));
         if(layout.h1!==1)note(id+': expected one h1, found '+layout.h1);
         if(layout.theme!==test.theme)note(id+': theme mismatch (rendered '+layout.theme+')');
+        if(test.path==='/research.html'){
+          const heading=page.getByRole('heading',{name:'Research in motion.'});
+          if(await heading.count()!==1)note(id+': research page heading missing');
+          if(await page.locator('.research-study').count()!==4)
+            note(id+': four evidence-grounded investigations required');
+          if(await page.locator('.research-writing-card').count()!==2)
+            note(id+': writing/publication status should be distinguished');
+          if(!await page.locator('.research-skip').count() ||
+             !await page.locator('#research-main').count())
+            note(id+': accessible skip link missing');
+          if(test.width===320){
+            await page.keyboard.press('Tab');
+            const focusInfo=await page.evaluate(()=>({
+              text:document.activeElement?.textContent?.trim(),
+              target:document.activeElement?.getAttribute('href')
+            }));
+            if(focusInfo.target!=='#research-main')
+              note(id+': first keyboard target should skip to content');
+            await page.locator('.research-theme').click();
+            if(await page.locator('.research-theme').getAttribute('aria-pressed')!=='true')
+              note(id+': research page dark-mode control did not update state');
+            await page.locator('.research-theme').click();
+            const view=await page.evaluate(()=>({
+              width:document.documentElement.clientWidth,
+              scrollWidth:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)
+            }));
+            if(view.scrollWidth>view.width+3)
+              note(id+': research page has mobile horizontal overflow');
+          }
+        }
         if(test.path==='/workbench.html' && test.width===320 && test.theme==='light'){
           for(const target of ['scope','robot','lights','thermal']){
             const tab=page.locator('#wb-tab-'+target);
