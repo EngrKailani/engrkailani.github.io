@@ -66,15 +66,16 @@
         <a href="academic-cv.html">Academic CV</a>
         <details class="nav-projects" id="projects-nav-menu">
           <summary>Projects <span class="nav-projects__chevron" aria-hidden="true">⌄</span></summary>
-          <div class="nav-projects__panel" role="group" aria-label="All fifteen engineering projects">
+          <div class="nav-projects__panel" role="group" aria-label="All sixteen engineering projects">
             <div class="nav-projects__intro">
-              <strong>Explore all 15 projects</strong>
+              <strong>Explore all 16 projects</strong>
               <span>Jump straight to a technical project page.</span>
             </div>
             <div class="nav-projects__grid">
               <div class="nav-projects__group">
                 <p class="nav-projects__category">Robotics &amp; kinematics</p>
-                                <a href="projects/ur3e.html">UR3e Robot Kinematics</a>
+                                <a href="projects/nasa.html">NASA Robotic-Arm Assessment</a>
+                <a href="projects/ur3e.html">UR3e Robot Kinematics</a>
                 <a href="projects/leg.html">3-Link Leg Simulation</a>
               </div>
               <div class="nav-projects__group">
@@ -209,7 +210,7 @@
           <a href="#featured-projects" class="btn btn-primary">Explore selected work <span aria-hidden="true">↗</span></a>
           <a href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View résumé <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="hero-direct-contact"><a href="projects/index.html">View all 15 projects ↗</a><span aria-hidden="true"> · </span><a href="workbench.html">Interactive workbench ↗</a><span aria-hidden="true"> · </span><a href="research.html">Research &amp; writing ↗</a><span aria-hidden="true"> · </span><a href="academic-cv.html">Academic CV ↗</a><span aria-hidden="true"> · </span><a href="mailto:kailanip.alarcon@gmail.com">Email Kailani ↗</a></p>
+        <p class="hero-direct-contact"><a href="projects/index.html">View all 16 projects ↗</a><span aria-hidden="true"> · </span><a href="workbench.html">Interactive workbench ↗</a><span aria-hidden="true"> · </span><a href="research.html">Research &amp; writing ↗</a><span aria-hidden="true"> · </span><a href="academic-cv.html">Academic CV ↗</a><span aria-hidden="true"> · </span><a href="mailto:kailanip.alarcon@gmail.com">Email Kailani ↗</a></p>
         <div class="hero-trust-row" aria-label="Engineering experience highlights"><span>NASA Marshall OSTEM</span><span>LUX Dynamics product development</span><span>M.S. Electrical Engineering candidate</span></div>
 
       </div>
@@ -229,10 +230,20 @@
     </section>
 <section class="section featured-projects-section selected-work" id="featured-projects" aria-labelledby="featured-projects-title">
 <div class="featured-projects-inner">
-<div class="selected-work-heading"><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="featured-projects-title">Robotics first, <em>evidence throughout.</em></h2><p>Three selected projects connecting robot modeling, embedded-system integration, and instrumentation. Each distinguishes team contributions and measured results from simulations.</p></div>
+<div class="selected-work-heading"><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="featured-projects-title">Robotics first, <em>evidence throughout.</em></h2><p>Four selected projects: NASA robotic-arm feasibility, robot kinematics, embedded-system integration, and instrumentation. Results are distinguished from plans and illustrative models.</p></div>
 <div class="featured-project-grid">
+<article class="featured-project-card featured-project-card--nasa">
+<span class="featured-category">01 / NASA MARSHALL · OSTEM RESEARCH</span>
+<a class="selected-project-preview" href="projects/nasa.html" aria-label="Read NASA robotic-arm assessment and affiliation disclaimer"><img src="projects/nasa-figures/robotic-arm-geometry.svg" alt="Generic, not-to-scale robotic arm inside an enclosure; illustrative reconstruction, not NASA hardware geometry." width="1200" height="760" loading="lazy" decoding="async"><span class="selected-project-preview__meta">GENERIC RECONSTRUCTION · NOT NASA CAD</span></a>
+<h3><a href="projects/nasa.html">NASA robotic-arm assessment</a></h3>
+<p class="selected-project-tools">Robotic manipulation · vacuum feasibility · systems verification</p>
+<p class="selected-project-role">I independently evaluated workspace, joint travel, loading, actuator compatibility and preliminary controls during my OSTEM internship, with NASA mentor oversight.</p>
+<div class="selected-project-result"><span class="selected-project-label">Documented results</span><p>34 hierarchical requirements from six scenarios; estimated 3.1 N·m shoulder self-load moment for a horizontal pose, excluding rocker and actuator masses.</p></div>
+<p class="selected-project-scope">Personal internship summary; not an official NASA publication, validated actuator selection or vacuum qualification.</p>
+<a class="featured-more" href="projects/nasa.html">Read the NASA case study and disclaimer ↗</a>
+</article>
 <article class="featured-project-card">
-<span class="featured-category">01 / ROBOTICS · GROUP ANALYSIS</span>
+<span class="featured-category">02 / ROBOTICS · GROUP ANALYSIS</span>
 <a class="selected-project-preview" href="projects/ur3e.html" aria-label="See UR3e robot kinematics and Jacobian analysis">
   <img src="projects/directory-thumbnails/ur3e.svg" alt="Schematic engineering illustration of a robotic manipulator; visual reference, not original measured robot pose data." width="960" height="540" loading="lazy" decoding="async">
   <span class="selected-project-preview__meta">SCHEMATIC · MATHEMATICAL ANALYSIS</span>
@@ -244,7 +255,7 @@
 <a class="featured-more" href="projects/ur3e.html">Explore the UR3e analysis ↗</a>
 </article>
 <article class="featured-project-card">
-<span class="featured-category">02 / CAPSTONE</span>
+<span class="featured-category">03 / CAPSTONE</span>
 <a class="selected-project-preview" href="projects/iverify.html" aria-label="View IVerify reconstructed assembly diagram and project details">
   <img src="projects/iverify/media/exploded-concept.svg" alt="Illustrative exploded concept of the IVerify noninvasive sensing assembly; educational reconstruction, not a clinically validated device." width="1280" height="720" loading="lazy" decoding="async">
   <span class="selected-project-preview__meta">RECONSTRUCTED · ASSEMBLY CONCEPT</span>
@@ -254,7 +265,7 @@
 <p class="selected-project-scope">Student proof of concept; no clinical validation.</p><a class="featured-more" href="projects/iverify.html">Explore the IVerify case study ↗</a>
 </article>
 <article class="featured-project-card">
-<span class="featured-category">03 / TEST AUTOMATION</span>
+<span class="featured-category">04 / TEST AUTOMATION</span>
 <a class="selected-project-preview" href="projects/thermal.html" aria-label="View Thermal Logger interface illustration and project details">
   <img src="projects/thermal/media/logger-interface-concept.svg" alt="Illustrative Thermal Controller and Logger software interface with synthetic example temperature curves; not a screenshot of a measured test." width="1280" height="700" loading="lazy" decoding="async">
   <span class="selected-project-preview__meta">ILLUSTRATIVE · SOFTWARE INTERFACE</span>
@@ -265,17 +276,17 @@
 </article></div>
 <nav class="work-pathways" aria-label="Browse all engineering projects by discipline">
   <div class="work-pathways__intro">
-    <div><p class="work-pathways__eyebrow">BEYOND THE FEATURED THREE</p><h3>Find projects by discipline.</h3></div>
-    <a class="work-pathways__all" href="projects/index.html">All 15 projects <span aria-hidden="true">↗</span></a>
+    <div><p class="work-pathways__eyebrow">BEYOND THE FEATURED FOUR</p><h3>Find projects by discipline.</h3></div>
+    <a class="work-pathways__all" href="projects/index.html">All 16 projects <span aria-hidden="true">↗</span></a>
   </div>
   <div class="work-pathways__grid">
-    <a class="work-pathways__item" href="projects/index.html?area=robotics"><span class="work-pathways__item-title">Robotics <span aria-hidden="true">↗</span></span><span class="work-pathways__item-caption">2 projects · Arms & kinematics</span></a>
+    <a class="work-pathways__item" href="projects/index.html?area=robotics"><span class="work-pathways__item-title">Robotics <span aria-hidden="true">↗</span></span><span class="work-pathways__item-caption">3 projects · Arms & kinematics</span></a>
     <a class="work-pathways__item" href="projects/index.html?area=embedded"><span class="work-pathways__item-title">Embedded systems <span aria-hidden="true">↗</span></span><span class="work-pathways__item-caption">4 projects · Microcontrollers & logic</span></a>
     <a class="work-pathways__item" href="projects/index.html?area=measurement"><span class="work-pathways__item-title">Measurement & test <span aria-hidden="true">↗</span></span><span class="work-pathways__item-caption">5 projects · Sensing & validation</span></a>
     <a class="work-pathways__item" href="projects/index.html?area=software"><span class="work-pathways__item-title">Software <span aria-hidden="true">↗</span></span><span class="work-pathways__item-caption">4 projects · Automation & lighting</span></a>
   </div>
 </nav>
-<div class="featured-next-step" aria-label="Project directory and contact options"><p><a class="text-link" href="projects/index.html">Browse all 15 engineering projects ↗</a></p><div class="featured-next-step-links"><a href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity" class="btn btn-primary">Email Kailani ↗</a><a href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View résumé PDF ↗</a></div></div></div></section>
+<div class="featured-next-step" aria-label="Project directory and contact options"><p><a class="text-link" href="projects/index.html">Browse all 16 engineering projects ↗</a></p><div class="featured-next-step-links"><a href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity" class="btn btn-primary">Email Kailani ↗</a><a href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View résumé PDF ↗</a></div></div></div></section>
 <section class="home-lab-spotlight container" id="home-workbench" aria-labelledby="home-lab-title">
   <div class="home-lab-copy">
     <p class="eyebrow">NEW / EXPERIMENTAL INTERACTIVE LAB</p>
@@ -305,7 +316,7 @@
       <div class="container">
         <div class="section-heading" data-ambient-reveal><p class="eyebrow">EXPERIENCE &amp; EDUCATION</p><h2>Engineering in <em>practice.</em></h2></div>
         <div class="experience-layout">
-          <div class="experience-main"><div class="timeline"><article class="timeline-item" data-ambient-reveal><div class="timeline-date">2026 · CURRENT</div><div aria-hidden="true" class="timeline-dot"></div><div><p class="project-kicker">NASA · MARSHALL SPACE FLIGHT CENTER</p><h3>OSTEM Intern, Human Factors Engineering &amp; Mechanical Design</h3><p>Used ROS2 for robotic-arm control and calibration and Thermal Desktop for steady-state and transient thermal analysis in high vacuum, alongside workspace and systems-requirements analysis for lunar-dust testing.</p></div></article>
+          <div class="experience-main"><div class="timeline"><article class="timeline-item" data-ambient-reveal><div class="timeline-date">2026 · CURRENT</div><div aria-hidden="true" class="timeline-dot"></div><div><p class="project-kicker">NASA · MARSHALL SPACE FLIGHT CENTER</p><h3>OSTEM Intern, Human Factors Engineering &amp; Mechanical Design</h3><p>Independently evaluated a proposed lunar-dust robotic arm for high-vacuum feasibility, including workspace and loading. Developed 34 hierarchical requirements and preliminary controls/atmospheric test procedures. <a href="projects/nasa.html">Read the NASA assessment ↗</a></p></div></article>
 <article class="timeline-item" data-ambient-reveal><div class="timeline-date">2023–2026</div><div aria-hidden="true" class="timeline-dot"></div><div><p class="project-kicker">LUX DYNAMICS</p><h3>Product Development Intern</h3><p>Electrical, thermal, and photometric validation for 12+ LED products, plus automation and test-method improvements.</p></div></article>
 <article class="timeline-item" data-ambient-reveal><div class="timeline-date">2024–2026</div><div aria-hidden="true" class="timeline-dot"></div><div><p class="project-kicker">UNIVERSITY OF NEVADA, RENO</p><h3>Engineering Peer Tutor</h3><p>Helped students navigate circuits, microcontrollers, embedded C, and control systems, one tricky problem at a time.</p></div></article></div></div>
           <figure class="experience-photo"><img src="assets/nasa-mission-training-complex-home.webp" alt="Kailani in front of NASA's Mission Training Complex" loading="lazy" width="360" height="480" decoding="async"><figcaption>At the Mission Training Complex</figcaption></figure>
@@ -470,8 +481,9 @@
               <div class="shelf-collection-actions"><button type="button" class="shelf-collection-link" data-collection-target="shelf-collection-two" aria-controls="shelf-collection-two">Next shelf <span aria-hidden="true">→</span><span class="collection-star-trail" aria-hidden="true"><i></i><i></i><i></i></span></button></div>
             </div>
             <p class="shelf-collection-description">Robotics · Embedded &amp; Digital Systems</p>
-            <p class="shelf-swipe-hint">Swipe left or right to browse all seven books <span aria-hidden="true">↔</span></p>
+            <p class="shelf-swipe-hint">Swipe left or right to browse all eight books <span aria-hidden="true">↔</span></p>
             <div class="shelf-books" role="group" aria-label="Robotics & Digital Systems project books, scroll horizontally to browse">
+<button class="book-spine book-rose" type="button" data-open-book="nasa" aria-label="Open NASA robotic-arm assessment project book"><span class="book-spine-ornament" aria-hidden="true">✦</span><span class="book-spine-title">NASA Arm</span><span class="book-spine-year">2026</span></button>
 <button class="book-spine book-ink" type="button" data-open-book="ur3e" aria-label="Open UR3e robot analysis project book"><span class="book-spine-ornament" aria-hidden="true">✦</span><span class="book-spine-title">UR3e Analysis</span><span class="book-spine-year">2026</span></button>
 <button class="book-spine book-plum" type="button" data-open-book="leg" aria-label="Open 3-Link Sim project book"><span class="book-spine-ornament" aria-hidden="true">✦</span><span class="book-spine-title">3-Link Sim</span><span class="book-spine-year">GitHub</span></button>
 <button class="book-spine book-sage" type="button" data-open-book="fingerprint" aria-label="Open STM32 Security project book"><span class="book-spine-ornament" aria-hidden="true">✦</span><span class="book-spine-title">STM32 Security</span><span class="book-spine-year">2025</span></button>
