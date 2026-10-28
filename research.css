@@ -89,3 +89,20 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
 .research-questions-caveat{font-size:12px;line-height:1.8;color:var(--r-muted);margin:16px 0 0}
 @media(max-width:940px){.research-questions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.research-question:last-child{grid-column:1/-1}}
 @media(max-width:650px){.research-questions-grid{grid-template-columns:1fr}.research-question:last-child{grid-column:auto}}
+
+
+/* A forward-looking study design, explicitly separate from NASA project facts. */
+.research-concept__intro{border-left:4px solid var(--r-accent);padding:17px 22px;background:var(--r-panel);border-radius:0 12px 12px 0;margin:17px 0 19px}
+.research-concept__intro p{font-size:13px;line-height:1.9;color:var(--r-muted);margin:0 0 10px}
+.research-concept__intro p:last-child{margin-bottom:0}
+.research-concept__intro strong{color:var(--r-ink)}
+.research-concept__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.research-concept__grid article{background:var(--r-paper);border:1px solid var(--r-border);border-radius:14px;padding:21px}
+.research-concept__grid .research-card-index{margin-bottom:14px}
+.research-concept__grid h3{font-size:25px;margin:0 0 10px}
+.research-concept__grid p{font-size:13px;line-height:1.83;color:var(--r-muted);margin:0}
+.research-concept__boundary{margin-top:16px;padding:15px 18px;border:1px solid var(--r-border);border-radius:12px;font-size:12px;line-height:1.85;background:var(--r-panel);color:var(--r-muted)}
+.research-concept__boundary strong{color:var(--r-ink)}
+.research-concept__boundary a{color:var(--r-accent);font-weight:750;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:850px){.research-concept__grid{grid-template-columns:1fr}.research-concept__grid article{padding:18px}}
+@media(max-width:420px){.research-concept__intro{padding:14px}.research-concept__boundary{padding:13px}}
