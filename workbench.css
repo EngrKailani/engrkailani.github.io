@@ -154,3 +154,48 @@ body.wb-page{margin:0;background:var(--wb-bg);color:var(--wb-ink);font:400 15px/
   .wb-controls{padding:15px}
   .wb-panel-heading h3{font-size:30px}
 }
+
+
+/* Phase 3: readable technical controls and measurement dashboards. */
+.wb-advanced{border:1px solid var(--wb-line);border-radius:10px;background:var(--wb-paper);margin:13px 0;min-width:0}
+.wb-advanced>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:45px;padding:11px 13px;cursor:pointer;list-style:none;font-size:13px;font-weight:800;color:var(--wb-ink)}
+.wb-advanced>summary::-webkit-details-marker{display:none}
+.wb-advanced>summary::marker{content:""}
+.wb-advanced>summary>span{display:inline-block;transition:transform .15s;font-size:20px;line-height:1}
+.wb-advanced[open]>summary>span{transform:rotate(180deg)}
+.wb-advanced>summary:hover{color:var(--wb-rose)}
+.wb-advanced>summary:focus-visible{outline:3px solid #b66e97;outline-offset:3px}
+.wb-advanced-content{padding:0 14px 15px;border-top:1px solid var(--wb-line)}
+.wb-advanced-content>.wb-field:first-child{margin-top:14px}
+.wb-advanced-content>.wb-field:last-child{margin-bottom:4px}
+.wb-advanced-content>.wb-control-actions{margin-top:16px}
+.wb-controls .wb-advanced .wb-field{font-size:13px}
+.wb-cursor-readouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.wb-cursor-readouts>div{border:1px solid var(--wb-line);background:var(--wb-tint);border-radius:11px;padding:11px 14px;min-width:0}
+.wb-cursor-readouts span{display:block;font-size:11px;font-weight:700;color:var(--wb-muted);margin-bottom:4px}
+.wb-cursor-readouts strong{display:block;font-size:clamp(15px,1.8vw,20px);font-weight:750;line-height:1.3;font-variant-numeric:tabular-nums;letter-spacing:-.03em;overflow-wrap:anywhere}
+.wb-instrument-caption{color:var(--wb-muted);font-size:11px;line-height:1.75;margin:9px 0 0}
+.wb-robot-readouts{grid-template-columns:repeat(4,minmax(0,1fr))}
+.wb-robot-readouts strong{font-size:clamp(14px,1.85vw,19px)}
+.wb-robot-options{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px;padding:8px 2px 0}
+.wb-robot-options>.wb-check{min-height:32px}
+.wb-ik-status{font-size:12px;font-weight:700;line-height:1.7;padding:11px 12px;margin:13px 0 0;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-tint);color:var(--wb-ink)}
+.wb-ik-status[data-state="error"]{border-color:#ad6878;color:#85465a;background:#fff2f3}
+.wb-ik-status[data-state="success"]{border-color:#77a894;color:#356454;background:#ecf7f2}
+:root[data-theme="dark"] .wb-ik-status[data-state="error"]{background:#50313c;color:#ffc9d6;border-color:#c88b9a}
+:root[data-theme="dark"] .wb-ik-status[data-state="success"]{background:#28483f;color:#d0f4e4;border-color:#79aa94}
+#robot-canvas{touch-action:none;cursor:crosshair}
+#robot-canvas:active{cursor:grabbing}
+@media(max-width:1020px){.wb-robot-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){
+  .wb-cursor-readouts{gap:6px}
+  .wb-cursor-readouts>div{padding:9px 8px}
+  .wb-cursor-readouts span{font-size:11px}
+  .wb-cursor-readouts strong{font-size:14px}
+  .wb-robot-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wb-advanced-content{padding-inline:11px}
+  .wb-controls .wb-advanced .wb-field{font-size:13px}
+  .wb-control-actions .wb-small-button{flex:1 1 105px}
+}
+@media(max-width:340px){.wb-robot-options{grid-template-columns:1fr}.wb-cursor-readouts{grid-template-columns:1fr 1fr}.wb-cursor-readouts>div:last-child{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.wb-advanced>summary>span{transition:none}}
