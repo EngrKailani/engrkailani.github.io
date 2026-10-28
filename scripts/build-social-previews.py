@@ -114,7 +114,7 @@ def project_cards() -> list[tuple[str, str, Path]]:
             raise FileNotFoundError(source)
         text = html.unescape(re.sub(r"<[^>]+>", "", title.group(1)))
         output.append((slug, text, source))
-    if len(output) != 16 or len({s for s, _, _ in output}) != 15:
+    if len(output) != 16 or len({s for s, _, _ in output}) != 16:
         raise ValueError("Expected exactly 16 unique project thumbnails")
     return output
 
