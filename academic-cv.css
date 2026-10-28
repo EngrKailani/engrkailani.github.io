@@ -78,3 +78,9 @@
   .cv-source-version .cv-section li{margin:2px 0}
   .cv-source-version .cv-note{font-size:7.7pt!important}
 }
+
+/* Preserve the uploaded document's three-part page grouping when printing. */
+@media print{
+  .cv-source-version .cv-section:has(> #cv-writing-title),
+  .cv-source-version .cv-section:has(> #cv-teaching-title){break-before:page;page-break-before:always}
+}
