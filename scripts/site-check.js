@@ -164,7 +164,7 @@ for(const slug of caseTitles){
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_Academic_CV.pdf?v=20261028-uploaded-cv2"') &&
+check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_CV.pdf?v=20261028-original"') &&
   home.includes('aria-label="View academic CV PDF in a new tab"'),
   'Main navigation must link directly to the uploaded academic CV PDF');
 check(home.includes('class="featured-next-step"') &&
@@ -740,16 +740,16 @@ check(home.includes('class="featured-project-card"') &&
   'Homepage should fairly attribute the featured group robotics study');
 check(research.includes('id="questions"') &&
   (research.match(/class="research-question"/g)||[]).length===3 &&
-  research.includes('research.css?v=20261027-research2') &&
+  research.includes('research.css?v=20261028-concept1') &&
   research.includes('specific approaches and candidate metrics have not yet been tested') &&
   research.includes('href="academic-cv.html"'),
   'Research page must give three explicit proposed questions without claiming results');
 check(academicCV.includes('id="cv-main"') &&
   academicCV.includes('not represented as peer-reviewed journal or conference articles') &&
   academicCV.includes('Fall 2026 – Present') &&
-  academicCV.includes('assets/Kailani_Alarcon_Academic_CV.pdf?v=20261028-uploaded-cv2') &&
-  fs.existsSync(path.join(root,'assets/Kailani_Alarcon_Academic_CV.pdf')) &&
-  academicCV.includes('academic-cv.css?v=20261028-uploaded-cv2') &&
+  academicCV.includes('assets/Kailani_Alarcon_CV.pdf?v=20261028-original') &&
+  fs.existsSync(path.join(root,'assets/Kailani_Alarcon_CV.pdf')) &&
+  academicCV.includes('academic-cv.css?v=20261028-original1') &&
   academicCV.includes('onclick="window.print()"'),
   'Academic CV should follow the uploaded three-page research record and remain printable');
 
@@ -771,6 +771,47 @@ check(urResearch.includes('id="ur3e-analysis"') &&
   urResearch.includes('rank 5') && urResearch.includes('rank 6') &&
   fs.existsSync(path.join(root,'projects/ur3e-technical.css')),
   'UR3e must show reported ranks, methods, and reproducibility caveats');
+
+/* User-supplied PDF is byte-for-byte authoritative: Git blob SHA computed
+   from the original three-page upload, not the HTML preview generator. */
+const crypto=require('node:crypto');
+const canonicalPdfPath=path.join(root,'assets','Kailani_Alarcon_CV.pdf');
+const canonicalBytes=fs.readFileSync(canonicalPdfPath);
+const canonicalBlobSha=crypto.createHash('sha1')
+  .update('blob '+canonicalBytes.length+'\0')
+  .update(canonicalBytes)
+  .digest('hex');
+check(canonicalBytes.length===165127 &&
+  canonicalBlobSha==='cc243920ede546eef6d7bac2bd26126975545d7d' &&
+  canonicalBytes.subarray(0,5).toString()==='%PDF-',
+  'Canonical downloadable CV must match the exact user-uploaded three-page PDF');
+check(home.includes('Kailani_Alarcon_CV.pdf?v=20261028-original') &&
+  directory.includes('Kailani_Alarcon_CV.pdf?v=20261028-original') &&
+  academicCV.includes('download="Kailani_Alarcon_CV.pdf"') &&
+  academicCV.includes('The PDF above is the original three-page CV') &&
+  !home.includes('Kailani_Alarcon_Academic_CV.pdf') &&
+  !academicCV.includes('Kailani_Alarcon_Academic_CV.pdf'),
+  'Primary site CV links must use original uploaded source, not regenerated HTML PDF');
+const nasaPublic=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
+check(nasaPublic.includes('id="nasa-evidence-map"') &&
+  nasaPublic.includes('34 hierarchical requirements') &&
+  nasaPublic.includes('six operating scenarios') &&
+  nasaPublic.includes('3.1 N·m') &&
+  nasaPublic.includes('excludes rocker and actuator masses') &&
+  nasaPublic.includes('No completed vacuum qualification') &&
+  nasaPublic.includes('no new NASA project specifications or test results'),
+  'NASA evidence map must preserve disclosed facts and explicit verification limits');
+check(research.includes('id="research-concept"') &&
+  research.includes('not a completed experiment, NASA task') &&
+  research.includes('independent future research') &&
+  research.includes('no new NASA-specific technical detail') &&
+  research.includes('download the original three-page CV PDF'),
+  'Prospective manipulation study must be clearly separate from disclosed NASA work');
+const optionalPdfWorkflow=fs.readFileSync(path.join(root,'.github/workflows/academic-cv-pdf.yml'),'utf8');
+check(optionalPdfWorkflow.includes('workflow_dispatch:') &&
+  !optionalPdfWorkflow.includes('git push') &&
+  !optionalPdfWorkflow.includes('contents: write'),
+  'HTML-derived CV preview workflow must not overwrite the authoritative user PDF');
 
 /* Workbench integrity: all four browser-only demos and their controls remain linked. */
 const workbench=fs.readFileSync(path.join(root,'workbench.html'),'utf8');
