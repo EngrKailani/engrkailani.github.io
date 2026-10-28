@@ -69,7 +69,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
          if(!await page.locator('#research-main').isVisible())
            note(id+': research main content missing');
          await inspect('research layout');
-         await page.locator('a[href="#writing"]').click();
+         await page.locator('.research-jumps a[href="#writing"]').click();
          if(!await page.locator('#writing').isVisible())
            note(id+': research writing anchor missing');
        }
@@ -98,7 +98,7 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
            note(id+': optional gallery must start collapsed');
          if(await page.locator('#bookshelf').isVisible())
            note(id+': bookshelf should not add to the initial scrolling homepage');
-         await archive.locator('summary').click();
+         await archive.locator(':scope > summary').click();
          await page.waitForTimeout(200);
          if(!await archive.evaluate(el=>el.open))
            note(id+': archive did not expand');
