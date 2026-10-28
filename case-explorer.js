@@ -8,40 +8,6 @@
   if (!explorer) return;
 
   const caseData = {
-    nasa: {
-      label: 'NASA robotic-arm assessment',
-      title: 'A robotic arm operating under vacuum constraints',
-      status: 'Engineering assessment',
-      intro: 'Follow the constraint review, two engineering workstreams, and verification planning. These stages describe the project work, not a completed vacuum qualification.',
-      steps: [
-        {
-          name: 'Constraints', note: 'Geometry + environment',
-          title: 'Define the workspace and environmental constraints',
-          body: 'Review test surfaces, reachable workspace, joint and actuator limits, and the high-vacuum environment before selecting a control or thermal model.',
-          limit: 'The assessment specifies a 10⁻⁷ torr vacuum target. This is an operating requirement, not evidence of qualified operation.'
-        },
-        {
-          name: 'Arm control', note: 'ROS2 + calibration',
-          title: 'Control and calibrate the robotic arm',
-          body: 'ROS2 was used for arm control and calibration as part of the NASA assessment. Calibration and workspace checks inform whether the proposed motions are feasible.',
-          limit: 'Control and calibration work were performed, but quantitative calibration error and a validated operating envelope are not publicly reported.'
-        },
-        {
-          name: 'Thermal model', note: 'Thermal Desktop',
-          title: 'Examine steady-state and transient behavior',
-          body: 'Thermal Desktop supported steady-state and transient analysis of the arm in the high-vacuum environment, complementing the mechanical and control assessment.',
-          limit: 'The project records describe the modeling work, not public temperature histories or demonstrated thermal margins.'
-        },
-        {
-          name: 'Verification', note: 'Requirements + scenarios',
-          title: 'Trace the assessment to verification needs',
-          body: 'The assessment covers 34 system requirements and six planned test scenarios, providing structure for evaluating readiness and identifying missing evidence.',
-          limit: 'The six scenarios were planned. They are not six completed qualification tests, and vacuum qualification was not established.'
-        }
-      ],
-      metrics: [['34','requirements in scope'],['6','planned scenarios'],['10⁻⁷ torr','vacuum target']],
-      anchor: 'projects/nasa.html#project-evidence', href: 'projects/nasa.html'
-    },
     iverify: {
       label: 'IVerify capstone prototype',
       title: 'From tubing force to an electrical indication',
@@ -132,7 +98,7 @@
       !insightText || !limitText || !counter || !detailsLink || !fullLink ||
       !prev || !next) return;
 
-  let selected = 'nasa';
+  let selected = 'iverify';
   let step = 0;
 
   function renderCase(){
@@ -208,7 +174,7 @@
 
   // Keep older case-study deep links working by selecting the matching explorer tab.
   const linkedCases = {
-    '#case-nasa':'nasa', '#case-iverify':'iverify', '#case-controls':'controls'
+    '#case-iverify':'iverify', '#case-controls':'controls'
   };
   const linkedCase = linkedCases[window.location.hash];
   if (linkedCase) selected = linkedCase;
