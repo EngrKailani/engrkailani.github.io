@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="project-photo-context.css?v=20261012">
 <link rel="stylesheet" href="case-study-summary.css?v=20261027-phase2">
-<link rel="stylesheet" href="nasa-figures.css?v=20261013-large-disclaimer">
+<link rel="stylesheet" href="nasa-figures.css?v=20261028-evidence-map">
 <meta property="og:image" content="https://engrkailani.github.io/social/nasa.png">
 <meta property="og:image:alt" content="Illustrative NASA robotic-arm feasibility case-study preview, not official NASA hardware imagery">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -43,7 +43,7 @@
   <p>Nothing on this page should be interpreted as an official NASA statement, technical specification, endorsement, representation of agency capabilities, or description of the performance or status of any NASA program, system, hardware, mission, or organization.</p>
 </aside>
 <section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Evaluate a robotic-arm concept for chamber access, actuator suitability, and high-vacuum operation.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Independently evaluated arm geometry, joint travel, reachable workspace, loading, actuator suitability, preliminary controls, and verification planning under NASA mentor oversight.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Creo, Python, ROS 2, MuJoCo, actuator load calculations, Pololu Micro Maestro 6, and structured system requirements.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed workspace, actuator loading, thermal behavior, and planned operating scenarios against system requirements.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Developed 34 hierarchical requirements from six operating scenarios, calculated an estimated 3.1 N·m shoulder self-load moment for one horizontal configuration, and identified further actuator-loading and vacuum verification needs.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>The estimated 3.1 N·m shoulder moment excludes rocker and actuator masses, so it is not an actuator-selection result. No project-specific design drawings, calibration data, vacuum qualification or validated operation are presented.</p></div></div></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical context</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#project-results">Assessment status</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical context</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#nasa-evidence-map">Evidence map</a><a href="#project-results">Assessment status</a><a href="#project-evidence">Evidence</a></nav>
 
 <section class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
   <header class="nasa-figures__intro">
@@ -61,6 +61,25 @@
     <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project-specific geometry or measurements." width="1200" height="760" loading="lazy" decoding="async">
     <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration using a generic arm silhouette. The geometry, proportions, and joint placement are illustrative only and do not represent the project hardware. The colors are explanatory only and do not represent measured or qualified thermal performance.</figcaption>
   </figure>
+</section>
+
+<section class="nasa-evidence-map" id="nasa-evidence-map" aria-labelledby="nasa-evidence-map-title">
+  <p class="eyebrow">PUBLIC ENGINEERING EVIDENCE / SCOPE</p>
+  <h2 id="nasa-evidence-map-title">What the assessment established—and what remains open</h2>
+  <p class="nasa-evidence-map__intro">The distinction between an engineering result, a preliminary estimate, and a future verification activity matters. This summary reorganizes information already disclosed on this page; it adds no new NASA project specifications or test results.</p>
+  <div class="nasa-evidence-map__scroll" tabindex="0" aria-label="Scroll the assessment evidence table horizontally if necessary">
+    <table class="nasa-evidence-map__table">
+      <thead><tr><th scope="col">Workstream</th><th scope="col">Previously described work</th><th scope="col">Evidence boundary</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Requirements</th><td>34 hierarchical requirements based on six operating scenarios.</td><td>Requirements development; not completed system qualification.</td></tr>
+        <tr><th scope="row">Mechanical feasibility</th><td>Estimated 3.1 N·m shoulder self-load moment in one horizontal arm configuration.</td><td>Excludes rocker and actuator masses; insufficient for actuator selection.</td></tr>
+        <tr><th scope="row">Controls</th><td>Preliminary software and atmospheric bench-test procedures for the existing Pololu Micro Maestro 6.</td><td>Calibration performance and proposed replacement-actuator verification remain open.</td></tr>
+        <tr><th scope="row">Thermal assessment</th><td>Steady-state and transient analysis using Thermal Desktop.</td><td>Public figure is qualitative, not a solver output or qualification result.</td></tr>
+        <tr><th scope="row">High-vacuum suitability</th><td>Constraints and verification needs identified as part of the assessment.</td><td>No completed vacuum qualification or validated operation is claimed.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="nasa-evidence-map__note">The figures on this page are generic illustrations, not NASA CAD or test measurements. No additional geometry, test parameters, performance margins, or unreleased results are disclosed here.</p>
 </section>
 
 <article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>Estimated a 3.1 N·m shoulder self-load moment for a horizontal configuration; the calculation excludes rocker and actuator masses. The remaining center-of-gravity and joint-loading work must be completed before determining actuator adequacy. Project-specific geometry remains outside this public summary.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
