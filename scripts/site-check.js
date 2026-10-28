@@ -667,7 +667,8 @@ check(home.indexOf('id="featured-projects"')<home.indexOf('id="home-workbench"')
   home.includes('class="extras-expand-cta"') &&
   home.includes('id="bookshelf"') && home.includes('id="repo-planetarium"') &&
   home.includes('</details></div>') &&
-  home.indexOf('</details></div>')<home.indexOf('<section class="section skills-section"'),
+  home.indexOf('<section class="section skills-section"')<home.indexOf('id="explore"') &&
+  home.indexOf('</details></div>')<home.indexOf('<section class="section work-section"'),
   'Optional archive must start collapsed; selected work and technical skills stay in main portfolio');
 check(home.includes('homepage-refinement.js?v=20261027-phase2')&&
   fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true") &&
@@ -737,10 +738,11 @@ check(research.includes('id="questions"') &&
 check(academicCV.includes('id="cv-main"') &&
   academicCV.includes('No peer-reviewed journal or conference publication is claimed') &&
   academicCV.includes('Expected May 2028') &&
-  academicCV.includes('assets/')===false &&
+  academicCV.includes('assets/Kailani_Alarcon_Academic_CV.pdf?v=20261027-cv1') &&
+  fs.existsSync(path.join(root,'assets/Kailani_Alarcon_Academic_CV.pdf')) &&
   academicCV.includes('academic-cv.css?v=20261027-academic1') &&
   academicCV.includes('onclick="window.print()"'),
-  'Academic CV should be distinct, print-ready, truthful and initially independent of an unpublished PDF');
+  'Academic CV should be separate, printable, and offer a generated PDF with truthful status');
 check(home.includes('href="academic-cv.html"') &&
   htmlResume.includes('href="academic-cv.html"') &&
   directory.includes('href="../academic-cv.html"') &&
