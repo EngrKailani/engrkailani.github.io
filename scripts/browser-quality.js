@@ -204,10 +204,26 @@ async function audit(){
         if(test.path==='/') {
           if(await page.locator('.selected-project-preview img').count()!==2)
             note(id+': expected two illustrated featured engineering projects');
-          if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf should be visible');
-          if(!await page.locator('#repo-planetarium').isVisible()) note(id+': planetarium should be visible');
-          if(await page.locator('[data-open-book]').count()!==15) note(id+': expected 15 project books');
-          if(await page.locator('.repo-planet').count()!==5) note(id+': expected 5 repository planets');
+          const archive=page.locator('#explore');
+          if(await archive.evaluate(el=>el.open))
+            note(id+': optional interactive gallery must be initially collapsed');
+          if(await page.locator('#bookshelf').isVisible())
+            note(id+': the bookshelf should stay behind the optional gallery summary');
+          if(test.screenshot){
+            await page.screenshot({path:path.join(out,'screenshots',id+'-focused-home.png'),animations:'disabled'});
+          }
+          await archive.locator('summary').click();
+          await page.waitForTimeout(220);
+          if(!await archive.evaluate(el=>el.open))
+            note(id+': the optional interactive gallery did not expand');
+          if(!await page.locator('#bookshelf').isVisible())
+            note(id+': expanded bookshelf should be visible');
+          if(!await page.locator('#repo-planetarium').isVisible())
+            note(id+': expanded repository planets should be visible');
+          if(await page.locator('[data-open-book]').count()!==15)
+            note(id+': expected 15 project books');
+          if(await page.locator('.repo-planet').count()!==5)
+            note(id+': expected 5 repository planets');
         }
         if(test.path==='/workbench.html' && test.theme==='light' && test.width===390){
           const tabs=page.locator('[data-instrument][role="tab"]');
