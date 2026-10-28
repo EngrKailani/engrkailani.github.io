@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../portfolio.css?v=20261011-14">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=20261012-mobile-containment">
 <link rel="stylesheet" href="case-study-summary.css?v=20261027-phase2">
+<link rel="stylesheet" href="ur3e-technical.css?v=20261027-research1">
 <meta property="og:image" content="https://engrkailani.github.io/social/ur3e.png">
 <meta property="og:image:alt" content="Branded engineering case-study illustration: UR3e Robot Kinematics">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -30,9 +31,9 @@
 </div></nav></header>
 <main class="project-paper" id="project-main" tabindex="-1"><div class="detail-container">
 <header class="detail-heading">
-<p class="eyebrow">ME422 · Spring 2026 · Group study</p><h1>UR3e Robot Kinematics</h1><p>Modeling six degrees of freedom with Jacobians</p>
+<p class="eyebrow">ME422 · Spring 2026 · Group study</p><h1>UR3e Robot Kinematics</h1><p>Six-joint forward kinematics and Jacobian-rank analysis · three-person group study</p>
 </header>
-<nav class="project-reading-shortcuts" aria-label="Quick access to project evidence"><span class="project-reading-shortcuts__label">REVIEW THE ENGINEERING</span><a href="#project-results">Documented findings <span aria-hidden="true">↗</span></a><a href="#project-evidence">Evidence &amp; limitations <span aria-hidden="true">↗</span></a></nav>
+<nav class="project-reading-shortcuts" aria-label="Quick access to project evidence"><span class="project-reading-shortcuts__label">REVIEW THE ENGINEERING</span><a href="#ur3e-analysis">Technical figure <span aria-hidden="true">↗</span></a><a href="#project-results">Documented findings <span aria-hidden="true">↗</span></a><a href="#project-evidence">Evidence &amp; limitations <span aria-hidden="true">↗</span></a></nav>
 <section class="project-evidence-first" aria-labelledby="evidence-summary-title">
 <p class="project-evidence-first__eyebrow">ENGINEERING EVIDENCE / AT A GLANCE</p>
 <h2 id="evidence-summary-title">What was done, checked, and documented</h2>
@@ -46,8 +47,8 @@
 </div>
 <p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
 </section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
-<section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 02 / 16</span><p class="detail-lead">In a three-person robotics analysis project, our team studied the Universal Robots UR3e, a six-joint collaborative arm. We assigned Denavit–Hartenberg frames and derived the transformations that describe how each joint contributes to the end-effector pose. The project connected the mathematics of robot motion to an industrial manipulator.</p><div class="project-overview__role"><strong>Team context</strong><p>Member of a three-person robot-kinematics analysis team; the project documentation describes shared DH, Jacobian, and singularity analysis.</p></div></section>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#ur3e-analysis">Jacobian analysis</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
+<section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">ROBOTICS · GROUP ANALYSIS</span><p class="detail-lead">In a three-person robotics analysis project, our team studied the Universal Robots UR3e, a six-joint collaborative arm. We assigned Denavit–Hartenberg frames and derived the transformations that describe how each joint contributes to the end-effector pose. The project connected the mathematics of robot motion to an industrial manipulator.</p><div class="project-overview__role"><strong>Team context</strong><p>Member of a three-person robot-kinematics analysis team; the project documentation describes shared DH, Jacobian, and singularity analysis.</p></div></section>
 <article class="detail-card" aria-label="UR3e Robot Kinematics engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
 
@@ -58,11 +59,40 @@
 <section class="detail-panel"><h3>Tools</h3><p>MATLAB, Denavit–Hartenberg convention, forward kinematics, Jacobians, velocity analysis.</p></section>
 
 </div>
-<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A group analysis of end-effector motion and singularity, with another evaluated configuration reaching full Jacobian rank.</p></div>
+<section class="ur-analysis" id="ur3e-analysis" aria-labelledby="ur-analysis-title">
+<p class="eyebrow">KINEMATICS / SINGULARITY REASONING</p>
+<h2 id="ur-analysis-title">What the reported Jacobian rank means</h2>
+<p>The six-revolute-joint manipulator is modeled as a series of rigid transforms. A geometric Jacobian maps joint rates into instantaneous end-effector translation and angular velocity. Reduced matrix rank means one or more instantaneous task-space directions cannot be generated independently at that configuration.</p>
+<figure class="ur-analysis__figure">
+<img src="ur3e/media/jacobian-rank-comparison.svg" width="1120" height="490" loading="lazy" decoding="async" alt="Schematic side-by-side: reported Jacobian rank 5 of 6 at the zero-angle pose compared with full rank 6 of 6 at another analyzed pose. Bars indicate rank count, not experimental values.">
+<figcaption><strong>Fig. 01 — Reported rank comparison.</strong> The three-person group's available record identifies a singular zero-angle pose (rank 5) and another evaluated pose with full rank (rank 6). The bars simply visualize that rank count; they are not singular values, measured accuracy, a reconstructed Jacobian matrix, or evidence of physical UR3e operation.</figcaption>
+</figure>
+<div class="ur-analysis__equations" aria-label="Standard kinematic relationships">
+<p><strong>Forward kinematics</strong><code>T₀⁶(q) = A₁(q₁) A₂(q₂) ⋯ A₆(q₆)</code></p>
+<p><strong>Instantaneous differential kinematics</strong><code>[v; ω] = J(q) q̇</code></p>
+<p><strong>Geometric Jacobian, revolute joint i</strong><code>Jᵥ,ᵢ = zᵢ₋₁ × (o₆ − oᵢ₋₁); Jω,ᵢ = zᵢ₋₁</code></p>
+</div>
+<div class="ur-analysis__grid">
+<div><h3>Evaluation sequence</h3><ul>
+<li>Assign six consistent Denavit–Hartenberg coordinate frames and link transforms.</li>
+<li>Form the tool pose by multiplying homogeneous transforms.</li>
+<li>Assemble the six-column geometric Jacobian from joint axes and origins.</li>
+<li>Evaluate rank at selected joint vectors in MATLAB and compare singular with nonsingular cases.</li>
+</ul></div>
+<div><h3>What would make this reproducible?</h3><ul>
+<li>The original DH parameter table, exact frame convention and tool offset.</li>
+<li>Exact joint vectors for every evaluated pose, not simply a pose label.</li>
+<li>The evaluated Jacobian entries, numerical rank tolerance, and MATLAB implementation.</li>
+<li>Hardware or independent numerical comparisons if claiming physical-robot accuracy.</li>
+</ul></div>
+</div>
+<p class="ur-analysis__note"><strong>Evidence boundary:</strong> These are standard mathematical relationships and a visual explanation of the group's reported ranks. The source records do not preserve the complete numeric matrices or original code in this public case study. No new numerical rank calculation or hardware result is claimed.</p>
+</section>
+<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The group reported Jacobian rank 5 at the analyzed zero-angle configuration and full rank 6 at another evaluated configuration. The distinction identifies a locally singular pose in the mathematical model; it does not establish independent UR3e hardware accuracy, numerical conditioning, or general safety margins.</p></div>
 
 
 </article>
-<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>Project methods and findings follow the available portfolio records. Original raw data and independent test evidence are not represented where unavailable.</p></section>
+<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>Project methods and the reported rank comparison follow available group-work records. The original DH table, full numerical Jacobian outputs, exact nonsingular joint vector, numerical rank threshold and independently measured hardware validation are not published here. The technical diagram is a schematic explanation of a reported result, not a recovered experimental plot. Individual mathematical derivations are not separately attributed within the three-person team.</p></section>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="leg.html">3-Link Leg Simulation →</a>
 </nav></div></main>
