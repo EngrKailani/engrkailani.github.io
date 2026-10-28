@@ -254,8 +254,8 @@ async function audit(){
           }
         }
         if(test.path==='/') {
-          if(await page.locator('.selected-project-preview img').count()!==3)
-            note(id+': expected three illustrated featured engineering projects');
+          if(await page.locator('.selected-project-preview img').count()!==4)
+            note(id+': expected four illustrated featured engineering projects');
           const archive=page.locator('#explore');
           if(await archive.evaluate(el=>el.open))
             note(id+': optional interactive gallery must be initially collapsed');
