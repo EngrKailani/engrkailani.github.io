@@ -159,7 +159,7 @@ check(wayfindingPaths.every(([area,n])=>
 check(directory.includes('class="directory-breadcrumb"') &&
   directory.includes('id="directory-clear"') &&
   directory.includes('../site-ux.css?v=20261013-wayfinding1') &&
-  home.includes('site-ux.css?v=20261013-wayfinding1') &&
+  home.includes('site-ux.css?v=20261027-workbench1') &&
   fs.existsSync(path.join(root,'site-ux.css')),
   'The project directory needs breadcrumbs, clear filters and responsive wayfinding styles');
 const upgradedDirectoryJS=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
