@@ -1,4 +1,4 @@
-/* Interactive, source-grounded overview of the three public engineering case studies.
+/* Interactive, source-grounded overview of the two public engineering case studies.
  * The dedicated project pages contain the full engineering analyses.
  * No measurements are synthesized or fetched at runtime.
  */
