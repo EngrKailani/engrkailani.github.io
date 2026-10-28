@@ -94,8 +94,8 @@ for(const phrase of ['Performed load analysis using Creo mass properties','34 hi
 check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261014-resume'),
   'HTML resume PDF download must use the newest cached version');
 
-// All 16 cases explain ownership, methods, results and evidentiary limits.
-const caseTitles=['nasa','iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
+// All 15 cases explain ownership, methods, results and evidentiary limits.
+const caseTitles=['iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
   'hall','huemotion','leg','motor','powershell','prodriver','vhdl','vna'];
 const evidenceHeadings=['Problem','My contribution','Engineering tools',
   'Validation method','Documented result','Limitations'];
@@ -105,12 +105,6 @@ for(const slug of caseTitles){
     source.includes('case-study-summary.css') &&
     evidenceHeadings.every(title=>source.includes('<h3>'+title+'</h3>')),
     slug+': evidence-first summary must cover all six questions');
-}
-const nasaRead=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
-for(const id of ['nasa-controls','nasa-thermal','nasa-requirements','nasa-verification']){
-  check(nasaRead.includes('id="'+id+'"') &&
-    nasaRead.includes('href="#'+id+'"'),
-    'NASA workstream link must resolve: '+id);
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
@@ -144,27 +138,24 @@ const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
 
 const paperDirectoryPreviews=[...directory.matchAll(/class="directory-card-visual directory-card-visual--paper"/g)];
 const directoryThumbStyles=fs.readFileSync(path.join(projectDir,'directory-thumbnails.css'),'utf8');
-check(paperDirectoryPreviews.length===3 &&
-  ['robotic-arm-geometry.svg','gesture_scene_map.svg','lab_workflows.svg'].every(name=>directory.includes(name)) &&
+check(paperDirectoryPreviews.length===2 &&
+  ['gesture_scene_map.svg','lab_workflows.svg'].every(name=>directory.includes(name)) &&
   directoryThumbStyles.includes('.directory-card-visual--paper::after') &&
   directoryThumbStyles.includes('mix-blend-mode:multiply') &&
   directoryThumbStyles.includes('background:linear-gradient(145deg,#d7c0d7'),
   'Directory thumbnail surfaces must use plum rather than white, including three originally light SVG previews');
-check(home.includes('selected-project-preview selected-project-preview--paper') &&
-  fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.selected-project-preview--paper::after'),
-  'Homepage NASA featured preview should use the same subtle tinted background');
 
 
 const wayfindingPaths=[
-  ['robotics',3],['embedded',4],['measurement',5],['software',4]
+  ['robotics',2],['embedded',4],['measurement',5],['software',4]
 ];
 const pathwaySection=home.match(/<nav class="work-pathways"[\s\S]*?<\/nav>/)?.[0]||'';
 check(wayfindingPaths.every(([area,n])=>
   pathwaySection.includes('href="projects/index.html?area='+area+'"') &&
   (directory.match(new RegExp('data-gallery-category="'+area+'"','g'))||[]).length===n) &&
-  home.includes('href="projects/index.html">View all 16 projects') &&
+  home.includes('href="projects/index.html">View all 15 projects') &&
   home.includes('href="#explore">Interactive</a>'),
-  'Engineering wayfinding should expose all sixteen projects and accurate discipline counts');
+  'Engineering wayfinding should expose all fifteen projects and accurate discipline counts');
 check(directory.includes('class="directory-breadcrumb"') &&
   directory.includes('id="directory-clear"') &&
   directory.includes('../site-ux.css?v=20261013-wayfinding1') &&
@@ -181,9 +172,9 @@ check(upgradedDirectoryJS.includes('restoreDirectoryFromUrl()') &&
 const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
 const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]).filter(name=>name!=='index.html');
 const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
-check(menuItems.length===16&&new Set(menuItems).size===16&&
-  directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
-  'Homepage Projects menu must link directly to all 16 project pages, exactly once');
+check(menuItems.length===15&&new Set(menuItems).size===15&&
+  directoryItems.length===15&&directoryItems.every(name=>menuItems.includes(name)),
+  'Homepage Projects menu must link directly to all 15 project pages, exactly once');
 check(menuMarkup.includes('href="projects/index.html"') &&
   home.includes('projects-menu.css?v=20261012-projectsnav1') &&
   home.includes('scripts/projects-menu.js?v=20261012-projectsnav1') &&
@@ -192,8 +183,8 @@ check(menuMarkup.includes('href="projects/index.html"') &&
   'Projects dropdown, directory link, accessible styling and behavior must be installed');
 
 const thumbs=[...directory.matchAll(/<span class="directory-card-visual(?: directory-card-visual--paper)?"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
-check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
-check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
+check(thumbs.length===15,'Project directory needs all fifteen image thumbnails');
+check((directory.match(/class="directory-card-badge"/g)||[]).length===15,
   'Each project thumbnail must have a labeled evidence type');
 check(directory.includes('directory-thumbnails.css'),'Directory must link scoped thumbnail CSS');
 for(const [,source,alt] of thumbs){
@@ -201,7 +192,7 @@ for(const [,source,alt] of thumbs){
   check(fs.existsSync(path.resolve(projectDir,source.split('?')[0])),
     'Project thumbnail image not found: '+source);
 }
-check((directory.match(/data-gallery-category=/g)||[]).length===16 &&
+check((directory.match(/data-gallery-category=/g)||[]).length===15 &&
   directory.includes('id="directory-search"') &&
   directory.includes('data-gallery-filter="robotics"'),
   'Searchable categorized project directory must remain intact');
@@ -292,18 +283,16 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
 }
 
 /* Contextual photographs appear only where they help explain the project. */
-const nasaPage=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
 const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
 check(home.includes('<figure class="feature-visual">\n            <img src="assets/Arm-home.webp"') &&
   !home.includes('class="featured-project-photo"') &&
   !home.includes('class="engineering-snapshots"'),
-  'Robotic-arm photo should accompany NASA project details, not enlarge featured cards');
+  'Robotic-arm context photo should remain outside featured project cards');
 check(!home.includes('src="assets/Testing.jpg"') &&
   !home.includes('src="assets/VNA.jpg"'),
   'Homepage must not imply generic photos document unrelated project results');
-check(nasaPage.includes('src="../assets/Creo-1.jpg"') &&
-  vnaPage.includes('src="../assets/VNA.jpg"'),
-  'CAD and VNA photos must be placed beside the relevant technical methods');
+check(vnaPage.includes('src="../assets/VNA.jpg"'),
+  'VNA photo must be placed beside the relevant technical methods');
 check(fs.readFileSync(path.join(root,'projects/project-photo-context.css'),'utf8')
   .includes('.context-photo-accent img'),
   'Project-specific photos must have compact centered styling');
@@ -403,25 +392,25 @@ check(home.includes('scripts/lazy-features.js') &&
   home.includes('<script src="bookshelf.js?v=20261012-bookswitch1" defer></script>') &&
   !lazyFeatureJS.includes("{id:'bookshelf'"),
   'Keep the robot and case explorer lazy-loaded while initializing the bookshelf reader once');
-check((home.match(/data-case-select="/g)||[]).length===3,
-  'Case explorer must offer NASA, IVerify and instrumentation views');
+check((home.match(/data-case-select="/g)||[]).length===2,
+  'Case explorer must offer IVerify and instrumentation views');
 check((home.match(/data-case-step="/g)||[]).length===4,
   'Each interactive case workflow needs four selectable stages');
-check(['case-nasa','case-iverify','case-controls'].every(id=>home.includes('id="'+id+'"')),
+check(['case-iverify','case-controls'].every(id=>home.includes('id="'+id+'"')),
   'Legacy case-study deep links must remain accessible');
-check(home.indexOf('id="case-explorer"') < home.indexOf('id="case-nasa"'),
+check(home.indexOf('id="case-explorer"') < home.indexOf('id="case-iverify"'),
   'Legacy case-study anchors should follow the interactive explorer heading');
 check((home.match(/class="technical-dossier(?: nasa-dossier)?"/g)||[]).length===0,
   'Do not repeat three full technical dossiers beneath the interactive explorer');
 check(!home.includes('The full case studies are preserved below.'),
   'Interactive explorer should link to full project pages, not duplicate content below');
-check(['nasa','iverify','controls'].every(project=>
+check(['iverify','controls'].every(project=>
   caseExplorerJS.includes("projects/"+project+".html#project-evidence")),
-  'Interactive evidence links must point to the three project pages');
+  'Interactive evidence links must point to both project pages');
 check(!home.includes('id="case-explorer" aria-labelledby="case-explorer-heading" hidden'),
   'Case-study overview must remain visible without JavaScript');
 check(caseExplorerJS.includes("const caseData = {") &&
-  ['nasa','iverify','controls'].every(key=>caseExplorerJS.includes(key+': {')),
+  ['iverify','controls'].every(key=>caseExplorerJS.includes(key+': {')),
   'Interactive case explorer source-derived case content missing');
 check(caseExplorerJS.includes("setAttribute('aria-selected'") &&
   caseExplorerJS.includes("setAttribute('aria-pressed'"),
@@ -436,7 +425,7 @@ check(explorerSyntaxValid,'Case explorer JavaScript must parse');
 check(home.includes('id="robot-3d-canvas"'),'3D viewer missing');
 check(home.includes('id="theme-toggle"'),'Theme toggle missing');
 check(home.includes('data-robot-view="3d"'),'Robot view picker missing');
-check((directory.match(/data-gallery-category=/g)||[]).length===16,'16 categorized gallery cards required');
+check((directory.match(/data-gallery-category=/g)||[]).length===15,'16 categorized gallery cards required');
 check(fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(domain),'robots.txt wrong host');
 check(fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').includes(domain),'sitemap.xml wrong host');
 
@@ -545,7 +534,7 @@ for(const file of caseStudyFiles){
   const evidence=html.indexOf('id="project-evidence"');
   check(overview>=0&&method>overview&&findings>method&&evidence>findings,
     file+' needs overview → methods → findings → evidence ordering');
-  const featuredCase=/projects\/(nasa|iverify|thermal)\.html$/.test(file);
+  const featuredCase=/projects\/(iverify|thermal)\.html$/.test(file);
   const visualIds=['dmx-visuals','hall-visuals','huemotion-visuals',
     'iverify-reconstruction','prodriver-visuals','thermal-visuals','vna-visuals'];
   for(const id of visualIds){
@@ -596,21 +585,20 @@ check(home.includes('src="bookshelf.js?v=20261012-bookswitch1" defer') &&
 
 /* Keep the overview concise and restore permanently visible books and planets. */
 const expectedFeaturedPreviews=[
-  'projects/nasa-figures/robotic-arm-geometry.svg',
   'projects/iverify/media/exploded-concept.svg',
   'projects/thermal/media/logger-interface-concept.svg'
 ];
 const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===3 &&
+check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===2 &&
   expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
-  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=3,
-  'Featured engineering work must include three source-labeled visual previews');
+  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=2,
+  'Featured engineering work must include two source-labeled visual previews');
 
 const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredSection.match(/class="featured-project-card"/g)||[]).length===3,
-  'Homepage must feature exactly three focused project cards');
-check(['nasa','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
-  'NASA, IVerify and Thermal Logger must be the featured work');
+check((featuredSection.match(/class="featured-project-card"/g)||[]).length===2,
+  'Homepage must feature exactly two focused project cards');
+check(['iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')),
+  'IVerify and Thermal Logger must be the featured work');
 check(home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
   home.includes('<section class="portfolio-extras" id="explore"') &&
   home.includes('id="bookshelf"') && home.includes('id="repo-planetarium"') &&
