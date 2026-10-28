@@ -29,3 +29,16 @@
 :root[data-theme="dark"] .nasa-workstreams__grid>section{background:var(--dark-raised,#292331);border-color:var(--dark-border,#625067)}
 :root[data-theme="dark"] .nasa-workstreams__grid p{color:var(--dark-body,#e6ddea)}
 @media(max-width:680px){.nasa-workstreams__grid{grid-template-columns:minmax(0,1fr)}.nasa-workstreams__grid>section{padding:16px}}
+
+/* Phase 2: immediate, keyboard-accessible links to findings and limitations. */
+.project-reading-shortcuts{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;margin:12px 0 22px;padding:11px 14px;border:1px solid var(--border,#e3d7e1);border-radius:12px;background:var(--paper,#fff)}
+.project-reading-shortcuts__label{font:800 10px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.09em;color:var(--secondary,#655662);margin-right:auto}
+.project-reading-shortcuts a{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;border:1px solid #d8bdcd;border-radius:999px;padding:9px 13px;font:750 12px/1.5 var(--sans,Arial,sans-serif);color:#773d60;background:#faf2f7;text-decoration:none}
+.project-reading-shortcuts a:is(:hover,:focus-visible){background:#efdfe9;border-color:#ad7191}
+.project-reading-shortcuts a:focus-visible{outline:3px solid #b35d91;outline-offset:2px}
+:root[data-theme="dark"] .project-reading-shortcuts{background:#302636;border-color:#6b566c}
+:root[data-theme="dark"] .project-reading-shortcuts a{background:#483548;border-color:#94728d;color:#ffe5f4}
+:root[data-theme="dark"] .project-reading-shortcuts a:is(:hover,:focus-visible){background:#603f59}
+:root[data-theme="dark"] .project-reading-shortcuts__label{color:#e4cbda}
+@media(max-width:650px){.project-reading-shortcuts{gap:8px;padding:11px}.project-reading-shortcuts__label{flex-basis:100%;font-size:11px}.project-reading-shortcuts a{flex:1;min-width:0;padding:9px 10px;text-align:center}}
+@media(max-width:350px){.project-reading-shortcuts a{flex-basis:100%}}
