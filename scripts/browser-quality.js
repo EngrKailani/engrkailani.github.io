@@ -245,7 +245,7 @@ async function audit(){
           if(test.screenshot){
             await page.screenshot({path:path.join(out,'screenshots',id+'-focused-home.png'),animations:'disabled'});
           }
-          await archive.locator('summary').click();
+          await archive.locator(':scope > summary').click();
           await page.waitForTimeout(220);
           if(!await archive.evaluate(el=>el.open))
             note(id+': the optional interactive gallery did not expand');
