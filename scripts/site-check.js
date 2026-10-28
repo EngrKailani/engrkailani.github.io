@@ -31,8 +31,7 @@ for(const file of htmlFiles){
   check(html.includes('<meta property="og:image"'),file+' missing preview image');
   check(html.includes(domain),file+' missing canonical domain');
   check(!html.includes('https://kalarcon775.github.io'),file+' references former portfolio host');
-  // Uploaded October 2026 résumé names this account; keep its text faithful.
-  check(file==='resume.html' || !html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
+  check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
   for(const match of html.matchAll(/\s(?:href|src)=["']([^"']+)["']/g)){
     const url=match[1].trim();
     if(!url || /^(?:#|[a-z]+:|\/\/)/i.test(url))continue;
@@ -64,6 +63,8 @@ check(htmlResume.includes('aria-label="Open one-page résumé PDF for printing"'
       'Résumé print action must open the verified one-page PDF');
 
 check(htmlResume.includes('href="https://github.com/EngrKailani"') &&
+       htmlResume.includes('GitHub: EngrKailani') &&
+       !htmlResume.includes('GitHub: kalarcon775') &&
       htmlResume.includes('href="mailto:kailanip.alarcon@gmail.com"') &&
       htmlResume.includes('linkedin.com/in/kailani-alarcon'),
       'HTML résumé must include working GitHub, email and LinkedIn links');
@@ -77,8 +78,13 @@ check(htmlResume.includes('Aug. 2026 - Dec. 2026') &&
       'HTML résumé must match the uploaded NASA dates and load-analysis description');
 const resumeGenerator=fs.readFileSync(path.join(root,'scripts/build-resume-pdf.py'),'utf8');
 check(resumeGenerator.includes('Aug. 2026 - Dec. 2026') &&
-      resumeGenerator.includes('Performed load analysis using Creo mass properties'),
+      resumeGenerator.includes('Performed load analysis using Creo mass properties') &&
+      resumeGenerator.includes('GitHub: EngrKailani') &&
+      !resumeGenerator.includes('GitHub: kalarcon775'),
       'PDF generator must match the uploaded NASA dates and accomplishment');
+check(htmlResume.includes('documented results in 2 technical white papers') &&
+      resumeGenerator.includes('documented results in 2 technical white papers'),
+      'Résumé HTML and PDF generator must match the confirmed count of two white papers');
 check(htmlResume.includes('<h1>Kailani Alarcon</h1>') &&
       !htmlResume.includes('<p class="resume-professional-headline">'),
       'HTML résumé should match the uploaded header');
@@ -128,7 +134,7 @@ check(ambientFields.length===11&&addedStars.length===44&&
   addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
   'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
 const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261013-plum-backdrop1') &&
+check(home.includes('homepage-refinement.css?v=20261013-nasa-disclaimer') &&
   moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
   moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
   moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
@@ -284,10 +290,11 @@ for(const width of [280,284,320,375,390,550,700,701,820,980]){
 
 /* Contextual photographs appear only where they help explain the project. */
 const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
-check(home.includes('<figure class="feature-visual">\n            <img src="assets/Arm-home.webp"') &&
+check(home.includes('src="projects/iverify/media/exploded-concept.svg"') &&
+  home.includes('src="projects/thermal/media/logger-interface-concept.svg"') &&
   !home.includes('class="featured-project-photo"') &&
   !home.includes('class="engineering-snapshots"'),
-  'Robotic-arm context photo should remain outside featured project cards');
+  'Featured project previews must be relevant illustrated engineering artifacts');
 check(!home.includes('src="assets/Testing.jpg"') &&
   !home.includes('src="assets/VNA.jpg"'),
   'Homepage must not imply generic photos document unrelated project results');
@@ -501,8 +508,8 @@ check(home.includes('data-robot-mode="3d"'),'3D view should start as the selecte
 /* The radial SVG and perspective canvas must share exactly one kinematic model. */
 const sharedRobotJS=fs.readFileSync(path.join(root,'robot-chamber-model.js'),'utf8');
 const robot2dJS=fs.readFileSync(path.join(root,'script.js'),'utf8');
-check(home.includes('robot-chamber-model.js?v=20261012-shared1') &&
-  home.indexOf('robot-chamber-model.js?v=20261012-shared1')<home.indexOf('script.js?v=20261012-shared1'),
+check(home.includes('robot-chamber-model.js?v=20261013-generic-motion2') &&
+  home.indexOf('robot-chamber-model.js?v=20261013-generic-motion2')<home.indexOf('script.js?v=20261013-generic-motion2'),
   'Shared chamber model must load before 2D script');
 check(sharedRobotJS.includes('link1=18.5, link2=18.5, tool=8.5') &&
   sharedRobotJS.includes('chamber=36, mount=3') &&
@@ -520,7 +527,7 @@ check(robot2dJS.includes("source:'2d'") &&
   robot2dJS.includes("event.detail?.source!=='3d'") &&
   robot3dJs.includes("event.detail?.source!=='2d'"),
   'Robot mode changes must synchronize angles in both directions without an echo loop');
-check(fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes('robot-3d.js?v=20261012-shared1'),
+check(fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes('robot-3d.js?v=20261013-generic-motion'),
   'Lazy 3D loader should fetch the synchronized renderer');
 
 
