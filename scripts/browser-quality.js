@@ -233,12 +233,50 @@ async function audit(){
           });
           if((await page.locator('#scope-read-freq').textContent()||'').trim()!=='250 Hz')
             note(id+': oscilloscope frequency readout did not update');
+          await page.locator('#scope-msdiv').selectOption('5');
+          await page.locator('#scope-vdiv').selectOption('2');
+          if((await page.locator('#scope-timebase').textContent()||'').trim()!=='5 ms/div · 2 V/div')
+            note(id+': timebase/voltage scale not independent');
+          if((await page.locator('#scope-read-dt').textContent()||'').trim()!=='25.00 ms')
+            note(id+': oscilloscope cursor interval not derived from timebase');
+          await page.locator('#scope-level').evaluate(el=>{
+            el.value='5';el.dispatchEvent(new Event('input',{bubbles:true}));
+          });
+          await page.locator('#scope-single').click();
+          if(!(await page.locator('#scope-status').textContent()||'').includes('NO TRIGGER'))
+            note(id+': invalid synthetic trigger must not claim successful capture');
+          await page.locator('#scope-reset').click();
+          await page.locator('#scope-single').click();
+          if(!(await page.locator('#scope-status').textContent()||'').includes('SINGLE'))
+            note(id+': single capture should freeze a valid generated waveform');
+          await page.locator('#scope-reset').click();
+
           await page.locator('#wb-tab-robot').click();
           await page.locator('#robot-j1').evaluate(el=>{
             el.value='90';el.dispatchEvent(new Event('input',{bubbles:true}));
           });
           if((await page.locator('#robot-j1-out').textContent()||'').trim()!=='90°')
             note(id+': robot joint control did not update');
+          await page.locator('#robot-solve').click();
+          const poseError=parseFloat(await page.locator('#robot-read-error').textContent()||'NaN');
+          if(!Number.isFinite(poseError)||poseError>.5)
+            note(id+': IK target should solve with <0.5 mm quantization error');
+          if(!(await page.locator('#robot-ik-status').textContent()||'').includes('IK solved'))
+            note(id+': successful inverse kinematics status missing');
+          await page.locator('#robot-elbow').selectOption('up');
+          await page.locator('#robot-solve').click();
+          if(parseFloat(await page.locator('#robot-j2-out').textContent()||'0')<=0)
+            note(id+': elbow-up IK should produce a positive second joint angle');
+          for(const axis of ['x','y']){
+            await page.locator('#robot-target-'+axis).evaluate(el=>{
+              el.value='325';el.dispatchEvent(new Event('input',{bubbles:true}));
+            });
+          }
+          await page.locator('#robot-solve').click();
+          if(!(await page.locator('#robot-ik-status').textContent()||'').includes('Unreachable'))
+            note(id+': unreachable target must be rejected visibly');
+          await page.locator('#robot-clear-path').click();
+
           await page.locator('#wb-tab-lights').click();
           await page.locator('#lights-scene').selectOption('blackout');
           if((await page.locator('#lights-read-dim').textContent()||'').trim()!=='0%')
