@@ -71,8 +71,20 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
         }
       }
       if(test.url==='/') {
-         if(!await page.locator('#bookshelf').isVisible()) note(id+': bookshelf must be visible');
-         if(!await page.locator('#repo-planetarium').isVisible()) note(id+': repository planets must be visible');
+         const archive=page.locator('#explore');
+         if(await archive.evaluate(el=>el.open))
+           note(id+': optional gallery must start collapsed');
+         if(await page.locator('#bookshelf').isVisible())
+           note(id+': bookshelf should not add to the initial scrolling homepage');
+         await archive.locator('summary').click();
+         await page.waitForTimeout(200);
+         if(!await archive.evaluate(el=>el.open))
+           note(id+': archive did not expand');
+         if(!await page.locator('#bookshelf').isVisible())
+           note(id+': bookshelf must appear when gallery is expanded');
+         if(!await page.locator('#repo-planetarium').isVisible())
+           note(id+': repository planets must appear when gallery is expanded');
+         await inspect('expanded optional gallery');
        }
       // Trigger below-the-fold content and feature loading before inspecting it.
       await page.evaluate(async () => {
