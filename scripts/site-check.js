@@ -184,7 +184,7 @@ check(ambientFields.length===11&&addedStars.length===44&&
   addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
   'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
 const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261027-phase4') &&
+check(home.includes('homepage-refinement.css?v=20261027-audit2') &&
   moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
   moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
   moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
