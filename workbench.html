@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fcf9f8">
+<meta name="description" content="An interactive engineering workbench by Kailani Alarcon. Experiment with a virtual oscilloscope, a three-link robot, RGB lighting, and synthetic thermal data.">
+<meta property="og:title" content="Engineering Workbench | Kailani Alarcon">
+<meta property="og:description" content="Four interactive engineering demos: signals, robotics, lighting and thermal analysis.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://engrkailani.github.io/workbench.html">
+<meta property="og:image" content="https://engrkailani.github.io/assets/sls-rocket-kailani.jpeg">
+<link rel="canonical" href="https://engrkailani.github.io/workbench.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="workbench.css?v=20261027-1">
+<script src="workbench.js?v=20261027-1" defer></script>
+<title>Engineering Workbench | Kailani Alarcon</title>
+</head>
+<body class="wb-page">
+<a class="wb-skip" href="#workbench">Skip to instruments</a>
+<header class="wb-header">
+  <nav class="wb-nav wb-container" aria-label="Main navigation">
+    <a class="wb-brand" href="index.html" aria-label="Kailani Alarcon homepage">kailani<span>.</span></a>
+    <div class="wb-nav-links">
+      <a href="index.html#featured-projects">Selected work</a>
+      <a href="projects/index.html">Projects</a>
+      <a href="index.html#contact">Contact</a>
+      <button id="wb-theme" class="wb-theme" type="button" aria-label="Toggle color theme" aria-pressed="false">☾ <span>Dark mode</span></button>
+    </div>
+  </nav>
+</header>
+<main id="workbench" class="wb-container">
+  <div class="wb-breadcrumb"><a href="index.html">Portfolio</a><span aria-hidden="true">/</span><span aria-current="page">Engineering Workbench</span></div>
+  <section class="wb-intro" aria-labelledby="wb-title">
+    <div>
+      <p class="wb-eyebrow">INTERACTIVE SYSTEMS / PERSONAL ENGINEERING LAB</p>
+      <h1 id="wb-title">The engineering <em>workbench.</em></h1>
+      <p class="wb-intro-copy">Four instruments. One place to experiment. Change a signal, pose a robot, mix light, or explore a thermal response and see what the models do.</p>
+      <div class="wb-intro-actions">
+        <a class="wb-button wb-button-primary" href="#instruments">Explore instruments <span aria-hidden="true">↗</span></a>
+        <a class="wb-button wb-button-outline" href="projects/index.html">Project case studies <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="wb-intro-graphic" aria-hidden="true">
+      <div class="wb-graphic-head"><span>BENCH / 01</span><span class="wb-graphic-light"></span><span>LOCAL SIMULATOR</span></div>
+      <svg viewBox="0 0 500 225" role="presentation"><defs><pattern id="wb-hero-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#7c6882" stroke-opacity=".18"/></pattern></defs><rect x="0" y="0" width="500" height="225" fill="url(#wb-hero-grid)"/><path d="M0 118H500" stroke="#d6c8d5" stroke-opacity=".22"/><path d="M0 118 Q20 40 40 118 T80 118 T120 118 T160 118 T200 118 T240 118 T280 118 T320 118 T360 118 T400 118 T440 118 T480 118" fill="none" stroke="#f4aeca" stroke-width="3" stroke-linecap="round"/><path d="M0 174H110V88H176V174H266V88H328V174H415V88H500" fill="none" stroke="#90d8d0" stroke-width="3" stroke-opacity=".85"/></svg>
+      <div class="wb-graphic-foot"><span>OSC / ROBOT / DMX / THERMAL</span><span>04 MODULES</span></div>
+    </div>
+  </section>
+  <div class="wb-disclaimer" role="note"><strong>Demonstration mode.</strong> These instruments run entirely in your browser. Traces, temperatures, arm geometry, and DMX values are educational simulations, not physical measurements, calibrated models, or connected hardware.</div>
+
+  <section id="instruments" class="wb-instruments" aria-labelledby="wb-instruments-title">
+    <div class="wb-section-heading"><div><p class="wb-eyebrow">SELECT AN INSTRUMENT</p><h2 id="wb-instruments-title">Choose your experiment.</h2></div><span class="wb-session"><span class="wb-session-light"></span> Offline-capable interactive demos</span></div>
+    <div class="wb-tabs" role="tablist" aria-label="Workbench instruments">
+      <button class="wb-tab" id="wb-tab-scope" role="tab" aria-selected="true" aria-controls="wb-panel-scope" tabindex="0" data-instrument="scope"><span class="wb-tab-number">01 / SIGNALS</span><strong>Oscilloscope</strong><span>Explore waveforms</span></button>
+      <button class="wb-tab" id="wb-tab-robot" role="tab" aria-selected="false" aria-controls="wb-panel-robot" tabindex="-1" data-instrument="robot"><span class="wb-tab-number">02 / ROBOTICS</span><strong>Robot arm</strong><span>Forward kinematics</span></button>
+      <button class="wb-tab" id="wb-tab-lights" role="tab" aria-selected="false" aria-controls="wb-panel-lights" tabindex="-1" data-instrument="lights"><span class="wb-tab-number">03 / LIGHTING</span><strong>DMX studio</strong><span>Mix RGB light</span></button>
+      <button class="wb-tab" id="wb-tab-thermal" role="tab" aria-selected="false" aria-controls="wb-panel-thermal" tabindex="-1" data-instrument="thermal"><span class="wb-tab-number">04 / THERMAL</span><strong>Thermal logger</strong><span>Simulate heat-up</span></button>
+    </div>
+
+    <section id="wb-panel-scope" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-scope">
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 01 / INSTRUMENTATION</p><h3>Virtual oscilloscope</h3><p>Shape a test signal and observe amplitude, duty cycle, and RMS behavior on a gridded trace.</p></div><span class="wb-mode-label">SYNTHETIC SIGNAL</span></div>
+      <div class="wb-instrument-grid">
+        <div class="wb-display-column">
+          <div class="wb-instrument-screen">
+            <div class="wb-screen-bar"><span><i class="wb-status-dot"></i> CH1 / SIGNAL VIEW</span><span id="scope-status">HOLD</span></div>
+            <canvas id="scope-canvas" width="800" height="410" role="img" aria-label="Generated voltage waveform versus time, using the current waveform controls">Canvas not supported. Use the numerical readouts.</canvas>
+            <div class="wb-screen-foot"><span id="scope-timebase">3 periods displayed</span><span>CH1 · VOLTS</span></div>
+          </div>
+          <div class="wb-readouts" aria-live="polite" aria-atomic="true">
+            <div><span>Frequency</span><strong id="scope-read-freq">120 Hz</strong></div><div><span>Peak to peak</span><strong id="scope-read-pp">4.00 V</strong></div><div><span>RMS</span><strong id="scope-read-rms">1.41 V</strong></div>
+          </div>
+        </div>
+        <aside class="wb-controls" aria-label="Oscilloscope controls">
+          <div class="wb-control-title"><strong>Signal generator</strong><span>CH 01</span></div>
+          <label class="wb-field"><span>Waveform</span><select id="scope-wave"><option value="sine">Sine</option><option value="square">Square</option><option value="triangle">Triangle</option><option value="pwm">PWM pulse (0 to peak)</option></select></label>
+          <label class="wb-field"><span>Frequency <output id="scope-freq-out">120 Hz</output></span><input id="scope-freq" type="range" min="10" max="1000" step="10" value="120"></label>
+          <label class="wb-field"><span>Peak amplitude <output id="scope-amp-out">2.0 V</output></span><input id="scope-amp" type="range" min="0.2" max="5" step="0.2" value="2"></label>
+          <label class="wb-field"><span>Duty cycle <output id="scope-duty-out">50%</output></span><input id="scope-duty" type="range" min="5" max="95" step="5" value="50"></label>
+          <label class="wb-field"><span>Added noise <output id="scope-noise-out">0%</output></span><input id="scope-noise" type="range" min="0" max="20" step="1" value="0"></label>
+          <div class="wb-control-actions"><button class="wb-small-button" id="scope-run" type="button" aria-pressed="false">Run trace</button><button class="wb-small-button wb-small-button-light" id="scope-reset" type="button">Reset</button></div>
+          <p class="wb-control-note">The waveform is mathematical, not sampled from a physical oscilloscope. RMS is estimated from simulated samples.</p>
+        </aside>
+      </div>
+      <div class="wb-project-link">Related work <a href="projects/controls.html">Control &amp; Measurement Labs <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section id="wb-panel-robot" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-robot" hidden>
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 02 / ROBOTICS</p><h3>Three-link kinematics</h3><p>Change the three joint angles to see how forward kinematics determines the tool position.</p></div><span class="wb-mode-label">PLANAR MODEL / NOT TO SCALE</span></div>
+      <div class="wb-instrument-grid">
+        <div class="wb-display-column">
+          <div class="wb-instrument-screen">
+            <div class="wb-screen-bar"><span><i class="wb-status-dot"></i> ARM / XY PLANE</span><span>3 REVOLUTE JOINTS</span></div>
+            <canvas id="robot-canvas" width="800" height="410" role="img" aria-label="Interactive three-link planar robot and its tool position">Canvas not supported. Joint positions are given in the readouts.</canvas>
+            <div class="wb-screen-foot"><span>L1 140 mm · L2 110 mm · L3 75 mm</span><span>ORIGIN / BASE</span></div>
+          </div>
+          <div class="wb-readouts" aria-live="polite" aria-atomic="true">
+            <div><span>Tool X</span><strong id="robot-read-x">0 mm</strong></div><div><span>Tool Y</span><strong id="robot-read-y">0 mm</strong></div><div><span>Tool orientation</span><strong id="robot-read-angle">0°</strong></div>
+          </div>
+        </div>
+        <aside class="wb-controls" aria-label="Robot kinematics controls">
+          <div class="wb-control-title"><strong>Joint configuration</strong><span>3 DOF</span></div>
+          <label class="wb-field"><span>Shoulder θ1 <output id="robot-j1-out">25°</output></span><input id="robot-j1" type="range" min="-170" max="170" step="1" value="25"></label>
+          <label class="wb-field"><span>Elbow θ2 <output id="robot-j2-out">-55°</output></span><input id="robot-j2" type="range" min="-170" max="170" step="1" value="-55"></label>
+          <label class="wb-field"><span>Wrist θ3 <output id="robot-j3-out">40°</output></span><input id="robot-j3" type="range" min="-170" max="170" step="1" value="40"></label>
+          <div class="wb-preset-row" role="group" aria-label="Arm position presets"><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="extend">Extend</button><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="fold">Fold</button><button type="button" class="wb-small-button wb-small-button-light" data-robot-preset="inspect">Inspect</button></div>
+          <label class="wb-check"><input id="robot-envelope" type="checkbox" checked> Show maximum reach envelope</label>
+          <p class="wb-control-note">Educational 2D serial-link model. Lengths are illustrative and do not represent the geometry or capabilities of any specific robot.</p>
+        </aside>
+      </div>
+      <div class="wb-project-link">Related work <a href="projects/leg.html">3-Link Leg Simulation <span aria-hidden="true">↗</span></a> <a href="projects/ur3e.html">UR3e Kinematics <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section id="wb-panel-lights" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-lights" hidden>
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 03 / EMBEDDED CONTROL</p><h3>Virtual DMX lighting studio</h3><p>Mix RGB values, adjust brightness, and test presets across four virtual fixtures.</p></div><span class="wb-mode-label">VIRTUAL FIXTURES / NO DMX OUTPUT</span></div>
+      <div class="wb-instrument-grid">
+        <div class="wb-display-column">
+          <div class="wb-light-stage" aria-label="Four virtual LED light fixtures showing the selected lighting color">
+            <div class="wb-stage-top"><span>STAGE A / RGB WASH</span><span id="lights-stage-status">SCENE: AURORA</span></div>
+            <div class="wb-fixture-row">
+              <div class="wb-fixture" data-fixture="0"><span class="wb-fixture-head"></span><span class="wb-fixture-beam"></span><span class="wb-fixture-pool"></span><span class="wb-fixture-number">01</span></div>
+              <div class="wb-fixture" data-fixture="1"><span class="wb-fixture-head"></span><span class="wb-fixture-beam"></span><span class="wb-fixture-pool"></span><span class="wb-fixture-number">02</span></div>
+              <div class="wb-fixture" data-fixture="2"><span class="wb-fixture-head"></span><span class="wb-fixture-beam"></span><span class="wb-fixture-pool"></span><span class="wb-fixture-number">03</span></div>
+              <div class="wb-fixture" data-fixture="3"><span class="wb-fixture-head"></span><span class="wb-fixture-beam"></span><span class="wb-fixture-pool"></span><span class="wb-fixture-number">04</span></div>
+            </div>
+            <div class="wb-stage-bottom">FOUR RGB FIXTURES / 4 CHANNELS EACH</div>
+          </div>
+          <div class="wb-readouts wb-light-readouts" aria-live="polite" aria-atomic="true">
+            <div><span>RGB output</span><strong id="lights-read-rgb">138 / 86 / 218</strong></div><div><span>Dimmer (CH4)</span><strong id="lights-read-dim">85%</strong></div><div><span>Output hex</span><strong id="lights-read-hex">#8A56DA</strong></div>
+          </div>
+        </div>
+        <aside class="wb-controls" aria-label="Virtual DMX lighting controls">
+          <div class="wb-control-title"><strong>Lighting console</strong><span>16 CH / VIRTUAL</span></div>
+          <label class="wb-field"><span>Scene</span><select id="lights-scene"><option value="aurora">Aurora</option><option value="warm">Warm studio</option><option value="ice">Ice blue</option><option value="blackout">Blackout</option><option value="custom">Custom mix</option></select></label>
+          <label class="wb-field"><span>Red (CH1) <output id="lights-r-out">138</output></span><input id="lights-r" type="range" min="0" max="255" value="138"></label>
+          <label class="wb-field"><span>Green (CH2) <output id="lights-g-out">86</output></span><input id="lights-g" type="range" min="0" max="255" value="86"></label>
+          <label class="wb-field"><span>Blue (CH3) <output id="lights-b-out">218</output></span><input id="lights-b" type="range" min="0" max="255" value="218"></label>
+          <label class="wb-field"><span>Intensity (CH4) <output id="lights-dim-out">85%</output></span><input id="lights-dim" type="range" min="0" max="100" value="85"></label>
+          <p class="wb-control-note">Each fixture displays the same four-channel scene in this demonstration. There is no USB, Arduino, or lighting hardware connection.</p>
+        </aside>
+      </div>
+      <div class="wb-project-link">Related work <a href="projects/dmx.html">DMX Controller <span aria-hidden="true">↗</span></a> <a href="projects/huemotion.html">HueMotion <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section id="wb-panel-thermal" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-thermal" hidden>
+      <div class="wb-panel-heading"><div><p class="wb-eyebrow">MODULE 04 / TEST AUTOMATION</p><h3>Thermal response explorer</h3><p>Change simulated heater power and airflow to see four thermocouple traces over a 120-minute run.</p></div><span class="wb-mode-label">GENERATED DATA / NOT BENCH TESTS</span></div>
+      <div class="wb-instrument-grid">
+        <div class="wb-display-column">
+          <div class="wb-instrument-screen">
+            <div class="wb-screen-bar"><span><i class="wb-status-dot"></i> THERMAL / TRENDS</span><span id="thermal-status">PAUSED</span></div>
+            <canvas id="thermal-canvas" width="800" height="410" role="img" aria-label="Four synthetic temperature traces with a movable time cursor">Canvas not supported. Generated channel temperatures are shown below.</canvas>
+            <div class="wb-screen-foot"><span>0 TO 120 MIN / °C</span><span>MODELLED EXPONENTIAL RESPONSE</span></div>
+          </div>
+          <div class="wb-channel-readouts" aria-live="polite">
+            <div><span class="wb-temp-dot" style="--dot:#f6b37d"></span><span>TC 01</span><strong id="thermal-read-0">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#83d9d3"></span><span>TC 02</span><strong id="thermal-read-1">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#d6a6e8"></span><span>TC 03</span><strong id="thermal-read-2">23.0°C</strong></div><div><span class="wb-temp-dot" style="--dot:#d9de85"></span><span>TC 04</span><strong id="thermal-read-3">23.0°C</strong></div>
+          </div>
+        </div>
+        <aside class="wb-controls" aria-label="Thermal response controls">
+          <div class="wb-control-title"><strong>Test configuration</strong><span>SYNTHETIC / °C</span></div>
+          <label class="wb-field"><span>Heater level <output id="thermal-power-out">65%</output></span><input id="thermal-power" type="range" min="0" max="100" step="5" value="65"></label>
+          <label class="wb-field"><span>Cooling airflow <output id="thermal-cool-out">20%</output></span><input id="thermal-cool" type="range" min="0" max="100" step="5" value="20"></label>
+          <label class="wb-field"><span>Cursor time <output id="thermal-time-out">45 min</output></span><input id="thermal-time" type="range" min="0" max="120" step="1" value="45"></label>
+          <div class="wb-toggle-grid" role="group" aria-label="Visible thermal channels"><label class="wb-check"><input type="checkbox" data-thermal-channel="0" checked> TC 01</label><label class="wb-check"><input type="checkbox" data-thermal-channel="1" checked> TC 02</label><label class="wb-check"><input type="checkbox" data-thermal-channel="2" checked> TC 03</label><label class="wb-check"><input type="checkbox" data-thermal-channel="3" checked> TC 04</label></div>
+          <div class="wb-control-actions"><button class="wb-small-button" id="thermal-run" type="button" aria-pressed="false">Play test</button><button class="wb-small-button wb-small-button-light" id="thermal-export" type="button">Export sample CSV</button></div>
+          <p class="wb-control-note">Illustrative first-order thermal model with channel offsets. CSV exports generated examples only, not recorded thermocouple data.</p>
+        </aside>
+      </div>
+      <div class="wb-project-link">Related work <a href="projects/thermal.html">Thermal Controller &amp; Logger <span aria-hidden="true">↗</span></a></div>
+    </section>
+  </section>
+  <section class="wb-method" aria-labelledby="wb-method-title"><div><p class="wb-eyebrow">DESIGN PHILOSOPHY</p><h2 id="wb-method-title">Experiment first. <em>Evidence always.</em></h2></div><p>The workbench is a hands-on introduction to signals, kinematics, lighting, and thermal dynamics. For project context, engineering methods, and evidence limitations, visit the linked case studies. Each demo runs locally in the browser without collecting sensor data or contacting hardware.</p></section>
+</main>
+<footer class="wb-footer"><div class="wb-container wb-footer-inner"><a class="wb-brand" href="index.html">kailani<span>.</span></a><p>Interactive engineering workbench · © 2026</p><a href="index.html">Return to portfolio ↑</a></div></footer>
+</body>
+</html>
