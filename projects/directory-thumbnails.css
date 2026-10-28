@@ -19,3 +19,10 @@
 @media(max-width:850px){.project-directory-grid .featured-project-card{padding:17px}}
 @media(max-width:540px){.project-directory-grid .featured-project-card .directory-card-visual{margin-bottom:14px}.project-directory-grid .featured-project-card strong{font-size:23px}.project-directory-grid .directory-card-badge{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.project-directory-grid .featured-project-card{transition:none}}
+
+/* Phase 2: qualified engineering evidence on project directory cards. */
+.project-directory-grid .directory-evidence{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:10px 0 16px;padding:10px 12px;border-left:3px solid #af7496;background:#efe1ed;border-radius:0 8px 8px 0;color:#50334d;font:650 12px/1.55 var(--sans,Arial,sans-serif)}
+.project-directory-grid .directory-evidence__label{font:800 10px/1.4 var(--sans,Arial,sans-serif);text-transform:uppercase;letter-spacing:.09em;color:#814d6d}
+:root[data-theme="dark"] .project-directory-grid .directory-evidence{background:#463449;border-color:#dbabcb;color:#f7e6f4}
+:root[data-theme="dark"] .project-directory-grid .directory-evidence__label{color:#e6b9d3}
+@media(max-width:540px){.project-directory-grid .directory-evidence{font-size:12px}}
