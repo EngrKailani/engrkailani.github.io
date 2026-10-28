@@ -63,6 +63,7 @@
 <a href="#featured-projects">Selected work</a>
         <a href="workbench.html">Workbench</a>
         <a href="research.html">Research</a>
+        <a href="academic-cv.html">Academic CV</a>
         <details class="nav-projects" id="projects-nav-menu">
           <summary>Projects <span class="nav-projects__chevron" aria-hidden="true">⌄</span></summary>
           <div class="nav-projects__panel" role="group" aria-label="All fifteen engineering projects">
@@ -202,13 +203,13 @@
       <div class="hero-copy">
         <p class="eyebrow">ELECTRICAL ENGINEERING / ROBOTICS / SYSTEMS VALIDATION</p>
         <h1 id="hero-title">Kailani <em>Alarcon.</em></h1>
-        <p class="hero-subtitle">Space robotics, embedded systems, and engineering verification.</p>
-        <p class="hero-description">I connect hardware, software, and test evidence to solve engineering problems. My work spans robotic-arm assessment at NASA Marshall, embedded systems integration, and thermal-test automation.</p>
+        <p class="hero-subtitle">Engineering reliable robots for space exploration.</p>
+        <p class="hero-description">I am an electrical engineering graduate student focused on robotics, embedded systems, and engineering verification. My experience includes robotic-arm assessment at NASA Marshall, systems integration, and instrumentation development. I aim to advance robotic manipulation and human–robot collaboration for lunar and planetary exploration.</p>
         <div class="hero-buttons">
           <a href="#featured-projects" class="btn btn-primary">Explore selected work <span aria-hidden="true">↗</span></a>
           <a href="assets/Kailani_Alarcon_Resume.pdf?v=20261027-resume2" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View résumé <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="hero-direct-contact"><a href="projects/index.html">View all 15 projects ↗</a><span aria-hidden="true"> · </span><a href="workbench.html">Interactive workbench ↗</a><span aria-hidden="true"> · </span><a href="research.html">Research &amp; writing ↗</a><span aria-hidden="true"> · </span><a href="mailto:kailanip.alarcon@gmail.com">Email Kailani ↗</a></p>
+        <p class="hero-direct-contact"><a href="projects/index.html">View all 15 projects ↗</a><span aria-hidden="true"> · </span><a href="workbench.html">Interactive workbench ↗</a><span aria-hidden="true"> · </span><a href="research.html">Research &amp; writing ↗</a><span aria-hidden="true"> · </span><a href="academic-cv.html">Academic CV ↗</a><span aria-hidden="true"> · </span><a href="mailto:kailanip.alarcon@gmail.com">Email Kailani ↗</a></p>
         <div class="hero-trust-row" aria-label="Engineering experience highlights"><span>NASA Marshall OSTEM</span><span>LUX Dynamics product development</span><span>M.S. Electrical Engineering candidate</span></div>
 
       </div>
@@ -228,10 +229,22 @@
     </section>
 <section class="section featured-projects-section selected-work" id="featured-projects" aria-labelledby="featured-projects-title">
 <div class="featured-projects-inner">
-<div class="selected-work-heading"><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="featured-projects-title">Two projects, from <em>design to evidence.</em></h2><p>My contribution, the engineering problem, and what the work established.</p></div>
+<div class="selected-work-heading"><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="featured-projects-title">Robotics first, <em>evidence throughout.</em></h2><p>Three selected projects connecting robot modeling, embedded-system integration, and instrumentation. Each distinguishes team contributions and measured results from simulations.</p></div>
 <div class="featured-project-grid">
 <article class="featured-project-card">
-<span class="featured-category">01 / CAPSTONE</span>
+<span class="featured-category">01 / ROBOTICS · GROUP ANALYSIS</span>
+<a class="selected-project-preview" href="projects/ur3e.html" aria-label="See UR3e robot kinematics and Jacobian analysis">
+  <img src="projects/directory-thumbnails/ur3e.svg" alt="Schematic engineering illustration of a robotic manipulator; visual reference, not original measured robot pose data." width="1200" height="675" loading="lazy" decoding="async">
+  <span class="selected-project-preview__meta">SCHEMATIC · MATHEMATICAL ANALYSIS</span>
+</a><h3><a href="projects/ur3e.html">UR3e robot kinematics</a></h3>
+<p class="selected-project-tools">MATLAB · forward kinematics · Jacobian rank</p>
+<p class="selected-project-role">As a member of a three-person group, I contributed to modeling a six-joint manipulator and evaluating its motion and singularity conditions.</p>
+<div class="selected-project-result"><span class="selected-project-label">Documented result</span><p>A zero-angle configuration had Jacobian rank 5; another evaluated configuration had full rank 6.</p></div>
+<p class="selected-project-scope">Team mathematical analysis; no independent physical robot validation.</p>
+<a class="featured-more" href="projects/ur3e.html">Explore the UR3e analysis ↗</a>
+</article>
+<article class="featured-project-card">
+<span class="featured-category">02 / CAPSTONE</span>
 <a class="selected-project-preview" href="projects/iverify.html" aria-label="View IVerify reconstructed assembly diagram and project details">
   <img src="projects/iverify/media/exploded-concept.svg" alt="Illustrative exploded concept of the IVerify noninvasive sensing assembly; educational reconstruction, not a clinically validated device." width="1280" height="720" loading="lazy" decoding="async">
   <span class="selected-project-preview__meta">RECONSTRUCTED · ASSEMBLY CONCEPT</span>
@@ -241,7 +254,7 @@
 <p class="selected-project-scope">Student proof of concept; no clinical validation.</p><a class="featured-more" href="projects/iverify.html">Explore the IVerify case study ↗</a>
 </article>
 <article class="featured-project-card">
-<span class="featured-category">02 / TEST AUTOMATION</span>
+<span class="featured-category">03 / TEST AUTOMATION</span>
 <a class="selected-project-preview" href="projects/thermal.html" aria-label="View Thermal Logger interface illustration and project details">
   <img src="projects/thermal/media/logger-interface-concept.svg" alt="Illustrative Thermal Controller and Logger software interface with synthetic example temperature curves; not a screenshot of a measured test." width="1280" height="700" loading="lazy" decoding="async">
   <span class="selected-project-preview__meta">ILLUSTRATIVE · SOFTWARE INTERFACE</span>
@@ -252,7 +265,7 @@
 </article></div>
 <nav class="work-pathways" aria-label="Browse all engineering projects by discipline">
   <div class="work-pathways__intro">
-    <div><p class="work-pathways__eyebrow">BEYOND THE FEATURED TWO</p><h3>Find projects by discipline.</h3></div>
+    <div><p class="work-pathways__eyebrow">BEYOND THE FEATURED THREE</p><h3>Find projects by discipline.</h3></div>
     <a class="work-pathways__all" href="projects/index.html">All 15 projects <span aria-hidden="true">↗</span></a>
   </div>
   <div class="work-pathways__grid">
@@ -266,10 +279,10 @@
 <section class="home-lab-spotlight container" id="home-workbench" aria-labelledby="home-lab-title">
   <div class="home-lab-copy">
     <p class="eyebrow">NEW / EXPERIMENTAL INTERACTIVE LAB</p>
-    <h2 id="home-lab-title">An engineering lab you can <em>play with.</em></h2>
-    <p>Turn knobs, move joints, mix colors, and study synthetic thermal traces. Four browser-based demonstrations put the ideas behind my projects at your fingertips.</p>
+    <h2 id="home-lab-title">Explore the <em>engineering Workbench.</em></h2>
+    <p>Test signal triggers, solve a planar robot target, and explore lighting and thermal-response models. These educational simulations complement the documented work rather than substitute for measured results.</p>
     <a class="btn btn-primary" href="workbench.html">Launch the workbench <span aria-hidden="true">↗</span></a>
-    <p class="home-lab-disclosure">Browser simulations. Not calibrated hardware or measured test data.</p>
+    <p class="home-lab-disclosure">Educational simulations, not calibrated instruments or measured data. For the full project record, see the <a href="projects/index.html">engineering case studies</a>.</p>
   </div>
   <div class="home-lab-preview" aria-label="Preview of the four workbench modules">
     <div class="home-lab-mini"><span>01 / SIGNALS</span><svg viewBox="0 0 130 42" aria-hidden="true"><path d="M0 21 Q8 -7 16 21 T32 21 T48 21 T64 21 T80 21 T96 21 T112 21 T128 21" fill="none" stroke="#f4afd4" stroke-width="2.2"/></svg><strong>Oscilloscope</strong></div>
