@@ -228,3 +228,60 @@
 :root[data-theme="dark"] .selected-project-disclaimer strong{
   color:#fff4fa;
 }
+
+
+/* Phase 2: keep the primary portfolio focused; preserve optional interactive archive. */
+.portfolio-home .portfolio-explore-wrap{margin-block:clamp(24px,4vw,48px)}
+.portfolio-home details.portfolio-extras{
+  border:1px solid var(--border,#e3d7e1);border-radius:18px;
+  background:var(--paper,#fff);overflow:clip;
+}
+.portfolio-home details.portfolio-extras>.extras-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:clamp(19px,3vw,29px);min-height:110px;border:0;
+  cursor:pointer;list-style:none;border-radius:18px;color:var(--ink,#352937);
+}
+.portfolio-home details.portfolio-extras>.extras-heading::-webkit-details-marker{display:none}
+.portfolio-home details.portfolio-extras>.extras-heading::marker{content:""}
+.portfolio-home details.portfolio-extras>.extras-heading:hover{background:var(--soft,#faf3f7)}
+.portfolio-home details.portfolio-extras>.extras-heading:focus-visible{outline:3px solid #aa5284;outline-offset:-4px}
+.portfolio-home .extras-summary-copy{display:flex;flex-direction:column;align-items:start;gap:5px;max-width:790px;min-width:0}
+.portfolio-home .extras-summary-copy .eyebrow{margin:0 0 3px;font-size:10px}
+.portfolio-home .extras-summary-copy .extras-title{
+  display:block;font:500 clamp(23px,2.8vw,34px)/1.25 var(--serif,Georgia,serif);
+  letter-spacing:-.025em;color:var(--ink,#352937);
+}
+.portfolio-home .extras-summary-copy .extras-title em{color:var(--rose-dark,#904461);font-weight:400}
+.portfolio-home .extras-summary-copy .extras-description{
+  display:block;font:500 13px/1.75 var(--sans,Arial,sans-serif);color:var(--secondary,#655662)
+}
+.portfolio-home .extras-expand-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;
+  min-height:44px;padding:9px 14px;border-radius:999px;
+  background:#904461;color:white;font:750 12px/1.35 var(--sans,Arial,sans-serif);
+}
+.portfolio-home .extras-chevron{font-size:22px;line-height:1;transition:transform .2s ease}
+.portfolio-home .extras-expand-close{display:none}
+.portfolio-home details.portfolio-extras[open] .extras-expand-open{display:none}
+.portfolio-home details.portfolio-extras[open] .extras-expand-close{display:inline}
+.portfolio-home details.portfolio-extras[open] .extras-chevron{transform:rotate(180deg)}
+.portfolio-home details.portfolio-extras[open]>.extras-heading{
+  border-bottom:1px solid var(--border,#e3d7e1);border-radius:18px 18px 0 0;
+}
+.portfolio-home details.portfolio-extras .extras-jump{padding:17px 28px}
+.portfolio-home details.portfolio-extras .section{scroll-margin-top:90px}
+.portfolio-home .home-lab-spotlight{margin-top:30px;margin-bottom:8px}
+.portfolio-home #featured-projects{padding-bottom:clamp(24px,3vw,43px)}
+.portfolio-home #experience{padding-top:clamp(36px,4vw,63px)}
+:root[data-theme="dark"] .portfolio-home details.portfolio-extras{background:#29222f;border-color:#655068}
+:root[data-theme="dark"] .portfolio-home details.portfolio-extras>.extras-heading:hover{background:#392a3e}
+:root[data-theme="dark"] .portfolio-home .extras-summary-copy :is(.extras-title,.extras-description){color:#f1e2ee}
+:root[data-theme="dark"] .portfolio-home .extras-expand-cta{background:#af7399;color:#fff}
+@media(max-width:680px){
+  .portfolio-home details.portfolio-extras>.extras-heading{align-items:stretch;flex-direction:column;padding:19px;gap:15px}
+  .portfolio-home .extras-expand-cta{align-self:flex-start}
+  .portfolio-home details.portfolio-extras .extras-jump{padding:14px 18px;gap:12px 17px}
+  .portfolio-home .extras-summary-copy .extras-description{font-size:13px}
+  .portfolio-home .home-lab-spotlight{margin-block:18px 0}
+}
+@media(prefers-reduced-motion:reduce){.portfolio-home .extras-chevron{transition:none}}
