@@ -63,6 +63,17 @@ module.exports = async function mobileLayout(browser, origin, note, out) {
       await page.evaluate(() => document.fonts.ready);
       await inspect('initial layout');
       if(test.url==='/workbench.html') {
+        await page.locator('#scope-msdiv').selectOption('10');
+        await page.locator('#scope-vdiv').selectOption('2');
+        await inspect('oscilloscope expanded controls');
+        if(!(await page.locator('#scope-timebase').textContent()||'').includes('10 ms/div'))
+          note(id+': independent horizontal scale did not update');
+        await page.locator('#wb-tab-robot').click();
+        await page.locator('#robot-solve').click();
+        const error=parseFloat(await page.locator('#robot-read-error').textContent()||'NaN');
+        if(!Number.isFinite(error)||error>.5)
+          note(id+': inverse kinematics target solve failed');
+        await inspect('robot target controls');
         for (const instrument of ['scope','robot','lights','thermal']) {
           await page.locator('#wb-tab-'+instrument).click();
           if(!await page.locator('#wb-panel-'+instrument).isVisible())
