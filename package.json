@@ -8,7 +8,9 @@
     "check:browser": "node scripts/browser-quality.js",
     "report:lighthouse": "node scripts/lighthouse-report.js",
     "check:models": "node scripts/workbench-models-test.js",
-    "check:workbench-browser": "node scripts/workbench-smoke.js"
+    "check:workbench-browser": "node scripts/workbench-smoke.js",
+    "report:phase4": "node scripts/lighthouse-phase4-report.js",
+    "check:static": "node scripts/site-check.js && node scripts/css-quality.js && node scripts/workbench-models-test.js"
   },
   "devDependencies": {
     "axe-core": "4.10.3",
