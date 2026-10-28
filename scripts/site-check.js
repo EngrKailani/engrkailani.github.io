@@ -733,17 +733,25 @@ check(home.includes('class="featured-project-card"') &&
 check(research.includes('id="questions"') &&
   (research.match(/class="research-question"/g)||[]).length===3 &&
   research.includes('research.css?v=20261027-research2') &&
-  research.includes('No experiments or results are claimed') &&
+  research.includes('specific approaches and candidate metrics have not yet been tested') &&
   research.includes('href="academic-cv.html"'),
   'Research page must give three explicit proposed questions without claiming results');
 check(academicCV.includes('id="cv-main"') &&
-  academicCV.includes('No peer-reviewed journal or conference publication is claimed') &&
-  academicCV.includes('Expected May 2028') &&
+  academicCV.includes('not represented as peer-reviewed journal or conference articles') &&
+  academicCV.includes('Fall 2026 – Present') &&
   academicCV.includes('assets/Kailani_Alarcon_Academic_CV.pdf?v=20261027-cv1') &&
   fs.existsSync(path.join(root,'assets/Kailani_Alarcon_Academic_CV.pdf')) &&
-  academicCV.includes('academic-cv.css?v=20261027-academic1') &&
+  academicCV.includes('academic-cv.css?v=20261028-uploaded-cv') &&
   academicCV.includes('onclick="window.print()"'),
-  'Academic CV should be separate, printable, and offer a generated PDF with truthful status');
+  'Academic CV should follow the uploaded three-page research record and remain printable');
+
+check(academicCV.includes('Technical Publications and Presentations') &&
+  academicCV.includes('Two')===false &&
+  academicCV.includes('Understanding Optical Lens Performance in LED Luminaires') &&
+  academicCV.includes('Teacher Assistant Intern') &&
+  academicCV.includes('Languages') &&
+  academicCV.includes('3.1 N·m'),
+  'Site CV must preserve the user-uploaded academic record, NASA result and original sections');
 check(home.includes('href="academic-cv.html"') &&
   htmlResume.includes('href="academic-cv.html"') &&
   directory.includes('href="../academic-cv.html"') &&
