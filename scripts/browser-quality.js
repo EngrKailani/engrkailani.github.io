@@ -367,50 +367,48 @@ async function audit(){
           }
         }
         if(test.path==='/'&&test.theme==='light'&&(test.width===1440||test.width===390)){
-          // Moving between 2D and 3D must not change arm geometry or joint pose.
+          // The 2D and 3D demos share normalized illustrative geometry, not
+          // inch-based hardware or a validated chamber.
           await page.locator('[data-robot-view="2d"]').click();
           const bones=await page.locator('#arm-bones > line').evaluateAll(elements=>elements.map(el=>({
             id:el.id,stroke:el.getAttribute('stroke'),length:el.getTotalLength(),
             style:getComputedStyle(el).stroke
           })));
-          if(bones.length!==3 ||
-             bones.some((bone,i)=>!bone.stroke?.startsWith('#')||
-               !Number.isFinite(bone.length)||bone.length<[150,150,70][i] ||
-               bone.style.includes('url('))){
-            note(id+': 2D link hidden or missing: '+JSON.stringify(bones));
+          if(bones.length!==3||
+            bones.some(bone=>!bone.stroke?.startsWith('#')||
+              !Number.isFinite(bone.length)||bone.length<8||
+              bone.style.includes('url('))){
+            note(id+': 2D illustrative link hidden or missing: '+JSON.stringify(bones));
           }
-          const floor2d=page.locator('[data-pose="floor"]');
-          await floor2d.click();
+          await page.locator('[data-pose="reach"]').click();
           const first2d=(await page.locator('#side-tip-readout').textContent()||'');
-          const z2d=Number(first2d.match(/z:\s*([+-]?[\d.]+)/i)?.[1]);
-          if(!Number.isFinite(z2d)||Math.abs(z2d-.5)>.2)
-            note(id+': 2D floor preset should approach 0.5in, got '+first2d);
+          const height2d=Number(first2d.match(/TIP HEIGHT:\s*([\d.]+)%/i)?.[1]);
+          if(!Number.isFinite(height2d)||height2d<0||height2d>100)
+            note(id+': 2D normalized tool height missing: '+first2d);
           await page.locator('[data-robot-view="3d"]').click();
           try{await page.waitForFunction(()=>
-            document.getElementById('robot-3d-status')?.textContent?.includes('Tip z:'),
+            document.getElementById('robot-3d-status')?.textContent?.includes('Relative tip height:'),
             null,{timeout:6000});
-          }catch{note(id+': 3D renderer did not initialize when switched from 2D')}
-          if(await page.locator('#r3d-elbow').inputValue()!=='72')
-            note(id+': 2D floor preset did not transfer elbow angle into 3D');
+          }catch{note(id+': 3D renderer did not initialize after 2D')}
+          if(await page.locator('#r3d-jointB').inputValue()!=='35')
+            note(id+': 2D reach preset did not synchronize joint B to 3D');
           const first3d=(await page.locator('#robot-3d-status').textContent()||'');
-          const z3d=Number(first3d.match(/Tip z:\s*([+-]?[\d.]+)/)?.[1]);
-          if(!Number.isFinite(z3d)||Math.abs(z3d-z2d)>.12)
-            note(id+': 2D and 3D floor heights disagree: '+first2d+' / '+first3d);
-          await page.locator('#r3d-shoulder').evaluate(input=>{
-            input.value='20';
-            input.dispatchEvent(new Event('input',{bubbles:true}));
+          const height3d=Number(first3d.match(/Relative tip height:\s*([\d.]+)%/)?.[1]);
+          if(!Number.isFinite(height3d)||Math.abs(height3d-height2d)>1)
+            note(id+': 2D and 3D normalized tool heights disagree: '+first2d+' / '+first3d);
+          await page.locator('#r3d-jointA').evaluate(input=>{
+            input.value='20';input.dispatchEvent(new Event('input',{bubbles:true}));
           });
           await page.locator('[data-robot-view="2d"]').click();
-          if(await page.locator('#joint-shoulder').inputValue()!=='20')
-            note(id+': shoulder angle did not transfer from 3D back to 2D');
-          await page.locator('#joint-elbow').evaluate(input=>{
-            input.value='100';
-            input.dispatchEvent(new Event('input',{bubbles:true}));
+          if(await page.locator('#joint-a').inputValue()!=='20')
+            note(id+': joint A adjustment did not synchronize from 3D to 2D');
+          await page.locator('#joint-b').evaluate(input=>{
+            input.value='100';input.dispatchEvent(new Event('input',{bubbles:true}));
           });
           await page.locator('[data-robot-view="3d"]').click();
-          if(await page.locator('#r3d-elbow').inputValue()!=='100')
-            note(id+': manual 2D elbow angle did not transfer to 3D');
-          await page.locator('[data-3d-pose="home"]').click();
+          if(await page.locator('#r3d-jointB').inputValue()!=='100')
+            note(id+': joint B adjustment did not synchronize from 2D to 3D');
+          await page.locator('[data-3d-pose="neutral"]').click();
         }
         // Captions are supporting technical content and must remain readable,
         // not merely visible. Check every rendered case-study and homepage figure.
