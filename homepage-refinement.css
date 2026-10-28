@@ -304,3 +304,8 @@
 :root[data-theme="dark"] .portfolio-home .research-home-intro>p:not(.eyebrow){color:#ebd6e5}
 @media(max-width:810px){.portfolio-home .research-home-layout{grid-template-columns:1fr}.portfolio-home .research-home-details{grid-template-columns:repeat(3,minmax(0,1fr))}.portfolio-home .research-home-details>div{padding:14px}}
 @media(max-width:580px){.portfolio-home .research-home-details{grid-template-columns:1fr}.portfolio-home .research-home-section{padding:43px 0}.portfolio-home .research-home-intro h2{font-size:36px}}
+
+/* Four primary engineering case studies with NASA return, readable at all widths. */
+.selected-work .featured-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.selected-work .featured-project-card--nasa .selected-project-preview img{object-fit:contain}
+@media(max-width:960px){.selected-work .featured-project-grid{grid-template-columns:1fr}}
