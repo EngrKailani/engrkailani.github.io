@@ -517,15 +517,41 @@
     $(id).addEventListener('input',updateThermal);
   document.querySelectorAll('[data-thermal-channel]').forEach(ch=>ch.addEventListener('change',updateThermal));
   $('thermal-run').addEventListener('click',()=>setThermalRunning(!thermal.playing));
-  $('thermal-export').addEventListener('click',()=>{
-    const rows=['elapsed_min,tc_01_c,tc_02_c,tc_03_c,tc_04_c,heater_percent,cooling_percent'];
-    for(let i=0;i<=120;i++){
-      rows.push([i,...ambient.map((_,j)=>fmt(tempAt(j,i),2)),thermal.power,thermal.cool].join(','));
-    }
-    const blob=new Blob([rows.join('\r\n')+'\r\n'],{type:'text/csv;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='simulated_thermal_run.csv';document.body.appendChild(a);
-    a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  $('thermal-export').addEventListener('click', () => {
+    const button = $('thermal-export');
+    const status = $('thermal-export-status');
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    button.textContent = 'Preparing CSV…';
+    status.textContent = 'Generating example temperatures for export.';
+
+    // Yield to the browser for one paint so the busy state is visible before export.
+    requestAnimationFrame(() => {
+      try {
+        const rows = ['elapsed_min,tc_01_c,tc_02_c,tc_03_c,tc_04_c,heater_percent,cooling_percent'];
+        for (let i = 0; i <= 120; i++) {
+          rows.push([i, ...ambient.map((_, j) => fmt(tempAt(j, i), 2)), thermal.power, thermal.cool].join(','));
+        }
+        const blob = new Blob([rows.join('\r\n') + '\r\n'], { type: 'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'simulated_thermal_run.csv';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        status.textContent = 'Sample CSV generated. Your browser will handle the download.';
+        status.dataset.state = 'success';
+      } catch (error) {
+        status.textContent = 'Could not generate the sample CSV. Please try again.';
+        status.dataset.state = 'error';
+      } finally {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = 'Export sample CSV';
+      }
+    });
   });
 
   function renderActive() {
