@@ -136,7 +136,7 @@
   margin: 0;
   max-width: 100%;
   text-align: left;
-  font: 500 12px/1.55 var(--sans);
+  font: 500 14px/1.55 var(--sans);
   color: var(--ui-muted);
 }
 .portfolio-home .selected-work-heading { max-width: 900px; margin-bottom: 33px; }
