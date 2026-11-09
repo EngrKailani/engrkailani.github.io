@@ -432,3 +432,84 @@
 :root[data-theme="dark"] .wb-page .wb-export-status[data-state="success"] { color: #c8efdb; }
 :root[data-theme="dark"] .wb-page .wb-export-status[data-state="error"] { color: #ffc9d6; }
 .wb-page #thermal-export[aria-busy="true"] { opacity: .74; cursor: progress; }
+
+/* Project directory: clear filters and consistent case-study cards. */
+.project-page .detail-heading h1 {
+  max-width: 26ch;
+  font-size: clamp(35px, 4.5vw, 59px);
+  line-height: 1.12;
+  color: var(--ui-strong);
+  text-wrap: balance;
+}
+.project-page .detail-heading > p:last-child,
+.project-page .directory-intro {
+  color: var(--ui-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.project-page .directory-toolbar { gap: 17px; }
+.project-page .directory-toolbar input { border-color: var(--ui-line); border-radius: 10px; }
+.project-page .directory-group__head h2 { text-wrap: balance; }
+.project-page .project-directory-grid .featured-project-card {
+  border: 1px solid var(--ui-line);
+  border-radius: var(--ui-radius);
+  box-shadow: none;
+}
+.project-page .project-directory-grid .directory-card-visual {
+  border-radius: var(--ui-inner-radius);
+  box-shadow: none;
+}
+.project-page .project-directory-grid .directory-card-badge {
+  border-radius: 5px;
+  box-shadow: none;
+  letter-spacing: .02em;
+  font-size: 10px;
+}
+.project-page .project-directory-grid .directory-evidence__label { display: none; }
+.project-page .project-directory-grid .featured-more {
+  color: var(--ui-accent);
+  font-weight: 800;
+}
+.project-page .directory-results-row {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Research: specific questions and fewer decorative labels. */
+.research-page:not(.cv-page) .research-hero {
+  gap: clamp(25px, 4vw, 55px);
+}
+.research-page:not(.cv-page) .research-hero h1 {
+  max-width: 24ch;
+  font-size: clamp(37px, 4.5vw, 63px);
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--ui-strong);
+}
+.research-page:not(.cv-page) .research-hero h1 em,
+.research-page:not(.cv-page) .research-section-heading h2 em {
+  font-style: normal;
+}
+.research-page:not(.cv-page) .research-section-heading h2 {
+  max-width: 25ch;
+  text-wrap: balance;
+}
+.research-page:not(.cv-page) .research-action { border-radius: 10px; }
+.research-page:not(.cv-page) .research-action--primary {
+  background: #904461;
+  border-color: #904461;
+}
+.research-page:not(.cv-page) .research-hero-visual {
+  transform: none;
+  box-shadow: none;
+  border-radius: var(--ui-radius);
+}
+.research-page:not(.cv-page) .research-hero-visual::before { display: none; }
+.research-page:not(.cv-page) .research-theme-card {
+  border-radius: var(--ui-radius);
+  border-color: var(--ui-line);
+}
+.research-page:not(.cv-page) .research-theme-card > .research-card-index { display: none; }
+.research-page:not(.cv-page) .research-theme-card h3 { margin-top: 0; }
+@media(max-width:700px) {
+  .research-page:not(.cv-page) .research-hero h1 { font-size: clamp(36px, 8.5vw, 50px); }
+}
