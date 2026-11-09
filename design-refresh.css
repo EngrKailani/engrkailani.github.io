@@ -403,3 +403,32 @@
   .wb-page .wb-ik-status[data-state="success"] { animation: none; }
   .portfolio-home .selected-project-preview img { transition: none; }
 }
+
+/* Put working instruments, rather than an illustration, at the top of the lab. */
+.wb-page .wb-intro {
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: clamp(26px, 4vw, 46px);
+  gap: 0;
+}
+.wb-page .wb-intro > div { max-width: 930px; }
+.wb-page .wb-intro h1 {
+  max-width: 23ch;
+  font-size: clamp(35px, 5vw, 62px);
+  line-height: 1.13;
+  letter-spacing: -.035em;
+}
+.wb-page .wb-intro-copy { max-width: 70ch; }
+.wb-page .wb-disclaimer { margin-block: 12px 30px; }
+.wb-page .wb-export-status {
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 700;
+  color: var(--wb-ink);
+  margin: 10px 0 0;
+}
+.wb-page .wb-export-status:empty { display: none; }
+.wb-page .wb-export-status[data-state="success"] { color: #356454; }
+.wb-page .wb-export-status[data-state="error"] { color: #85465a; }
+:root[data-theme="dark"] .wb-page .wb-export-status[data-state="success"] { color: #c8efdb; }
+:root[data-theme="dark"] .wb-page .wb-export-status[data-state="error"] { color: #ffc9d6; }
+.wb-page #thermal-export[aria-busy="true"] { opacity: .74; cursor: progress; }
