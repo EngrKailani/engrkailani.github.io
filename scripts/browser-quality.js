@@ -109,7 +109,7 @@ async function audit(){
           }
         }
         if(test.path==='/research.html'){
-          const heading=page.getByRole('heading',{name:'Research in motion.'});
+          const heading=page.getByRole('heading',{name:'Space robotics research: manipulation, autonomy, and trust.'});
           if(await heading.count()!==1)note(id+': research page heading missing');
           if(await page.locator('.research-study').count()!==5)
             note(id+': five evidence-grounded investigations required');

@@ -1,0 +1,515 @@
+/* Shared design tokens for the homepage and interactive workbench.
+   Applied after legacy styles without changing the authored CSS bundle. */
+:root {
+  --ui-accent: #904461;
+  --ui-accent-hover: #71334e;
+  --ui-accent-soft: #fbf1f6;
+  --ui-strong: #332633;
+  --ui-muted: #655263;
+  --ui-line: #e2d2db;
+  --ui-radius: 18px;
+  --ui-inner-radius: 12px;
+  --ui-space-1: 8px;
+  --ui-space-2: 16px;
+  --ui-space-3: 24px;
+  --ui-space-4: 32px;
+  --ui-space-5: 48px;
+}
+:root[data-theme="dark"] {
+  --ui-accent: #edb5d3;
+  --ui-accent-hover: #f8cfe4;
+  --ui-accent-soft: #382a39;
+  --ui-strong: #faf3f9;
+  --ui-muted: #e1d3df;
+  --ui-line: #705b70;
+}
+.portfolio-home :is(.hero h1, .selected-work-heading h2, .home-lab-copy h2,
+  .experience-section h2, .research-home-section h2, .about-section h2,
+  .skills-section h2, .contact-section h2) {
+  text-wrap: balance;
+  overflow-wrap: normal;
+  letter-spacing: -.035em;
+}
+.portfolio-home :is(.hero h1, .selected-work-heading h2, .home-lab-copy h2) em {
+  font-style: normal;
+}
+.portfolio-home .hero.container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(290px, .76fr);
+  gap: clamp(30px, 5vw, 72px);
+  align-items: center;
+  padding-block: clamp(56px, 7vw, 96px) clamp(54px, 7vw, 90px);
+}
+.portfolio-home .hero .hero-copy {
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+.portfolio-home .hero .eyebrow {
+  display: block;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 20px;
+  color: var(--ui-accent);
+  font: 700 12px/1.45 var(--sans);
+  letter-spacing: .095em;
+  max-width: none;
+}
+.portfolio-home .hero h1 {
+  color: var(--ui-strong);
+  font-size: clamp(50px, 6vw, 82px);
+  line-height: 1.07;
+  margin: 0 0 24px;
+}
+.portfolio-home .hero-subtitle {
+  color: var(--ui-strong);
+  font: 500 clamp(24px, 2.7vw, 35px)/1.27 var(--serif);
+  max-width: 24ch;
+  margin: 0 0 18px;
+  text-wrap: balance;
+}
+.portfolio-home .hero-description {
+  color: var(--ui-muted);
+  max-width: 60ch;
+  font-size: clamp(15px, 1.35vw, 17px);
+  line-height: 1.78;
+  margin: 0 0 29px;
+}
+.portfolio-home .hero-buttons { gap: 12px; align-items: center; }
+.portfolio-home .hero-buttons .btn {
+  min-height: 50px;
+  border-radius: 10px;
+  padding-inline: 23px;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+  white-space: normal;
+  text-align: center;
+}
+.portfolio-home :is(.hero-buttons, .featured-next-step-links, .contact-actions) .btn-primary {
+  background: #904461;
+  color: #fff;
+  border-color: #904461;
+}
+.portfolio-home :is(.hero-buttons, .featured-next-step-links, .contact-actions) .btn-primary:hover {
+  background: #71334e;
+  border-color: #71334e;
+  color: #fff;
+}
+.portfolio-home .hero-buttons .btn-outline {
+  border-color: #b49baa;
+  color: var(--ui-strong);
+  background: transparent;
+}
+.portfolio-home .hero-direct-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 23px;
+  margin: 22px 0 0;
+  font: 650 13px/1.5 var(--sans);
+}
+.portfolio-home .hero-direct-contact a { color: var(--ui-strong); }
+.portfolio-home .hero .intro-planet,
+.portfolio-home .hero .ambient-field-hero { display: none; }
+.portfolio-home .hero-photo {
+  margin: 0;
+  width: 100%;
+  max-width: 365px;
+  justify-self: end;
+}
+.portfolio-home .hero-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center;
+  max-height: none;
+  border-radius: var(--ui-radius);
+  box-shadow: 0 18px 42px #472e3a1c;
+}
+.portfolio-home .hero-photo figcaption {
+  display: block;
+  padding: 10px 2px 0;
+  margin: 0;
+  max-width: 100%;
+  text-align: left;
+  font: 500 14px/1.55 var(--sans);
+  color: var(--ui-muted);
+}
+.portfolio-home .selected-work-heading { max-width: 900px; margin-bottom: 33px; }
+.portfolio-home .selected-work-heading h2 {
+  color: var(--ui-strong);
+  font-size: clamp(31px, 4vw, 52px);
+  line-height: 1.16;
+  max-width: 24ch;
+  margin-bottom: 16px;
+}
+.portfolio-home .selected-work-heading > p:last-child {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ui-muted);
+  max-width: 64ch;
+}
+.portfolio-home .selected-work .featured-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 25px);
+}
+.portfolio-home .selected-work .featured-project-card {
+  min-width: 0;
+  min-height: 0;
+  gap: 0;
+  padding: clamp(17px, 2vw, 26px);
+  border: 1px solid var(--ui-line);
+  border-radius: var(--ui-radius);
+  background: var(--paper, #fff);
+  box-shadow: none;
+}
+.portfolio-home .selected-work .featured-project-card--nasa {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, .86fr);
+  grid-template-areas:
+    "visual category"
+    "visual heading"
+    "visual tools"
+    "visual role"
+    "visual result"
+    "visual scope"
+    "visual action";
+  grid-template-rows: auto auto auto auto auto auto 1fr;
+  gap: 0 clamp(24px, 3.5vw, 50px);
+  padding: clamp(19px, 2.6vw, 34px);
+  align-items: start;
+}
+.portfolio-home .featured-project-card--nasa > .featured-category { grid-area: category; }
+.portfolio-home .featured-project-card--nasa > .selected-project-preview { grid-area: visual; }
+.portfolio-home .featured-project-card--nasa > h3 { grid-area: heading; }
+.portfolio-home .featured-project-card--nasa > .selected-project-tools { grid-area: tools; }
+.portfolio-home .featured-project-card--nasa > .selected-project-role { grid-area: role; }
+.portfolio-home .featured-project-card--nasa > .selected-project-result { grid-area: result; }
+.portfolio-home .featured-project-card--nasa > .selected-project-scope { grid-area: scope; }
+.portfolio-home .featured-project-card--nasa > .featured-more { grid-area: action; }
+.portfolio-home .selected-work .featured-project-card .featured-category {
+  color: var(--ui-accent);
+  font: 750 11px/1.5 var(--sans);
+  text-transform: none;
+  letter-spacing: .025em;
+  margin: 0;
+}
+.portfolio-home .selected-project-preview {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  margin: 15px 0 2px;
+  border: 1px solid var(--ui-line);
+  border-radius: var(--ui-inner-radius);
+  background: #f4f2f5;
+  color: var(--ui-strong);
+  isolation: isolate;
+}
+.portfolio-home .selected-project-preview img {
+  display: block;
+  width: 100%;
+  max-height: none;
+  aspect-ratio: 16/9;
+  object-fit: contain;
+  background: #f5f3f7;
+  transition: transform .22s ease, opacity .2s ease;
+}
+.portfolio-home .featured-project-card--nasa .selected-project-preview {
+  margin: 0;
+  align-self: stretch;
+  justify-content: space-between;
+}
+.portfolio-home .featured-project-card--nasa .selected-project-preview img {
+  flex: 1 1 auto;
+  min-height: 305px;
+  height: 100%;
+  max-height: 470px;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.portfolio-home .selected-project-preview__meta {
+  padding: 12px 14px;
+  border-top: 1px solid var(--ui-line);
+  background: #faf7fa;
+  color: #61475a;
+  letter-spacing: 0;
+  text-transform: none;
+  font: 650 11px/1.5 var(--sans);
+}
+.portfolio-home .selected-work .featured-project-card h3 {
+  font-size: clamp(23px, 2.35vw, 31px);
+  line-height: 1.22;
+  margin: 19px 0 12px;
+  text-wrap: balance;
+  color: var(--ui-strong);
+}
+.portfolio-home .selected-work .featured-project-card--nasa h3 {
+  font-size: clamp(31px, 3vw, 42px);
+  margin: 13px 0 13px;
+}
+.portfolio-home .selected-work .selected-project-tools {
+  color: var(--ui-muted);
+  font: 650 12px/1.6 var(--sans);
+  margin-bottom: 14px;
+}
+.portfolio-home .selected-work .selected-project-role {
+  color: var(--ui-strong);
+  font-size: 14px;
+  line-height: 1.73;
+  margin-bottom: 16px;
+}
+.portfolio-home .selected-work .selected-project-result {
+  border-top: 1px solid var(--ui-line);
+  margin: 0;
+  padding: 14px 0 12px;
+}
+.portfolio-home .selected-work .selected-project-result p {
+  margin: 0;
+  color: var(--ui-strong);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.portfolio-home .selected-work .selected-project-result strong { color: var(--ui-strong); font-weight: 800; }
+.portfolio-home .selected-work .selected-project-scope {
+  color: var(--ui-muted);
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 0 0 15px;
+}
+.portfolio-home .selected-work .featured-more {
+  margin-top: auto;
+  padding-top: 13px;
+  min-height: 44px;
+  border-top: 1px solid var(--ui-line);
+  color: var(--ui-accent);
+  font-weight: 800;
+  text-underline-offset: 5px;
+}
+.portfolio-home .featured-project-card--nasa .featured-more { align-self: end; }
+.portfolio-home .work-pathways {
+  border-radius: var(--ui-radius);
+  border-color: var(--ui-line);
+  box-shadow: none;
+}
+.portfolio-home .work-pathways__item {
+  border-radius: var(--ui-inner-radius);
+  border-color: var(--ui-line);
+}
+.portfolio-home .featured-next-step {
+  margin-top: 32px;
+  border-top-color: var(--ui-line);
+}
+.portfolio-home .featured-next-step p { color: var(--ui-muted); }
+.portfolio-home .home-lab-spotlight {
+  border-color: var(--ui-line);
+  border-radius: var(--ui-radius);
+  box-shadow: none;
+}
+.portfolio-home .home-lab-copy h2 { color: var(--ui-strong); }
+.portfolio-home .home-lab-preview { border-radius: var(--ui-inner-radius); }
+.portfolio-home .research-home-details > div {
+  border-color: var(--ui-line);
+  border-radius: var(--ui-inner-radius);
+}
+.portfolio-home .research-home-details > div > span { display: none; }
+.portfolio-home .about-context {
+  margin: 19px 0;
+  max-width: 58ch;
+  color: var(--ui-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.portfolio-home .skill-icon { display: none; }
+.portfolio-home .contact-inner h2 { max-width: 23ch; margin-inline: auto; }
+.portfolio-home .selected-project-preview.media-loading img { opacity: .45; }
+.portfolio-home .selected-project-preview.media-loading {
+  background: linear-gradient(110deg, #f0ebf0 20%, #faf7fa 50%, #f0ebf0 80%);
+  background-size: 200% 100%;
+  animation: media-progress 1.5s linear infinite;
+}
+.portfolio-home .selected-project-preview.media-ready img { animation: media-reveal .22s ease-out both; }
+@keyframes media-progress { to { background-position: -200% 0; } }
+@keyframes media-reveal { from { opacity: .65; } to { opacity: 1; } }
+:root[data-theme="dark"] .portfolio-home .selected-project-preview { background: #292431; border-color: var(--ui-line); }
+:root[data-theme="dark"] .portfolio-home .selected-project-preview img { background: #25202c; }
+:root[data-theme="dark"] .portfolio-home .selected-project-preview__meta { background: #392d3d; color: #ead6e4; border-color: var(--ui-line); }
+:root[data-theme="dark"] .portfolio-home .hero-buttons .btn-outline { color: #faf3f9; border-color: #a38a9e; }
+:root[data-theme="dark"] .portfolio-home .selected-project-preview.media-loading { background: #392d3c; }
+@media (max-width: 1080px) {
+  .portfolio-home .selected-work .featured-project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .portfolio-home .selected-work .featured-project-card:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 800px) {
+  .portfolio-home .hero.container {
+    grid-template-columns: minmax(0, 1fr) minmax(215px, .62fr);
+    gap: 25px;
+  }
+  .portfolio-home .hero h1 { font-size: clamp(45px, 7.3vw, 66px); }
+  .portfolio-home .hero-photo { max-width: 300px; }
+  .portfolio-home .selected-work .featured-project-card--nasa {
+    grid-template-columns: 1fr;
+    grid-template-areas: "category" "heading" "tools" "visual" "role" "result" "scope" "action";
+    gap: 0;
+  }
+  .portfolio-home .featured-project-card--nasa .selected-project-preview { margin: 16px 0 20px; }
+  .portfolio-home .featured-project-card--nasa .selected-project-preview img { min-height: 0; height: auto; max-height: none; aspect-ratio: 16/9; }
+}
+@media (max-width: 640px) {
+  .portfolio-home .hero.container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    padding-block: 43px 47px;
+  }
+  .portfolio-home .hero h1 { font-size: clamp(47px, 11vw, 65px); }
+  .portfolio-home .hero-subtitle { font-size: clamp(24px, 6.4vw, 30px); }
+  .portfolio-home .hero-description { font-size: 15px; }
+  .portfolio-home .hero-photo { max-width: 290px; align-self: flex-start; margin: 0; }
+  .portfolio-home .hero-buttons { display: grid; grid-template-columns: 1fr; }
+  .portfolio-home .hero-buttons .btn { width: 100%; }
+  .portfolio-home .selected-work .featured-project-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .portfolio-home .selected-work .featured-project-card:last-child { grid-column: auto; }
+  .portfolio-home .selected-work .featured-project-card--nasa h3 { font-size: clamp(28px, 7vw, 34px); }
+  .portfolio-home .selected-work .featured-project-card h3 { font-size: 26px; }
+  .portfolio-home .featured-next-step { gap: 16px; }
+  .portfolio-home .home-lab-spotlight { padding: 18px; }
+}
+/* Workbench keeps its technical type hierarchy and functional labels. */
+.wb-page .wb-intro h1 em, .wb-page .wb-panel h3 em { font-style: normal; }
+.wb-page .wb-intro-graphic { transform: none; box-shadow: none; border-radius: var(--ui-radius); }
+.wb-page .wb-intro h1 { text-wrap: balance; }
+.wb-page .wb-button, .wb-page .wb-small-button { border-radius: 10px; }
+.wb-page :is(.wb-readouts, .wb-cursor-readouts, .wb-channel-readouts) strong,
+.wb-page .wb-field output, .wb-page .wb-fixture-number,
+.wb-page :is(.wb-screen-bar, .wb-screen-foot, .wb-stage-top, .wb-stage-bottom) {
+  font-variant-numeric: tabular-nums;
+}
+.wb-page .wb-tab { border-radius: var(--ui-inner-radius); }
+.wb-page :is(.wb-panel, .wb-controls, .wb-instrument-screen) { border-radius: var(--ui-radius); }
+.wb-page .wb-ik-status[data-state="success"] { animation: control-confirm .2s ease-out; }
+@keyframes control-confirm { from { transform: translateY(3px); opacity: .75; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-home .selected-project-preview.media-loading,
+  .portfolio-home .selected-project-preview.media-ready img,
+  .wb-page .wb-ik-status[data-state="success"] { animation: none; }
+  .portfolio-home .selected-project-preview img { transition: none; }
+}
+
+/* Put working instruments, rather than an illustration, at the top of the lab. */
+.wb-page .wb-intro {
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: clamp(26px, 4vw, 46px);
+  gap: 0;
+}
+.wb-page .wb-intro > div { max-width: 930px; }
+.wb-page .wb-intro h1 {
+  max-width: 23ch;
+  font-size: clamp(35px, 5vw, 62px);
+  line-height: 1.13;
+  letter-spacing: -.035em;
+}
+.wb-page .wb-intro-copy { max-width: 70ch; }
+.wb-page .wb-disclaimer { margin-block: 12px 30px; }
+.wb-page .wb-export-status {
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 700;
+  color: var(--wb-ink);
+  margin: 10px 0 0;
+}
+.wb-page .wb-export-status:empty { display: none; }
+.wb-page .wb-export-status[data-state="success"] { color: #356454; }
+.wb-page .wb-export-status[data-state="error"] { color: #85465a; }
+:root[data-theme="dark"] .wb-page .wb-export-status[data-state="success"] { color: #c8efdb; }
+:root[data-theme="dark"] .wb-page .wb-export-status[data-state="error"] { color: #ffc9d6; }
+.wb-page #thermal-export[aria-busy="true"] { opacity: .74; cursor: progress; }
+
+/* Project directory: clear filters and consistent case-study cards. */
+.project-page .detail-heading h1 {
+  max-width: 26ch;
+  font-size: clamp(35px, 4.5vw, 59px);
+  line-height: 1.12;
+  color: var(--ui-strong);
+  text-wrap: balance;
+}
+.project-page .detail-heading > p:last-child,
+.project-page .directory-intro {
+  color: var(--ui-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.project-page .directory-toolbar { gap: 17px; }
+.project-page .directory-toolbar input { border-color: var(--ui-line); border-radius: 10px; }
+.project-page .directory-group__head h2 { text-wrap: balance; }
+.project-page .project-directory-grid .featured-project-card {
+  border: 1px solid var(--ui-line);
+  border-radius: var(--ui-radius);
+  box-shadow: none;
+}
+.project-page .project-directory-grid .directory-card-visual {
+  border-radius: var(--ui-inner-radius);
+  box-shadow: none;
+}
+.project-page .project-directory-grid .directory-card-badge {
+  border-radius: 5px;
+  box-shadow: none;
+  letter-spacing: .02em;
+  font-size: 10px;
+}
+.project-page .project-directory-grid .directory-evidence__label { display: none; }
+.project-page .project-directory-grid .featured-more {
+  color: var(--ui-accent);
+  font-weight: 800;
+}
+.project-page .directory-results-row {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Research: specific questions and fewer decorative labels. */
+.research-page:not(.cv-page) .research-hero {
+  gap: clamp(25px, 4vw, 55px);
+}
+.research-page:not(.cv-page) .research-hero h1 {
+  max-width: 24ch;
+  font-size: clamp(37px, 4.5vw, 63px);
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--ui-strong);
+}
+.research-page:not(.cv-page) .research-hero h1 em,
+.research-page:not(.cv-page) .research-section-heading h2 em {
+  font-style: normal;
+}
+.research-page:not(.cv-page) .research-section-heading h2 {
+  max-width: 25ch;
+  text-wrap: balance;
+}
+.research-page:not(.cv-page) .research-action { border-radius: 10px; }
+.research-page:not(.cv-page) .research-action--primary {
+  background: #904461;
+  border-color: #904461;
+}
+.research-page:not(.cv-page) .research-hero-visual {
+  transform: none;
+  box-shadow: none;
+  border-radius: var(--ui-radius);
+}
+.research-page:not(.cv-page) .research-hero-visual::before { display: none; }
+.research-page:not(.cv-page) .research-theme-card {
+  border-radius: var(--ui-radius);
+  border-color: var(--ui-line);
+}
+.research-page:not(.cv-page) .research-theme-card > .research-card-index { display: none; }
+.research-page:not(.cv-page) .research-theme-card h3 { margin-top: 0; }
+@media(max-width:700px) {
+  .research-page:not(.cv-page) .research-hero h1 { font-size: clamp(36px, 8.5vw, 50px); }
+}

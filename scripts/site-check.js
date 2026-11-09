@@ -733,9 +733,9 @@ check(home.includes('href="projects/nasa.html"') &&
 /* Research-first academic portfolio invariants. */
 const academicCV=fs.readFileSync(path.join(root,'academic-cv.html'),'utf8');
 const urResearch=fs.readFileSync(path.join(projectDir,'ur3e.html'),'utf8');
-check(home.includes('Engineering reliable robots for space exploration.') &&
+check(home.includes('Engineering robots for the Moon and beyond.') &&
   home.includes('academic-cv.html') &&
-  home.includes('My experience includes robotic-arm assessment at NASA Marshall'),
+  home.includes('My work includes robotic-arm feasibility analysis at NASA Marshall'),
   'Homepage should foreground space robotics, graduate research and academic CV');
 check(home.includes('class="featured-project-card"') &&
   home.includes('three-person group') &&
