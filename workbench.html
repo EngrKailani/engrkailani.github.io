@@ -18,6 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=optional" rel="stylesheet">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('kailani-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="workbench.css?v=20261027-phase3">
+<link rel="stylesheet" href="design-refresh.css?v=20261108-clarity1">
 <script src="workbench-models.js?v=20261027-phase3" defer></script>
 <script src="workbench.js?v=20261027-phase3" defer></script>
 <title>Engineering Workbench | Kailani Alarcon</title>
@@ -40,19 +41,15 @@
   <div class="wb-breadcrumb"><a href="index.html">Portfolio</a><span aria-hidden="true">/</span><span aria-current="page">Engineering Workbench</span></div>
   <section class="wb-intro" aria-labelledby="wb-title">
     <div>
-      <p class="wb-eyebrow">INTERACTIVE SYSTEMS / PERSONAL ENGINEERING LAB</p>
-      <h1 id="wb-title">The engineering <em>workbench.</em></h1>
-      <p class="wb-intro-copy">Four browser-based engineering demonstrations. Adjust signal triggering and scales, solve a robot pose, mix light, or explore a thermal response.</p>
+      <p class="wb-eyebrow">INTERACTIVE ENGINEERING MODELS</p>
+      <h1 id="wb-title">Simulate signals, robot poses, and thermal response.</h1>
+      <p class="wb-intro-copy">Use four browser-based models to adjust signal triggers, solve a three-link robot pose, mix virtual lighting, and test a thermal response.</p>
       <div class="wb-intro-actions">
-        <a class="wb-button wb-button-primary" href="#instruments">Explore instruments <span aria-hidden="true">↗</span></a>
+        <a class="wb-button wb-button-primary" href="#instruments">Try the instruments <span aria-hidden="true">↗</span></a>
         <a class="wb-button wb-button-outline" href="projects/index.html">Project case studies <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-    <div class="wb-intro-graphic" aria-hidden="true">
-      <div class="wb-graphic-head"><span>BENCH / 01</span><span class="wb-graphic-light"></span><span>LOCAL SIMULATOR</span></div>
-      <svg viewBox="0 0 500 225" role="presentation"><defs><pattern id="wb-hero-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#7c6882" stroke-opacity=".18"/></pattern></defs><rect x="0" y="0" width="500" height="225" fill="url(#wb-hero-grid)"/><path d="M0 118H500" stroke="#d6c8d5" stroke-opacity=".22"/><path d="M0 118 Q20 40 40 118 T80 118 T120 118 T160 118 T200 118 T240 118 T280 118 T320 118 T360 118 T400 118 T440 118 T480 118" fill="none" stroke="#f4aeca" stroke-width="3" stroke-linecap="round"/><path d="M0 174H110V88H176V174H266V88H328V174H415V88H500" fill="none" stroke="#90d8d0" stroke-width="3" stroke-opacity=".85"/></svg>
-      <div class="wb-graphic-foot"><span>OSC / ROBOT / DMX / THERMAL</span><span>04 MODULES</span></div>
-    </div>
+
   </section>
   <div class="wb-disclaimer" role="note"><strong>Demonstration mode.</strong> These instruments run entirely in your browser. Traces, temperatures, arm geometry, and DMX values are educational simulations, not physical measurements, calibrated models, or connected hardware.</div>
 
@@ -208,6 +205,7 @@
           <label class="wb-field"><span>Cursor time <output id="thermal-time-out">45 min</output></span><input id="thermal-time" type="range" min="0" max="120" step="1" value="45"></label>
           <div class="wb-toggle-grid" role="group" aria-label="Visible thermal channels"><label class="wb-check"><input type="checkbox" data-thermal-channel="0" checked> TC 01</label><label class="wb-check"><input type="checkbox" data-thermal-channel="1" checked> TC 02</label><label class="wb-check"><input type="checkbox" data-thermal-channel="2" checked> TC 03</label><label class="wb-check"><input type="checkbox" data-thermal-channel="3" checked> TC 04</label></div>
           <div class="wb-control-actions"><button class="wb-small-button" id="thermal-run" type="button" aria-pressed="false">Play test</button><button class="wb-small-button wb-small-button-light" id="thermal-export" type="button">Export sample CSV</button></div>
+          <p class="wb-export-status" id="thermal-export-status" role="status" aria-live="polite" aria-atomic="true"></p>
           <p class="wb-control-note">Illustrative first-order thermal model with channel offsets. CSV exports generated examples only, not recorded thermocouple data.</p>
         </aside>
       </div>
