@@ -108,9 +108,10 @@ check(fs.readFileSync(path.join(root,'workbench.html'),'utf8').includes('href="r
   htmlResume.includes('href="research.html"'),
   'Research must be reachable from Workbench, directory and HTML resume');
 
-check(htmlResume.includes('aria-label="Open one-page résumé PDF for printing"') &&
-      !htmlResume.includes('onclick="window.print()"'),
-      'Résumé print action must open the verified one-page PDF');
+check(htmlResume.includes('onclick="window.print()"') &&
+      htmlResume.includes('Print / save updated résumé as PDF') &&
+      htmlResume.includes('Earlier PDF (October 2026)'),
+      'Current HTML résumé must be printable and previous PDF labeled as archived');
 
 check(htmlResume.includes('href="https://github.com/EngrKailani"') &&
        htmlResume.includes('GitHub: EngrKailani') &&
@@ -122,30 +123,32 @@ check(!htmlResume.includes('https://github.com/kalarcon775'),
       'HTML résumé should link to the verified connected GitHub account');
 check(fs.existsSync(path.join(root,'assets','Kailani_Alarcon_Resume_Full_Detail.pdf')),
       'Legacy alternate résumé path must still serve an updated PDF');
-check(htmlResume.includes('Aug. 2026 - Dec. 2026') &&
-      htmlResume.includes('Performed load analysis using Creo mass properties') &&
+check(htmlResume.includes('Aug 2026 – Present') &&
+      htmlResume.includes('3.1 N·m shoulder self-load moment') &&
+      htmlResume.includes('34 hierarchical system requirements') &&
       !htmlResume.includes('27.23 lbf-in'),
-      'HTML résumé must match the uploaded NASA dates and load-analysis description');
+      'HTML résumé must match November NASA internship dates and preliminary load estimate');
 const resumeGenerator=fs.readFileSync(path.join(root,'scripts/build-resume-pdf.py'),'utf8');
 check(resumeGenerator.includes('Aug. 2026 - Dec. 2026') &&
       resumeGenerator.includes('Performed load analysis using Creo mass properties') &&
       resumeGenerator.includes('GitHub: EngrKailani') &&
       !resumeGenerator.includes('GitHub: kalarcon775'),
       'PDF generator must match the uploaded NASA dates and accomplishment');
-check(htmlResume.includes('documented results in 2 technical white papers') &&
+check(htmlResume.includes('authored two publicly available industry white papers') &&
       resumeGenerator.includes('documented results in 2 technical white papers'),
-      'Résumé HTML and PDF generator must match the confirmed count of two white papers');
-check(htmlResume.includes('<h1>Kailani Alarcon</h1>') &&
-      !htmlResume.includes('<p class="resume-professional-headline">'),
-      'HTML résumé should match the uploaded header');
+      'Current résumé and archived PDF generator must both confirm two industry white papers');
+check(htmlResume.includes('<h1>Kailani P. Alarcon</h1>') &&
+      htmlResume.includes('Electrical Engineering M.S. Student | Robotics, Controls &amp; Embedded Systems'),
+      'HTML résumé should match the updated graduate engineering header');
 
 const currentResume=path.join(root,'assets','Kailani_Alarcon_Resume.pdf');
 check(fs.existsSync(currentResume) && fs.statSync(currentResume).size>30000,
   'A complete October 2026 resume PDF must be deployed at the canonical asset path');
-for(const phrase of ['Performed load analysis using Creo mass properties','34 hierarchical system requirements',
-  '12+ LED products','236 points','57,600 and 115,200 baud']){
+for(const phrase of ['3.1 N·m shoulder self-load moment','34 hierarchical system requirements',
+  'more than 12 LED products','236 points','24 templates across four users',
+  'Spring 2027 registered (upcoming)']){
   check(htmlResume.includes(phrase),
-    'The HTML resume must reflect uploaded resume evidence: '+phrase);
+    'The HTML résumé must reflect the new uploaded evidence: '+phrase);
 }
 check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261027-resume2'),
   'HTML resume PDF download must use the newest cached version');
@@ -164,9 +167,9 @@ for(const slug of caseTitles){
 }
 
 /* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="assets/Kailani_Alarcon_CV.pdf?v=20261028-original"') &&
-  home.includes('aria-label="View academic CV PDF in a new tab"'),
-  'Main navigation must link directly to the uploaded academic CV PDF');
+check(home.includes('class="nav-cta" href="academic-cv.html"') &&
+  home.includes('aria-label="Read updated academic CV"'),
+  'Main navigation must link to the updated HTML academic CV');
 check(home.includes('class="featured-next-step"') &&
   home.includes('href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity"') &&
   home.includes('class="featured-next-step-links"'),
@@ -735,8 +738,9 @@ const academicCV=fs.readFileSync(path.join(root,'academic-cv.html'),'utf8');
 const urResearch=fs.readFileSync(path.join(projectDir,'ur3e.html'),'utf8');
 check(home.includes('Engineering robots for the Moon and beyond.') &&
   home.includes('academic-cv.html') &&
-  home.includes('My work includes robotic-arm feasibility analysis at NASA Marshall'),
-  'Homepage should foreground space robotics, graduate research and academic CV');
+  home.includes('At NASA Marshall, I evaluated lunar-dust robotic-arm feasibility') &&
+  home.includes('Spring 2027 registered (upcoming)'),
+  'Homepage should foreground space robotics, verified NASA work and future graduate courses');
 check(home.includes('class="featured-project-card"') &&
   home.includes('three-person group') &&
   home.includes('three-person group, I contributed') &&
@@ -789,13 +793,13 @@ check(canonicalBytes.length===165127 &&
   canonicalBlobSha==='cc243920ede546eef6d7bac2bd26126975545d7d' &&
   canonicalBytes.subarray(0,5).toString()==='%PDF-',
   'Canonical downloadable CV must match the exact user-uploaded three-page PDF');
-check(home.includes('Kailani_Alarcon_CV.pdf?v=20261028-original') &&
-  directory.includes('Kailani_Alarcon_CV.pdf?v=20261028-original') &&
-  academicCV.includes('download="Kailani_Alarcon_CV.pdf"') &&
-  academicCV.includes('The PDF above is the original three-page CV') &&
-  !home.includes('Kailani_Alarcon_Academic_CV.pdf') &&
-  !academicCV.includes('Kailani_Alarcon_Academic_CV.pdf'),
-  'Primary site CV links must use original uploaded source, not regenerated HTML PDF');
+check(home.includes('href="academic-cv.html"') &&
+  directory.includes('href="../academic-cv.html"') &&
+  academicCV.includes('Earlier CV PDF (October 2026)') &&
+  academicCV.includes('Updated November 2026:') &&
+  academicCV.includes('Print / save updated CV as PDF') &&
+  !home.includes('Kailani_Alarcon_Academic_CV.pdf'),
+  'Primary site CV links must reflect the updated HTML and preserve clearly labeled old PDF');
 const nasaPublic=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
 check(nasaPublic.includes('id="nasa-evidence-map"') &&
   nasaPublic.includes('34 hierarchical requirements') &&
@@ -809,7 +813,8 @@ check(research.includes('id="research-concept"') &&
   research.includes('not a completed experiment, NASA task') &&
   research.includes('independent future research') &&
   research.includes('no new NASA-specific technical detail') &&
-  research.includes('download the original three-page CV PDF'),
+  research.includes('The October 2026 PDF remains archived') &&
+  research.includes('The study proposed here is independent future research'),
   'Prospective manipulation study must be clearly separate from disclosed NASA work');
 const optionalPdfWorkflow=fs.readFileSync(path.join(root,'.github/workflows/academic-cv-pdf.yml'),'utf8');
 check(optionalPdfWorkflow.includes('workflow_dispatch:') &&
