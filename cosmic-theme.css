@@ -124,3 +124,10 @@ body.cosmic-home,body.cosmic-resume{background:#fffbfd;color:var(--cosmic-ink)}
 @media(max-width:560px){.cosmic-home .hero-grid{padding-block:52px;gap:44px}.cosmic-home .hero h1{font-size:clamp(2.5rem,10.5vw,3.4rem)}.cosmic-home .hero-lead{font-size:.97rem}.cosmic-home .hero-photo{max-width:min(275px,calc(100% - 28px))}.cosmic-home .hero-photo img{max-height:310px}.cosmic-home .work-card-content{padding:21px}.cosmic-home .section{padding-block:55px}.cosmic-home .footer-signoff{display:block;margin:5px 0 0}.research-page:not(.cv-page) .research-hero,.wb-page .wb-intro{padding:22px}.project-page .detail-heading{padding:22px}}
 @media(prefers-reduced-motion:reduce){.cosmic-home .work-card,.cosmic-home .button{transition:none}.cosmic-home .work-card:hover{transform:none}}
 @media print{.cosmic-home .hero::before,.cosmic-home .hero::after,.cosmic-home .contact-section::before,.project-page .detail-heading::after{display:none!important}.cosmic-resume .resume-document{border:0;box-shadow:none}.research-page:not(.cv-page) .research-hero,.project-page .detail-heading{background:transparent;border:0}}
+
+/* Resume PDF download action, coordinated with the space/pink site chrome. */
+.cosmic-resume .resume-toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.cosmic-resume .resume-toolbar .resume-download{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;min-height:44px;font-size:.86rem;font-weight:700;text-decoration:none;border-radius:999px;background:#83375f;border:1px solid #83375f;color:#fff}
+.cosmic-resume .resume-toolbar .resume-download:hover{background:#632447;color:#fff}
+@media (max-width:520px){.cosmic-resume .resume-toolbar-actions{width:100%}.cosmic-resume .resume-toolbar-actions>*{flex:1;text-align:center}}
+@media print{.cosmic-resume .resume-toolbar-actions{display:none!important}}
