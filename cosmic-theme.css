@@ -481,3 +481,36 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
     color:#111;background:#fff;border-color:#bbb
   }
 }
+
+
+/* Research-forward homepage project cards: illustrative typography, no simulated NASA data. */
+.cosmic-home .work-card-concept{
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  gap:14px;min-height:235px;padding:clamp(20px,3vw,34px);margin:0;
+  background:radial-gradient(circle at 88% 8%,rgba(244,191,220,.27),transparent 45%),
+    linear-gradient(135deg,#2b2143,#5a345c);
+  color:#fff4fc;border:0;border-radius:0;position:relative;overflow:hidden;
+}
+.cosmic-home .work-card-concept::after{
+  content:"";position:absolute;right:-42px;bottom:-58px;width:180px;height:180px;
+  border:1px solid rgba(255,225,245,.25);border-radius:50%;
+  box-shadow:0 0 0 35px rgba(255,225,245,.06),0 0 0 70px rgba(255,225,245,.045);
+  pointer-events:none;
+}
+.cosmic-home .work-card-concept--image{background:radial-gradient(circle at 85% 16%,rgba(237,170,217,.22),transparent 42%),linear-gradient(135deg,#28253e,#503e65)}
+.cosmic-home .work-card-concept--testing{background:radial-gradient(circle at 85% 18%,rgba(210,181,232,.22),transparent 45%),linear-gradient(135deg,#261e39,#544059)}
+.cosmic-home .work-card-concept--robotics{background:radial-gradient(circle at 82% 10%,rgba(232,162,206,.24),transparent 43%),linear-gradient(135deg,#29203c,#54345e)}
+.cosmic-home .work-card-concept__overline{position:relative;z-index:1;color:#fad1e7;font:700 .72rem/1.4 system-ui,sans-serif;letter-spacing:.12em}
+.cosmic-home .work-card-concept__title{position:relative;z-index:1;color:#fff9fe;font:600 clamp(1.35rem,2.5vw,1.95rem)/1.15 Georgia,serif;max-width:22ch}
+.cosmic-home .work-card-concept__detail{position:relative;z-index:1;color:#f2dce9;font:500 .87rem/1.5 system-ui,sans-serif}
+.cosmic-home .work-card--spotlight{border-color:var(--cosmic-accent)}
+.cosmic-home .work-card--spotlight .project-meta{font-weight:700}
+.cosmic-home .work-card .work-overview strong{color:inherit}
+.research-page .research-study[id]{scroll-margin-top:105px}
+@media(max-width:620px){
+  .cosmic-home .work-card-concept{min-height:188px;padding:24px}
+  .cosmic-home .work-card-concept::after{width:115px;height:115px;right:-32px;bottom:-34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .cosmic-home .work-card{transition:none}
+}
