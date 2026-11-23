@@ -514,3 +514,44 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 @media(prefers-reduced-motion:reduce){
   .cosmic-home .work-card{transition:none}
 }
+
+
+/* Accessibility and mobile navigation refinements, November 2026 */
+:where(.cosmic-home,.cosmic-resume,.project-page,.research-page,.wb-page) :is(
+  a,button,summary,input,select,textarea,[tabindex="0"]
+):focus-visible{
+  outline:3px solid var(--cosmic-accent);
+  outline-offset:3px;
+}
+:root[data-theme="dark"] :where(.cosmic-home,.cosmic-resume,.project-page,.research-page,.wb-page) :is(
+ a,button,summary,input,select,textarea,[tabindex="0"]
+):focus-visible{outline-color:#ffd4ec}
+.cosmic-site-header :is(.cosmic-desktop-links a,.cosmic-mobile-links a)[aria-current="page"]{
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:.35em;
+  text-decoration-thickness:2px;
+}
+.cosmic-home .button-row{align-items:center;flex-wrap:wrap}
+.cosmic-home .hero .button-outline{border-color:#e8b5d5}
+.cosmic-home .hero .button-outline:hover{border-color:#ffe0f0}
+.cosmic-home .button-row .button{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.cosmic-mobile-links a{min-height:44px;display:flex;align-items:center}
+.cosmic-mobile-menu summary{min-height:44px}
+:where(.cosmic-home,.research-page,.project-page,.wb-page) :is(
+ section[id],article[id],h2[id],h3[id]
+){scroll-margin-top:110px}
+:root[data-theme="dark"] body.research-page .research-writing-card a{
+  color:var(--cosmic-accent);text-decoration:underline;text-underline-offset:3px
+}
+:root[data-theme="dark"] body.cosmic-home :is(.research-links a,.archive-link a){
+  color:var(--cosmic-accent);text-decoration:underline;text-underline-offset:3px
+}
+@media(max-width:700px){
+ .cosmic-home .hero .button-row{display:flex;align-items:stretch;gap:10px}
+ .cosmic-home .hero .button-row .button{flex:1 1 170px;white-space:normal;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
