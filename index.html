@@ -74,69 +74,81 @@
         <div>
           <p class="eyebrow">Selected engineering work</p>
           <h2 id="selected-title">Selected engineering projects.</h2>
-          <p>Five examples of my work in robotic manipulation, measurement, modeling, and systems verification. The individual case studies distinguish my contributions, methods, and results.</p>
+          <p>A selection emphasizing space robotics, sensing, testing, and kinematics. Each summary separates completed engineering work from preliminary analysis and planned verification.</p>
         </div>
         <a href="projects/index.html">Browse all 16 projects</a>
       </div>
 
       <div class="work-grid">
-        <article class="work-card">
-  <figure><img class="fit-contain" src="projects/nasa-figures/robotic-arm-geometry.svg" alt="Illustrative diagram of a robotic arm in an enclosure, not original NASA hardware geometry" width="1200" height="760" loading="lazy" decoding="async"></figure>
-  <div class="work-card-content">
-    <p class="project-meta">NASA Marshall · Robotic systems · 2026</p>
-    <h3><a href="projects/nasa.html">Robotic-arm feasibility for lunar-dust testing</a></h3>
-    <p class="work-overview"><strong>Problem:</strong> Assess the feasibility of robotic tool handling in a proposed high-vacuum lunar-dust test chamber. <strong>My role:</strong> Individual systems analysis, requirements, and simulation under NASA mentor oversight.</p>
-    <p class="work-result"><strong>Methods and results</strong> Workspace and joint-loading analysis, simulation and control workflows, and systems requirements development. Preliminary assessment only, not vacuum qualification.</p>
-    <a class="case-link" href="projects/nasa.html">View methods and limitations →</a>
-  </div>
-</article>
+        <article class="work-card work-card--spotlight">
+          <figure><img class="fit-contain" src="projects/nasa-figures/robotic-arm-geometry.svg" alt="Generic, non-project-specific illustration of robotic-arm feasibility work" width="1200" height="760" loading="lazy" decoding="async"></figure>
+          <div class="work-card-content">
+            <p class="project-meta">NASA Marshall · Space robotics</p>
+            <h3><a href="projects/nasa.html">Robotic-arm feasibility for lunar-dust testing</a></h3>
+            <p class="work-overview"><strong>Problem:</strong> Assess robotic tool manipulation under high-vacuum constraints. <strong>My role:</strong> Independently developed requirements and evaluated legacy-arm workspace, joint loading, and actuator compatibility under mentor oversight.</p>
+            <p class="work-result"><strong>Methods and results</strong> Mechanical feasibility analysis, robotics simulation, control development, and verification planning. Preliminary engineering assessment, not vacuum qualification.</p>
+            <a class="case-link" href="projects/nasa.html">Explore the robotic-arm case study →</a>
+          </div>
+        </article>
 
         <article class="work-card">
-  <figure><img class="fit-contain" src="projects/directory-thumbnails/leg.svg" alt="Schematic illustration of a modeled three-link mechanical system" width="960" height="540" loading="lazy" decoding="async"></figure>
-  <div class="work-card-content">
-    <p class="project-meta">UNR Honors research · Jan–May 2025</p>
-    <h3><a href="projects/leg.html">Three-link human-leg modeling</a></h3>
-    <p class="work-overview"><strong>Problem:</strong> Model the motion and loading of a planar three-link leg. <strong>My role:</strong> Student-initiated, faculty-mentored MATLAB/Simulink model development.</p>
-    <p class="work-result"><strong>Methods and results</strong> Forward kinematics, Jacobian velocity mapping, and simplified joint-torque modeling. Simulation only, without hardware validation.</p>
-    <a class="case-link" href="projects/leg.html">Read research case study →</a>
-  </div>
-</article>
+          <figure class="work-card-concept work-card-concept--image" role="img" aria-label="Decorative graphic representing microscopy image analysis; not a NASA microscopy image">
+            <span class="work-card-concept__overline">PERCEPTION &amp; MEASUREMENT</span>
+            <span class="work-card-concept__title">Regolith image analysis</span>
+            <span class="work-card-concept__detail">Segmentation · morphology · uncertainty</span>
+          </figure>
+          <div class="work-card-content">
+            <p class="project-meta">NASA Marshall · Image processing</p>
+            <h3><a href="research.html#regolith-analysis">Lunar-regolith contamination analysis</a></h3>
+            <p class="work-overview"><strong>Problem:</strong> Characterize dust deposition consistently from microscopy imagery. <strong>My role:</strong> Developed image-processing workflows and quantitative contamination measures.</p>
+            <p class="work-result"><strong>Methods and results</strong> Fiji/ImageJ automation, illumination correction, segmentation, particle morphology, spatial sampling, and repeatable analysis outputs.</p>
+            <a class="case-link" href="research.html#regolith-analysis">Read the documented research summary →</a>
+          </div>
+        </article>
 
         <article class="work-card">
-  <figure><img class="fit-contain" src="projects/thermal/media/logger-interface-concept.svg" alt="Illustrative interface for thermal data logging, showing synthetic rather than measured curves" width="1280" height="700" loading="lazy" decoding="async"></figure>
-  <div class="work-card-content">
-    <p class="project-meta">LUX Dynamics · Test automation · 2025–2026</p>
-    <h3><a href="projects/thermal.html">Thermal controller and data logger</a></h3>
-    <p class="work-overview"><strong>Problem:</strong> Make LED thermal test data capture repeatable. <strong>My role:</strong> Built and documented Python/Arduino data-acquisition and reporting tools at LUX Dynamics.</p>
-    <p class="work-result"><strong>Methods and results</strong> Eight Pico TC-08 channels, trend monitoring, and automated CSV/Excel reports. Measurement accuracy was not independently revalidated.</p>
-    <a class="case-link" href="projects/thermal.html">Read automation case study →</a>
-  </div>
-</article>
+          <figure class="work-card-concept work-card-concept--testing" role="img" aria-label="Decorative graphic representing force modeling and automated testing; not NASA test data">
+            <span class="work-card-concept__overline">MODELING &amp; TEST SOFTWARE</span>
+            <span class="work-card-concept__title">Propulsion test automation</span>
+            <span class="work-card-concept__detail">Force modeling · controls · data processing</span>
+          </figure>
+          <div class="work-card-content">
+            <p class="project-meta">NASA Marshall · Test engineering</p>
+            <h3><a href="research.html#propulsion-testing">Non-nuclear propulsion test tools</a></h3>
+            <p class="work-overview"><strong>Problem:</strong> Model extraction behavior and improve repeatability of test operations. <strong>My role:</strong> Developed force-modeling tools, operator-facing test software, and data-processing workflows.</p>
+            <p class="work-result"><strong>Methods and results</strong> Physics-based prediction, Python test interfaces, motor-control integration, simulation, and structured force-displacement analysis using non-nuclear mockups.</p>
+            <a class="case-link" href="research.html#propulsion-testing">Read the documented research summary →</a>
+          </div>
+        </article>
 
         <article class="work-card">
-  <figure><img src="assets/VNA.jpg" alt="Technical instrumentation associated with a virtual network analyzer project" width="1200" height="760" loading="lazy" decoding="async"></figure>
-  <div class="work-card-content">
-    <p class="project-meta">UNR Honors research · Jan–May 2025</p>
-    <h3><a href="projects/vna.html">Virtual network analyzer and radar measurements</a></h3>
-    <p class="work-overview"><strong>Problem:</strong> Reconstruct and calibrate two-port stepped-frequency radar measurements. <strong>My role:</strong> Student-initiated, faculty-mentored MATLAB virtual VNA development.</p>
-    <p class="work-result"><strong>Methods and results</strong> 236 frequency points from 100 MHz to 6 GHz, 12-term SOLT calibration, S-parameter displays, and Touchstone export.</p>
-    <a class="case-link" href="projects/vna.html">Read measurement case study →</a>
-  </div>
-</article>
+          <figure class="work-card-concept work-card-concept--robotics" role="img" aria-label="Decorative graphic for kinematic analysis, not a measured robot configuration">
+            <span class="work-card-concept__overline">ROBOT KINEMATICS</span>
+            <span class="work-card-concept__title">UR3e manipulation</span>
+            <span class="work-card-concept__detail">Forward kinematics · Jacobians · singularities</span>
+          </figure>
+          <div class="work-card-content">
+            <p class="project-meta">UNR · Robotics team project</p>
+            <h3><a href="projects/ur3e.html">UR3e manipulator kinematics</a></h3>
+            <p class="work-overview"><strong>Problem:</strong> Analyze arm pose, velocity relationships, and singularities. <strong>My role:</strong> Participated in a team kinematic analysis; individual derivations are not separately attributed in the available record.</p>
+            <p class="work-result"><strong>Methods and results</strong> MATLAB, Denavit–Hartenberg modeling, and Jacobian rank analysis across joint configurations. Mathematical analysis, not independently verified hardware testing.</p>
+            <a class="case-link" href="projects/ur3e.html">View robotics case study →</a>
+          </div>
+        </article>
 
         <article class="work-card">
-  <figure><img class="fit-contain" src="projects/iverify/media/exploded-concept.svg" alt="Illustrative assembly diagram of an engineering capstone prototype, not a clinically validated medical product" width="1280" height="720" loading="lazy" decoding="async"></figure>
-  <div class="work-card-content">
-    <p class="project-meta">Senior capstone · Systems integration · Spring 2026</p>
-    <h3><a href="projects/iverify.html">IVerify noninvasive sensing prototype</a></h3>
-    <p class="work-overview"><strong>Problem:</strong> Explore noninvasive indication of possible IV-tubing occlusion. <strong>My role:</strong> Systems integration lead for a four-person senior capstone team.</p>
-    <p class="work-result"><strong>Methods and results</strong> Requirements integration, force-sensing bench prototype, and two-LED indication. No clinical validation.</p>
-    <a class="case-link" href="projects/iverify.html">Read capstone case study →</a>
-  </div>
-</article>
+          <figure><img class="fit-contain" src="projects/directory-thumbnails/leg.svg" alt="Schematic illustration of a modeled three-link leg" width="960" height="540" loading="lazy" decoding="async"></figure>
+          <div class="work-card-content">
+            <p class="project-meta">UNR · Faculty-mentored Honors research</p>
+            <h3><a href="projects/leg.html">Three-link leg dynamics and simulation</a></h3>
+            <p class="work-overview"><strong>Problem:</strong> Represent the position, velocity, and approximate loading of a multi-joint leg. <strong>My role:</strong> Independently developed the simulation in student-initiated research mentored by Dr. Sesh Commuri.</p>
+            <p class="work-result"><strong>Methods and results</strong> MATLAB/Simulink S-function, forward kinematics, Jacobian mapping, and simplified dynamics. Modeling only, without hardware validation.</p>
+            <a class="case-link" href="projects/leg.html">View faculty-mentored research →</a>
+          </div>
+        </article>
       </div>
 
-      <p class="archive-link">See additional work in embedded systems, controls, and engineering software in the <a href="projects/index.html">full project archive</a>.</p>
+      <p class="archive-link">Additional projects in instrumentation, embedded systems, controls, and engineering software are available in the <a href="projects/index.html">full project archive</a>.</p>
     </div>
   </section>
 
