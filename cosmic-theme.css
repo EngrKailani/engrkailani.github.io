@@ -1,0 +1,126 @@
+/* Kailani Alarcon | Pink-space portfolio, 2026.
+   A restrained visual system: rose pink, deep-space plum, and subtle orbital details. */
+:root{--cosmic-ink:#2b2340;--cosmic-night:#1b1632;--cosmic-rose:#a83e72;--cosmic-blush:#fff4fa;--cosmic-line:#ecdce8;--cosmic-mauve:#6b5871}
+::selection{background:#f0bdd5;color:#26192e}
+:focus-visible{outline:3px solid #a83e72;outline-offset:4px}
+
+/* Unified header and logo. */
+body.cosmic-home,body.cosmic-resume{background:#fffbfd;color:var(--cosmic-ink)}
+.cosmic-home a,.cosmic-resume a{color:#82375d}
+.cosmic-home .site-header,.cosmic-resume .site-header{position:sticky;top:0;z-index:50;background:rgba(255,250,253,.97);border-bottom:1px solid #eadbe6;box-shadow:0 4px 24px #36203908;backdrop-filter:blur(14px)}
+.cosmic-home .site-header::before,.cosmic-resume .site-header::before,.project-page .detail-navigation::before,.research-page .research-header::before,.wb-page .wb-header::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#342342,#b94f8b 48%,#f3bad8 76%,#bfa3d8);pointer-events:none}
+.cosmic-home .brand,.cosmic-resume .brand{color:#32223e;font-weight:750}
+.cosmic-home .brand::before,.cosmic-resume .brand::before{content:"";display:inline-block;vertical-align:middle;width:30px;height:30px;margin-right:10px;background:url("favicon.svg") center/contain no-repeat}
+.cosmic-home .nav-links a,.cosmic-resume .nav-links a{color:#493c52}
+.cosmic-home .nav-links a:hover,.cosmic-resume .nav-links a:hover,.cosmic-resume .nav-links a[aria-current="page"]{color:#92395e}
+.cosmic-home .nav-links .nav-contact,.cosmic-resume .nav-links .nav-contact{background:#fff1f8;border:1px solid #ca96b2;color:#793451;border-radius:999px;padding:9px 17px}
+.cosmic-home .nav-links .nav-contact:hover,.cosmic-resume .nav-links .nav-contact:hover{background:#f9e0ef}
+.cosmic-home h1,.cosmic-home h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.043em}
+.cosmic-home h2{color:#2c233e;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.15}
+.cosmic-home .eyebrow{color:#8c3460;letter-spacing:.14em}
+.cosmic-home .section-head .eyebrow::before,.cosmic-home .research-grid .eyebrow::before,.cosmic-home .about-grid .eyebrow::before{content:"✦";color:#b64d85;margin-right:10px}
+
+/* Midnight sky, star map, and orbital portrait. */
+.cosmic-home .hero{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 82% 20%,#7a406b71,transparent 47%),radial-gradient(ellipse at 8% 92%,#7a28534a,transparent 55%),linear-gradient(115deg,#17152d,#261b3f 62%,#3d254d);border-bottom:0}
+.cosmic-home .hero::before,.cosmic-home .contact-section::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 14px 18px,#fff0f5ac 1px,transparent 1.6px),radial-gradient(circle at 73px 61px,#ead7f5a0 .85px,transparent 1.5px),radial-gradient(circle at 112px 35px,#f3d5e77f .75px,transparent 1.5px);background-size:159px 133px,211px 187px,289px 251px;opacity:.55}
+.cosmic-home .hero::after{content:"";position:absolute;right:-13%;top:-40%;width:min(62vw,740px);aspect-ratio:1;border-radius:50%;border:1px solid #f4c5dd45;box-shadow:0 0 0 78px #ffdaed07,0 0 0 156px #ffdaed06;pointer-events:none}
+.cosmic-home .hero-grid{position:relative;z-index:1;gap:clamp(35px,5vw,80px);padding-block:clamp(67px,8vw,112px)}
+.cosmic-home .hero .eyebrow{color:#f4c0dc;display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.cosmic-home .hero .eyebrow::before{content:"✦";font-size:1.08rem}
+.cosmic-home .hero h1{font-size:clamp(3rem,5.8vw,5.1rem);line-height:1.075;max-width:13ch;color:#fffbff;margin-bottom:23px;text-wrap:balance}
+.cosmic-home .hero-highlight{color:#f2b7d6;font-style:italic;font-weight:500}
+.cosmic-home .hero-lead{color:#f0e5f2;max-width:63ch;font-size:1.03rem;line-height:1.8}
+.cosmic-home .hero-personal{color:#f6c5dd;font:italic 1.05rem/1.6 Georgia,serif;margin:15px 0 0}
+.cosmic-home .hero-detail{color:#e9d6e8;border-color:#fff0f53a}
+.cosmic-home .button{border-radius:999px;min-height:48px;padding:13px 20px;transition:background .15s ease,border-color .15s ease}
+.cosmic-home .hero .button-primary,.cosmic-home .contact-section .button-primary{background:#f6c9e2;color:#2a1c35;border-color:#f6c9e2}
+.cosmic-home .hero .button-primary:hover,.cosmic-home .contact-section .button-primary:hover{background:#ffe6f3;color:#2a1c35}
+.cosmic-home .hero .button-outline,.cosmic-home .contact-section .button-outline{background:transparent;color:#fff8fc;border-color:#dca5c8}
+.cosmic-home .hero .button-outline:hover,.cosmic-home .contact-section .button-outline:hover{background:#fff1fb1f;color:#fff}
+.cosmic-home .hero-photo{position:relative;width:100%;max-width:365px;justify-self:center}
+.cosmic-home .hero-photo::before{content:"";position:absolute;inset:-25px -23px;border:1px solid #ffdaed79;border-radius:48% 52% 50% 50%/57% 43% 57% 43%;transform:rotate(-16deg);pointer-events:none}
+.cosmic-home .hero-photo::after{content:"✦";position:absolute;top:-33px;right:-26px;color:#f6c5e0;font:2.2rem Georgia,serif;text-shadow:0 0 22px #f5b2d5a0}
+.cosmic-home .hero-photo img{border:7px solid #fff3fbef;border-radius:17px;max-height:477px;box-shadow:0 28px 70px #0b091f7a;transform:rotate(1deg)}
+.cosmic-home .hero-photo figcaption{color:#e7d5e8;text-align:center;margin-top:16px}
+
+/* Professional evidence cards and content rhythm. */
+.cosmic-home .section{padding-block:clamp(64px,7vw,94px)}
+.cosmic-home .section-soft{background:radial-gradient(ellipse at 93% 0%,#f8d1e459,transparent 42%),#fff4fa;border-block:1px solid #f0e1ea}
+.cosmic-home .section-head{margin-bottom:34px}
+.cosmic-home .section-head p,.cosmic-home .research-grid p,.cosmic-home .about-grid p{color:#62586d}
+.cosmic-home .work-grid{counter-reset:case;gap:24px}
+.cosmic-home .work-card{counter-increment:case;border:1px solid #eadbe6;border-radius:16px;box-shadow:0 9px 28px #4531500b;transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
+.cosmic-home .work-card:hover{transform:translateY(-3px);border-color:#d9b1ca;box-shadow:0 18px 35px #50304c18}
+.cosmic-home .work-card figure{background:radial-gradient(ellipse at 80% 15%,#f9e0ee,transparent 75%),#f8f1f8;border-bottom:1px solid #eee1eb}
+.cosmic-home .work-card-content{padding:27px}
+.cosmic-home .work-card .project-meta{color:#884467}
+.cosmic-home .work-card .project-meta::before{content:"0" counter(case) " / ";color:#af4e80;font-weight:800}
+.cosmic-home .work-card h3{font-size:1.3rem}
+.cosmic-home .work-card h3 a{color:#30253e}
+.cosmic-home .work-card h3 a:hover{color:#8e315f}
+.cosmic-home .work-card .work-overview,.cosmic-home .work-card dd{color:#53485f}
+.cosmic-home .work-card dt{color:#743d5d}
+.cosmic-home .work-card .case-link,.cosmic-home .archive-link a{color:#843358}
+.cosmic-home .experience-list,.cosmic-home .experience-row{border-color:#eadce8}
+.cosmic-home .experience-date,.cosmic-home .experience-copy .organization{color:#8f416b}
+.cosmic-home .experience-copy h3{color:#30243e}
+.cosmic-home .study-list li{border-left:2px solid #dfb0ca;padding-left:20px;border-bottom-color:#eadce8;margin-bottom:13px}
+.cosmic-home .study-list li:first-child{padding-top:14px}
+.cosmic-home .study-list strong,.cosmic-home .skill-list strong{color:#342842}
+.cosmic-home .skill-list li{border-left:2px solid #e5b8d1;padding-left:16px}
+.cosmic-home .career-note{border-top:1px solid #eadde7;padding-top:16px}
+
+/* Return to the night sky for the contact invitation. */
+.cosmic-home .contact-section{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 85% 0%,#653b6899,transparent 55%),linear-gradient(115deg,#19172f,#312145);padding-block:clamp(65px,7vw,91px)}
+.cosmic-home .contact-section .container{position:relative;z-index:1}
+.cosmic-home .contact-section .eyebrow{color:#f5c2df}
+.cosmic-home .contact-section h2{color:#fff8fc;max-width:20ch}
+.cosmic-home .contact-section p{color:#eadfeb}
+.cosmic-home .site-footer{background:#fff8fc;border-top:1px solid #eedeea}
+.cosmic-home .site-footer p{color:#6c5b70}
+.cosmic-home .footer-signoff{color:#8e4770;margin-left:10px}
+.cosmic-home .footer-links a{color:#7e365d}
+
+/* Résumé: coordinated chrome, neutral paper and preserved printing. */
+.cosmic-resume .resume-toolbar a{color:#863961}
+.cosmic-resume .print-button{background:#8c3d66;border-color:#8c3d66;border-radius:999px}
+.cosmic-resume .print-button:hover{background:#702b50}
+.cosmic-resume .resume-document{border-color:#ebdce8;box-shadow:0 12px 38px #45254d12}
+.cosmic-resume .resume-document a{color:inherit}
+
+/* Existing research and workbench layouts already contain useful custom graphics;
+   coordinate them through soft pink hero panels and the shared star/rose accents. */
+.research-page .research-header{border-bottom:1px solid #e9d6e4}
+.research-page .research-brand span,.wb-page .wb-brand span{color:#b44c84}
+.research-page:not(.cv-page) .research-hero{padding-inline:clamp(22px,3vw,42px);background:radial-gradient(circle at 95% 4%,#f4c6dd85,transparent 38%),linear-gradient(120deg,#fffbfd,#fdf0f8);border:1px solid #efdde9;border-radius:22px}
+.research-page:not(.cv-page) .research-hero-visual{border-color:#b989ab;box-shadow:0 15px 39px #40254b19}
+.research-page:not(.cv-page) .research-eyebrow{color:#8f3b67}
+.project-page .detail-navigation{position:relative;background:#fffbfd;border-bottom:1px solid #ecd8e7}
+.project-page .detail-home{color:#463049}
+.project-page .detail-home::before{content:"✦";color:#c05f95;font:1.1rem Georgia,serif;margin-right:8px}
+.project-page .detail-nav-actions a{color:#793c61}
+.project-page .detail-nav-actions a:hover{color:#a13869}
+.project-page .detail-heading{position:relative;overflow:hidden;max-width:none;padding:clamp(24px,3.6vw,42px);border:1px solid #eedde9;border-radius:19px;background:radial-gradient(circle at 95% 9%,#f7cde3b8,transparent 40%),linear-gradient(120deg,#fffbfd,#fcf0f8)}
+.project-page .detail-heading::after{content:"✦";position:absolute;top:9px;right:23px;font-size:25px;color:#d1a0bd;pointer-events:none}
+.project-page .detail-heading h1{color:#332440}
+.project-page .detail-heading>p:last-child{color:#66566b}
+.project-page .detail-heading .eyebrow{color:#934569}
+.wb-page .wb-intro{padding-inline:clamp(22px,3vw,42px);background:radial-gradient(circle at 92% 4%,#f7cbe087,transparent 45%),#fff8fc;border:1px solid #f0dce9;border-radius:21px}
+.wb-page .wb-eyebrow{color:#934569}
+
+/* Explicit dark mode protection for pages with existing toggles. */
+:root[data-theme="dark"] .research-page:not(.cv-page) .research-hero{background:linear-gradient(130deg,#272033,#33243d);border-color:#644962}
+:root[data-theme="dark"] .research-page:not(.cv-page) .research-eyebrow{color:#f0b2d0}
+:root[data-theme="dark"] .project-page .detail-navigation{background:#272235;border-color:#624861}
+:root[data-theme="dark"] .project-page .detail-home,:root[data-theme="dark"] .project-page .detail-nav-actions a{color:#f4d3e6}
+:root[data-theme="dark"] .project-page .detail-heading{background:radial-gradient(circle at 96% 8%,#93527642,transparent 45%),#292037;border-color:#694d65}
+:root[data-theme="dark"] .project-page .detail-heading h1{color:#fff5fb}
+:root[data-theme="dark"] .project-page .detail-heading>p:last-child{color:#e6d7e8}
+:root[data-theme="dark"] .project-page .detail-heading .eyebrow{color:#f2b4d3}
+:root[data-theme="dark"] .wb-page .wb-intro{background:#292035;border-color:#654b60}
+:root[data-theme="dark"] .wb-page .wb-eyebrow{color:#f1b7d4}
+
+@media(max-width:780px){.cosmic-home .hero-grid{padding-block:60px}.cosmic-home .hero h1{font-size:clamp(2.8rem,9vw,4.4rem);max-width:16ch}.cosmic-home .hero::after{width:590px;right:-370px;top:-130px}.cosmic-home .hero-photo{max-width:330px}.cosmic-home .hero-photo img{max-height:360px}}
+@media(max-width:560px){.cosmic-home .hero-grid{padding-block:52px;gap:44px}.cosmic-home .hero h1{font-size:clamp(2.5rem,10.5vw,3.4rem)}.cosmic-home .hero-lead{font-size:.97rem}.cosmic-home .hero-photo{max-width:min(275px,calc(100% - 28px))}.cosmic-home .hero-photo img{max-height:310px}.cosmic-home .work-card-content{padding:21px}.cosmic-home .section{padding-block:55px}.cosmic-home .footer-signoff{display:block;margin:5px 0 0}.research-page:not(.cv-page) .research-hero,.wb-page .wb-intro{padding:22px}.project-page .detail-heading{padding:22px}}
+@media(prefers-reduced-motion:reduce){.cosmic-home .work-card,.cosmic-home .button{transition:none}.cosmic-home .work-card:hover{transform:none}}
+@media print{.cosmic-home .hero::before,.cosmic-home .hero::after,.cosmic-home .contact-section::before,.project-page .detail-heading::after{display:none!important}.cosmic-resume .resume-document{border:0;box-shadow:none}.research-page:not(.cv-page) .research-hero,.project-page .detail-heading{background:transparent;border:0}}

@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const domain = 'https://engrkailani.github.io';
+const domain = 'https://kailanialarcon.com';
 const projectSlugs = [
   'alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
   'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'
@@ -71,6 +71,13 @@ const nasa=get('projects/nasa.html');
 const sitemap=get('sitemap.xml');
 
 check(home.includes('href="professional-home.css?v=20261123"'),'Homepage should load professional stylesheet');
+check(home.includes('class="cosmic-home"') && home.includes('class="hero-highlight"'),
+  'Homepage needs the professional pink-space identity');
+for(const file of pages) {
+  const themePath = file.startsWith('projects/') ? '../cosmic-theme.css' : 'cosmic-theme.css';
+  check(get(file).includes('href="'+themePath+'?v=20261123-pinkspace1"'),
+    file+': shared cosmic design stylesheet missing');
+}
 check(!home.includes('portfolio-upgrade.js') && !home.includes('bookshelf.js') &&
   !home.includes('ambient.js') && !home.includes('repo-orbit.js'),
   'Homepage should avoid expensive legacy scripts');
