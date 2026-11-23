@@ -52,7 +52,7 @@ npm run check:workbench-browser
 
 Automated tools cannot prove WCAG conformance. Before treating the audit as complete, check these manually:
 
-- Use only **Tab**, **Shift+Tab**, **Enter**, **Space**, and arrow keys to reach menus, the archive disclosure, Workbench controls, project directory filters, and the research anchor links.
+- Use only **Tab**, **Shift+Tab**, **Enter**, **Space**, and arrow keys to open the responsive site navigation and reach menus, the archive disclosure, Workbench controls, project directory filters, and the research anchor links.
 - At **320 px**, **200% zoom**, and in both themes, check readable text, focus visibility, no clipped buttons or horizontal document scrolling, and content reflow.
 - Use a screen reader such as NVDA or VoiceOver to verify landmark order, headings, link purposes, disclosure state, field labels, dynamic status feedback, and meaningful readings from the simulated instruments.
 - Check that motion obeys **prefers-reduced-motion** and that the Workbench does not claim real hardware data.
@@ -68,7 +68,7 @@ Automated tools cannot prove WCAG conformance. Before treating the audit as comp
 
 ## Deployment note
 
-The canonical site is [engrkailani.github.io](https://engrkailani.github.io/),
+The canonical site is [kailanialarcon.com](https://kailanialarcon.com/),
 served by GitHub Pages from `main`. Review pull-request checks before merging,
 then verify the Pages deployment and the published routes. Successful source
 checks do not by themselves prove that the newest revision is live.

@@ -72,9 +72,13 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             await page.locator('a[href="resume.html"]').count()<1)
             note(name+': required portfolio navigation missing');
           if(test.width===390) {
-            const nav=await page.locator('nav.nav').isVisible();
-            const contact=await page.locator('a[href="#contact"]').first().isVisible();
-            if(!nav || !contact)note(name+': mobile navigation is not accessible');
+            const nav=await page.locator('nav.cosmic-site-nav').isVisible();
+            const menu=page.locator('.cosmic-mobile-menu summary');
+            const visible=await menu.isVisible();
+            if(nav && visible) await menu.click();
+            const contact=visible && await page.locator('.cosmic-mobile-links a[href="#contact"]').isVisible();
+            if(!nav || !visible || !contact)note(name+': mobile navigation is not accessible');
+            if(visible) await page.locator('.cosmic-mobile-menu').evaluate(el=>{el.open=false});
           }
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {

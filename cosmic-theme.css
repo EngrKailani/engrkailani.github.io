@@ -131,3 +131,103 @@ body.cosmic-home,body.cosmic-resume{background:#fffbfd;color:var(--cosmic-ink)}
 .cosmic-resume .resume-toolbar .resume-download:hover{background:#632447;color:#fff}
 @media (max-width:520px){.cosmic-resume .resume-toolbar-actions{width:100%}.cosmic-resume .resume-toolbar-actions>*{flex:1;text-align:center}}
 @media print{.cosmic-resume .resume-toolbar-actions{display:none!important}}
+
+
+/* Shared accessible desktop/mobile navigation, consistent across all site pages. */
+.cosmic-site-header{
+  position:sticky;top:0;z-index:80;isolation:isolate;
+  border-bottom:1px solid #ebd9e6;background:rgba(255,250,253,.97);
+  box-shadow:0 5px 23px rgba(42,24,50,.06);
+  -webkit-backdrop-filter:blur(15px);backdrop-filter:blur(15px);
+}
+.cosmic-site-header::before{
+  content:"";position:absolute;inset:0 0 auto;height:3px;pointer-events:none;
+  background:linear-gradient(90deg,#352544,#b34a81 46%,#f0b5d5 75%,#bfa5d8);
+}
+.cosmic-site-nav{
+  width:min(1160px,calc(100% - 48px));min-height:76px;margin:auto;padding:11px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+}
+.cosmic-site-header :is(a,summary){text-decoration:none}
+.cosmic-site-header .cosmic-site-brand{
+  display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+  color:#30233f;font:750 16px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:-.025em;
+}
+.cosmic-site-brand::before{
+  content:"";display:block;flex:none;width:30px;height:30px;
+  background:url("favicon.svg") center/contain no-repeat;
+}
+.cosmic-desktop-links{display:flex;flex-wrap:nowrap;align-items:center;gap:clamp(10px,1.45vw,25px)}
+.cosmic-site-header .cosmic-desktop-links a,
+.cosmic-site-header .cosmic-mobile-links a{
+  color:#493b53;font:650 13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+.cosmic-site-header .cosmic-desktop-links a:hover,
+.cosmic-site-header .cosmic-mobile-links a:hover,
+.cosmic-site-header :is(.cosmic-desktop-links,.cosmic-mobile-links) a[aria-current="page"]{
+  color:#862e59;
+}
+.cosmic-site-header .cosmic-nav-contact{
+  border:1px solid #c991ae;border-radius:999px;padding:9px 15px;background:#fff2f8;color:#74324f;
+}
+.cosmic-site-header .cosmic-nav-contact:hover{background:#f9e1ee}
+.cosmic-mobile-menu{display:none;position:relative;margin-left:auto}
+.cosmic-mobile-menu summary{
+  list-style:none;display:flex;gap:9px;align-items:center;justify-content:center;
+  min-height:44px;min-width:81px;cursor:pointer;
+  border:1px solid #ca9cbb;border-radius:11px;background:#fff4fa;color:#58304a;
+  padding:8px 12px;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+.cosmic-mobile-menu summary::-webkit-details-marker{display:none}
+.cosmic-mobile-menu summary:hover{background:#f9e2ef}
+.cosmic-mobile-menu[open] summary{background:#f9e2ef}
+.cosmic-mobile-links{
+  position:absolute;z-index:100;top:calc(100% + 12px);right:0;
+  width:min(315px,calc(100vw - 28px));padding:10px;
+  background:#fffafd;border:1px solid #e1c6d7;border-radius:16px;
+  box-shadow:0 16px 35px #2e23302e;
+}
+.cosmic-site-header .cosmic-mobile-links a{
+  display:block;border-radius:9px;padding:12px 15px;min-height:44px;
+}
+.cosmic-site-header .cosmic-mobile-links a:hover,
+.cosmic-site-header .cosmic-mobile-links a[aria-current="page"]{background:#fbeaf4}
+.cosmic-site-header .cosmic-mobile-links .cosmic-nav-contact{border-color:#e7b8d0;margin-top:7px}
+.cosmic-site-header .cosmic-theme-switch{
+  flex-shrink:0;min-height:42px;padding:9px 12px;border:1px solid #d4adc4;border-radius:10px;
+  font:650 12px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:#6b3458;background:#fff4fa;cursor:pointer;white-space:nowrap;
+}
+.cosmic-site-header .cosmic-theme-switch:hover{background:#f8e3f0}
+.cosmic-home .work-result{
+  color:#4b3b58;border-top:1px solid #efdeeb;padding-top:14px;
+  font-size:.91rem;line-height:1.57;margin:3px 0 20px;
+}
+.cosmic-home .work-result strong{display:block;color:#8b3862;font-size:.77rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.cosmic-home .work-card .work-overview{margin-bottom:12px}
+.cosmic-home .work-card .case-link{margin-top:auto}
+:root[data-theme="dark"] .cosmic-site-header{background:rgba(35,28,49,.97);border-color:#73536d}
+:root[data-theme="dark"] .cosmic-site-header .cosmic-site-brand{color:#f9eefa}
+:root[data-theme="dark"] .cosmic-site-header :is(.cosmic-desktop-links a,.cosmic-mobile-links a){color:#eedced}
+:root[data-theme="dark"] .cosmic-site-header :is(.cosmic-desktop-links a,.cosmic-mobile-links a)[aria-current="page"]{color:#ffc5e2}
+:root[data-theme="dark"] .cosmic-site-header .cosmic-nav-contact{color:#fbe3f1;background:#443147;border-color:#b6829c}
+:root[data-theme="dark"] .cosmic-mobile-links{background:#2b2338;border-color:#725469}
+:root[data-theme="dark"] .cosmic-mobile-menu summary{background:#342742;color:#fbe8f5;border-color:#825c79}
+:root[data-theme="dark"] .cosmic-site-header .cosmic-theme-switch{background:#423048;color:#f9dff0;border-color:#89657f}
+@media(max-width:1050px){
+  .cosmic-desktop-links{display:none}
+  .cosmic-mobile-menu{display:block}
+  .cosmic-site-header .cosmic-theme-switch{margin-left:auto}
+}
+@media(max-width:490px){
+  .cosmic-site-nav{width:calc(100% - 32px);gap:8px}
+  .cosmic-site-header .cosmic-site-brand{font-size:14px;gap:6px}
+  .cosmic-site-brand::before{width:25px;height:25px}
+  .cosmic-site-header .cosmic-theme-switch{padding:9px 10px;font-size:0;width:40px;height:42px}
+  .cosmic-site-header .cosmic-theme-switch::after{content:"◐";font-size:18px;line-height:1}
+  .cosmic-site-header #wb-theme span{display:none}
+  .cosmic-site-header #wb-theme{color:transparent}
+  .cosmic-site-header #wb-theme::after{color:#773b5e}
+  .cosmic-mobile-menu summary{min-width:72px;padding:8px 9px}
+}
+@media print{.cosmic-site-header{display:none!important}}

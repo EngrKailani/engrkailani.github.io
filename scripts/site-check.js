@@ -83,6 +83,15 @@ check(!home.includes('portfolio-upgrade.js') && !home.includes('bookshelf.js') &
   'Homepage should avoid expensive legacy scripts');
 check(home.includes('id="main"') && home.includes('href="#main"'), 'Homepage needs accessible skip navigation');
 check(home.includes('aria-label="Main navigation"'),'Homepage needs labeled navigation');
+for(const file of pages){
+ const doc=get(file);
+ check(doc.includes('class="cosmic-site-header"') && doc.includes('class="cosmic-mobile-menu"'),
+   file+': must use consistent accessible global navigation');
+ check(doc.includes('href="'+(file.startsWith('projects/')?'../':'')+'index.html#contact"') || file==='index.html',
+   file+': missing contact navigation');
+}
+check(home.includes('class="work-result"') && !home.includes('<dl>'),
+  'Featured work cards should be concise and result-first');
 check((home.match(/class="work-card"/g)||[]).length===5,'Homepage should curate five representative projects');
 check(['nasa','leg','thermal','vna','iverify'].every(slug=>home.includes('href="projects/'+slug+'.html"')),
   'Featured projects need dedicated case study links');
