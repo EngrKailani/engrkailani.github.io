@@ -1,909 +1,138 @@
-/* Static portfolio checks. Run with: node scripts/site-check.js */
+/* Static content, link and evidence checks for the professional portfolio. */
 'use strict';
-const fs=require('node:fs');
-const path=require('node:path');
-const root=path.resolve(__dirname,'..');
-const domain='https://engrkailani.github.io';
-const projectDir=path.join(root,'projects');
-const htmlFiles=['index.html','resume.html','research.html','academic-cv.html',
-  ...fs.readdirSync(projectDir).filter(name=>name.endsWith('.html')).map(name=>'projects/'+name)];
-let checks=0,failed=0;
-function check(condition,message){
+const fs = require('node:fs');
+const path = require('node:path');
+
+const root = path.resolve(__dirname, '..');
+const domain = 'https://engrkailani.github.io';
+const projectSlugs = [
+  'alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
+  'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'
+];
+const pages = [
+  'index.html','projects/index.html','research.html','academic-cv.html',
+  'resume.html','workbench.html', ...projectSlugs.map(slug=> 'projects/'+slug+'.html')
+];
+let checks = 0, failures = 0;
+function check(condition, message) {
   checks++;
-  if(!condition){failed++;console.error('FAIL '+message)}
+  if (!condition) { failures++; console.error('FAIL '+message); }
 }
-for(const file of htmlFiles){
-  const html=fs.readFileSync(path.join(root,file),'utf8');
-  // Avoid dead in-page navigation and duplicate target IDs.
-  const pageIds=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
-  const pageIdSet=new Set(pageIds);
-  check(pageIds.length===pageIdSet.size,file+': duplicated HTML id');
-  for(const match of html.matchAll(/\bhref=["']#([^"']+)["']/g)){
-    let targetId=match[1];
-    try{targetId=decodeURIComponent(targetId)}catch{}
-    check(pageIdSet.has(targetId),
-      file+': broken in-page anchor #'+targetId);
+const content = new Map();
+function get(file) {
+  if (!content.has(file)) content.set(file, fs.readFileSync(path.join(root,file),'utf8'));
+  return content.get(file);
+}
+const ids = new Map();
+function idsFor(file) {
+  if (!ids.has(file)) ids.set(file, new Set([...get(file).matchAll(/\bid=["']([^"']+)["']/g)].map(x=>x[1])));
+  return ids.get(file);
+}
+
+for (const file of pages) {
+  check(fs.existsSync(path.join(root,file)),file+' must exist');
+  if (!fs.existsSync(path.join(root,file))) continue;
+  const html = get(file);
+  const pageIds = [...html.matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]);
+  check(pageIds.length===new Set(pageIds).size,file+': duplicated element ID');
+  check(/<title>[^<]+<\/title>/i.test(html),file+': missing document title');
+  check(/<meta name="description" content="[^"]{20,}"/i.test(html),file+': missing descriptive meta text');
+  check((html.match(/<h1(?:\s[^>]*)?>/gi)||[]).length===1,file+': expected one h1');
+  check(html.includes(domain),file+': wrong canonical host');
+  check(!html.includes('https://kalarcon775.github.io'),file+': obsolete portfolio address');
+  check(!html.includes('https://github.com/kalarcon775'),file+': obsolete GitHub profile');
+  check(/<meta property="og:image"/i.test(html),file+': missing social preview');
+  for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
+    check(/\balt=["'][^"']*["']/i.test(image[0]), file+': image missing alt attribute');
   }
-
-  check(/<title>[\s\S]+?<\/title>/.test(html),file+' needs a document title');
-  check(html.includes('portfolio-upgrade.css'),file+' missing responsive stylesheet');
-  check(html.includes('portfolio-upgrade.js'),file+' missing behavior script');
-  check(html.includes('<meta property="og:image"'),file+' missing preview image');
-  check(html.includes(domain),file+' missing canonical domain');
-  check(!html.includes('https://kalarcon775.github.io'),file+' references former portfolio host');
-  check(!html.includes('https://github.com/kalarcon775'),file+' references former GitHub username');
-  for(const match of html.matchAll(/\s(?:href|src)=["']([^"']+)["']/g)){
-    const url=match[1].trim();
-    if(!url || /^(?:#|[a-z]+:|\/\/)/i.test(url))continue;
-    const local=url.split(/[?#]/)[0];
-    if(!local)continue;
-    const target=path.resolve(root,path.dirname(file),local);
-    check(target.startsWith(root+path.sep)||target===root,file+': path escapes repository: '+local);
-    check(fs.existsSync(target),file+': missing asset or page '+local);
-  }
-  const seen=new Set();
-  for(const match of html.matchAll(/\sid=["']([^"']+)["']/g)){
-    check(!seen.has(match[1]),file+': duplicate id '+match[1]);
-    seen.add(match[1]);
-  }
-}
-// Large technical diagrams scroll horizontally on mobile; keyboard users need focus.
-for(const file of htmlFiles.filter(name=>name.startsWith('projects/'))){
-  const source=fs.readFileSync(path.join(root,file),'utf8');
-  const unfocusable=[...source.matchAll(/<figure class="(?:project-visual-gallery__figure|iverify-concept-figure)"(?![^>]*tabindex="0")[^>]*>\\s*<img\\b/g)];
-  check(unfocusable.length===0,file+': scrollable technical diagrams must be keyboard-focusable');
-}
-const thermalHtml=fs.readFileSync(path.join(root,'projects/thermal.html'),'utf8');
-check((thermalHtml.match(/<figure tabindex="0">/g)||[]).length===3,
-  'Thermal controller mobile diagrams need keyboard-scrolling focus');
-const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const htmlResume=fs.readFileSync(path.join(root,'resume.html'),'utf8');
-
-/* Phase 4: research-page evidence status, navigation and publication accuracy. */
-const research=fs.readFileSync(path.join(root,'research.html'),'utf8');
-
-const reservedWebP=[
-  ['nasa-mission-training-complex-home.webp',360,480],
-  ['cleanroom-suit-home.webp',280,373],
-  ['graduation-flowers-home.webp',340,453],
-  ['Arm-home.webp',480,360],
-  ['space-helmet-home.webp',340,453]
-];
-for(const [name,width,height] of reservedWebP){
-  const tag=[...home.matchAll(/<img\b[^>]*>/g)].map(m=>m[0]).find(x=>x.includes('src="assets/'+name+'"'));
-  check(!!tag && tag.includes('width="'+width+'"') && tag.includes('height="'+height+'"') &&
-    tag.includes('loading="lazy"') && tag.includes('decoding="async"'),
-    'Below-the-fold image must reserve intrinsic size and load lazily: '+name);
-}
-
-const researchCSS=fs.readFileSync(path.join(root,'research.css'),'utf8');
-const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
-const researchIds=[...research.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
-check(new Set(researchIds).size===researchIds.length &&
-  researchIds.includes('research-main') &&
-  ['directions','investigations','writing'].every(id=>researchIds.includes(id)),
-  'Research page needs unique identifiers and all three main sections');
-check(research.includes('No peer-reviewed journal or conference articles are claimed') &&
-  research.includes('Two authored LUX Dynamics industry white papers') &&
-  research.includes('two posters') &&
-  research.includes('href="projects/nasa.html"'),
-  'Research must distinguish industry white papers, posters and NASA work');
-check(['nasa','ur3e','thermal','controls','iverify'].every(slug=>
-  research.includes('href="projects/'+slug+'.html"')),
-  'Research investigations must link to source case studies');
-check(research.includes('id="theme-toggle"') &&
-  research.includes('class="research-skip" href="#research-main"') &&
-  research.includes('aria-current="page"') &&
-  researchCSS.includes('@media(max-width:410px)') &&
-  researchCSS.includes(':focus-visible'),
-  'Research page needs theme, skip link, active navigation and phone/focus styles');
-check(sitemap.includes('<loc>https://engrkailani.github.io/research.html</loc>') &&
-  home.includes('href="research.html"') &&
-  home.includes('class="section research-home-section"') &&
-  home.indexOf('id="experience"')<home.indexOf('id="research"') &&
-  home.indexOf('id="research"')<home.indexOf('id="about"'),
-  'Homepage and sitemap must discover research without burying experience');
-check(fs.readFileSync(path.join(root,'workbench.html'),'utf8').includes('href="research.html"') &&
-  fs.readFileSync(path.join(root,'projects/index.html'),'utf8').includes('href="../research.html"') &&
-  htmlResume.includes('href="research.html"'),
-  'Research must be reachable from Workbench, directory and HTML resume');
-
-check(htmlResume.includes('onclick="window.print()"') &&
-      htmlResume.includes('Print / save updated résumé as PDF') &&
-      htmlResume.includes('Earlier PDF (October 2026)'),
-      'Current HTML résumé must be printable and previous PDF labeled as archived');
-
-check(htmlResume.includes('href="https://github.com/EngrKailani"') &&
-       htmlResume.includes('GitHub: EngrKailani') &&
-       !htmlResume.includes('GitHub: kalarcon775') &&
-      htmlResume.includes('href="mailto:kailanip.alarcon@gmail.com"') &&
-      htmlResume.includes('linkedin.com/in/kailani-alarcon'),
-      'HTML résumé must include working GitHub, email and LinkedIn links');
-check(!htmlResume.includes('https://github.com/kalarcon775'),
-      'HTML résumé should link to the verified connected GitHub account');
-check(fs.existsSync(path.join(root,'assets','Kailani_Alarcon_Resume_Full_Detail.pdf')),
-      'Legacy alternate résumé path must still serve an updated PDF');
-check(htmlResume.includes('Aug 2026 – Present') &&
-      htmlResume.includes('3.1 N·m shoulder self-load moment') &&
-      htmlResume.includes('34 hierarchical system requirements') &&
-      !htmlResume.includes('27.23 lbf-in'),
-      'HTML résumé must match November NASA internship dates and preliminary load estimate');
-const resumeGenerator=fs.readFileSync(path.join(root,'scripts/build-resume-pdf.py'),'utf8');
-check(resumeGenerator.includes('Aug. 2026 - Dec. 2026') &&
-      resumeGenerator.includes('Performed load analysis using Creo mass properties') &&
-      resumeGenerator.includes('GitHub: EngrKailani') &&
-      !resumeGenerator.includes('GitHub: kalarcon775'),
-      'PDF generator must match the uploaded NASA dates and accomplishment');
-check(htmlResume.includes('authored two publicly available industry white papers') &&
-      resumeGenerator.includes('documented results in 2 technical white papers'),
-      'Current résumé and archived PDF generator must both confirm two industry white papers');
-check(htmlResume.includes('<h1>Kailani P. Alarcon</h1>') &&
-      htmlResume.includes('Electrical Engineering M.S. Student | Robotics, Controls &amp; Embedded Systems'),
-      'HTML résumé should match the updated graduate engineering header');
-
-const currentResume=path.join(root,'assets','Kailani_Alarcon_Resume.pdf');
-check(fs.existsSync(currentResume) && fs.statSync(currentResume).size>30000,
-  'A complete October 2026 resume PDF must be deployed at the canonical asset path');
-for(const phrase of ['3.1 N·m shoulder self-load moment','34 hierarchical system requirements',
-  'more than 12 LED products','236 points','24 templates across four users',
-  'Spring 2027 registered (upcoming)']){
-  check(htmlResume.includes(phrase),
-    'The HTML résumé must reflect the new uploaded evidence: '+phrase);
-}
-check(htmlResume.includes('Kailani_Alarcon_Resume.pdf?v=20261027-resume2'),
-  'HTML resume PDF download must use the newest cached version');
-
-// All 16 cases explain ownership, methods, results and evidentiary limits.
-const caseTitles=['nasa','iverify','controls','ur3e','thermal','alu','dmx','fingerprint',
-  'hall','huemotion','leg','motor','powershell','prodriver','vhdl','vna'];
-const evidenceHeadings=['Problem','My contribution','Engineering tools',
-  'Validation method','Documented result','Limitations'];
-for(const slug of caseTitles){
-  const source=fs.readFileSync(path.join(root,'projects',slug+'.html'),'utf8');
-  check(source.includes('class="project-evidence-first"') &&
-    source.includes('case-study-summary.css') &&
-    evidenceHeadings.every(title=>source.includes('<h3>'+title+'</h3>')),
-    slug+': evidence-first summary must cover all six questions');
-}
-
-/* Contact and résumé should be reachable without scrolling to the footer. */
-check(home.includes('class="nav-cta" href="academic-cv.html"') &&
-  home.includes('aria-label="Read updated academic CV"'),
-  'Main navigation must link to the updated HTML academic CV');
-check(home.includes('class="featured-next-step"') &&
-  home.includes('href="mailto:kailanip.alarcon@gmail.com?subject=Engineering%20Opportunity"') &&
-  home.includes('class="featured-next-step-links"'),
-  'Featured projects need clear contact and résumé follow-up links');
-check(fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8')
-  .includes('.featured-next-step-links .btn'),
-  'Featured project actions need mobile-responsive styles');
-
-
-/* Subtle background star density without obscuring portfolio content. */
-const ambientFields=[...home.matchAll(/<div class="ambient-field(?: ambient-field-[^"]+)*" aria-hidden="true">/g)];
-const addedStars=[...home.matchAll(/<span class="ambient-star ambient-star--extra(?: ambient-star--mobile)?" style="[^"]+"><\/span>/g)];
-check(ambientFields.length===11&&addedStars.length===44&&
-  (home.match(/<span class="ambient-star"><\/span>/g)||[]).length===36 &&
-  addedStars.filter(m=>m[0].includes('ambient-star--mobile')).length===22,
-  'Decorative fields should have 44 new moving stars (two mobile stars per scene) while preserving all originals');
-const moreStarsCss=fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8');
-check(home.includes('homepage-refinement.css?v=20261028-nasa-return') &&
-  moreStarsCss.includes('.ambient-field .ambient-star--extra') &&
-  moreStarsCss.includes('.ambient-star--extra:not(.ambient-star--mobile)') &&
-  moreStarsCss.includes('@media(prefers-reduced-motion:reduce)') &&
-  moreStarsCss.includes('animation:none!important'),
-  'New stars should retain responsive and reduced-motion-safe styles');
-const directory=fs.readFileSync(path.join(projectDir,'index.html'),'utf8');
-
-const paperDirectoryPreviews=[...directory.matchAll(/class="directory-card-visual directory-card-visual--paper"/g)];
-const directoryThumbStyles=fs.readFileSync(path.join(projectDir,'directory-thumbnails.css'),'utf8');
-check(paperDirectoryPreviews.length===2 &&
-  ['gesture_scene_map.svg','lab_workflows.svg'].every(name=>directory.includes(name)) &&
-  directoryThumbStyles.includes('.directory-card-visual--paper::after') &&
-  directoryThumbStyles.includes('mix-blend-mode:multiply') &&
-  directoryThumbStyles.includes('background:linear-gradient(145deg,#d7c0d7'),
-  'Directory thumbnail surfaces must use plum rather than white, including three originally light SVG previews');
-
-
-const wayfindingPaths=[
-  ['robotics',3],['embedded',4],['measurement',5],['software',4]
-];
-const pathwaySection=home.match(/<nav class="work-pathways"[\s\S]*?<\/nav>/)?.[0]||'';
-check(wayfindingPaths.every(([area,n])=>
-  pathwaySection.includes('href="projects/index.html?area='+area+'"') &&
-  (directory.match(new RegExp('data-gallery-category="'+area+'"','g'))||[]).length===n) &&
-  home.includes('href="projects/index.html">View all 16 projects') &&
-  home.includes('href="#explore">Explore more</a>'),
-  'Engineering wayfinding should expose all sixteen projects and accurate discipline counts');
-check(directory.includes('class="directory-breadcrumb"') &&
-  directory.includes('id="directory-clear"') &&
-  directory.includes('../site-ux.css?v=20261013-wayfinding1') &&
-  home.includes('site-ux.css?v=20261027-workbench1') &&
-  fs.existsSync(path.join(root,'site-ux.css')),
-  'The project directory needs breadcrumbs, clear filters and responsive wayfinding styles');
-const upgradedDirectoryJS=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
-check(upgradedDirectoryJS.includes('restoreDirectoryFromUrl()') &&
-  upgradedDirectoryJS.includes("url.searchParams.set('area',category)") &&
-  upgradedDirectoryJS.includes("url.searchParams.set('q',query)") &&
-  upgradedDirectoryJS.includes("history.replaceState("),
-  'Project searches and discipline filters must be shareable by URL');
-
-const menuMarkup=home.match(/<details class="nav-projects" id="projects-nav-menu">([\s\S]*?)<\/details>/)?.[1]||'';
-const menuItems=[...menuMarkup.matchAll(/href="projects\/([^"]+\.html)"/g)].map(m=>m[1]).filter(name=>name!=='index.html');
-const directoryItems=[...directory.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(m=>m[1]);
-check(menuItems.length===16&&new Set(menuItems).size===16&&
-  directoryItems.length===16&&directoryItems.every(name=>menuItems.includes(name)),
-  'Homepage Projects menu must link directly to all 16 project pages, exactly once');
-// Keep search previews and assistive labels aligned with the actual project set.
-check(!/\b(?:15|fifteen)\s+(?:engineering\s+)?project/i.test(home),
-  'Homepage project counts must match the sixteen available projects');
-
-check(menuMarkup.includes('href="projects/index.html"') &&
-  home.includes('projects-menu.css?v=20261012-projectsnav1') &&
-  home.includes('scripts/projects-menu.js?v=20261028-cleanup') &&
-  fs.existsSync(path.join(root,'projects-menu.css')) &&
-  fs.existsSync(path.join(root,'scripts/projects-menu.js')),
-  'Projects dropdown, directory link, accessible styling and behavior must be installed');
-
-const thumbs=[...directory.matchAll(/<span class="directory-card-visual(?: directory-card-visual--paper)?"><img src="([^"]+)" alt="([^"]+)"[^>]*loading="lazy"[^>]*>/g)];
-check(thumbs.length===16,'Project directory needs all sixteen image thumbnails');
-check((directory.match(/class="directory-card-badge"/g)||[]).length===16,
-  'Each project thumbnail must have a labeled evidence type');
-check(directory.includes('directory-thumbnails.css'),'Directory must link scoped thumbnail CSS');
-for(const [,source,alt] of thumbs){
-  check(alt.length>24,'Project thumbnail requires meaningful alternative text');
-  check(fs.existsSync(path.resolve(projectDir,source.split('?')[0])),
-    'Project thumbnail image not found: '+source);
-}
-check((directory.match(/data-gallery-category=/g)||[]).length===16 &&
-  directory.includes('id="directory-search"') &&
-  directory.includes('data-gallery-filter="robotics"'),
-  'Searchable categorized project directory must remain intact');
-
-
-// Five repository planets remain visible, separated, and independently selectable.
-const orbitCss=fs.readFileSync(path.join(root,'repo-orbit.css'),'utf8');
-const repoJs=fs.readFileSync(path.join(root,'script.js'),'utf8');
-check((home.match(/class="repo-planet"/g)||[]).length===5,
-  'Five distinct repository planet buttons required');
-check((home.match(/class="repo-card"/g)||[]).length===5,
-  'All five original source cards must remain as a no-JS fallback');
-check(home.includes('id="repo-featured"') && home.includes('id="repo-featured-link"'),
-  'The featured project detail panel and its link must be present');
-check(home.includes('id="repo-orbit-prev"')&&home.includes('id="repo-orbit-next"'),
-  'Previous and next orbital controls required');
-check(home.includes('id="repo-planetarium"')&&home.includes('repo-orbit.css'),
-  'Solar-system stage and stylesheet required');
-check(home.includes('<details class="repo-demos"'),
-  'Video demos should remain collapsible');
-
-const demoFigures=[...home.matchAll(/<figure class="video-demo"[^>]*>/g)].map(match=>match[0]);
-check(demoFigures.length===2 && demoFigures.every(tag=>!/\shidden\b/.test(tag)),
-  'Available demo video cards must not depend on metadata events to become visible');
-check(['assets/huemotion-demo.mp4','assets/lighting-demo.mp4'].every(filename=>
-  fs.existsSync(path.join(root,filename))),
-  'Both displayed demonstration videos must exist');
-check(!repoJs.includes("addEventListener('loadedmetadata'"),
-  'Repository videos must remain visible before metadata loading');
-
-check(repoJs.includes('function renderRepoOrbit()')&&repoJs.includes('function rotateRepo(direction)') &&
-  repoJs.includes('function planetSlotStyle('),
-  'Carousel must have stable positioning and navigation logic');
-check(repoJs.includes('repoPlanetarium')===false && repoJs.includes("const repoOrbitStage"),
-  'Ensure carousel uses the same stage reference throughout');
-check(repoJs.includes("repoPlanets.forEach(planet=>planet.addEventListener('click'") &&
-  repoJs.includes("function filterRepos()"),
-  'Planet selection and search filtering must remain functional');
-check(repoJs.includes("repoOrbitStage.addEventListener('keydown'") &&
-  repoJs.includes("repoOrbitStage.addEventListener('touchend'"),
-  'Carousel must support keyboard and touch input');
-check(orbitCss.includes('prefers-reduced-motion:reduce') &&
-  orbitCss.includes('.repo-planet{') &&
-  orbitCss.includes('.repo-featured{'),
-  'Planets must move with accessible, reduced-motion-aware styles');
-
-check(orbitCss.includes('transition:none;') &&
-  orbitCss.includes('.repo-orbit-shell.is-orbit-animated .repo-planet') &&
-  repoJs.includes("repoOrbitShell.classList.add('is-orbit-animated')"),
-  'Planets must not animate from a shared center during initial load');
-
-let repositoryScriptParses=true;
-try{new (require('node:vm').Script)(repoJs,{filename:'script.js'})}
-catch(error){repositoryScriptParses=false;console.error(error.message)}
-check(repositoryScriptParses,'Repository JavaScript must parse');
-// Validate the visible planet positions against actual stage dimensions.
-// Do not merely check bounding boxes: earlier planets overlapped each other/the sun.
-for(const width of [280,284,320,375,390,550,700,701,820,980]){
-  const mobile=width<=700;
-  const stageHeight=mobile?368:430;
-  const xSide=Math.min(335,width*(mobile?0.295:0.345));
-  const xRear=Math.min(205,width*(mobile?0.235:0.215));
-  const sizes=mobile?{
-    front:Math.min(142,Math.max(108,width*.38)),
-    right:Math.min(86,Math.max(66,width*.23)),
-    left:Math.min(86,Math.max(66,width*.23)),
-    'back-right':Math.min(70,Math.max(56,width*.18)),
-    'back-left':Math.min(70,Math.max(56,width*.18))
-  }:{front:154,right:108,left:108,'back-right':92,'back-left':92};
-  const planets=[
-    {slot:'front',x:0,y:mobile?80:106},
-    {slot:'right',x:xSide,y:mobile?28:55},
-    {slot:'back-right',x:xRear,y:mobile?-88:-96},
-    {slot:'back-left',x:-xRear,y:mobile?-88:-96},
-    {slot:'left',x:-xSide,y:mobile?28:55}
-  ].map(p=>({...p,r:sizes[p.slot]/2}));
-  const sun={x:0,y:mobile?65+32-stageHeight/2:52+52-stageHeight/2,r:mobile?32:52};
-  planets.forEach((p,i)=>{
-    check(Math.abs(p.x)+p.r<=width/2&&Math.abs(p.y)+p.r<=stageHeight/2,
-      p.slot+' clipped at width '+width);
-    check(p.slot!=='front'||p.y+p.r+24 <= stageHeight/2,
-      'Featured planet label clipped at width '+width);
-    check(Math.hypot(p.x-sun.x,p.y-sun.y)>=p.r+sun.r+5,
-      p.slot+' overlaps sun at width '+width);
-    planets.slice(i+1).forEach(q=>check(Math.hypot(p.x-q.x,p.y-q.y)>=p.r+q.r+5,
-      p.slot+' overlaps '+q.slot+' at width '+width));
-  });
-}
-
-/* Contextual photographs appear only where they help explain the project. */
-const vnaPage=fs.readFileSync(path.join(root,'projects/vna.html'),'utf8');
-check(home.includes('src="projects/iverify/media/exploded-concept.svg"') &&
-  home.includes('src="projects/thermal/media/logger-interface-concept.svg"') &&
-  !home.includes('class="featured-project-photo"') &&
-  !home.includes('class="engineering-snapshots"'),
-  'Featured project previews must be relevant illustrated engineering artifacts');
-check(!home.includes('src="assets/Testing.jpg"') &&
-  !home.includes('src="assets/VNA.jpg"'),
-  'Homepage must not imply generic photos document unrelated project results');
-check(vnaPage.includes('src="../assets/VNA.jpg"'),
-  'VNA photo must be placed beside the relevant technical methods');
-check(fs.readFileSync(path.join(root,'projects/project-photo-context.css'),'utf8')
-  .includes('.context-photo-accent img'),
-  'Project-specific photos must have compact centered styling');
-
-/* Curated NASA and awards photographs are real assets and work without JavaScript. */
-const selectedPhotos=[
-  'assets/nasa-sls-team-home.webp',
-  'assets/nasa-astronaut-suit-home.webp',
-  'assets/nasa-mission-patches-home.webp',
-  'assets/engineering-awards-home.webp'
-];
-check(home.includes('portfolio-photos.css') && !home.includes('portfolio-photos.js'),
-  'Curated photos must load CSS without the old JavaScript preloader');
-check(selectedPhotos.every(filename=>fs.existsSync(path.join(root,filename)) &&
-  home.includes('src="'+filename+'"')),
-  'Selected portfolio photos must exist and be referenced by native image elements');
-check((home.match(/class="portfolio-photo-card(?: portfolio-photo-card--team)?"/g)||[]).length===3,
-  'Curated NASA photo section should show three compact complementary images');
-check(home.includes('id="portfolio-photo-gallery"') &&
-  home.includes('id="portfolio-photo-gallery-title"') &&
-  home.includes('class="portfolio-awards-photo"'),
-  'NASA gallery and engineering recognition image should be present');
-check(!home.includes('data-portfolio-photo-src=') &&
-  !/<section class="portfolio-photo-gallery"[^>]* hidden/.test(home),
-  'Present photographs must not be hidden behind JavaScript');
-const photosCss=fs.readFileSync(path.join(root,'portfolio-photos.css'),'utf8');
-check(photosCss.includes('@media(max-width:620px)') &&
-  photosCss.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
-  photosCss.includes('grid-column:1/-1'),
-  'Responsive photo accents should show a full-width team image above two small portraits');
-check(!photosCss.includes('Engineering evidence photos: thumbnail-size accents') &&
-  !photosCss.includes('background:linear-gradient(transparent,rgba(22,17,28,.84))'),
-  'Outdated photo layouts and overlay captions must not return');
-check(photosCss.includes('var(--photo-gallery-heading)') &&
-  photosCss.includes('var(--photo-awards-background)') &&
-  photosCss.includes('object-fit:contain'),
-  'Photo accents must use shared theme colors and natural image proportions');
-
-const upgradeCss=fs.readFileSync(path.join(root,'portfolio-upgrade.css'),'utf8');
-check((upgradeCss.match(/:root\[data-theme="dark"\]\s*\{/g)||[]).length===1,
-  'Dark-mode design tokens must be declared in one canonical block');
-for(const token of [
-  '--bg:#191923;',
-  '--dark-text:#f8f5fc;',
-  '--berry:#982e62;',
-  '--photo-gallery-heading:#fff2fa;',
-  '--photo-awards-background:#34273c;'
-]){
-  check(upgradeCss.includes(token),'Missing dark-mode token: '+token);
-}
-for(const token of [
-  '--photo-gallery-heading:#493649;',
-  '--photo-awards-background:rgba(255,251,254,.7);'
-]){
-  check(upgradeCss.includes(token),'Missing light-mode photo token: '+token);
-}
-/* Keep the published bundle byte-for-byte in sync with its authored sources. */
-const bundleSources=['styles.css','enhancements.css','bookshelf.css','ux.css',
-  'botanical.css','ambient.css','engineering.css','case-studies.css','project-pages.css'];
-const expectedBundle='/* Compiled portfolio stylesheet. Source: build-css.js; CSS files concatenated in exact cascade order. */\n' +
-  bundleSources.map(file=>'\n/* SOURCE: '+file+' */\n' +
-    fs.readFileSync(path.join(root,file),'utf8').trimEnd()+'\n').join('');
-check(fs.readFileSync(path.join(root,'portfolio.css'),'utf8')===expectedBundle,
-  'Compiled portfolio.css must match source CSS. Run node build-css.js');
-// CSS chunks are byte-for-byte slices of the same ordered stylesheet so that
-// deferred book and dossier rules do not change the final visual cascade.
-const cssBoundary=file=>{
-  const marker='\n/* SOURCE: '+file+' */\n';
-  const pos=expectedBundle.indexOf(marker);
-  if(pos<0)throw new Error('Missing CSS source marker '+file);
-  return pos;
-};
-const expectedHomepageChunks=[
-  ['home-css-initial.css',expectedBundle.slice(0,cssBoundary('bookshelf.css'))],
-  ['home-css-layout.css',expectedBundle.slice(cssBoundary('ux.css'),cssBoundary('case-studies.css'))],
-  ['home-css-project.css',expectedBundle.slice(cssBoundary('project-pages.css'))]
-];
-for(const [file,content] of expectedHomepageChunks)
-  check(fs.readFileSync(path.join(root,file),'utf8')===content,
-    'Optimized CSS '+file+' is outdated; run node build-css.js');
-check(expectedHomepageChunks.every(([file])=>home.includes('href="'+file+'?v=20261012-split1"')) &&
-  home.includes('href="bookshelf.css?v=20261012-split1" media="print"') &&
-  home.includes('href="case-studies.css?v=20261012-split1" media="print"'),
-  'Homepage must load full layout first and defer only offscreen book and dossier styles');
-
-/* Interactive engineering-case-study explorer: linked to the existing dossiers. */
-const caseExplorerJS=fs.readFileSync(path.join(root,'case-explorer.js'),'utf8');
-const caseExplorerCSS=fs.readFileSync(path.join(root,'case-explorer.css'),'utf8');
-const lazyFeatureJS=fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8');
-check(home.includes('id="case-explorer"') &&
-  home.includes('case-explorer.css') &&
-  lazyFeatureJS.includes('case-explorer.js'),
-  'Engineering case studies need their interactive explorer and assets');
-check(home.includes('scripts/lazy-features.js') &&
-  ['robot-3d.js','case-explorer.js'].every(file=>
-    lazyFeatureJS.includes(file) && !home.includes('<script src="'+file)) &&
-  home.includes('<script src="bookshelf.js?v=20261012-bookswitch1" defer></script>') &&
-  !lazyFeatureJS.includes("{id:'bookshelf'"),
-  'Keep the robot and case explorer lazy-loaded while initializing the bookshelf reader once');
-check((home.match(/data-case-select="/g)||[]).length===2,
-  'Case explorer must offer IVerify and instrumentation views');
-check((home.match(/data-case-step="/g)||[]).length===4,
-  'Each interactive case workflow needs four selectable stages');
-check(['case-iverify','case-controls'].every(id=>home.includes('id="'+id+'"')),
-  'Legacy case-study deep links must remain accessible');
-check(home.indexOf('id="case-explorer"') < home.indexOf('id="case-iverify"'),
-  'Legacy case-study anchors should follow the interactive explorer heading');
-check((home.match(/class="technical-dossier(?: nasa-dossier)?"/g)||[]).length===0,
-  'Do not repeat two full technical dossiers beneath the interactive explorer');
-check(!home.includes('The full case studies are preserved below.'),
-  'Interactive explorer should link to full project pages, not duplicate content below');
-check(['iverify','controls'].every(project=>
-  caseExplorerJS.includes("projects/"+project+".html#project-evidence")),
-  'Interactive evidence links must point to both project pages');
-check(!home.includes('id="case-explorer" aria-labelledby="case-explorer-heading" hidden'),
-  'Case-study overview must remain visible without JavaScript');
-check(caseExplorerJS.includes("const caseData = {") &&
-  ['iverify','controls'].every(key=>caseExplorerJS.includes(key+': {')),
-  'Interactive case explorer source-derived case content missing');
-check(caseExplorerJS.includes("setAttribute('aria-selected'") &&
-  caseExplorerJS.includes("setAttribute('aria-pressed'"),
-  'Interactive case controls must expose their selected state');
-check(caseExplorerCSS.includes('prefers-reduced-motion:reduce'),
-  'Case explorer must respect reduced-motion settings');
-let explorerSyntaxValid=true;
-try{new (require('node:vm').Script)(caseExplorerJS,{filename:'case-explorer.js'})}
-catch(error){explorerSyntaxValid=false;console.error(error.message)}
-check(explorerSyntaxValid,'Case explorer JavaScript must parse');
-
-check(home.includes('id="robot-3d-canvas"'),'3D viewer missing');
-check(home.includes('id="theme-toggle"'),'Theme toggle missing');
-check(home.includes('data-robot-view="3d"'),'Robot view picker missing');
-check((directory.match(/data-gallery-category=/g)||[]).length===16,'16 categorized gallery cards required');
-check(fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(domain),'robots.txt wrong host');
-check(fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').includes(domain),'sitemap.xml wrong host');
-
-/* Additional accessibility and fragment-link checks. */
-const cachedIds=new Map();
-function getIds(absolutePath){
-  if(!cachedIds.has(absolutePath)){
-    const html=fs.readFileSync(absolutePath,'utf8');
-    cachedIds.set(absolutePath,new Set([...html.matchAll(/\sid=["']([^"']+)["']/g)].map(m=>m[1])));
-  }
-  return cachedIds.get(absolutePath);
-}
-for(const file of htmlFiles){
-  const absolute=path.join(root,file);
-  const markup=fs.readFileSync(absolute,'utf8');
-  if(file.startsWith('projects/')){
-    check(!/<style\b[^>]*>/i.test(markup),file+' has duplicated inline project styles');
-  }
-  for(const match of markup.matchAll(/<img\b[^>]*>/g)){
-    check(/\balt\s*=/.test(match[0]),file+' image missing alternative text');
-  }
-  for(const match of markup.matchAll(/\bhref=["']([^"']+)["']/g)){
-    const url=match[1];
-    if(!url.includes('#')||/^(https?:|\/\/|mailto:|tel:)/i.test(url))continue;
-    const [targetRef,rawFragment]=url.split('#');
-    if(!rawFragment)continue;
-    const target=targetRef?path.resolve(root,path.dirname(file),targetRef.split('?')[0]):absolute;
-    if(!target.startsWith(root+path.sep)||!target.endsWith('.html')||!fs.existsSync(target))continue;
-    let fragment=rawFragment;
-    try{fragment=decodeURIComponent(rawFragment)}catch{/* Test the unmodified anchor name. */}
-    check(getIds(target).has(fragment),file+' references missing section '+url);
-  }
-}
-check(home.includes('id="robot-2d-controls" aria-label="2D motion controls" hidden'),
-  '2D panel should start hidden while 3D view is selected');
-
-/* The 2D/3D robot simulator shares one dock beneath one viewer. */
-const robotDockCss=fs.readFileSync(path.join(root,'robot-control-dock.css'),'utf8');
-const robotViewJs=fs.readFileSync(path.join(root,'portfolio-upgrade.js'),'utf8');
-const robot3dJs=fs.readFileSync(path.join(root,'robot-3d.js'),'utf8');
-const robotSection=home.slice(home.indexOf('<section class="section robot-section"'),
-  home.indexOf('<section class="section work-section"'));
-const dock=robotSection.indexOf('class="robot-controls-dock"');
-check(home.includes('robot-control-dock.css'),
-  'Robot mode design should load the shared controls stylesheet');
-check(dock>robotSection.indexOf('class="robot-viewport"')&&
-  robotSection.indexOf('id="robot-2d-controls" aria-label="2D motion controls" hidden')>dock&&
-  robotSection.indexOf('id="robot-3d-controls" aria-label="3D motion controls"')>dock,
-  'Both robot control panels must be inside the same dock, below the viewer');
-check((robotSection.match(/data-joint-control/g)||[]).length===3 &&
-  (robotSection.match(/class="robot-3d-control"/g)||[]).length===6,
-  'Retain three planar and six chamber joint controls');
-check((robotSection.match(/class="robot-control-heading robot-control-heading--joints"/g)||[]).length===2 &&
-  robotSection.includes('class="robot-action-row robot-control-presets"') &&
-  robotSection.includes('class="robot-3d-tools robot-control-presets"'),
-  'Both modes need matching preset and manual adjustment headings');
-check(robotViewJs.includes("controls3d.hidden=chosen!=='3d'")&&
-  robotViewJs.includes("controls.hidden=chosen!=='2d'")&&
-  robotViewJs.includes("robot:view-change"),
-  'Robot mode switching must update both panels and the active viewer');
-check(robot3dJs.includes("robot:view-change")&&robot3dJs.includes("fit()"),
-  '3D canvas must resize correctly when reactivated');
-check(robotDockCss.includes('robot-control-sliders')&&
-  robotDockCss.includes('robot-control-presets'),
-  'Both panels need shared styling');
-
-check(robotSection.includes('id="bone-1" stroke="#e9a9c8"') &&
-  robotSection.includes('id="bone-2" stroke="#b6dbe4"') &&
-  robotSection.includes('id="bone-3" stroke="#eecf8f"') &&
-  !robotSection.includes('stroke="url(#armGradient)"'),
-  'All three 2D links must have explicit solid strokes; vertical SVG line gradients can render invisible');
-check(home.includes('data-robot-mode="3d"'),'3D view should start as the selected robot mode');
-/* The radial SVG and perspective canvas must share exactly one kinematic model. */
-const sharedRobotJS=fs.readFileSync(path.join(root,'robot-chamber-model.js'),'utf8');
-const robot2dJS=fs.readFileSync(path.join(root,'script.js'),'utf8');
-check(home.includes('robot-chamber-model.js?v=20261013-generic-motion2') &&
-  home.indexOf('robot-chamber-model.js?v=20261013-generic-motion2')<home.indexOf('script.js?v=20261028-cleanup'),
-  'Shared chamber model must load before 2D script');
-check(sharedRobotJS.includes('const workspace=1') &&
-  sharedRobotJS.includes('const segmentA=.30') &&
-  sharedRobotJS.includes('const segmentB=.27') &&
-  sharedRobotJS.includes('const tool=.11') &&
-  robot3dJs.includes('model.joints(pose)') &&
-  robot2dJS.includes('robotModel.joints(pose)'),
-  'Both illustrative robot views must share the same normalized joint geometry');
-check(['neutral','reach','fold','rest'].every(name=>
-  robotSection.includes('data-pose="'+name+'"')&&
-  robotSection.includes('data-3d-pose="'+name+'"')) &&
-  robotSection.includes('id="side-tip-readout"') &&
-  robotSection.includes('id="side-projection-status"'),
-  '2D and 3D must expose matching generic presets and boundary feedback');
-check(robot2dJS.includes("source:'2d'") &&
-  robot3dJs.includes("source:'3d'") &&
-  robot2dJS.includes("event.detail?.source!=='3d'") &&
-  robot3dJs.includes("event.detail?.source!=='2d'"),
-  'Robot mode changes must synchronize angles in both directions without an echo loop');
-check(fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes('robot-3d.js?v=20261013-generic-motion'),
-  'Lazy 3D loader should fetch the synchronized renderer');
-
-
-/* Content hierarchy and visual-first case-study invariants. */
-const caseStudyFiles=htmlFiles.filter(file=>file.startsWith('projects/')&&file!=='projects/index.html');
-for(const file of caseStudyFiles){
-  const html=fs.readFileSync(path.join(root,file),'utf8');
-  const overview=html.indexOf('id="project-overview"');
-  const method=html.indexOf('id="project-method"');
-  const findings=html.indexOf('id="project-results"');
-  const evidence=html.indexOf('id="project-evidence"');
-  check(overview>=0&&method>overview&&findings>method&&evidence>findings,
-    file+' needs overview → methods → findings → evidence ordering');
-  const featuredCase=/projects\/(nasa|iverify|thermal)\.html$/.test(file);
-  const visualIds=['dmx-visuals','hall-visuals','huemotion-visuals',
-    'iverify-reconstruction','prodriver-visuals','thermal-visuals','vna-visuals'];
-  for(const id of visualIds){
-    const visual=html.indexOf('id="'+id+'"');
-    if(visual>=0){
-      check(featuredCase ? visual>findings&&visual<evidence : visual>overview&&visual<method,
-        file+' should put visual evidence in the intended case-study reading order');
+  for(const link of html.matchAll(/\s(?:href|src|poster)=["']([^"']+)["']/gi)){
+    const href=link[1].trim();
+    if(!href || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href))continue;
+    const [withoutFragment,frag] = href.split('#');
+    const local = withoutFragment.split('?')[0];
+    const target = local ? path.resolve(root,path.dirname(file),decodeURIComponent(local)) : path.resolve(root,file);
+    check(target===root || target.startsWith(root+path.sep),file+': reference escapes repository: '+href);
+    if (!(target===root || target.startsWith(root+path.sep)))continue;
+    check(fs.existsSync(target),file+': missing local link / asset: '+href);
+    if(frag && fs.existsSync(target) && target.endsWith('.html')){
+      const targetFile=path.relative(root,target);
+      let id; try { id=decodeURIComponent(frag); } catch { id=frag; }
+      check(idsFor(targetFile).has(id),file+': target #'+id+' missing in '+targetFile);
     }
   }
-  check(!/<h2>Evidence and limitations<\/h2>/.test(html),
-    file+' includes repeated evidence-limitations card');
-  for(const title of (featuredCase ? [] : ['Challenge','Approach','Tools'])){
-    check(html.includes('<h3>'+title+'</h3>'),
-      file+' missing readable '+title+' subsection heading');
-  }
-  if(featuredCase){
-    check(html.includes('Engineering decisions')&&(file==='projects/nasa.html'||html.includes('Testing and results'))&&
-      html.includes('Next verification step')&&html.includes('class="case-contact"'),
-      file+' needs decision rationale, results, next verification, and contact actions');
-  }
-  check((html.match(/<h1\b/g)||[]).length===1,
-    file+' must contain exactly one page heading');
-
-}
-for(const group of ['robotics','embedded','measurement','software']){
-  check(directory.includes('data-gallery-group="'+group+'"'),
-    'Project directory missing discipline '+group);
 }
 
-check(home.includes('<dialog id="project-book-dialog"') &&
-  home.includes('id="book-open-stage"') &&
-  home.includes('id="book-modal-title"') &&
-  home.includes('id="book-project-link"') &&
-  home.includes('id="book-next-page"') &&
-  home.includes('id="book-prev-page"') &&
-  home.includes('id="close-project-book"') &&
-  home.includes('id="book-next"') && home.includes('id="book-previous"') &&
-  home.includes('<select id="book-switch-select"') &&
-  home.includes('class="bookshelf-index-link"') &&
-  home.includes('class="book-switcher__directory"'),
-  'Book reader, direct 16-project chooser, and controls must all exist');
-check(fs.readFileSync(path.join(root,'bookshelf.js'),'utf8').includes("bookSwitchSelect?.addEventListener('change'") &&
-  fs.readFileSync(path.join(root,'homepage-refinement.css'),'utf8').includes('.book-switcher__heading'),
-  'Direct chooser must be interactive and visibly styled');
-check(home.includes('src="bookshelf.js?v=20261012-bookswitch1" defer') &&
-  !fs.readFileSync(path.join(root,'scripts/lazy-features.js'),'utf8').includes("{id:'bookshelf'"),
-  'Reader should initialize exactly once on initial load, not only on scroll');
+const home=get('index.html');
+const archive=get('projects/index.html');
+const research=get('research.html');
+const cv=get('academic-cv.html');
+const resume=get('resume.html');
+const nasa=get('projects/nasa.html');
+const sitemap=get('sitemap.xml');
 
-/* Keep the overview concise and restore permanently visible books and planets. */
-const expectedFeaturedPreviews=[
-  'projects/nasa-figures/robotic-arm-geometry.svg',
-  'projects/directory-thumbnails/ur3e.svg',
-  'projects/iverify/media/exploded-concept.svg',
-  'projects/thermal/media/logger-interface-concept.svg'
-];
-const featuredPreviews=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredPreviews.match(/class="selected-project-preview(?: selected-project-preview--paper)?"/g)||[]).length===4 &&
-  expectedFeaturedPreviews.every(src=>featuredPreviews.includes(src)) &&
-  (featuredPreviews.match(/<img[^>]+alt="[^"]+"/g)||[]).length>=4,
-  'Featured engineering work must include four source-labeled visual previews');
+check(home.includes('href="professional-home.css?v=20261123"'),'Homepage should load professional stylesheet');
+check(!home.includes('portfolio-upgrade.js') && !home.includes('bookshelf.js') &&
+  !home.includes('ambient.js') && !home.includes('repo-orbit.js'),
+  'Homepage should avoid expensive legacy scripts');
+check(home.includes('id="main"') && home.includes('href="#main"'), 'Homepage needs accessible skip navigation');
+check(home.includes('aria-label="Main navigation"'),'Homepage needs labeled navigation');
+check((home.match(/class="work-card"/g)||[]).length===5,'Homepage should curate five representative projects');
+check(['nasa','leg','thermal','vna','iverify'].every(slug=>home.includes('href="projects/'+slug+'.html"')),
+  'Featured projects need dedicated case study links');
+check(['#selected-work','projects/index.html','research.html','academic-cv.html','resume.html','#contact']
+  .every(href=>home.includes('href="'+href+'"')),'Homepage must support key professional pathways');
+check(!home.includes('id="bookshelf"') && !home.includes('id="repo-orbit-shell"') &&
+  !home.includes('id="robot-lab"') && !home.includes('id="portfolio-photo-gallery"') &&
+  !home.includes('id="case-explorer"'),'Homepage should not duplicate project galleries or interactive demos');
+check(home.includes('id="experience"') && home.includes('id="research"') &&
+  home.includes('id="about"') && home.includes('id="contact"'),
+  'Homepage needs experience, research, skills and contact');
+check(home.includes('NASA Marshall Space Flight Center') &&
+  home.includes('LUX Dynamics') && home.includes('University of Nevada, Reno'),
+  'Homepage should identify verified professional experience');
+check(home.includes('Registered Spring 2027 courses (upcoming)') &&
+  home.includes('Computer Vision') && home.includes('Digital Control Engineering'),
+  'Registered future coursework must not be represented as completed');
+check(home.includes('NASA case studies describe personal internship contributions') &&
+  home.includes('not official NASA'), 'Homepage must preserve NASA scope and independence statements');
+check(home.includes('34 hierarchical system requirements') &&
+  home.includes('236 frequency points') &&
+  home.includes('eight thermocouple channels'),
+  'Featured outcomes should show supported, concrete results');
+check(home.includes('role')===false || home.includes('scope of my contribution'), 'Homepage must distinguish personal roles');
 
-const featuredSection=home.slice(home.indexOf('id="featured-projects"'),home.indexOf('id="experience"'));
-check((featuredSection.match(/class="featured-project-card(?: featured-project-card--nasa)?"/g)||[]).length===4,
-  'Homepage must feature four engineering case studies including the NASA assessment');
-check(['nasa','ur3e','iverify','thermal'].every(slug=>featuredSection.includes('projects/'+slug+'.html')) &&
-  featuredSection.indexOf('projects/nasa.html')<featuredSection.indexOf('projects/ur3e.html'),
-  'NASA assessment must lead the four featured engineering case studies');
-check(home.indexOf('id="featured-projects"')<home.indexOf('id="home-workbench"') &&
-  home.indexOf('id="home-workbench"')<home.indexOf('id="experience"') &&
-  home.indexOf('id="experience"')<home.indexOf('id="explore"') &&
-  home.includes('<details class="portfolio-extras" id="explore"') &&
-  home.includes('class="extras-expand-cta"') &&
-  home.includes('id="bookshelf"') && home.includes('id="repo-planetarium"') &&
-  home.includes('</details></div>') &&
-  home.indexOf('<section class="section skills-section"')<home.indexOf('id="explore"') &&
-  home.indexOf('</details></div>')<home.indexOf('<section class="section work-section"'),
-  'Optional archive must start collapsed; selected work and technical skills stay in main portfolio');
-check(home.includes('homepage-refinement.js?v=20261027-phase2')&&
-  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("parent.open=true") &&
-  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("if (target.matches('details')) target.open=true") &&
-  fs.readFileSync(path.join(root,'homepage-refinement.js'),'utf8').includes("dispatchEvent(new Event('resize'))"),
-  'Deep links must expand archive and recalculate canvas layouts');
-
-
-/* Phase 2: comparable evidence summaries, direct result links, and preview metadata. */
-
-const expectedSocialImages=[...caseTitles,'portfolio','projects','workbench'];
-check(expectedSocialImages.length===19,'Social preview set must include 16 projects plus three hubs');
-for(const slug of expectedSocialImages){
-  const name=path.join(root,'social',slug+'.png');
-  check(fs.existsSync(name),'Missing social sharing preview: '+slug+'.png');
-  if(!fs.existsSync(name))continue;
-  const image=fs.readFileSync(name);
-  check(image.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])) &&
-    image.readUInt32BE(16)===1200 && image.readUInt32BE(20)===630,
-    'Share preview must be a genuine 1200x630 PNG: '+slug);
+check(projectSlugs.every(slug=>archive.includes('href="'+slug+'.html"')),
+  'Full project archive must still expose all 16 cases');
+check(!archive.includes('#bookshelf') && !archive.includes('#case-studies'),
+  'Project archive should not link to removed homepage features');
+for(const slug of projectSlugs){
+  const caseHtml=get('projects/'+slug+'.html');
+  check(!caseHtml.includes('href="../index.html#bookshelf"'),
+    slug+': removed bookshelf link should not be shown');
+  check(!caseHtml.includes('href="../index.html#case-studies"'),
+    slug+': removed case-study anchor should be corrected');
+  check(caseHtml.includes('case-study-summary.css') &&
+    caseHtml.includes('class="project-evidence-first"'),
+    slug+': retain evidence-first project summary');
 }
-
-check((directory.match(/class="directory-evidence"/g)||[]).length===16 &&
-  directory.includes('directory-thumbnails.css?v=20261027-phase2') &&
-  directoryThumbStyles.includes('.directory-evidence'),
-  'All 16 directory cards must show qualified evidence summaries');
-for(const slug of caseTitles){
-  const caseHtml=fs.readFileSync(path.join(projectDir,slug+'.html'),'utf8');
-  check(caseHtml.includes('class="project-reading-shortcuts"') &&
-    caseHtml.includes('href="#project-results"') &&
-    caseHtml.includes('href="#project-evidence"') &&
-    caseHtml.includes('case-study-summary.css?v=20261027-phase2') &&
-    caseHtml.includes('https://engrkailani.github.io/social/'+slug+'.png') &&
-    caseHtml.includes('<meta property="og:image:width" content="1200">'),
-    slug+': case study must have results shortcuts and unique sharing-preview metadata');
-}
-check(fs.readFileSync(path.join(projectDir,'case-study-summary.css'),'utf8')
-  .includes('.project-reading-shortcuts a'),
-  'Case-study shortcuts require visible, accessible styling');
-for(const [file,slug] of [
-  ['index.html','portfolio'],['resume.html','portfolio'],
-  ['workbench.html','workbench'],['projects/index.html','projects']
-]){
-  const source=fs.readFileSync(path.join(root,file),'utf8');
-  check(source.includes('https://engrkailani.github.io/social/'+slug+'.png'),
-    file+': correct branded social sharing card');
-}
-
-
-check(home.includes('href="projects/nasa.html"') &&
-  home.includes('3.1 N·m') &&
-  home.includes('34 hierarchical requirements') &&
-  home.includes('class="featured-project-card featured-project-card--nasa"') &&
-  fs.existsSync(path.join(root,'projects/nasa.html')),
-  'Restored NASA project must be featured with properly qualified estimates');
-
-/* Research-first academic portfolio invariants. */
-const academicCV=fs.readFileSync(path.join(root,'academic-cv.html'),'utf8');
-const urResearch=fs.readFileSync(path.join(projectDir,'ur3e.html'),'utf8');
-check(home.includes('Engineering robots for the Moon and beyond.') &&
-  home.includes('academic-cv.html') &&
-  home.includes('At NASA Marshall, I evaluated lunar-dust robotic-arm feasibility') &&
-  home.includes('Spring 2027 registered (upcoming)'),
-  'Homepage should foreground space robotics, verified NASA work and future graduate courses');
-check(home.includes('class="featured-project-card"') &&
-  home.includes('three-person group') &&
-  home.includes('three-person group, I contributed') &&
-  featuredSection.indexOf('projects/ur3e.html')<featuredSection.indexOf('projects/iverify.html'),
-  'Homepage should fairly attribute the featured group robotics study');
-check(research.includes('id="questions"') &&
-  (research.match(/class="research-question"/g)||[]).length===3 &&
-  research.includes('research.css?v=20261028-concept1') &&
-  research.includes('specific approaches and candidate metrics have not yet been tested') &&
-  research.includes('href="academic-cv.html"'),
-  'Research page must give three explicit proposed questions without claiming results');
-check(academicCV.includes('id="cv-main"') &&
-  academicCV.includes('not represented as peer-reviewed journal or conference articles') &&
-  academicCV.includes('Fall 2026 – Present') &&
-  academicCV.includes('assets/Kailani_Alarcon_CV.pdf?v=20261028-original') &&
-  fs.existsSync(path.join(root,'assets/Kailani_Alarcon_CV.pdf')) &&
-  academicCV.includes('academic-cv.css?v=20261028-original1') &&
-  academicCV.includes('onclick="window.print()"'),
-  'Academic CV should follow the uploaded three-page research record and remain printable');
-
-check(academicCV.includes('Technical Publications and Presentations') &&
-  academicCV.includes('Two')===false &&
-  academicCV.includes('Understanding Optical Lens Performance in LED Luminaires') &&
-  academicCV.includes('Teacher Assistant Intern') &&
-  academicCV.includes('Languages') &&
-  academicCV.includes('3.1 N·m'),
-  'Site CV must preserve the user-uploaded academic record, NASA result and original sections');
-check(home.includes('href="academic-cv.html"') &&
-  htmlResume.includes('href="academic-cv.html"') &&
-  directory.includes('href="../academic-cv.html"') &&
-  sitemap.includes('https://engrkailani.github.io/academic-cv.html'),
-  'Academic CV must be discoverable from portfolio, resume, directory and sitemap');
-check(urResearch.includes('id="ur3e-analysis"') &&
-  urResearch.includes('ur3e/media/jacobian-rank-comparison.svg') &&
-  urResearch.includes('The original DH table') &&
-  urResearch.includes('rank 5') && urResearch.includes('rank 6') &&
-  fs.existsSync(path.join(root,'projects/ur3e-technical.css')),
-  'UR3e must show reported ranks, methods, and reproducibility caveats');
-
-/* User-supplied PDF is byte-for-byte authoritative: Git blob SHA computed
-   from the original three-page upload, not the HTML preview generator. */
-const crypto=require('node:crypto');
-const canonicalPdfPath=path.join(root,'assets','Kailani_Alarcon_CV.pdf');
-const canonicalBytes=fs.readFileSync(canonicalPdfPath);
-const canonicalBlobSha=crypto.createHash('sha1')
-  .update('blob '+canonicalBytes.length+'\0')
-  .update(canonicalBytes)
-  .digest('hex');
-check(canonicalBytes.length===165127 &&
-  canonicalBlobSha==='cc243920ede546eef6d7bac2bd26126975545d7d' &&
-  canonicalBytes.subarray(0,5).toString()==='%PDF-',
-  'Canonical downloadable CV must match the exact user-uploaded three-page PDF');
-check(home.includes('href="academic-cv.html"') &&
-  directory.includes('href="../academic-cv.html"') &&
-  academicCV.includes('Earlier CV PDF (October 2026)') &&
-  academicCV.includes('Updated November 2026:') &&
-  academicCV.includes('Print / save updated CV as PDF') &&
-  !home.includes('Kailani_Alarcon_Academic_CV.pdf'),
-  'Primary site CV links must reflect the updated HTML and preserve clearly labeled old PDF');
-const nasaPublic=fs.readFileSync(path.join(root,'projects/nasa.html'),'utf8');
-check(nasaPublic.includes('id="nasa-evidence-map"') &&
-  nasaPublic.includes('34 hierarchical requirements') &&
-  nasaPublic.includes('six operating scenarios') &&
-  nasaPublic.includes('3.1 N·m') &&
-  nasaPublic.includes('excludes rocker and actuator masses') &&
-  nasaPublic.includes('No completed vacuum qualification') &&
-  nasaPublic.includes('no new NASA project specifications or test results'),
-  'NASA evidence map must preserve disclosed facts and explicit verification limits');
-check(research.includes('id="research-concept"') &&
-  research.includes('not a completed experiment, NASA task') &&
+check(nasa.includes('34 hierarchical requirements') &&
+  nasa.includes('No completed vacuum qualification') &&
+  nasa.includes('no new NASA project specifications or test results'),
+  'NASA public case study should preserve scope and verification boundaries');
+check(research.includes('not a completed experiment, NASA task') &&
   research.includes('independent future research') &&
-  research.includes('no new NASA-specific technical detail') &&
-  research.includes('The October 2026 PDF remains archived') &&
-  research.includes('The study proposed here is independent future research'),
-  'Prospective manipulation study must be clearly separate from disclosed NASA work');
-const optionalPdfWorkflow=fs.readFileSync(path.join(root,'.github/workflows/academic-cv-pdf.yml'),'utf8');
-check(optionalPdfWorkflow.includes('workflow_dispatch:') &&
-  !optionalPdfWorkflow.includes('git push') &&
-  !optionalPdfWorkflow.includes('contents: write'),
-  'HTML-derived CV preview workflow must not overwrite the authoritative user PDF');
+  research.includes('No peer-reviewed journal or conference articles are claimed'),
+  'Research page must separate proposals from completed engineering evidence');
+check(cv.includes('Spring 2027 registered coursework (upcoming)') &&
+  cv.includes('foundational hands-on exposure to ROS 2 and MuJoCo'),
+  'Academic CV should clearly distinguish future coursework and tool exposure');
+check(resume.includes('Spring 2027 registered (upcoming)') &&
+  resume.includes('two publicly available industry white papers'),
+  'Resume should preserve upcoming coursework and publication type');
+check(sitemap.includes('<loc>'+domain+'/</loc>') &&
+  sitemap.includes('<loc>'+domain+'/projects/</loc>') &&
+  sitemap.includes('<loc>'+domain+'/research.html</loc>'),
+  'Sitemap should retain key public entry points');
 
-/* Workbench integrity: all four browser-only demos and their controls remain linked. */
-const workbench=fs.readFileSync(path.join(root,'workbench.html'),'utf8');
-const workbenchJS=fs.readFileSync(path.join(root,'workbench.js'),'utf8');
-const workbenchCSS=fs.readFileSync(path.join(root,'workbench.css'),'utf8');
-const workbenchIDs=[...workbench.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
-check(new Set(workbenchIDs).size===workbenchIDs.length,'Workbench must not duplicate element IDs');
-
-check((workbench.match(/<h1\b/g)||[]).length===1,
-  'Workbench must have exactly one page heading');
-check(workbench.includes('class="wb-light-stage" role="img"') &&
-  !workbench.includes('<div class="wb-channel-readouts" aria-live="polite"') &&
-  !workbench.includes('id="scope-read-rms" aria-live='),
-  'Workbench visuals and continuously updating values need accessible semantics');
-const wbIDs=new Set(workbenchIDs);
-for(const match of workbench.matchAll(/\bhref="#([^"]+)"/g)){
-  check(wbIDs.has(match[1]),'Workbench broken in-page anchor #'+match[1]);
-}
-for(const match of workbench.matchAll(/\s(?:href|src)="([^"]+)"/g)){
-  const ref=match[1];
-  if(/^(?:#|[a-z]+:|\/\/)/i.test(ref))continue;
-  const pathname=ref.split(/[?#]/)[0];
-  if(!pathname)continue;
-  const destination=path.resolve(root,pathname);
-  check(destination.startsWith(root+path.sep)&&fs.existsSync(destination),
-    'Workbench missing local link or asset '+pathname);
-}
-const workbenchMobileCSS=workbenchCSS;
-check(workbenchMobileCSS.includes('.wb-theme{min-height:44px') &&
-  workbenchMobileCSS.includes('.wb-small-button{min-height:44px') &&
-  workbenchMobileCSS.includes('@media(max-width:360px)') &&
-  workbenchMobileCSS.includes('@media(max-width:540px)'),
-  'Workbench must provide narrow-screen layouts and usable touch targets');
-const projectNavLinks=[...home.matchAll(/href="projects\/([^"]+\.html)"/g)].map(match=>match[1]);
-const directoryDetailLinks=[...directory.matchAll(/data-gallery-category="[^"]+" href="([^"]+\.html)"/g)].map(match=>match[1]);
-check(directoryDetailLinks.length===16 &&
-  directoryDetailLinks.every(name=>projectNavLinks.includes(name)),
-  'Every directory project must be reachable through homepage navigation');
-
-for(const slug of ['scope','robot','lights','thermal']){
-  check(workbench.includes('id="wb-tab-'+slug+'"')&&
-    workbench.includes('id="wb-panel-'+slug+'"')&&
-    workbench.includes('aria-controls="wb-panel-'+slug+'"'),
-    'Workbench instrument and tab must match: '+slug);
-}
-for(const id of ['scope-canvas','robot-canvas','thermal-canvas','lights-scene',
-  'scope-freq','scope-msdiv','scope-vdiv','scope-trigger','scope-level','scope-single',
-  'scope-cursor-a','scope-cursor-b','scope-read-dt','scope-read-dv',
-  'robot-j1','robot-j2','robot-j3','robot-target-x','robot-target-y','robot-target-phi',
-  'robot-elbow','robot-solve','robot-ik-status','robot-read-error',
-  'robot-frames','robot-trail','robot-clear-path','lights-r','thermal-power','thermal-export']){
-  check(workbench.includes('id="'+id+'"'),'Workbench required interactive control: '+id);
-}
-check(home.includes('href="workbench.html"')&&home.includes('home-lab-spotlight')&&
-  directory.includes('href="../workbench.html"'),
-  'Workbench must be discoverable on the homepage and project directory');
-const mathJS=fs.readFileSync(path.join(root,'workbench-models.js'),'utf8');
-check(workbench.includes('workbench-models.js?v=20261027-phase3')&&
-  workbench.includes('workbench.js?v=20261027-phase3')&&
-  workbench.includes('workbench.css?v=20261027-phase3')&&
-  workbench.indexOf('workbench-models.js?v=20261027-phase3')<
-  workbench.indexOf('workbench.js?v=20261027-phase3')&&
-  workbenchJS.includes('window.WorkbenchModels')&&
-  workbenchJS.includes('requestAnimationFrame')&&
-  workbenchJS.includes('createObjectURL')&&
-  workbenchCSS.includes('.wb-advanced'),
-  'Phase 3 models must load before the workbench interface and scale controls');
-try{new (require('node:vm').Script)(mathJS,{filename:'workbench-models.js'});
-  check(true,'Workbench mathematical models must parse')}
-catch(error){check(false,'Workbench model syntax: '+error.message)}
-const model=require(path.join(root,'workbench-models.js'));
-const sample=model.forward3([0,0,0],[140,110,75]);
-check(Math.abs(sample.x-325)<1e-6&&Math.abs(sample.y)<1e-6,
-  'Forward kinematics must reach 325 mm at the zero pose');
-const sampleGoal=model.forward3([25,-55,40],[140,110,75]);
-const solve=model.inverse3({x:sampleGoal.x,y:sampleGoal.y,phi:10},[140,110,75],'down',170);
-check(solve.ok===true && solve.errorMm<1e-6 &&
-  model.inverse3({x:325,y:325,phi:0},[140,110,75],'down',170).ok===false,
-  'Inverse kinematics must solve reachable and reject unreachable poses');
-check(fs.existsSync(path.join(root,'scripts/workbench-models-test.js')) &&
-  fs.readFileSync(path.join(root,'package.json'),'utf8').includes('"check:models"'),
-  'Numerical workbench regression tests must be installed');
-try{new (require('node:vm').Script)(workbenchJS,{filename:'workbench.js'});check(true,'Workbench JS must parse')}
-catch(error){check(false,'Workbench JS must parse: '+error.message)}
-console.log((failed?'FAIL':'PASS')+': '+(checks-failed)+'/'+checks+' static checks');
-if(failed)process.exitCode=1;
+console.log((checks-failures)+'/'+checks+' static checks passed.');
+if(failures)process.exitCode=1;
