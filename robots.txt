@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://engrkailani.github.io/sitemap.xml
+Sitemap: https://kailanialarcon.com/sitemap.xml
