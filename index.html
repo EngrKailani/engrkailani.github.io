@@ -24,17 +24,25 @@
 </head>
 <body class="cosmic-home">
 <a class="skip-link" href="#main">Skip to main content</a>
-<header class="site-header">
-  <nav class="nav container" aria-label="Main navigation">
-    <a class="brand" href="index.html" aria-label="Kailani Alarcon portfolio home">Kailani Alarcon</a>
-    <div class="nav-links">
-      <a href="#selected-work">Selected work</a>
+<header class="cosmic-site-header">
+  <nav class="cosmic-site-nav" aria-label="Main navigation">
+    <a class="cosmic-site-brand" href="index.html" aria-label="Kailani Alarcon portfolio home">Kailani Alarcon</a>
+    <div class="cosmic-desktop-links"><a href="#selected-work">Selected work</a>
       <a href="projects/index.html">All projects</a>
       <a href="research.html">Research</a>
       <a href="academic-cv.html">Academic CV</a>
       <a href="resume.html">Résumé</a>
-      <a class="nav-contact" href="#contact">Contact</a>
-    </div>
+      <a href="#contact" class="cosmic-nav-contact">Contact</a></div>
+    
+    <details class="cosmic-mobile-menu">
+      <summary aria-label="Open site navigation">Menu <span aria-hidden="true">☰</span></summary>
+      <div class="cosmic-mobile-links"><a href="#selected-work">Selected work</a>
+        <a href="projects/index.html">All projects</a>
+        <a href="research.html">Research</a>
+        <a href="academic-cv.html">Academic CV</a>
+        <a href="resume.html">Résumé</a>
+        <a href="#contact" class="cosmic-nav-contact">Contact</a></div>
+    </details>
   </nav>
 </header>
 
@@ -72,74 +80,59 @@
 
       <div class="work-grid">
         <article class="work-card">
-          <figure><img class="fit-contain" src="projects/nasa-figures/robotic-arm-geometry.svg" alt="Illustrative diagram of a robotic arm in an enclosure, not original NASA hardware geometry" width="1200" height="760" loading="lazy" decoding="async"></figure>
-          <div class="work-card-content">
-            <p class="project-meta">NASA Marshall · Robotic systems · 2026</p>
-            <h3><a href="projects/nasa.html">Robotic-arm feasibility for lunar-dust testing</a></h3>
-            <p class="work-overview">Independently evaluated the feasibility of reusing an existing robotic arm in a proposed high-vacuum lunar-dust testing application, under NASA mentor oversight.</p>
-            <dl>
-              <div><dt>Methods</dt><dd>Workspace analysis, actuator loading, Python, Creo, requirements and test planning</dd></div>
-              <div><dt>Outcome</dt><dd>34 hierarchical system requirements across six operating scenarios; preliminary shoulder load estimate with documented limitations</dd></div>
-            </dl>
-            <a class="case-link" href="projects/nasa.html">Read case study and scope notes →</a>
-          </div>
-        </article>
+  <figure><img class="fit-contain" src="projects/nasa-figures/robotic-arm-geometry.svg" alt="Illustrative diagram of a robotic arm in an enclosure, not original NASA hardware geometry" width="1200" height="760" loading="lazy" decoding="async"></figure>
+  <div class="work-card-content">
+    <p class="project-meta">NASA Marshall · Robotic systems · 2026</p>
+    <h3><a href="projects/nasa.html">Robotic-arm feasibility for lunar-dust testing</a></h3>
+    <p class="work-overview">Independently assessed an existing robotic arm for proposed lunar-dust testing in high vacuum, under NASA mentor oversight.</p>
+    <p class="work-result"><strong>Documented result</strong> 34 hierarchical system requirements from six operating scenarios; preliminary 3.1 N·m shoulder self-load moment with documented limitations.</p>
+    <a class="case-link" href="projects/nasa.html">Read case study and scope notes →</a>
+  </div>
+</article>
 
         <article class="work-card">
-          <figure><img class="fit-contain" src="projects/directory-thumbnails/leg.svg" alt="Schematic illustration of a modeled three-link mechanical system" width="960" height="540" loading="lazy" decoding="async"></figure>
-          <div class="work-card-content">
-            <p class="project-meta">UNR Honors research · Jan–May 2025</p>
-            <h3><a href="projects/leg.html">Three-link human-leg modeling</a></h3>
-            <p class="work-overview">Completed a student-initiated, faculty-mentored investigation of multi-link kinematics and simplified joint dynamics.</p>
-            <dl>
-              <div><dt>Methods</dt><dd>MATLAB, Simulink Level-2 S-function, forward kinematics, Jacobians, rigid-body dynamics</dd></div>
-              <div><dt>Outcome</dt><dd>Simulated foot position, Cartesian velocity, and approximate joint torque from model states</dd></div>
-            </dl>
-            <a class="case-link" href="projects/leg.html">Read research case study →</a>
-          </div>
-        </article>
+  <figure><img class="fit-contain" src="projects/directory-thumbnails/leg.svg" alt="Schematic illustration of a modeled three-link mechanical system" width="960" height="540" loading="lazy" decoding="async"></figure>
+  <div class="work-card-content">
+    <p class="project-meta">UNR Honors research · Jan–May 2025</p>
+    <h3><a href="projects/leg.html">Three-link human-leg modeling</a></h3>
+    <p class="work-overview">Modeled a three-link leg using MATLAB, Simulink, kinematics, and Jacobians in student-initiated, faculty-mentored Honors research.</p>
+    <p class="work-result"><strong>Documented result</strong> Simulated foot position, Cartesian velocity, and approximate joint torque; no independent hardware validation.</p>
+    <a class="case-link" href="projects/leg.html">Read research case study →</a>
+  </div>
+</article>
 
         <article class="work-card">
-          <figure><img class="fit-contain" src="projects/thermal/media/logger-interface-concept.svg" alt="Illustrative interface for thermal data logging, showing synthetic rather than measured curves" width="1280" height="700" loading="lazy" decoding="async"></figure>
-          <div class="work-card-content">
-            <p class="project-meta">LUX Dynamics · Test automation · 2025–2026</p>
-            <h3><a href="projects/thermal.html">Thermal controller and data logger</a></h3>
-            <p class="work-overview">Built Python-based tooling to organize engineering thermal tests and improve repeatable data capture and reporting.</p>
-            <dl>
-              <div><dt>Methods</dt><dd>Python, Arduino, Pico TC-08, temperature acquisition, visualization and reporting</dd></div>
-              <div><dt>Outcome</dt><dd>Workflow supporting eight thermocouple channels, temperature trends and CSV/Excel exports; measurement accuracy was not independently revalidated</dd></div>
-            </dl>
-            <a class="case-link" href="projects/thermal.html">Read automation case study →</a>
-          </div>
-        </article>
+  <figure><img class="fit-contain" src="projects/thermal/media/logger-interface-concept.svg" alt="Illustrative interface for thermal data logging, showing synthetic rather than measured curves" width="1280" height="700" loading="lazy" decoding="async"></figure>
+  <div class="work-card-content">
+    <p class="project-meta">LUX Dynamics · Test automation · 2025–2026</p>
+    <h3><a href="projects/thermal.html">Thermal controller and data logger</a></h3>
+    <p class="work-overview">Built Python and Arduino tools to standardize thermal testing and data capture at LUX Dynamics.</p>
+    <p class="work-result"><strong>Documented result</strong> Workflow supporting eight thermocouple channels, temperature trends, and CSV/Excel reporting; measurement accuracy was not independently revalidated.</p>
+    <a class="case-link" href="projects/thermal.html">Read automation case study →</a>
+  </div>
+</article>
 
         <article class="work-card">
-          <figure><img src="assets/VNA.jpg" alt="Technical instrumentation associated with a virtual network analyzer project" width="1200" height="760" loading="lazy" decoding="async"></figure>
-          <div class="work-card-content">
-            <p class="project-meta">UNR Honors research · Jan–May 2025</p>
-            <h3><a href="projects/vna.html">Virtual network analyzer and radar measurements</a></h3>
-            <p class="work-overview">Developed a MATLAB-based two-port virtual VNA workflow for stepped-frequency radar measurement and calibration.</p>
-            <dl>
-              <div><dt>Methods</dt><dd>MATLAB, S-parameters, 12-term SOLT calibration, stepped-frequency measurements</dd></div>
-              <div><dt>Outcome</dt><dd>236 frequency points spanning 100 MHz to 6 GHz, with corrected visualization and Touchstone exports</dd></div>
-            </dl>
-            <a class="case-link" href="projects/vna.html">Read measurement case study →</a>
-          </div>
-        </article>
+  <figure><img src="assets/VNA.jpg" alt="Technical instrumentation associated with a virtual network analyzer project" width="1200" height="760" loading="lazy" decoding="async"></figure>
+  <div class="work-card-content">
+    <p class="project-meta">UNR Honors research · Jan–May 2025</p>
+    <h3><a href="projects/vna.html">Virtual network analyzer and radar measurements</a></h3>
+    <p class="work-overview">Developed a MATLAB-based virtual two-port VNA for stepped-frequency radar measurements and calibration.</p>
+    <p class="work-result"><strong>Documented result</strong> 236 frequency points from 100 MHz to 6 GHz, 12-term SOLT calibration, and Touchstone export.</p>
+    <a class="case-link" href="projects/vna.html">Read measurement case study →</a>
+  </div>
+</article>
 
         <article class="work-card">
-          <figure><img class="fit-contain" src="projects/iverify/media/exploded-concept.svg" alt="Illustrative assembly diagram of an engineering capstone prototype, not a clinically validated medical product" width="1280" height="720" loading="lazy" decoding="async"></figure>
-          <div class="work-card-content">
-            <p class="project-meta">Senior capstone · Systems integration · Spring 2026</p>
-            <h3><a href="projects/iverify.html">IVerify noninvasive sensing prototype</a></h3>
-            <p class="work-overview">Led systems integration for a four-person team developing a proof-of-concept system for detecting possible IV tubing occlusion.</p>
-            <dl>
-              <div><dt>Methods</dt><dd>Embedded sensing, analog electronics, firmware, requirements traceability and bench testing</dd></div>
-              <div><dt>Outcome</dt><dd>Integrated a bench prototype with repeatable force-response sensing and two-LED indication; no clinical validation</dd></div>
-            </dl>
-            <a class="case-link" href="projects/iverify.html">Read capstone case study →</a>
-          </div>
-        </article>
+  <figure><img class="fit-contain" src="projects/iverify/media/exploded-concept.svg" alt="Illustrative assembly diagram of an engineering capstone prototype, not a clinically validated medical product" width="1280" height="720" loading="lazy" decoding="async"></figure>
+  <div class="work-card-content">
+    <p class="project-meta">Senior capstone · Systems integration · Spring 2026</p>
+    <h3><a href="projects/iverify.html">IVerify noninvasive sensing prototype</a></h3>
+    <p class="work-overview">Led systems integration for a four-person team developing a noninvasive IV occlusion sensing prototype.</p>
+    <p class="work-result"><strong>Documented result</strong> Bench prototype with repeatable force-response sensing and two-LED indication; no clinical validation.</p>
+    <a class="case-link" href="projects/iverify.html">Read capstone case study →</a>
+  </div>
+</article>
       </div>
 
       <p class="archive-link">Looking for embedded systems, FPGA design, or additional control projects? <a href="projects/index.html">Explore the full project archive</a>.</p>
@@ -189,7 +182,7 @@
       <div>
         <p class="eyebrow">Research direction</p>
         <h2 id="research-title">Reliable manipulation in uncertain environments.</h2>
-        <p>My prospective graduate research interests are space robotic manipulation, sensor fusion, state estimation, and contact-aware control. I am interested in how robots can recognize uncertain conditions, adapt their behavior, and support astronauts during lunar or planetary operations.</p>
+        <p>I want to understand when robots can safely complete manipulation tasks despite incomplete sensing and variable contact. My interests include sensor fusion, state estimation, and contact-aware control for lunar and planetary operations, including work alongside astronauts.</p>
         <p>These are research interests and proposed questions, not claims of completed doctoral experiments. My publicly documented project work is separated from future research concepts.</p>
         <div class="research-links">
           <a href="research.html">Research interests and questions →</a>
@@ -212,7 +205,7 @@
       <div>
         <p class="eyebrow">Technical foundation</p>
         <h2 id="about-title">Engineering tools and methods.</h2>
-        <p>My work brings together modeling, embedded systems, experiments, and careful verification. I prefer documenting not only what a system can do, but also what remains untested.</p>
+        <p>Space exploration has always captured my curiosity. I enjoy the engineering that turns ambitious ideas into systems we can model, build, measure, and trust, while being clear about what remains untested.</p>
         <p class="career-note">NASA case studies describe personal internship contributions and do not represent official NASA endorsements, released hardware designs, or verified flight systems. Illustrative diagrams are labeled where used.</p>
       </div>
       <div>
