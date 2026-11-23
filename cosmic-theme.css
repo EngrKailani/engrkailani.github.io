@@ -337,3 +337,147 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
   body:is(.cosmic-resume,.project-page,.research-page,.wb-page){background:white;color:black}
   .cosmic-site-header,.cosmic-shared-toggle{display:none!important}
 }
+
+
+/* Dark-mode legibility repair (Nov 2026).
+   The site has older component styles with hard-coded light-mode colors.
+   Override only their dark appearance, preserving illustrations and print paper. */
+:root[data-theme="dark"] body.cosmic-home :is(
+  .section-head p,.research-grid p,.about-grid p,.experience-copy p,
+  .work-card p,.study-list span,.skill-list li,.career-note,
+  .archive-link,.work-result,.hero-detail
+){color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.cosmic-home :is(
+  .section h2,.section h3,.work-card h3 a,.work-result strong,
+  .experience-copy h3,.study-list strong,.skill-list strong,
+  .research-links a,.archive-link a,.work-card .case-link
+){color:var(--cosmic-ink)}
+:root[data-theme="dark"] body.cosmic-home :is(
+  .section .eyebrow,.work-card .project-meta,.experience-date,
+  .experience-copy .organization,.research-links a:hover,.footer-signoff
+){color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.cosmic-home .work-card :is(.case-link,.work-result strong){color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.cosmic-home .work-card .project-meta::before{color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.cosmic-home .work-card dt{color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.cosmic-home .site-footer :is(p,a,.footer-signoff){color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.cosmic-home .footer-links a:hover{color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.cosmic-home .work-card figure{background:#33283f}
+:root[data-theme="dark"] body.cosmic-home .hero :is(.eyebrow,.hero-highlight,.hero-personal){color:#f8c3df}
+:root[data-theme="dark"] body.cosmic-home .hero :is(.hero-lead,.hero-detail,.hero-photo figcaption){color:#f3e3f1}
+:root[data-theme="dark"] body.cosmic-home .contact-section :is(.button-primary){background:#f6c9e2;color:#2a1c35;border-color:#f6c9e2}
+:root[data-theme="dark"] body.cosmic-home .contact-section :is(.button-outline){color:#fff8fc;border-color:#dca5c8}
+
+/* Project index: the archive cards still carried permanent near-white backgrounds
+   with permanent charcoal labels, resulting in invisible dark-mode labels. */
+:root[data-theme="dark"] body.project-page :is(
+  .featured-project-card,.detail-card,.detail-panel,.detail-results,
+  .directory-toolbar,.directory-empty,.project-evidence-first,
+  .project-evidence-first__item,.nasa-disclaimer,
+  .nasa-evidence-map,.nasa-figure,.nasa-workstreams,
+  .case-next-step,.project-evidence,.case-contact
+){
+  background-color:var(--cosmic-paper);
+  border-color:var(--cosmic-line);
+  color:var(--cosmic-ink);
+}
+:root[data-theme="dark"] body.project-page :is(
+  .detail-panel,.detail-results,.project-evidence-first,
+  .project-evidence-first__item,.nasa-disclaimer,.case-next-step
+){background:var(--cosmic-soft)}
+:root[data-theme="dark"] body.project-page :is(
+  .featured-project-card strong,.featured-project-card h2,
+  .featured-project-card h3,.detail-card h2,.detail-card h3,
+  .detail-panel h2,.detail-results h2,.detail-heading h1,
+  .project-evidence-first strong,.directory-group h2,
+  .nasa-workstreams h3,.project-paper h2,.project-paper h3
+){color:var(--cosmic-ink)}
+:root[data-theme="dark"] body.project-page :is(
+  .featured-project-card small,.featured-project-card p,
+  .detail-card p,.detail-panel p,.detail-results p,
+  .detail-heading p,.directory-intro,.directory-evidence,
+  .project-evidence-first p,.nasa-disclaimer p,
+  .nasa-workstreams p,.nasa-evidence-map__note,
+  .case-next-step p,.project-evidence p,.detail-footer
+){color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.project-page :is(
+  .featured-project-card .featured-category,
+  .featured-project-card .featured-more,
+  .directory-card-badge,.directory-evidence__label,
+  .detail-panel h2,.detail-results h2,
+  .directory-breadcrumb a,.detail-jump a,
+  .project-reading-shortcuts a,.case-contact a,
+  .detail-home-link,.project-evidence-first__eyebrow
+){color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.project-page .directory-card-visual{
+  background-color:#f4edf4;
+  border-color:var(--cosmic-line);
+}
+:root[data-theme="dark"] body.project-page .directory-card-visual--paper{
+  background-color:#faf8fc;
+}
+:root[data-theme="dark"] body.project-page :is(
+  .directory-filter-set button,.directory-clear,
+  .project-reading-shortcuts,.detail-jump
+){border-color:var(--cosmic-line)}
+:root[data-theme="dark"] body.project-page :is(.footer,.footer-inner){background:var(--cosmic-bg)}
+:root[data-theme="dark"] body.project-page .footer :is(p,a,.footer-logo){color:var(--cosmic-muted)}
+
+/* Research: keep muted copy legible in panels, result boxes and navigation. */
+:root[data-theme="dark"] body.research-page :is(
+  .research-theme-card,.research-study,.research-question,
+  .research-writing-card,.cv-paper,.research-concept__grid article
+){background:var(--cosmic-paper);color:var(--cosmic-ink);border-color:var(--cosmic-line)}
+:root[data-theme="dark"] body.research-page :is(
+  .research-disclosure,.research-jumps,.research-study .research-result,
+  .research-question-metrics,.research-concept__intro,.research-concept__boundary,
+  .cv-original-note,.cv-status
+){background:var(--cosmic-soft);color:var(--cosmic-muted);border-color:var(--cosmic-line)}
+:root[data-theme="dark"] body.research-page :is(
+  .research-theme-card h3,.research-study h3,.research-question h3,
+  .research-writing-card h3,.research-concept h3,.research-next h2,
+  .research-section-heading h2,.research-result strong,
+  .research-concept__intro strong,.research-question-metrics strong,
+  .cv-paper h1,.cv-paper h2,.cv-paper h3
+){color:var(--cosmic-ink)}
+:root[data-theme="dark"] body.research-page :is(
+  .research-deck,.research-section-heading p,.research-theme-card p,
+  .research-study p,.research-question p,.research-writing-card p,
+  .research-question-metrics span,.research-concept__intro p,
+  .research-concept__boundary,.cv-meta,.cv-entry-date,.cv-note
+){color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.research-page :is(
+  .research-eyebrow,.research-meta,.research-card-index,
+  .research-status,.research-study a,.research-writing-card a,
+  .cv-contact a,.cv-section a,.cv-heading .cv-focus
+){color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.research-page .research-hero-visual{color:#f4dfef}
+:root[data-theme="dark"] body.research-page .research-footer{background:var(--cosmic-soft)}
+:root[data-theme="dark"] body.research-page .research-footer :is(p,a){color:var(--cosmic-muted)}
+
+/* Workbench instrument graphics intentionally remain dark; labels around them
+   must follow the theme instead of inheriting hard-coded grey or pink. */
+:root[data-theme="dark"] body.wb-page :is(
+  .wb-intro-copy,.wb-disclaimer,.wb-control-note,.wb-project-link,
+  .wb-session,.wb-method>p,.wb-panel-heading p,
+  .wb-breadcrumb,.wb-readouts span,.wb-channel-readouts span,
+  .wb-footer p,.wb-footer a
+){color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.wb-page :is(
+  .wb-panel h2,.wb-panel h3,.wb-advanced summary,
+  .wb-model-note summary,.wb-field,.wb-control-title
+){color:var(--cosmic-ink)}
+:root[data-theme="dark"] body.wb-page :is(
+  .wb-project-link a,.wb-eyebrow,.wb-control-title span,.wb-field output
+){color:var(--cosmic-accent)}
+:root[data-theme="dark"] body.wb-page .wb-button-primary{
+  background:#ad5b85;color:#fff!important;border-color:#d69ab9
+}
+:root[data-theme="dark"] body.wb-page .wb-small-button{
+  background:#ad5b85;color:#fff;border-color:#d69ab9
+}
+@media print{
+  :root[data-theme="dark"] body.project-page :is(.detail-card,.detail-panel,.detail-results),
+  :root[data-theme="dark"] body.research-page :is(.cv-paper,.research-study,.research-writing-card){
+    color:#111;background:#fff;border-color:#bbb
+  }
+}
