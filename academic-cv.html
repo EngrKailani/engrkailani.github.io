@@ -8,22 +8,7 @@
 <title>Academic CV | Kailani P. Alarcon</title>
 <link rel="stylesheet" href="professional-home.css?v=20261123">
 <link rel="stylesheet" href="cosmic-theme.css?v=20261123-access5">
-<style>
-.pdf-only{width:min(1120px,calc(100% - 36px));margin:clamp(22px,4vw,42px) auto 64px;color:var(--cosmic-ink)}
-.pdf-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}
-.pdf-top h1{font:600 clamp(1.8rem,3vw,2.45rem)/1.2 Georgia,serif;margin:0}
-.pdf-actions{display:flex;flex-wrap:wrap;gap:10px}
-.pdf-actions a{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;border:1px solid var(--cosmic-line);background:var(--cosmic-soft);color:var(--cosmic-ink);text-decoration:none;font-weight:700}
-.pdf-actions a:first-child{background:var(--cosmic-accent);border-color:var(--cosmic-accent);color:var(--cosmic-bg)}
-.pdf-actions a:hover{filter:brightness(.93)}
-.pdf-actions a:focus-visible{outline:3px solid var(--cosmic-accent);outline-offset:3px}
-.pdf-actions a[hidden],.pdf-frame[hidden]{display:none!important}
-.pdf-frame{display:block;width:100%;height:min(86vh,1100px);min-height:620px;background:#fff;border:1px solid var(--cosmic-line);border-radius:12px}
-.pdf-status{font-size:.94rem;color:var(--cosmic-muted);padding:15px 17px;margin:14px 0 0;border:1px solid var(--cosmic-line);border-radius:10px;background:var(--cosmic-soft)}
-.pdf-only .pdf-top + .pdf-frame{margin-top:10px}
-@media(max-width:700px){.pdf-frame{display:none!important}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-status{margin-top:18px}}
-@media print{.pdf-frame{display:none}.pdf-only{margin:20px auto}.pdf-status{display:none}}
-</style>
+<link rel="stylesheet" href="pdf-page.css?v=20261123-clean1">
 </head>
 <body class="cosmic-resume">
 <a class="skip-link" href="#main">Skip to PDF</a>
@@ -42,14 +27,13 @@
 <a href="resume.html" >Résumé</a>
 <a href="index.html#contact" class="cosmic-nav-contact">Contact</a>
 </div></details></nav></header>
-<main class="pdf-only" id="main" data-pdf-url="assets/Kailani_Alarcon_CV.pdf">
+<main class="pdf-only" id="main">
 <div class="pdf-top"><h1>Academic CV</h1><div class="pdf-actions">
-<a data-pdf-action hidden href="assets/Kailani_Alarcon_CV.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
-<a data-pdf-action hidden href="assets/Kailani_Alarcon_CV.pdf" download>Download PDF</a>
+<a href="assets/Kailani_Alarcon_CV.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+<a href="assets/Kailani_Alarcon_CV.pdf" download>Download PDF</a>
 </div></div>
-<iframe data-pdf-frame hidden class="pdf-frame" title="Kailani P. Alarcon Academic CV original PDF"></iframe>
-<p class="pdf-status" role="status" aria-live="polite" data-pdf-status>Checking document availability…</p>
+<iframe class="pdf-frame" src="assets/Kailani_Alarcon_CV.pdf#view=FitH" loading="lazy" title="Kailani P. Alarcon Academic CV original PDF"></iframe>
+<p class="pdf-help">If the document does not display in your browser, use Open PDF or Download PDF above.</p>
 </main>
 <script src="unified-theme.js" defer></script>
-<script src="pdf-viewer.js?v=20261123" defer></script>
 </body></html>
