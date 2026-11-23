@@ -127,7 +127,7 @@ check(cv.includes('Spring 2027 registered coursework (upcoming)') &&
   cv.includes('foundational hands-on exposure to ROS 2 and MuJoCo'),
   'Academic CV should clearly distinguish future coursework and tool exposure');
 check(resume.includes('Spring 2027 registered (upcoming)') &&
-  resume.includes('two publicly available industry white papers'),
+  resume.includes('two industry white papers') && resume.includes('Lunar Regolith Surface Contamination Image Analysis') && resume.includes('Space Nuclear Propulsion'),
   'Resume should preserve upcoming coursework and publication type');
 check(sitemap.includes('<loc>'+domain+'/</loc>') &&
   sitemap.includes('<loc>'+domain+'/projects/</loc>') &&
