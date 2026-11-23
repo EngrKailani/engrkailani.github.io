@@ -7,9 +7,8 @@
 .pdf-actions a:first-child{background:var(--cosmic-accent);border-color:var(--cosmic-accent);color:var(--cosmic-bg)}
 .pdf-actions a:hover{filter:brightness(.93)}
 .pdf-actions a:focus-visible{outline:3px solid var(--cosmic-accent);outline-offset:3px}
-.pdf-actions a[hidden],.pdf-frame[hidden]{display:none!important}
 .pdf-frame{display:block;width:100%;height:min(86vh,1100px);min-height:620px;background:#fff;border:1px solid var(--cosmic-line);border-radius:12px}
-.pdf-status{font-size:.94rem;color:var(--cosmic-muted);padding:15px 17px;margin:14px 0 0;border:1px solid var(--cosmic-line);border-radius:10px;background:var(--cosmic-soft)}
+.pdf-help{font-size:.94rem;color:var(--cosmic-muted);padding:12px 0;margin:12px 0 0}
 .pdf-only .pdf-top + .pdf-frame{margin-top:10px}
-@media(max-width:700px){.pdf-frame{display:none!important}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-status{margin-top:18px}}
-@media print{.pdf-frame{display:none}.pdf-only{margin:20px auto}.pdf-status{display:none}}
+@media(max-width:700px){.pdf-frame{display:none!important}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-help{margin-top:18px}}
+@media print{.pdf-frame{display:none}.pdf-only{margin:20px auto}.pdf-help{display:none}}
