@@ -9,16 +9,20 @@
 <link rel="stylesheet" href="professional-home.css?v=20261123">
 <link rel="stylesheet" href="cosmic-theme.css?v=20261123-contrast3">
 <style>
-.pdf-only{width:min(1120px,calc(100% - 36px));margin:32px auto 60px;color:var(--cosmic-ink)}
+.pdf-only{width:min(1120px,calc(100% - 36px));margin:clamp(22px,4vw,42px) auto 64px;color:var(--cosmic-ink)}
 .pdf-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}
-.pdf-top h1{font:600 clamp(1.7rem,3vw,2.45rem)/1.2 Georgia,serif;margin:0}
+.pdf-top h1{font:600 clamp(1.8rem,3vw,2.45rem)/1.2 Georgia,serif;margin:0}
 .pdf-actions{display:flex;flex-wrap:wrap;gap:10px}
-.pdf-actions a{display:inline-flex;min-height:44px;align-items:center;padding:10px 17px;border-radius:999px;border:1px solid var(--cosmic-line);background:var(--cosmic-soft);color:var(--cosmic-ink);text-decoration:none;font-weight:700}
+.pdf-actions a{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;border:1px solid var(--cosmic-line);background:var(--cosmic-soft);color:var(--cosmic-ink);text-decoration:none;font-weight:700}
 .pdf-actions a:first-child{background:var(--cosmic-accent);border-color:var(--cosmic-accent);color:var(--cosmic-bg)}
-.pdf-actions a:hover{filter:brightness(.94)}
-.pdf-frame{display:block;width:100%;height:min(86vh,1160px);min-height:650px;background:#fff;border:1px solid var(--cosmic-line);border-radius:12px}
-.pdf-help{font-size:.92rem;margin-top:14px;color:var(--cosmic-muted)}
-@media(max-width:650px){.pdf-frame{height:75vh;min-height:440px}.pdf-top{align-items:flex-start}}
+.pdf-actions a:hover{filter:brightness(.93)}
+.pdf-actions a:focus-visible{outline:3px solid var(--cosmic-accent);outline-offset:3px}
+.pdf-actions a[hidden],.pdf-frame[hidden]{display:none!important}
+.pdf-frame{display:block;width:100%;height:min(86vh,1100px);min-height:620px;background:#fff;border:1px solid var(--cosmic-line);border-radius:12px}
+.pdf-status{font-size:.94rem;color:var(--cosmic-muted);padding:15px 17px;margin:14px 0 0;border:1px solid var(--cosmic-line);border-radius:10px;background:var(--cosmic-soft)}
+.pdf-only .pdf-top + .pdf-frame{margin-top:10px}
+@media(max-width:700px){.pdf-frame{display:none!important}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-status{margin-top:18px}}
+@media print{.pdf-frame{display:none}.pdf-only{margin:20px auto}.pdf-status{display:none}}
 </style>
 </head>
 <body class="cosmic-resume">
@@ -38,11 +42,14 @@
 <a href="resume.html" aria-current="page">Résumé</a>
 <a href="index.html#contact" class="cosmic-nav-contact">Contact</a>
 </div></details></nav></header>
-<main class="pdf-only" id="main">
-<div class="pdf-top"><h1>Résumé</h1>
-<div class="pdf-actions"><a href="assets/Kailani_Alarcon_Resume.pdf" download>Download PDF</a><a href="assets/Kailani_Alarcon_Resume.pdf" target="_blank" rel="noopener">Open PDF in new tab</a></div></div>
-<iframe class="pdf-frame" src="assets/Kailani_Alarcon_Resume.pdf#view=FitH" title="Kailani P. Alarcon Résumé PDF"></iframe>
-<p class="pdf-help">If the document does not appear in your browser, use Open PDF in new tab or Download PDF.</p>
+<main class="pdf-only" id="main" data-pdf-url="assets/Kailani_Alarcon_Resume.pdf">
+<div class="pdf-top"><h1>Résumé</h1><div class="pdf-actions">
+<a data-pdf-action hidden href="assets/Kailani_Alarcon_Resume.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+<a data-pdf-action hidden href="assets/Kailani_Alarcon_Resume.pdf" download>Download PDF</a>
+</div></div>
+<iframe data-pdf-frame hidden class="pdf-frame" title="Kailani P. Alarcon Résumé original PDF"></iframe>
+<p class="pdf-status" role="status" aria-live="polite" data-pdf-status>Checking document availability…</p>
 </main>
 <script src="unified-theme.js" defer></script>
+<script src="pdf-viewer.js?v=20261123" defer></script>
 </body></html>
