@@ -8,6 +8,14 @@
   const count=document.getElementById('directory-count');
   const empty=document.getElementById('directory-empty');
   const clearFilters=document.getElementById('directory-clear');
+  const copyLink=document.getElementById('directory-copy-link');
+  const shareStatus=document.getElementById('directory-share-status');
+  const normalize=term=>(term||'').toLowerCase().normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9+#]+/g,' ').trim();
+  // Include visible case-study summaries and individually verified tool/method terms.
+  // Cache each index once rather than walking the full card DOM on every keystroke.
+  const searchIndex=new Map(cards.map(card=>[card,
+    normalize(card.textContent+' '+(card.dataset.galleryKeywords||''))]));
   const validCategories=new Set(buttons.map(button=>button.dataset.galleryFilter));
   let category='all';
   // A filtered project directory has its own shareable address.
@@ -32,11 +40,14 @@
     if(next!==current)history[method==='push'?'pushState':'replaceState'](history.state,'',next);
   }
   function updateDirectory(){
-    const q=(search?.value||'').trim().toLowerCase();
+    // Match all query words in any order. Punctuation and accented letters
+    // do not prevent discovery of verified technical terms.
+    const terms=normalize(search?.value||'').split(/\s+/).filter(Boolean);
     let visible=0;
     cards.forEach(card=>{
       const matchType=category==='all'||(card.dataset.galleryCategory||'').split(' ').includes(category);
-      const matchQuery=!q||card.textContent.toLowerCase().includes(q);
+      const index=searchIndex.get(card)||'';
+      const matchQuery=terms.every(term=>index.includes(term));
       card.hidden=!(matchType&&matchQuery);
       if(!card.hidden)visible++;
     });
@@ -46,7 +57,9 @@
     });
     if(count)count.textContent='Showing '+visible+' of '+cards.length+' engineering projects';
     if(empty)empty.hidden=visible!==0;
-    if(clearFilters)clearFilters.hidden=category==='all'&&!q;
+    if(clearFilters)clearFilters.hidden=category==='all'&&!terms.length;
+    if(copyLink)copyLink.textContent='Copy view link';
+    if(shareStatus)shareStatus.textContent='';
   }
   function resetDirectory(){
     const changed=category!=='all'||!!search?.value.trim();
@@ -82,6 +95,17 @@
   }));
   document.getElementById('directory-reset')?.addEventListener('click',resetDirectory);
   clearFilters?.addEventListener('click',resetDirectory);
+  copyLink?.addEventListener('click',async()=>{
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(location.href);
+      copyLink.textContent='Link copied';
+      if(shareStatus)shareStatus.textContent='Copied a link to this project view.';
+    }catch(_){
+      if(shareStatus)shareStatus.textContent=
+        'Copying is unavailable here. Share this view using the browser address bar.';
+    }
+  });
   window.addEventListener('popstate',()=>{
     if(!cards.length)return;
     restoreDirectoryFromUrl();
