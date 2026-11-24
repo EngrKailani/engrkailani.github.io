@@ -19,7 +19,7 @@
     if(search)search.value=query.get('q')||'';
     buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.galleryFilter===category)));
   }
-  function saveDirectoryToUrl(){
+  function saveDirectoryToUrl(method='replace'){
     if(!cards.length)return;
     const url=new URL(location.href);
     if(category==='all')url.searchParams.delete('area');
@@ -27,7 +27,9 @@
     const query=search?.value.trim()||'';
     if(query)url.searchParams.set('q',query);
     else url.searchParams.delete('q');
-    history.replaceState(history.state,'',url.pathname+url.search+url.hash);
+    const next=url.pathname+url.search+url.hash;
+    const current=location.pathname+location.search+location.hash;
+    if(next!==current)history[method==='push'?'pushState':'replaceState'](history.state,'',next);
   }
   function updateDirectory(){
     const q=(search?.value||'').trim().toLowerCase();
@@ -47,19 +49,36 @@
     if(clearFilters)clearFilters.hidden=category==='all'&&!q;
   }
   function resetDirectory(){
+    const changed=category!=='all'||!!search?.value.trim();
     if(search)search.value='';
     category='all';
     buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.galleryFilter==='all')));
     updateDirectory();
-    saveDirectoryToUrl();
+    saveDirectoryToUrl(changed?'push':'replace');
     search?.focus();
   }
   search?.addEventListener('input',()=>{updateDirectory();saveDirectoryToUrl()});
+  search?.addEventListener('keydown',event=>{
+    if(event.key==='Escape' && search.value){
+      event.preventDefault();
+      search.value='';
+      updateDirectory();
+      saveDirectoryToUrl('push');
+    }
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='/' || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || !search)return;
+    const focused=document.activeElement;
+    if(focused && (focused.matches('input, textarea, select') || focused.isContentEditable))return;
+    event.preventDefault();
+    search.focus();
+  });
   buttons.forEach(button=>button.addEventListener('click',()=>{
+    if(category===button.dataset.galleryFilter)return;
     category=button.dataset.galleryFilter;
     buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
     updateDirectory();
-    saveDirectoryToUrl();
+    saveDirectoryToUrl('push');
   }));
   document.getElementById('directory-reset')?.addEventListener('click',resetDirectory);
   clearFilters?.addEventListener('click',resetDirectory);
