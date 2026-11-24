@@ -12,5 +12,5 @@
 .pdf-mobile-note{display:none;font-size:.96rem;line-height:1.65;color:var(--cosmic-ink);background:var(--cosmic-soft);border:1px solid var(--cosmic-line);border-radius:12px;padding:16px;margin:16px 0 0}
 .pdf-help{font-size:.94rem;color:var(--cosmic-muted);padding:12px 0;margin:12px 0 0}
 .pdf-only .pdf-top + .pdf-frame{margin-top:10px}
-@media(max-width:700px){.pdf-frame{display:none!important}.pdf-mobile-note{display:block}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-help{margin-top:18px}}
+@media(max-width:700px){.pdf-frame{display:none!important}.pdf-mobile-note{display:block}.pdf-help{display:none}.pdf-top{align-items:flex-start}.pdf-actions{width:100%}.pdf-actions a{flex:1 1 180px}.pdf-help{margin-top:18px}}
 @media print{.pdf-frame{display:none}.pdf-only{margin:20px auto}.pdf-help{display:none}}
