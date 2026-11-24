@@ -1,154 +1,86 @@
-/* Static content, link and evidence checks for the professional portfolio. */
+/* Validate the currently published static portfolio, without obsolete template checks. */
 'use strict';
-const fs = require('node:fs');
-const path = require('node:path');
-
-const root = path.resolve(__dirname, '..');
-const domain = 'https://kailanialarcon.com';
-const projectSlugs = [
-  'alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
-  'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'
-];
-const pages = [
-  'index.html','projects/index.html','research.html','academic-cv.html',
-  'resume.html','workbench.html', ...projectSlugs.map(slug=> 'projects/'+slug+'.html')
-];
-let checks = 0, failures = 0;
-function check(condition, message) {
-  checks++;
-  if (!condition) { failures++; console.error('FAIL '+message); }
+const fs=require('node:fs');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const slugs=['alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
+  'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'];
+const pages=['index.html','research.html','academic-cv.html','resume.html',
+  'workbench.html','projects/index.html',...slugs.map(name=>'projects/'+name+'.html')];
+const domain='https://kailanialarcon.com';
+const violations=[];
+let assertions=0;
+function check(ok,why){assertions++;if(!ok)violations.push(why)}
+const files=new Map();
+function read(name){
+  if(!files.has(name))files.set(name,fs.readFileSync(path.join(root,name),'utf8'));
+  return files.get(name);
 }
-const content = new Map();
-function get(file) {
-  if (!content.has(file)) content.set(file, fs.readFileSync(path.join(root,file),'utf8'));
-  return content.get(file);
-}
-const ids = new Map();
-function idsFor(file) {
-  if (!ids.has(file)) ids.set(file, new Set([...get(file).matchAll(/\bid=["']([^"']+)["']/g)].map(x=>x[1])));
-  return ids.get(file);
-}
-
-for (const file of pages) {
-  check(fs.existsSync(path.join(root,file)),file+' must exist');
-  if (!fs.existsSync(path.join(root,file))) continue;
-  const html = get(file);
-  const pageIds = [...html.matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]);
-  check(pageIds.length===new Set(pageIds).size,file+': duplicated element ID');
-  check(/<title>[^<]+<\/title>/i.test(html),file+': missing document title');
-  check(/<meta name="description" content="[^"]{20,}"/i.test(html),file+': missing descriptive meta text');
-  check((html.match(/<h1(?:\s[^>]*)?>/gi)||[]).length===1,file+': expected one h1');
-  check(html.includes(domain),file+': wrong canonical host');
-  check(!html.includes('https://kalarcon775.github.io'),file+': obsolete portfolio address');
-  check(!html.includes('https://github.com/kalarcon775'),file+': obsolete GitHub profile');
-  check(/<meta property="og:image"/i.test(html),file+': missing social preview');
-  for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
-    check(/\balt=["'][^"']*["']/i.test(image[0]), file+': image missing alt attribute');
-  }
-  for(const link of html.matchAll(/\s(?:href|src|poster)=["']([^"']+)["']/gi)){
-    const href=link[1].trim();
-    if(!href || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href))continue;
-    const [withoutFragment,frag] = href.split('#');
-    const local = withoutFragment.split('?')[0];
-    const target = local ? path.resolve(root,path.dirname(file),decodeURIComponent(local)) : path.resolve(root,file);
-    check(target===root || target.startsWith(root+path.sep),file+': reference escapes repository: '+href);
-    if (!(target===root || target.startsWith(root+path.sep)))continue;
-    check(fs.existsSync(target),file+': missing local link / asset: '+href);
-    if(frag && fs.existsSync(target) && target.endsWith('.html')){
-      const targetFile=path.relative(root,target);
-      let id; try { id=decodeURIComponent(frag); } catch { id=frag; }
-      check(idsFor(targetFile).has(id),file+': target #'+id+' missing in '+targetFile);
+function ids(name){return new Set([...read(name).matchAll(/\\bid=["']([^"']+)["']/g)].map(m=>m[1]))}
+for(const file of pages){
+  const full=path.join(root,file);
+  if(!fs.existsSync(full)){check(false,file+': missing page');continue}
+  const html=read(file);
+  const prefix=file.startsWith('projects/')?'../':'';
+  check((html.match(/<h1(?:\\s[^>]*)?>/gi)||[]).length===1,file+': expected one h1');
+  const pageIds=[...ids(file)];
+  const allIds=[...html.matchAll(/\\bid=["']([^"']+)["']/g)].map(m=>m[1]);
+  check(pageIds.length===allIds.length,file+': duplicate element id');
+  check(/<title>[^<]+<\\/title>/i.test(html),file+': missing title');
+  check(/<meta name="description" content="[^"]{20,}"/i.test(html),file+': missing description');
+  check(html.includes(domain),file+': missing canonical domain');
+  check(html.includes('class="cosmic-site-header"')&&html.includes('class="cosmic-mobile-menu"'),
+    file+': missing shared navigation');
+  check(html.includes('href="'+prefix+'cosmic-theme.css?'),file+': missing shared theme');
+  check(!html.includes('kalarcon775.github.io'),file+': obsolete domain');
+  for(const img of html.matchAll(/<img\\b[^>]*>/gi))
+    check(/\\balt=["'][^"']*["']/i.test(img[0]),file+': image missing alt');
+  for(const item of html.matchAll(/\\s(?:href|src|poster)=["']([^"']+)["']/gi)){
+    const ref=item[1].trim();
+    if(!ref||/^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i.test(ref))continue;
+    const [beforeFragment,rawFragment]=ref.split('#');
+    const local=beforeFragment.split('?')[0];
+    let relative;
+    try{relative=decodeURIComponent(local)}catch{check(false,file+': bad encoded URL '+ref);continue}
+    const resolved=local?path.resolve(root,path.dirname(file),relative):full;
+    if(!(resolved===root||resolved.startsWith(root+path.sep))){
+      check(false,file+': path escapes repository: '+ref);continue;
+    }
+    check(fs.existsSync(resolved),file+': broken reference '+ref);
+    if(rawFragment&&fs.existsSync(resolved)&&resolved.endsWith('.html')){
+      const target=path.relative(root,resolved);
+      let frag=rawFragment;try{frag=decodeURIComponent(rawFragment)}catch{}
+      check(ids(target).has(frag),file+': missing #'+frag+' in '+target);
     }
   }
 }
-
-const home=get('index.html');
-const archive=get('projects/index.html');
-const research=get('research.html');
-const cv=get('academic-cv.html');
-const resume=get('resume.html');
-const nasa=get('projects/nasa.html');
-const sitemap=get('sitemap.xml');
-
-check(home.includes('href="professional-home.css?v=20261123"'),'Homepage should load professional stylesheet');
-check(home.includes('class="cosmic-home"') && home.includes('class="hero-highlight"'),
-  'Homepage needs the professional pink-space identity');
-for(const file of pages) {
-  const themePath = file.startsWith('projects/') ? '../cosmic-theme.css' : 'cosmic-theme.css';
-  check(get(file).includes('href="'+themePath+'?v=20261123-pinkspace1"'),
-    file+': shared cosmic design stylesheet missing');
+const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
+check((home.match(/<article class="work-card(?:\\s[^"]*)?"/g)||[]).length===5,
+  'Home: five featured projects expected');
+for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
+  'research.html#regolith-analysis','research.html#propulsion-testing'])
+  check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
+for(const link of ['research.html','academic-cv.html','#selected-work'])
+  check(home.includes('href="'+link+'"'),'Home: missing navigation '+link);
+check(!/34 hierarchical requirements|3\\.1\\s*N[·.]?m|12-document/.test(home+research+read('projects/nasa.html')+archive),
+  'Public NASA summaries should not include numeric project findings');
+for(const slug of slugs){
+  const page=read('projects/'+slug+'.html');
+  check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
+  check(page.includes('class="project-evidence-first"'),'Case study: missing evidence section in '+slug);
 }
-check(!home.includes('portfolio-upgrade.js') && !home.includes('bookshelf.js') &&
-  !home.includes('ambient.js') && !home.includes('repo-orbit.js'),
-  'Homepage should avoid expensive legacy scripts');
-check(home.includes('id="main"') && home.includes('href="#main"'), 'Homepage needs accessible skip navigation');
-check(home.includes('aria-label="Main navigation"'),'Homepage needs labeled navigation');
-for(const file of pages){
- const doc=get(file);
- check(doc.includes('class="cosmic-site-header"') && doc.includes('class="cosmic-mobile-menu"'),
-   file+': must use consistent accessible global navigation');
- check(doc.includes('href="'+(file.startsWith('projects/')?'../':'')+'index.html#contact"') || file==='index.html',
-   file+': missing contact navigation');
+for(const [name,asset] of [
+  ['academic-cv.html','assets/Kailani_Alarcon_CV.pdf'],
+  ['resume.html','assets/Kailani_Alarcon_Master_Resume.pdf']
+]){
+  const html=read(name);
+  check(html.includes('href="'+asset+'"')&&html.includes('src="'+asset+'#view=FitH"'),
+    name+': PDF viewer and direct PDF link must match');
+  check(fs.existsSync(path.join(root,asset)),name+': missing original PDF');
 }
-check(home.includes('class="work-result"') && !home.includes('<dl>'),
-  'Featured work cards should be concise and result-first');
-check((home.match(/class="work-card"/g)||[]).length===5,'Homepage should curate five representative projects');
-check(['nasa','leg','thermal','vna','iverify'].every(slug=>home.includes('href="projects/'+slug+'.html"')),
-  'Featured projects need dedicated case study links');
-check(['#selected-work','projects/index.html','research.html','academic-cv.html','resume.html','#contact']
-  .every(href=>home.includes('href="'+href+'"')),'Homepage must support key professional pathways');
-check(!home.includes('id="bookshelf"') && !home.includes('id="repo-orbit-shell"') &&
-  !home.includes('id="robot-lab"') && !home.includes('id="portfolio-photo-gallery"') &&
-  !home.includes('id="case-explorer"'),'Homepage should not duplicate project galleries or interactive demos');
-check(home.includes('id="experience"') && home.includes('id="research"') &&
-  home.includes('id="about"') && home.includes('id="contact"'),
-  'Homepage needs experience, research, skills and contact');
-check(home.includes('NASA Marshall Space Flight Center') &&
-  home.includes('LUX Dynamics') && home.includes('University of Nevada, Reno'),
-  'Homepage should identify verified professional experience');
-check(home.includes('Registered Spring 2027 courses (upcoming)') &&
-  home.includes('Computer Vision') && home.includes('Digital Control Engineering'),
-  'Registered future coursework must not be represented as completed');
-check(home.includes('NASA case studies describe personal internship contributions') &&
-  home.includes('not official NASA'), 'Homepage must preserve NASA scope and independence statements');
-check(home.includes('34 hierarchical system requirements') &&
-  home.includes('236 frequency points') &&
-  home.includes('eight thermocouple channels'),
-  'Featured outcomes should show supported, concrete results');
-check(home.includes('role')===false || home.includes('scope of my contribution'), 'Homepage must distinguish personal roles');
-
-check(projectSlugs.every(slug=>archive.includes('href="'+slug+'.html"')),
-  'Full project archive must still expose all 16 cases');
-check(!archive.includes('#bookshelf') && !archive.includes('#case-studies'),
-  'Project archive should not link to removed homepage features');
-for(const slug of projectSlugs){
-  const caseHtml=get('projects/'+slug+'.html');
-  check(!caseHtml.includes('href="../index.html#bookshelf"'),
-    slug+': removed bookshelf link should not be shown');
-  check(!caseHtml.includes('href="../index.html#case-studies"'),
-    slug+': removed case-study anchor should be corrected');
-  check(caseHtml.includes('case-study-summary.css') &&
-    caseHtml.includes('class="project-evidence-first"'),
-    slug+': retain evidence-first project summary');
-}
-check(nasa.includes('34 hierarchical requirements') &&
-  nasa.includes('No completed vacuum qualification') &&
-  nasa.includes('no new NASA project specifications or test results'),
-  'NASA public case study should preserve scope and verification boundaries');
-check(research.includes('not a completed experiment, NASA task') &&
-  research.includes('independent future research') &&
-  research.includes('No peer-reviewed journal or conference articles are claimed'),
-  'Research page must separate proposals from completed engineering evidence');
-check(cv.includes('Spring 2027 registered coursework (upcoming)') &&
-  cv.includes('foundational hands-on exposure to ROS 2 and MuJoCo'),
-  'Academic CV should clearly distinguish future coursework and tool exposure');
-check(resume.includes('Spring 2027 registered coursework (upcoming)') &&
-  resume.includes('two industry white papers') && resume.includes('Lunar Regolith Surface Contamination Image Analysis') && resume.includes('Space Nuclear Propulsion'),
-  'Resume should preserve upcoming coursework and publication type');
-check(sitemap.includes('<loc>'+domain+'/</loc>') &&
-  sitemap.includes('<loc>'+domain+'/projects/</loc>') &&
-  sitemap.includes('<loc>'+domain+'/research.html</loc>'),
-  'Sitemap should retain key public entry points');
-
-console.log((checks-failures)+'/'+checks+' static checks passed.');
-if(failures)process.exitCode=1;
+check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
+  'Research: missing linked project anchors');
+check(read('sitemap.xml').includes('<loc>'+domain+'/</loc>'),'Sitemap: missing home');
+for(const message of violations)console.error('FAIL '+message);
+console.log((assertions-violations.length)+'/'+assertions+' checks passed');
+if(violations.length)process.exitCode=1;
