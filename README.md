@@ -54,6 +54,6 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 
 Legacy bookshelf, robotics-lab, and case-explorer runtime files were retired in November 2026 after confirming that no published page loads them. Source CSS required by `build-css.js` is retained because it still generates the case-study CSS bundle. Check the generated stylesheet dependencies before removing any other historic CSS files.
 
-The shared CSS, theme script, and project-directory script use a ten-character Git blob SHA in their `?v=` URLs. When editing those files, update the versions in referencing HTML. The static checker computes each source file's current SHA and rejects stale asset URLs; this prevents visitors from seeing an older cached stylesheet after a deployment.
+Every local CSS and JavaScript file linked by an HTML page uses a ten-character Git blob SHA as the `?v=` cache version. After changing local CSS or JavaScript, run `npm run sync:assets` to automatically refresh all referencing HTML pages. Run `npm run check:assets` to verify that no page has a stale version. GitHub Actions enforces these versions, preventing visitors from receiving outdated cached assets after a deployment.
 
 The current site uses shared navigation, a small theme-switch script, and page-scoped assets. Historical experiments are documented in `docs/portfolio-history.md`; unused legacy script and CV/résumé stylesheets have been retired. Keep project-specific CSS only where referenced.
