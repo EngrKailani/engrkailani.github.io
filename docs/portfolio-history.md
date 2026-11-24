@@ -230,7 +230,7 @@ The visitor journey now starts with a shorter hero that explicitly identifies Ka
 - The interactive **two-shelf bookshelf** is now the first substantial section after the hero. Its 14 book descriptions, animations, keyboard controls, mobile swipe and reading-position behavior remain unchanged.
 - The redundant three-card navigation row is removed.
 - The separate About section is more focused and continues to preserve education, honors, and mentoring context.
-- Featured NASA work remains as a concise one-card highlight with 34 requirements, six scenarios, and the high-vacuum target. Four duplicate expanded project cards and their detail panels were removed from the homepage; the underlying projects and substantive technical descriptions remain available in the books.
+- Featured NASA work was condensed to a single project highlight covering systems requirements, operating scenarios, and vacuum feasibility, with redundant homepage panels removed.
 - The five public GitHub code cards now have short summaries, technology tags, and source links. Longer duplicated card details were removed. Search and category filters remain available behind an optional **Filter or search repositories** control, and both MP4 demonstrations remain referenced as before.
 - CSS reduces unnecessary hero height and card spacing, preserving responsive accessibility and the existing gentle space animation motifs.
 
@@ -365,7 +365,7 @@ This pass makes the page immediately identifiable as an electrical-engineering, 
 - The hero now leads with the engineer's full name, robotics and systems-validation focus, NASA Marshall OSTEM assessment work, and the University of Nevada, Reno electrical-engineering M.S.
 - A small three-column technical focus legend highlights real project categories: robotics/kinematics, STM32/VHDL embedded hardware/firmware, and instrumentation/requirements-driven verification. This is within the hero, not a spacer between sections.
 - The bookshelf is introduced as 16 engineering case studies rather than decorative stories; the existing book pages still contain challenge, methods, tools, outcomes, and sourced project details.
-- The featured NASA case study now explicitly states that it was an **evaluation of a legacy arm**, not deployed hardware. An assessment-path panel shows geometry, actuator limits, and verification. The previously sourced values of 34 requirements, six scenarios, and a 10^-7 torr target are retained.
+- The NASA case study documents a preliminary legacy-arm assessment, not deployed hardware, covering geometry, actuator constraints, and verification needs without numerical project specifications.
 - Technical headings across the code, robot lab, toolkit, and resume sections emphasize engineering purpose, while the interests and personal sections retain warmth. The About paragraph identifies the actual technical domains and the approach of testing assumptions rather than claiming unverified performance.
 
 **Visual engineering language**
@@ -386,7 +386,7 @@ The engineering-focus legend and technical-toolkit section now explicitly name *
 
 Three expanded technical case studies are now placed **within the existing NASA/Engineering Work section** (not as empty separators). Their anchor IDs are case-nasa, case-iverify, and case-controls.
 
-- **NASA robotic-arm assessment:** Illustrates the decision chain from requirements and kinematic reach to actuator constraints and verification planning. Retains the already-documented 34 system requirements, six proposed scenarios, and 1e-7 torr vacuum target. Describes the assessment as an evaluation, not a vacuum-qualified robot or completed qualification tests. The diagram is a conceptual summary of engineering workflow, not a real workspace plot.
+- **NASA robotic-arm assessment:** Illustrates the sequence from requirements and kinematic reach to actuator constraints and verification planning. The diagram is conceptual, not a measured workspace plot or evidence of vacuum qualification.
 - **IVerify senior capstone:** Based on the student's Spring 2026 IVerify Final Report. Explains the force-sensing architecture (clamp/preload -> sensor -> analog conditioning/threshold -> MCU -> LEDs), the student's role in systems integration, and limited bench prototype findings. The report states roughly 5.0 N average preload within about ±10% of the target; two-LED state indications and observed analog threshold changes. It does not report comprehensive sensitivity/false-alarm distributions, demonstrate the complete three-color indicator, or support medical approval. The report and images remain private and were **not uploaded**.
 - **Strain-gauge instrumentation:** Based on the submitted March 2025 EE370L Lab 7 report. Explains amplifier/bridge calibration and the experimental signal chain, with the selected cleaner strummed trace: reported 49.256 Hz, 610 mV peak voltage, and 6.335 ms time constant. These are reported values from a selected trace, not averaged performance data. No fabricated waveform plot or undocumented calibration is added.
 
@@ -405,7 +405,7 @@ User-confirmed scope: ROS2 and Thermal Desktop were both used on **the same NASA
 - **Thermal Desktop:** Used for **thermal modeling of the robotic arm in high vacuum**. The site does not invent temperatures, thermal margins, simulation validation status, or assumed boundary conditions.
 - Updated the portfolio hero, the NASA feature summary, the existing NASA experience timeline, the featured NASA engineering case study, and the corresponding project book to make the tools' specific roles and common NASA project clear.
 - Added two compact tool-use panels *inside* the NASA case study without changing the page's section flow or adding decorative spacers.
-- Preserved the previously grounded 34 system requirements, six planned scenarios, and 10^-7 torr target. These remain scope/constraints, not measured performance or completed qualification outcomes.
+- Preserved the qualitative distinction between requirements, planned operating scenarios, constraints, and completed qualification outcomes.
 - Preserved all 16 book records/two shelves, three technical case studies, all user photos and media, and the background star and flower illustrations.
 
 
@@ -433,7 +433,7 @@ The main navigation links directly to NASA Work, Case Studies, Bookshelf, Code, 
 - Reduced repetition across the NASA hero, feature, and detailed case study; each now serves a different scanning/depth purpose.
 - Replaced the generic NASA case-study workflow figure with a **conceptual parallel-workstreams systems architecture**: design constraints feed ROS2 arm control/calibration and Thermal Desktop steady-state/transient high-vacuum modeling, with the work interpreted in requirements and verification planning. The diagram **does not claim direct ROS2/Thermal Desktop software integration**.
 - Added a dedicated technical status matrix to all three case studies: activities/requirements, methods, and documented result or verification status.
-- NASA status uses the reported 34 requirements and six *planned* test scenarios, without inventing calibration precision, thermal margins, vacuum qualification or completed testing.
+- NASA status distinguishes proposed requirements and testing scenarios from completed calibration or vacuum qualification.
 - IVerify status preserves the senior capstone's preliminary bench findings and distinguishes the two-LED prototype from clinical/three-color requirements.
 - The instrumentation case references the selected EE370L lab waveform and avoids fabricated averaged results.
 - Source reports, NASA internal images, raw data and user-owned media **were not published or modified**.
