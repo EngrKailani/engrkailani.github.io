@@ -23,6 +23,10 @@ jobs:
         run: |
           node scripts/site-check.js
           node scripts/sync-asset-versions.js --check
+      - name: Verify external link inventory without network requests
+        run: |
+          node scripts/external-links.js --inventory
+          node --test scripts/external-links.test.js
 
   browser-quality:
     name: Chromium, CSS, accessibility and Lighthouse

@@ -24,6 +24,8 @@ The workflow uploads:
 - `browser-accessibility-results`: screenshots, Chromium tests and axe findings.
 - `lighthouse-performance-results`: eight Lighthouse JSON reports, a Markdown scorecard and review-target warnings.
 
+The separately scheduled [External link health](.github/workflows/external-links.yml) workflow reviews links to public source repositories, publications, and professional profiles once a week or on manual dispatch. Its inventory step runs without network access as part of static checks. The network audit tries HEAD followed by a lightweight GET if required; HTTP 404/410 responses are marked broken, whereas timeouts, rate limits, authentication blocks, and server errors are **unverified** and need human review. The workflow uploads a Markdown and JSON link report. Third-party availability does not block normal deployment checks.
+
 The review targets—**mobile performance ≥65**, **desktop performance ≥80**, **accessibility ≥95**, **SEO ≥90**—are prompts for inspection, not promises or invented results. Lighthouse scores vary across runners and do not replace real-user monitoring. Every confirmed axe violation is reported by the browser tests.
 
 To repeat the static checks locally:

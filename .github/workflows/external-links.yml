@@ -1,0 +1,32 @@
+name: External link health
+
+on:
+  schedule:
+    - cron: '17 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  outbound-links:
+    name: Review public external links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test URL discovery and link-status classification
+        run: node --test scripts/external-links.test.js
+      - name: Check public external destinations
+        run: node scripts/external-links.js --check
+      - name: Preserve link report for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-link-health
+          path: quality-artifacts/external-links.*
+          if-no-files-found: warn
+          retention-days: 30
