@@ -592,3 +592,14 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 @media(max-width:560px){
   .project-page .case-breadcrumb{gap:5px 8px;font-size:11px}
 }
+
+/* Six featured projects: matching media heights and balanced desktop rows. */
+@media(min-width:761px){
+  .cosmic-home .work-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+  .cosmic-home .work-grid .work-card{height:100%}
+  .cosmic-home .work-grid .work-card>figure{height:clamp(230px,24vw,285px);min-height:0;overflow:hidden}
+  .cosmic-home .work-grid .work-card>figure img{height:100%;aspect-ratio:auto}
+}
+@media(max-width:760px){
+  .cosmic-home .work-grid{grid-template-columns:1fr}
+}
