@@ -57,6 +57,18 @@ for(const file of pages){
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
 check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===5,
   'Home: five featured projects expected');
+
+const featureCards=[...home.matchAll(/<article class="work-card(?:\s[^"]*)?">([\s\S]*?)<\/article>/g)]
+  .map(m=>m[1]);
+check(featureCards.length===5 &&
+  featureCards.every(card=>card.includes('<strong>My contribution:</strong>') &&
+    card.includes('<strong>Methods and limits:</strong>')),
+  'Home: every featured case study needs contribution and evidence-boundary summaries');
+check(home.includes('href="projects/index.html?area=research"'),
+  'Home: faculty-mentored research should be directly discoverable');
+check(!read('cosmic-theme.css').includes('.work-card .project-meta::before'),
+  'Theme: decorative project rank numbering should not return');
+
 for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
   'projects/vna.html','research.html#regolith-analysis'])
   check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
