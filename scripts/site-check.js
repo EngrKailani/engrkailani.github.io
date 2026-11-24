@@ -55,12 +55,12 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
-check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===5,
-  'Home: five featured projects expected');
+check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]) .length===6,
+  'Home: six featured projects expected');
 
 const featureCards=[...home.matchAll(/<article class="work-card(?:\s[^"]*)?">([\s\S]*?)<\/article>/g)]
   .map(m=>m[1]);
-check(featureCards.length===5 &&
+check(featureCards.length===6 &&
   featureCards.every(card=>card.includes('<strong>My contribution:</strong>') &&
     card.includes('<strong>Methods and limits:</strong>')),
   'Home: every featured case study needs contribution and evidence-boundary summaries');
@@ -83,7 +83,7 @@ check(read('cosmic-theme.css').includes('.cosmic-home .evidence-links a') &&
 
 
 for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
-  'projects/vna.html','research.html#regolith-analysis'])
+  'projects/vna.html','projects/thermal.html','research.html#regolith-analysis'])
   check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
 for(const link of ['research.html','academic-cv.html','#selected-work'])
   check(home.includes('href="'+link+'"'),'Home: missing navigation '+link);
