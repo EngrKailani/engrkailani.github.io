@@ -557,3 +557,12 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 :root[data-theme="dark"] body.cosmic-home .section-head a:hover{
   color:var(--cosmic-accent-hover);
 }
+
+/* Link research interests and technical skills to concrete portfolio evidence. */
+.cosmic-home .evidence-links{display:block;margin-top:8px;font-size:.8rem;line-height:1.75;color:#6f5069}
+.cosmic-home .evidence-links .evidence-label{font-weight:700;color:#67445e}
+.cosmic-home .evidence-links a{color:#843358;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.cosmic-home .evidence-links a:hover{color:#642747}
+:root[data-theme="dark"] body.cosmic-home .evidence-links,
+:root[data-theme="dark"] body.cosmic-home .evidence-links .evidence-label{color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.cosmic-home .evidence-links a{color:var(--cosmic-accent)}
