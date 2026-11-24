@@ -67,7 +67,7 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
       let earlyTheme;
       if(test.theme==='dark' && ['/', '/academic-cv.html', '/resume.html'].includes(test.path)){
         // Observe the saved preference before the deferred toggle script is delivered.
-        await page.route('**/unified-theme.js',async route=>{
+        await page.route(url=>url.pathname.endsWith('/unified-theme.js'),async route=>{
           await page.locator('link[rel="stylesheet"]').first().waitFor({state:'attached'});
           earlyTheme=await page.locator('html').getAttribute('data-theme');
           await route.continue();
