@@ -267,7 +267,7 @@ check(keywordCards.length===16 &&
   'Archive: all 16 projects should be searchable by grounded methods and tools');
 check(archive.includes('aria-describedby="directory-search-help"') &&
   archive.includes('id="directory-copy-link"') &&
-  archive.includes('id="directory-share-status" role="status"'),
+  /id="directory-share-status"[^>]*role="status"/.test(archive),
   'Archive: query help and accessible shareable view feedback are missing');
 check(read('project-directory.js').includes('terms.every(term=>index.includes(term))') &&
   read('project-directory.js').includes("navigator.clipboard.writeText(location.href)"),
