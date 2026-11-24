@@ -9,7 +9,7 @@ A public engineering portfolio documenting NASA internship work, faculty-mentore
 | Public page | Source |
 | --- | --- |
 | Homepage with curated projects, research focus, experience, education, skills, and contact | `index.html` |
-| Searchable archive of 16 project case studies | `projects/index.html`, `projects/*.html` |
+| Searchable archive of 16 project case studies with technical keyword search and shareable filtered views | `projects/index.html`, `projects/*.html` |
 | Research focus, documented investigations, industry papers, and proposed studies | `research.html` |
 | Academic CV and downloadable PDF | `academic-cv.html`, `assets/Kailani_Alarcon_CV.pdf` |
 | Current résumé and downloadable PDF | `resume.html`, `assets/Kailani_Alarcon_Master_Resume.pdf` |
@@ -45,6 +45,7 @@ The repository's GitHub Actions workflows test internal links, project-to-projec
 - Publish only materials and photos authorized for public release. Do not commit private NASA or employer information, transcripts, or internal reports.
 - Project media need a visible provenance label. Use original project images only with publication clearance; describe illustrative or synthetic figures as such. The six featured project images are labeled accordingly.
 - Avoid committing unapproved employer CAD, lab hardware photos, and screenshots showing internal file paths. Previously published technical photos were removed from the current branch; Git history and caches may still retain older copies. Git history cleanup requires a separate coordinated review.
+- Keep archive keyword metadata grounded in the documented case-study technologies. Search matches multiple terms in any order; use the **Copy view link** control to share an active search and category.
 - Link directly to a project repository only when it is already public and verified to match the project. A source link establishes code availability, not hardware validation or authorization to reuse third-party materials.
 - Keep the 16 case studies connected through previous and next links following the project archive order, with the last project linking back to the first. Run `npm run check:navigation` after changing archive order or project links.
 - Maintain six curated homepage projects in a balanced two-column desktop grid, representing NASA, faculty-mentored research, robotics coursework, and test automation. Keep detailed methods and qualifications in the individual case studies.

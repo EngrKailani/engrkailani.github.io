@@ -99,8 +99,7 @@ def place_art(im: Image.Image, svg: Path, area: tuple[int, int, int, int]) -> No
 
 def project_cards() -> list[tuple[str, str, Path]]:
     cards = re.findall(
-        r'<a class="featured-project-card" data-gallery-category="[^"]+" '
-        r'href="([^"]+\.html)">([\s\S]*?)</a>', DIRECTORY
+        r'<a class="featured-project-card"[^>]*\bhref="([^"]+\.html)"[^>]*>([\s\S]*?)</a>', DIRECTORY
     )
     output = []
     for href, markup in cards:

@@ -236,6 +236,41 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             await page.locator('#directory-clear').click();
             if(await page.locator('[data-gallery-category]:visible').count()!==16)
               note(name+': clearing public-code filter failed');
+            // Search verified technical methods without requiring exact phrase order.
+            await search.fill('Jacobian MATLAB');
+            const roboticsTitles=await page.locator('[data-gallery-category]:visible strong').allTextContents();
+            if(roboticsTitles.length!==2 ||
+              !roboticsTitles.some(x=>x.includes('UR3e')) ||
+              !roboticsTitles.some(x=>x.includes('Leg Dynamics')))
+              note(name+': multiword technical search did not find both kinematics projects');
+            await search.fill('python logging');
+            const logger=await page.locator('[data-gallery-category]:visible strong').allTextContents();
+            if(logger.length!==1 || !logger[0].includes('Thermal'))
+              note(name+': technical keyword search did not find Python thermal logging');
+            await search.fill('gestures webcam');
+            const gestures=await page.locator('[data-gallery-category]:visible strong').allTextContents();
+            if(gestures.length!==1 || !gestures[0].includes('HueMotion'))
+              note(name+': reordered query should match verified webcam gesture work');
+            await search.fill('SOLT S-parameters');
+            const calibration=await page.locator('[data-gallery-category]:visible strong').allTextContents();
+            if(calibration.length!==1 || !calibration[0].includes('Virtual Network Analyzer'))
+              note(name+': punctuation-aware query should find VNA calibration');
+            await search.fill('');
+            await source.click();
+            await search.fill('python');
+            const currentLink=page.url();
+            await page.context().grantPermissions(['clipboard-read','clipboard-write']);
+            await page.locator('#directory-copy-link').click();
+            const copied=await page.evaluate(()=>navigator.clipboard.readText());
+            if(copied!==currentLink ||
+              (await page.locator('#directory-copy-link').textContent()).trim()!=='Link copied')
+              note(name+': copy filtered view did not preserve search and category');
+            await search.fill('matlab');
+            if((await page.locator('#directory-copy-link').textContent()).trim()!=='Copy view link')
+              note(name+': copy confirmation did not reset after changing the view');
+            await page.locator('#directory-clear').click();
+            if(await page.locator('[data-gallery-category]:visible').count()!==16)
+              note(name+': clearing combined filters failed');
           }
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {

@@ -26,3 +26,44 @@
 :root[data-theme="dark"] .project-directory-grid .directory-evidence{background:#463449;border-color:#dbabcb;color:#f7e6f4}
 :root[data-theme="dark"] .project-directory-grid .directory-evidence__label{color:#e6b9d3}
 @media(max-width:540px){.project-directory-grid .directory-evidence{font-size:12px}}
+
+
+/* Compact archive search guidance and shareable filtered-view action. */
+.project-page .directory-search-help{
+  display:block;font-size:12px;line-height:1.55;font-weight:500;
+  color:#615167;margin-top:3px;
+}
+.project-page .directory-results-actions{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+}
+.project-page .directory-copy-link{
+  min-height:40px;padding:9px 13px;border:1px solid #98718c;border-radius:999px;
+  background:#f9eaf3;color:#663954;
+  font:750 12px/1.4 var(--sans,Arial,sans-serif);cursor:pointer;
+}
+.project-page .directory-copy-link:is(:hover,:focus-visible){
+  background:#eddaea;border-color:#865476;
+}
+.project-page .directory-copy-link:focus-visible{
+  outline:3px solid #b25284;outline-offset:2px;
+}
+.project-page .directory-share-status{
+  margin:-5px 0 13px;color:#59415b;
+  font:600 12px/1.5 var(--sans,Arial,sans-serif);
+}
+.project-page .directory-share-status:empty{display:none}
+:root[data-theme="dark"] .project-page .directory-search-help{
+  color:#e2cddd;
+}
+:root[data-theme="dark"] .project-page .directory-copy-link{
+  color:#ffe8f4;background:#463149;border-color:#ac81a0;
+}
+:root[data-theme="dark"] .project-page .directory-copy-link:is(:hover,:focus-visible){
+  background:#60445f;border-color:#efbdd9;
+}
+:root[data-theme="dark"] .project-page .directory-copy-link:focus-visible{
+  outline-color:#ffd3eb;
+}
+:root[data-theme="dark"] .project-page .directory-share-status{
+  color:#f5d4e7;
+}
