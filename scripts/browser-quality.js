@@ -96,6 +96,27 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             if(visible) await page.locator('.cosmic-mobile-menu').evaluate(el=>{el.open=false});
           }
         }
+        if(test.path==='/projects/index.html') {
+          const faculty=page.locator('[data-gallery-filter="research"]');
+          if(!await faculty.count()) {
+            note(name+': faculty research filter is missing');
+          } else {
+            await faculty.click();
+            const visible=await page.locator('[data-gallery-category]:visible').count();
+            const text=await page.locator('#directory-count').textContent();
+            const url=new URL(page.url());
+            if(visible!==2 || !text.includes('2 of 16') || url.searchParams.get('area')!=='research')
+              note(name+': faculty research filter should return two shareable results');
+            const cards=await page.locator('[data-gallery-category]:visible').allTextContents();
+            if(!cards.some(x=>x.includes('Three-Link')) || !cards.some(x=>x.includes('Virtual Network Analyzer')))
+              note(name+': faculty research filter omitted an Honors Signature Experience');
+            const clear=page.locator('#directory-clear');
+            await clear.click();
+            if(await page.locator('[data-gallery-category]:visible').count()!==16 ||
+              new URL(page.url()).searchParams.has('area'))
+              note(name+': clearing faculty filter did not restore complete archive');
+          }
+        }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
         }
