@@ -124,3 +124,9 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
 :root[data-theme="dark"] body.research-page .research-publications span{color:var(--cosmic-muted)}
 :root[data-theme="dark"] body.research-page .research-related-projects a,
 :root[data-theme="dark"] body.research-page .research-publications a{color:var(--cosmic-accent)}
+
+/* Show evidence supporting each proposed research direction without implying completed PhD experiments. */
+.research-page .research-theme-card .research-theme-evidence{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:15px;padding-top:12px;border-top:1px solid var(--r-border);font-size:12px;line-height:1.65}
+.research-page .research-theme-evidence span{flex-basis:100%;font-size:11px;font-weight:750;color:var(--r-muted)}
+.research-page .research-theme-evidence a{color:var(--r-accent);font-weight:750;text-decoration:underline;text-underline-offset:3px}
+.research-page .research-theme-evidence a:hover{text-decoration-thickness:2px}
