@@ -109,7 +109,8 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         const axe=await page.evaluate(async()=>{
           const r=await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}});
           return r.violations.filter(v=>['critical','serious'].includes(v.impact))
-            .map(v=>({id:v.id,impact:v.impact,count:v.nodes.length,summary:v.help}));
+            .map(v=>({id:v.id,impact:v.impact,count:v.nodes.length,summary:v.help,
+              targets:v.nodes.slice(0,3).map(n=>({selector:n.target?.join(', '),html:n.html?.slice(0,140),failure:n.failureSummary?.slice(0,220)}))}));
         });
         if(axe.length)note(name+': serious WCAG issues '+JSON.stringify(axe).slice(0,500));
         if(test.screenshot) {
