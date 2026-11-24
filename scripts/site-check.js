@@ -55,8 +55,11 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
-check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]) .length===6,
+check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===6,
   'Home: six featured projects expected');
+check(home.includes('src="projects/thermal/media/logger-interface-concept.svg"')&&
+  home.includes('<a href="projects/thermal.html">Thermal controller and logger</a>'),
+  'Home: sixth featured project should document thermal test automation');
 
 const featureCards=[...home.matchAll(/<article class="work-card(?:\s[^"]*)?">([\s\S]*?)<\/article>/g)]
   .map(m=>m[1]);
