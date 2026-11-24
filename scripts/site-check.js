@@ -117,7 +117,15 @@ for(const [name,asset] of [
   const html=read(name);
   check(html.includes('href="'+asset+'"')&&html.includes('src="'+asset+'#view=FitH"'),
     name+': PDF viewer and direct PDF link must match');
-  check(fs.existsSync(path.join(root,asset)),name+': missing original PDF');
+  check(fs.existsSync(path.join(root,asset)),name+': missing published PDF');
+  check(html.includes('class="pdf-summary" id="pdf-summary"') &&
+    html.includes('class="pdf-mobile-note"') &&
+    html.includes('aria-describedby="pdf-summary"'),
+    name+': missing readable document summary or mobile PDF guidance');
+  check(html.includes('<meta property="og:image"') &&
+    html.includes('<meta property="og:description"') &&
+    html.includes('<meta name="twitter:card"'),
+    name+': missing share preview metadata');
 }
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
@@ -149,6 +157,8 @@ check(expectedResearchOrder.every((id,i)=>research.indexOf('id="'+id+'"')>=0&&
 check(research.includes('Thermal-Validation-of-Commercial-LED-Luminaires-1.pdf')&&
   research.includes('Copy-of-Understanding-Optical-Lens-Performance-in-LED-Luminaires-1.pdf'),
   'Research: both industry white papers need direct publisher links');
+check(research.includes('Space Robotics Research & Publications | Kailani Alarcon'),
+  'Research: title should name space robotics and publications');
 check(read('sitemap.xml').includes('<loc>'+domain+'/</loc>'),'Sitemap: missing home');
 for(const message of violations)console.error('FAIL '+message);
 console.log((assertions-violations.length)+'/'+assertions+' checks passed');
