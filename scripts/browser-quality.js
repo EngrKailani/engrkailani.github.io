@@ -135,6 +135,12 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             const contact=visible && await page.locator('.cosmic-mobile-links a[href="#contact"]').isVisible();
             if(!nav || !visible || !contact)note(name+': mobile navigation is not accessible');
             if(visible && contact){
+              await menu.press('Escape');
+              const closedOnEscape=await page.locator('.cosmic-mobile-menu').evaluate(el=>!el.open);
+              const focusReturned=await menu.evaluate(el=>document.activeElement===el);
+              if(!closedOnEscape || !focusReturned)
+                note(name+': Escape did not close the menu and return focus');
+              await menu.click();
               await page.locator('.cosmic-mobile-links a[href="#contact"]').click();
               if(await page.locator('.cosmic-mobile-menu').evaluate(el=>el.open))
                 note(name+': mobile menu did not close after following the Contact link');
