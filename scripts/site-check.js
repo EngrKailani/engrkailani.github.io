@@ -181,6 +181,12 @@ for(const [file,mentor,anchorId] of [
 }
 check(research.includes('projects/index.html?area=research'),
   'Research: missing link to filtered faculty-mentored archive');
+check(read('projects/leg.html').includes('<title>Three-Link Human Leg Dynamics | Kailani Alarcon</title>') &&
+  read('projects/leg.html').includes('Faculty-mentored UNR Honors Signature Experience'),
+  'Leg research: search title and summary must identify current Honors work');
+check(read('projects/vna.html').includes('Faculty-mentored UNR Honors Signature Experience') &&
+  read('projects/vna.html').includes('Student-initiated Honors research in RF measurement analysis'),
+  'VNA research: search and sharing descriptions must identify faculty-mentored work');
 
 const expectedHomeOrder=['selected-work','research','experience','about','contact'];
 check(expectedHomeOrder.every((id,i)=>home.indexOf('id="'+id+'"')>=0&&
