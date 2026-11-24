@@ -58,7 +58,7 @@ const home=read('index.html'),research=read('research.html'),archive=read('proje
 check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===5,
   'Home: five featured projects expected');
 for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
-  'research.html#regolith-analysis','research.html#propulsion-testing'])
+  'projects/vna.html','research.html#regolith-analysis'])
   check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
 for(const link of ['research.html','academic-cv.html','#selected-work'])
   check(home.includes('href="'+link+'"'),'Home: missing navigation '+link);
@@ -80,6 +80,17 @@ for(const [name,asset] of [
 }
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
+const expectedHomeOrder=['selected-work','research','experience','about','contact'];
+check(expectedHomeOrder.every((id,i)=>home.indexOf('id="'+id+'"')>=0&&
+  (i===0||home.indexOf('id="'+id+'"')>home.indexOf('id="'+expectedHomeOrder[i-1]+'"'))),
+  'Home: research, experience and education sections should follow expected order');
+const expectedResearchOrder=['directions','investigations','writing','questions','research-concept'];
+check(expectedResearchOrder.every((id,i)=>research.indexOf('id="'+id+'"')>=0&&
+  (i===0||research.indexOf('id="'+id+'"')>research.indexOf('id="'+expectedResearchOrder[i-1]+'"'))),
+  'Research: evidence and publications should precede future proposals');
+check(research.includes('Thermal-Validation-of-Commercial-LED-Luminaires-1.pdf')&&
+  research.includes('Copy-of-Understanding-Optical-Lens-Performance-in-LED-Luminaires-1.pdf'),
+  'Research: both industry white papers need direct publisher links');
 check(read('sitemap.xml').includes('<loc>'+domain+'/</loc>'),'Sitemap: missing home');
 for(const message of violations)console.error('FAIL '+message);
 console.log((assertions-violations.length)+'/'+assertions+' checks passed');
