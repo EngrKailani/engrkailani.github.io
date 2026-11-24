@@ -45,8 +45,8 @@ for(const file of pages){
     file+': stale shared CSS version; use the first 10 characters of its Git blob SHA');
   check(html.includes('src="'+prefix+'unified-theme.js?v='+sharedThemeJsVersion+'"'),
     file+': stale shared theme JavaScript version; update the cache fingerprint');
-  for(const link of html.matchAll(/<a\\b[^>]*target=["']_blank["'][^>]*>/gi))
-    check(/\\brel=["'][^"']*\\bnoopener\\b/.test(link[0]),
+  for(const link of html.matchAll(/<a\b[^>]*target=["']_blank["'][^>]*>/gi))
+    check(/\brel=["'][^"']*\bnoopener\b/.test(link[0]),
       file+': external link opening a new tab is missing rel=noopener');
   check(!html.includes('kalarcon775.github.io'),file+': obsolete domain');
   for(const img of html.matchAll(/<img\b[^>]*>/gi))
@@ -162,7 +162,7 @@ for(const slug of slugs){
   check(page.includes('class="case-archive-return" href="index.html"') &&
     page.includes('aria-label="Project navigation"'),
     'Case study: missing archive return link in '+slug);
-  check(page.includes('../cosmic-theme.css?v=20261124-dark11'),
+  check(page.includes('../cosmic-theme.css?v='+sharedCssVersion),
     'Case study: missing current shared breadcrumb styling in '+slug);
 }
 for(const [name,asset] of [
