@@ -43,6 +43,8 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.
 - Publish only materials and photos authorized for public release. Do not commit private NASA or employer information, transcripts, or internal reports.
+- Project media need a visible provenance label. Use original project images only with publication clearance; describe illustrative or synthetic figures as such. The six featured project images are labeled accordingly.
+- Avoid committing unapproved employer CAD, lab hardware photos, and screenshots showing internal file paths. Previously published technical photos were removed from the current branch; Git history and caches may still retain older copies. Git history cleanup requires a separate coordinated review.
 - Link directly to a project repository only when it is already public and verified to match the project. A source link establishes code availability, not hardware validation or authorization to reuse third-party materials.
 - Maintain six curated homepage projects in a balanced two-column desktop grid, representing NASA, faculty-mentored research, robotics coursework, and test automation. Keep detailed methods and qualifications in the individual case studies.
 - Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.

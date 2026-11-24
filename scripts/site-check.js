@@ -170,7 +170,7 @@ check(research.includes('id="regolith-analysis"')&&research.includes('id="propul
   'Research: missing linked project anchors');
 
 check(archive.includes('data-gallery-filter="research"') &&
-  archive.includes('data-gallery-category="robotics research" href="leg.html"') &&
+  archive.includes('data-gallery-category="robotics research source" href="leg.html"') &&
   archive.includes('data-gallery-category="measurement research" href="vna.html"'),
   'Archive: faculty-mentored research filter must include both Honors projects');
 for(const [file,mentor,anchorId] of [
@@ -229,6 +229,27 @@ const retiredRuntimeFiles=[
 for(const file of retiredRuntimeFiles)
   check(!fs.existsSync(path.join(root,file)),
     'Retired interactive asset unexpectedly restored: '+file);
+const homepageMedia=[...home.matchAll(/<figcaption class="work-media-note">([^<]+)<\/figcaption>/g)].map(m=>m[1]);
+check(homepageMedia.length===6 &&
+  homepageMedia.filter(x=>x==='Instrument photo').length===1 &&
+  homepageMedia.includes('Generic schematic') &&
+  homepageMedia.includes('Synthetic interface'),
+  'Home: every selected project needs an accurate visible visual-provenance label');
+check(read('cosmic-theme.css').includes('.cosmic-home .work-media-note'),
+  'Theme: visual provenance needs visible, readable label styles');
+for(const [slug,category] of [
+  ['leg','robotics research'],['thermal','measurement'],['prodriver','software'],
+  ['huemotion','software'],['dmx','software']
+]) check(archive.includes('data-gallery-category="'+category+' source" href="'+slug+'.html"'),
+  'Archive: missing public code filter category for '+slug);
+check(archive.includes('data-gallery-filter="source"') &&
+  home.includes('href="projects/index.html?area=source"'),
+  'Home and archive should let visitors find projects with verifiable public code');
+for(const file of [
+  'assets/Creo-1.jpg','assets/Creo-2.jpg','assets/Arm.jpg',
+  'assets/Arm-home.webp','assets/Inventory.jpg','assets/ARM-Selfie.jpg'
+]) check(!fs.existsSync(path.join(root,file)),
+  'Unused NASA hardware or CAD photo should not be in the published branch: '+file);
 check(archive.includes('<meta property="og:type" content="website">'),
   'Project directory: collection needs website social metadata');
 for(const doc of ['academic-cv.html','resume.html'])

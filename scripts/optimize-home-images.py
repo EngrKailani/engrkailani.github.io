@@ -6,7 +6,6 @@ root = Path(__file__).resolve().parents[1]
 source = root / "assets"
 jobs = {
     "sls-rocket-kailani.jpeg": ("sls-rocket-kailani-mobile.webp", 480),
-    "Arm.jpg": ("Arm-home.webp", 480),
     "nasa-sls-team.jpeg": ("nasa-sls-team-home.webp", 520),
     "nasa-astronaut-suit.jpeg": ("nasa-astronaut-suit-home.webp", 300),
     "nasa-mission-patches.jpeg": ("nasa-mission-patches-home.webp", 300),

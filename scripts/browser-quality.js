@@ -124,6 +124,15 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         if(test.path==='/') {
           const cards=await page.locator('.work-card').count();
           if(cards!==6)note(name+': expected six curated project cards, found '+cards);
+          const mediaLabels=page.locator('.work-card figure .work-media-note');
+          if(await mediaLabels.count()!==6)note(name+': expected a visible provenance label on each project');
+          else {
+            const visible=await mediaLabels.evaluateAll(els=>els.every(el=>{
+              const s=getComputedStyle(el),r=el.getBoundingClientRect();
+              return s.visibility==='visible'&&s.display!=='none'&&r.width>0&&r.height>0;
+            }));
+            if(!visible)note(name+': a project visual provenance label is not visible');
+          }
           const gridLayout=await page.locator('#selected-work .work-grid').evaluate(grid=>{
             const list=[...grid.querySelectorAll('.work-card')];
             const media=list.map(card=>card.querySelector('figure')?.getBoundingClientRect().height||0);
@@ -213,6 +222,20 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             if(await page.locator('[data-gallery-category]:visible').count()!==16 ||
               new URL(page.url()).searchParams.has('area'))
               note(name+': clearing faculty filter did not restore complete archive');
+            const source=page.locator('[data-gallery-filter="source"]');
+            await source.click();
+            const sourceCards=page.locator('[data-gallery-category]:visible');
+            if(await sourceCards.count()!==5 ||
+              !(await page.locator('#directory-count').textContent()).includes('5 of 16') ||
+              new URL(page.url()).searchParams.get('area')!=='source')
+              note(name+': public-code filter should show five shareable project results');
+            const projectNames=await sourceCards.locator('strong').allTextContents();
+            if(!['Three-Link Leg Dynamics','Thermal Controller & Logger','ProDriver Sim','HueMotion','DMX Controller']
+              .every(x=>projectNames.some(y=>y.replace(/\s+/g,' ').trim()===x)))
+              note(name+': public-code filter omitted a project with verified source');
+            await page.locator('#directory-clear').click();
+            if(await page.locator('[data-gallery-category]:visible').count()!==16)
+              note(name+': clearing public-code filter failed');
           }
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
