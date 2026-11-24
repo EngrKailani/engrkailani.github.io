@@ -41,13 +41,12 @@ body.cosmic-home,body.cosmic-resume{background:#fffbfd;color:var(--cosmic-ink)}
 .cosmic-home .section-soft{background:radial-gradient(ellipse at 93% 0%,#f8d1e459,transparent 42%),#fff4fa;border-block:1px solid #f0e1ea}
 .cosmic-home .section-head{margin-bottom:34px}
 .cosmic-home .section-head p,.cosmic-home .research-grid p,.cosmic-home .about-grid p{color:#62586d}
-.cosmic-home .work-grid{counter-reset:case;gap:24px}
-.cosmic-home .work-card{counter-increment:case;border:1px solid #eadbe6;border-radius:16px;box-shadow:0 9px 28px #4531500b;transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
+.cosmic-home .work-grid{gap:24px}
+.cosmic-home .work-card{border:1px solid #eadbe6;border-radius:16px;box-shadow:0 9px 28px #4531500b;transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
 .cosmic-home .work-card:hover{transform:translateY(-3px);border-color:#d9b1ca;box-shadow:0 18px 35px #50304c18}
 .cosmic-home .work-card figure{background:radial-gradient(ellipse at 80% 15%,#f9e0ee,transparent 75%),#f8f1f8;border-bottom:1px solid #eee1eb}
 .cosmic-home .work-card-content{padding:27px}
 .cosmic-home .work-card .project-meta{color:#884467}
-.cosmic-home .work-card .project-meta::before{content:"0" counter(case) " / ";color:#af4e80;font-weight:800}
 .cosmic-home .work-card h3{font-size:1.3rem}
 .cosmic-home .work-card h3 a{color:#30253e}
 .cosmic-home .work-card h3 a:hover{color:#8e315f}
@@ -350,7 +349,6 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
   .experience-copy .organization,.research-links a:hover,.footer-signoff
 ){color:var(--cosmic-accent)}
 :root[data-theme="dark"] body.cosmic-home .work-card :is(.case-link,.work-result strong){color:var(--cosmic-accent)}
-:root[data-theme="dark"] body.cosmic-home .work-card .project-meta::before{color:var(--cosmic-accent)}
 :root[data-theme="dark"] body.cosmic-home .work-card dt{color:var(--cosmic-accent)}
 :root[data-theme="dark"] body.cosmic-home .site-footer :is(p,a,.footer-signoff){color:var(--cosmic-muted)}
 :root[data-theme="dark"] body.cosmic-home .footer-links a:hover{color:var(--cosmic-accent)}
