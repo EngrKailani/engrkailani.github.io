@@ -69,6 +69,19 @@ check(home.includes('href="projects/index.html?area=research"'),
 check(!read('cosmic-theme.css').includes('.work-card .project-meta::before'),
   'Theme: decorative project rank numbering should not return');
 
+const homeEvidenceLinks=[...home.matchAll(/<span class="evidence-links">([\s\S]*?)<\/span><\/li>/g)];
+check(homeEvidenceLinks.length===6 &&
+  homeEvidenceLinks.every(m=>(m[1].match(/<a href="/g)||[]).length>=2),
+  'Home: research themes and technical skill groups should link to representative evidence');
+const researchDirectionProof=[...research.matchAll(/<p class="research-theme-evidence">([\s\S]*?)<\/p>/g)];
+check(researchDirectionProof.length===3 &&
+  researchDirectionProof.every(m=>m[1].includes('Related engineering background')&&m[1].includes('<a href="')),
+  'Research: proposed directions should link to related completed engineering work');
+check(read('cosmic-theme.css').includes('.cosmic-home .evidence-links a') &&
+  read('research.css').includes('.research-theme-evidence a'),
+  'Theme: evidence links need dedicated legible styles');
+
+
 for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
   'projects/vna.html','research.html#regolith-analysis'])
   check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
