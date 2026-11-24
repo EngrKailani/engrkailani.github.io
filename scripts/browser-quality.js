@@ -12,6 +12,7 @@ const slugs=['nasa','leg','thermal','vna','iverify','ur3e','fingerprint',
   'alu','controls','dmx','hall','huemotion','motor','powershell','prodriver','vhdl'];
 const cases=[
   {path:'/',width:1440,screenshot:true,images:true},
+  {path:'/404.html',width:390,screenshot:true},
   {path:'/',width:768},
   {path:'/',width:390,screenshot:true,images:true},
   {path:'/',width:320},
@@ -27,6 +28,7 @@ const cases=[
   {path:'/workbench.html',width:320},
   ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390})),
   {path:'/',width:1440,screenshot:true,theme:'dark'},
+  {path:'/404.html',width:390,theme:'dark'},
   {path:'/',width:390,screenshot:true,theme:'dark'},
   {path:'/research.html',width:390,screenshot:true,theme:'dark'},
   {path:'/projects/index.html',width:390,screenshot:true,theme:'dark'},
@@ -113,6 +115,12 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         if(state.h1!==1)note(name+': expected one page-level heading, found '+state.h1);
         if(state.bodyText<150)note(name+': unexpectedly little readable content');
         if(errors.length)note(name+': JavaScript error: '+errors.join('; ').slice(0,320));
+        if(test.path==='/404.html'){
+          if(!await page.locator('meta[name="robots"][content="noindex"]').count())
+            note(name+': missing noindex directive on custom 404 page');
+          if(!await page.locator('a[href="projects/index.html"]').count())
+            note(name+': not-found page needs a way back to projects');
+        }
         if(test.path==='/') {
           const cards=await page.locator('.work-card').count();
           if(cards!==6)note(name+': expected six curated project cards, found '+cards);

@@ -9,7 +9,7 @@ This document describes repeatable accessibility, mobile, and performance checks
 - Research and technical writing: `/research.html`.
 - Engineering project directory: `/projects/`.
 - Engineering Workbench: `/workbench.html`.
-- All sixteen case studies, the PDF-based CV and résumé viewers, and responsive navigation are included in the Chromium/axe test suite.
+- All sixteen case studies, the PDF-based CV and résumé viewers, the custom 404 page, and responsive navigation are included in the Chromium/axe test suite.
 
 ## Automated checks
 
@@ -62,7 +62,9 @@ Automated tools cannot prove WCAG conformance. Before treating the audit as comp
 ## Current site organization and disclosure safeguards
 
 - The Research page distinguishes documented engineering research, proposed PhD work, student posters, and two publicly available industry white papers.
-- The homepage links directly to research, publications, the selected project portfolio, and the academic CV. The project directory remains the archive for other work.
+- The homepage links directly to research, publications, the selected project portfolio, and the academic CV.
+- Five case studies link to matching verified public project repositories; code availability is not presented as instrument calibration or hardware validation.
+- The 404 page is explicitly noindexed and offers links back to the homepage, project archive, and research. The project directory remains the archive for other work.
 - The NASA case study uses generic, non-measured illustrations. Unused numerical NASA diagrams and obsolete résumé/CV generators have been retired.
 - Static checks block the former NASA-specific numerical claims and the previous public PDF binaries, and cover internal links, page structure, and publications.
 

@@ -5,7 +5,7 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const slugs=['alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
   'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'];
-const pages=['index.html','research.html','academic-cv.html','resume.html',
+const pages=['index.html','404.html','research.html','academic-cv.html','resume.html',
   'workbench.html','projects/index.html',...slugs.map(name=>'projects/'+name+'.html')];
 const domain='https://kailanialarcon.com';
 const violations=[];
@@ -205,6 +205,30 @@ check(research.includes('Thermal-Validation-of-Commercial-LED-Luminaires-1.pdf')
 check(research.includes('Space Robotics Research & Publications | Kailani Alarcon'),
   'Research: title should name space robotics and publications');
 check(read('sitemap.xml').includes('<loc>'+domain+'/</loc>'),'Sitemap: missing home');
+check(read('404.html').includes('<meta name="robots" content="noindex">') &&
+  !read('sitemap.xml').includes('<loc>'+domain+'/404.html</loc>'),
+  '404: not-found pages should not be indexed or listed in the sitemap');
+for(const [slug,source] of Object.entries({
+  leg:'3link-sim',thermal:'Thermal-Logger',prodriver:'ProDriver-Sim',
+  huemotion:'HueMotion',dmx:'DMX-Controller'
+})){
+  const html=read('projects/'+slug+'.html');
+  const expected='<a href="https://github.com/EngrKailani/'+source+
+    '" target="_blank" rel="noopener noreferrer"';
+  check(html.includes(expected) && html.includes('Public source code'),
+    slug+': missing verified public source link with secure new-tab behavior');
+}
+const retiredRuntimeFiles=[
+  'bookshelf.js','case-explorer.js','robot-3d.js','robot-chamber-model.js',
+  'script.js','ambient.js','ux.js','enhancements.js',
+  'design-refresh.js','homepage-refinement.js',
+  'scripts/lazy-features.js','scripts/projects-menu.js',
+  'case-explorer.css','repo-orbit.css','robot-control-dock.css',
+  'portfolio-photos.css'
+];
+for(const file of retiredRuntimeFiles)
+  check(!fs.existsSync(path.join(root,file)),
+    'Retired interactive asset unexpectedly restored: '+file);
 check(archive.includes('<meta property="og:type" content="website">'),
   'Project directory: collection needs website social metadata');
 for(const doc of ['academic-cv.html','resume.html'])
