@@ -8,9 +8,9 @@ A public engineering portfolio documenting NASA internship work, faculty-mentore
 
 | Public page | Source |
 | --- | --- |
-| Homepage, five selected projects, experience and contact | `index.html` |
+| Homepage with curated projects, research focus, experience, education, skills, and contact | `index.html` |
 | Searchable archive of 16 project case studies | `projects/index.html`, `projects/*.html` |
-| Research directions and technical writing | `research.html` |
+| Research focus, documented investigations, industry papers, and proposed studies | `research.html` |
 | Academic CV and downloadable PDF | `academic-cv.html`, `assets/Kailani_Alarcon_CV.pdf` |
 | Current résumé and downloadable PDF | `resume.html`, `assets/Kailani_Alarcon_Master_Resume.pdf` |
 | Optional browser-only interactive models | `workbench.html`, `workbench.js` |
@@ -42,7 +42,7 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.
 - Publish only materials and photos authorized for public release. Do not commit private NASA or employer information, transcripts, or internal reports.
-- Maintain exactly five curated homepage projects and the linked 16-project archive. Keep the technical details in the individual case studies.
+- Maintain five curated homepage projects, with both NASA and faculty-mentored engineering work represented. Keep detailed methods and qualifications in the individual case studies.\n- Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
 - Keep the academic CV and résumé PDF downloads current and ensure their contact links point to `kailanialarcon.com`.
 - For changes, use a branch, inspect the diff, run checks, merge a pull request, and confirm the GitHub Pages deployment.
 
