@@ -134,6 +134,17 @@ for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
   check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
   check(page.includes('class="project-evidence-first"'),'Case study: missing evidence section in '+slug);
+  const heading=(page.match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/)||[])[1];
+  check(Boolean(heading) && page.includes('<span aria-current="page">'+heading+'</span>'),
+    'Case study: breadcrumb must identify the current project in '+slug);
+  check(page.includes('class="case-breadcrumb" aria-label="Breadcrumb"') &&
+    page.includes('<a href="index.html">All projects</a>'),
+    'Case study: missing archive breadcrumb in '+slug);
+  check(page.includes('class="case-archive-return" href="index.html"') &&
+    page.includes('aria-label="Project navigation"'),
+    'Case study: missing archive return link in '+slug);
+  check(page.includes('../cosmic-theme.css?v=20261124-breadcrumb9'),
+    'Case study: missing current shared breadcrumb styling in '+slug);
 }
 for(const [name,asset] of [
   ['academic-cv.html','assets/Kailani_Alarcon_CV.pdf'],
