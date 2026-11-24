@@ -7,14 +7,7 @@
 /* Unified header and logo. */
 body.cosmic-home,body.cosmic-resume{background:#fffbfd;color:var(--cosmic-ink)}
 .cosmic-home a,.cosmic-resume a{color:#82375d}
-.cosmic-home .site-header,.cosmic-resume .site-header{position:sticky;top:0;z-index:50;background:rgba(255,250,253,.97);border-bottom:1px solid #eadbe6;box-shadow:0 4px 24px #36203908;backdrop-filter:blur(14px)}
-.cosmic-home .site-header::before,.cosmic-resume .site-header::before,.project-page .detail-navigation::before,.research-page .research-header::before,.wb-page .wb-header::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#342342,#b94f8b 48%,#f3bad8 76%,#bfa3d8);pointer-events:none}
-.cosmic-home .brand,.cosmic-resume .brand{color:#32223e;font-weight:750}
-.cosmic-home .brand::before,.cosmic-resume .brand::before{content:"";display:inline-block;vertical-align:middle;width:30px;height:30px;margin-right:10px;background:url("favicon.svg") center/contain no-repeat}
-.cosmic-home .nav-links a,.cosmic-resume .nav-links a{color:#493c52}
-.cosmic-home .nav-links a:hover,.cosmic-resume .nav-links a:hover,.cosmic-resume .nav-links a[aria-current="page"]{color:#92395e}
-.cosmic-home .nav-links .nav-contact,.cosmic-resume .nav-links .nav-contact{background:#fff1f8;border:1px solid #ca96b2;color:#793451;border-radius:999px;padding:9px 17px}
-.cosmic-home .nav-links .nav-contact:hover,.cosmic-resume .nav-links .nav-contact:hover{background:#f9e0ef}
+/* Legacy navigation selectors removed; all pages use .cosmic-site-header. */
 .cosmic-home h1,.cosmic-home h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.043em}
 .cosmic-home h2{color:#2c233e;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.15}
 .cosmic-home .eyebrow{color:#8c3460;letter-spacing:.14em}
@@ -325,7 +318,7 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 :root[data-theme="dark"] .cosmic-home .contact-section{background:linear-gradient(115deg,#131122,#30203e)}
 :root[data-theme="dark"] .cosmic-home .hero :is(h1,.hero-lead,.hero-personal),
 :root[data-theme="dark"] .cosmic-home .contact-section :is(h2,p){color:#fff0f9}
-:root[data-theme="dark"] .cosmic-resume .resume-note{color:var(--cosmic-muted)}
+
 @media(max-width:1050px){
   .cosmic-site-header .cosmic-shared-toggle{margin-left:auto}
 }
