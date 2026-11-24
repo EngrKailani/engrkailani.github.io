@@ -16,7 +16,7 @@ This document describes repeatable accessibility, mobile, and performance checks
 The [Portfolio accessibility and performance audit](.github/workflows/portfolio-audit.yml)
 workflow runs on changes to the relevant pages or through **Actions → Portfolio accessibility and performance audit → Run workflow**.
 
-1. **Static quality:** `node scripts/site-check.js` validates local assets, links, semantics, research/publication status and navigation. `node scripts/css-quality.js` parses stylesheets. `node scripts/workbench-models-test.js` tests synthetic signals and planar inverse kinematics.
+1. **Static quality:** `node scripts/site-check.js` validates local assets, links, semantics, research/publication status and navigation. `node scripts/navigation-quality.js` checks all 16 previous/next project links, same-page anchors, and sitemap coverage. `node scripts/css-quality.js` parses stylesheets. `node scripts/workbench-models-test.js` tests synthetic signals and planar inverse kinematics.
 2. **Chromium/axe:** `node scripts/browser-quality.js` covers desktop and mobile layouts, keyboard interactions, light/dark themes, content, console errors, image loading and automated WCAG 2.0/2.1 A/AA checks. The browser suite also checks narrow-screen overflow and content containment.
 3. **Lighthouse:** Four entry points are tested in mobile and desktop presets: **eight real lab runs**. `node scripts/lighthouse-phase4-report.js` creates a Markdown scorecard and JSON measurement table; raw reports are uploaded. The summary lists performance, accessibility, best practices, SEO, largest contentful paint, cumulative layout shift, and total blocking time.
 
