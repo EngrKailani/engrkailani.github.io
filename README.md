@@ -42,7 +42,7 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.
 - Publish only materials and photos authorized for public release. Do not commit private NASA or employer information, transcripts, or internal reports.
-- Maintain five curated homepage projects, with both NASA and faculty-mentored engineering work represented. Keep detailed methods and qualifications in the individual case studies.
+- Maintain six curated homepage projects in a balanced two-column desktop grid, representing NASA, faculty-mentored research, robotics coursework, and test automation. Keep detailed methods and qualifications in the individual case studies.
 - Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
 - Keep the manually maintained academic CV and résumé PDFs current, review future uploads for NASA project numbers, and ensure the public links point to the existing website filenames.
 - Never restore retired résumé/CV generators or diagrams containing project-specific NASA figures. The static checker rejects those legacy assets and the previously published PDF binaries.
