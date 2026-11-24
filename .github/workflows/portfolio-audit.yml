@@ -11,7 +11,6 @@ on:
       - pdf-page.css
       - cosmic-theme.css
       - professional-home.css
-      - professional-resume.css
       - portfolio.css
       - portfolio-upgrade.css
       - homepage-refinement.css
