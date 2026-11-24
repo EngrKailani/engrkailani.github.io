@@ -106,3 +106,21 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
 .research-concept__boundary a{color:var(--r-accent);font-weight:750;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:850px){.research-concept__grid{grid-template-columns:1fr}.research-concept__grid article{padding:18px}}
 @media(max-width:420px){.research-concept__intro{padding:14px}.research-concept__boundary{padding:13px}}
+
+
+/* Concise supporting work and directly linked industry publications. */
+.research-related-projects{margin-top:20px;padding:clamp(18px,2.5vw,25px);background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px}
+.research-related-projects h3{font-size:clamp(21px,2.6vw,27px);line-height:1.3;margin:0 0 8px;color:var(--r-ink)}
+.research-related-projects p{font-size:13px;line-height:1.85;color:var(--r-muted);margin:0}
+.research-related-projects a{font-weight:750;text-decoration:underline;text-underline-offset:3px;color:var(--r-accent)}
+.research-publications{list-style:none;padding:0!important;margin:12px 0 15px!important;display:grid;gap:11px}
+.research-writing-card .research-publications li{margin:0;padding:13px 15px;background:var(--r-panel);border:1px solid var(--r-border);border-radius:10px;display:grid;gap:4px}
+.research-publications a{font-weight:750;color:var(--r-accent);text-decoration:underline;text-underline-offset:3px;line-height:1.65}
+.research-publications span{font-size:12px;color:var(--r-muted)}
+:root[data-theme="dark"] body.research-page .research-related-projects,
+:root[data-theme="dark"] body.research-page .research-publications li{background:var(--cosmic-paper);border-color:var(--cosmic-line)}
+:root[data-theme="dark"] body.research-page .research-related-projects h3{color:var(--cosmic-ink)}
+:root[data-theme="dark"] body.research-page .research-related-projects p,
+:root[data-theme="dark"] body.research-page .research-publications span{color:var(--cosmic-muted)}
+:root[data-theme="dark"] body.research-page .research-related-projects a,
+:root[data-theme="dark"] body.research-page .research-publications a{color:var(--cosmic-accent)}
