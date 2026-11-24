@@ -1,6 +1,7 @@
 /* Validate the currently published static portfolio, without obsolete template checks. */
 'use strict';
 const fs=require('node:fs');
+const crypto=require('node:crypto');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const slugs=['alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
@@ -17,6 +18,15 @@ function read(name){
   return files.get(name);
 }
 function ids(name){return new Set([...read(name).matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]))}
+// GitHub Pages assets may be cached. The URL fingerprint must match the file bytes.
+function assetVersion(name){
+  const bytes=fs.readFileSync(path.join(root,name));
+  return crypto.createHash('sha1')
+    .update('blob '+bytes.length+String.fromCharCode(0))
+    .update(bytes).digest('hex').slice(0,10);
+}
+const sharedCssVersion=assetVersion('cosmic-theme.css');
+const sharedThemeJsVersion=assetVersion('unified-theme.js');
 for(const file of pages){
   const full=path.join(root,file);
   if(!fs.existsSync(full)){check(false,file+': missing page');continue}
@@ -31,7 +41,13 @@ for(const file of pages){
   check(html.includes(domain),file+': missing canonical domain');
   check(html.includes('class="cosmic-site-header"')&&html.includes('class="cosmic-mobile-menu"'),
     file+': missing shared navigation');
-  check(html.includes('href="'+prefix+'cosmic-theme.css?'),file+': missing shared theme');
+  check(html.includes('href="'+prefix+'cosmic-theme.css?v='+sharedCssVersion+'"'),
+    file+': stale shared CSS version; use the first 10 characters of its Git blob SHA');
+  check(html.includes('src="'+prefix+'unified-theme.js?v='+sharedThemeJsVersion+'"'),
+    file+': stale shared theme JavaScript version; update the cache fingerprint');
+  for(const link of html.matchAll(/<a\b[^>]*target=["']_blank["'][^>]*>/gi))
+    check(/\brel=["'][^"']*\bnoopener\b/.test(link[0]),
+      file+': external link opening a new tab is missing rel=noopener');
   check(!html.includes('kalarcon775.github.io'),file+': obsolete domain');
   for(const img of html.matchAll(/<img\b[^>]*>/gi))
     check(/\balt=["'][^"']*["']/i.test(img[0]),file+': image missing alt');
@@ -116,7 +132,7 @@ const retired=[
 ];
 for(const name of retired)
   check(!fs.existsSync(path.join(root,name)),'Retired asset or generator must remain removed: '+name);
-const crypto=require('node:crypto');
+
 const previousPublicPDFs={
   'assets/Kailani_Alarcon_CV.pdf':'09ec82c69d7d023a92542cfc2df4a6dfc3b5b299',
   'assets/Kailani_Alarcon_Master_Resume.pdf':'13512bbf96504d192191d4f122de32df05788fcc'
@@ -146,7 +162,7 @@ for(const slug of slugs){
   check(page.includes('class="case-archive-return" href="index.html"') &&
     page.includes('aria-label="Project navigation"'),
     'Case study: missing archive return link in '+slug);
-  check(page.includes('../cosmic-theme.css?v=20261124-dark11'),
+  check(page.includes('../cosmic-theme.css?v='+sharedCssVersion),
     'Case study: missing current shared breadcrumb styling in '+slug);
 }
 for(const [name,asset] of [
@@ -250,6 +266,11 @@ for(const file of [
   'assets/Arm-home.webp','assets/Inventory.jpg','assets/ARM-Selfie.jpg'
 ]) check(!fs.existsSync(path.join(root,file)),
   'Unused NASA hardware or CAD photo should not be in the published branch: '+file);
+check(archive.includes('src="../project-directory.js?v='+assetVersion('project-directory.js')+'"'),
+  'Project directory: stale search/filter script version');
+check(research.includes('datetime="2026-02-05"') &&
+  research.includes('datetime="2026-03-10"'),
+  'Research: cite the preparation dates printed on the two published white papers');
 check(archive.includes('<meta property="og:type" content="website">'),
   'Project directory: collection needs website social metadata');
 for(const doc of ['academic-cv.html','resume.html'])
