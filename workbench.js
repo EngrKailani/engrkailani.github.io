@@ -13,6 +13,7 @@
   // Use the same appearance preference as the portfolio.
   function updateThemeButton() {
     const dark = document.documentElement.dataset.theme === 'dark';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#211a3b' : '#fffbfd');
     $('wb-theme').setAttribute('aria-pressed', String(dark));
     $('wb-theme').querySelector('span').textContent = dark ? 'Light mode' : 'Dark mode';
     $('wb-theme').firstChild.textContent = dark ? '☀ ' : '☾ ';

@@ -3,6 +3,13 @@
 (function () {
   const root = document.documentElement;
   const toggles = document.querySelectorAll('.cosmic-shared-toggle');
+  // Keep the browser's mobile toolbar consistent with the current appearance.
+  let themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (!themeMeta) {
+    themeMeta = document.createElement('meta');
+    themeMeta.name = 'theme-color';
+    document.head.appendChild(themeMeta);
+  }
   // Navigation behavior is also shared by the Workbench, which has its own theme button.
   let choice = null;
   try { choice = localStorage.getItem('kailani-theme'); } catch (_) {}
@@ -10,6 +17,7 @@
   root.dataset.theme = choice;
   function reflect() {
     const dark = root.dataset.theme === 'dark';
+    themeMeta.content = dark ? '#211a3b' : '#fffbfd';
     toggles.forEach(function (button) {
       button.setAttribute('aria-pressed', String(dark));
       button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
