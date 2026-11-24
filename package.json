@@ -10,8 +10,11 @@
     "check:models": "node scripts/workbench-models-test.js",
     "check:workbench-browser": "node scripts/workbench-smoke.js",
     "report:phase4": "node scripts/lighthouse-phase4-report.js",
-    "check:static": "node scripts/site-check.js && node scripts/sync-asset-versions.js --check && node scripts/css-quality.js && node scripts/workbench-models-test.js",
+    "check:static": "node scripts/site-check.js && node scripts/sync-asset-versions.js --check && node scripts/external-links.js --inventory && node --test scripts/external-links.test.js && node scripts/css-quality.js && node scripts/workbench-models-test.js",
     "check:assets": "node scripts/sync-asset-versions.js --check",
+    "check:external:inventory": "node scripts/external-links.js --inventory",
+    "check:external": "node scripts/external-links.js --check",
+    "test:external": "node --test scripts/external-links.test.js",
     "sync:assets": "node scripts/sync-asset-versions.js --write"
   },
   "devDependencies": {

@@ -35,7 +35,7 @@ npm run check:static
 npm run check:browser
 ```
 
-The repository's GitHub Actions workflows test internal links, images, browser layout, accessibility, JavaScript, CSS, and performance. See [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Automated checks do not establish full WCAG conformance or guarantee field performance.
+The repository's GitHub Actions workflows test internal links, images, browser layout, accessibility, JavaScript, CSS, and performance. The weekly **External link health** workflow also audits public outbound project repositories, industry papers, and professional links; it produces an artifact and job summary. You can run `npm run check:external:inventory` to list them without network access or `npm run check:external` to test destinations manually. An inaccessible site is reported for review rather than automatically treated as broken; only a confirmed HTTP 404 or 410 fails the scheduled audit. See [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Automated checks do not establish full WCAG conformance or guarantee field performance.
 
 ## Editorial standards
 
