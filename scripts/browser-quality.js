@@ -87,6 +87,21 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
           if(['/', '/academic-cv.html', '/resume.html'].includes(test.path) && earlyTheme!=='dark')
             note(name+': saved dark theme was not applied before the deferred script');
         }
+        const expectedThemeColor=test.theme==='dark'?'#211a3b':'#fffbfd';
+        const actualThemeColor=await page.locator('meta[name="theme-color"]').getAttribute('content');
+        if(actualThemeColor!==expectedThemeColor)
+          note(name+': browser theme-color mismatch, got '+actualThemeColor);
+        if(test.width===1440 && !test.theme && ['/', '/workbench.html'].includes(test.path)){
+          const toggle=page.locator(test.path==='/'?'.cosmic-shared-toggle':'#wb-theme');
+          await toggle.click();
+          if(await page.locator('html').getAttribute('data-theme')!=='dark' ||
+            await page.locator('meta[name="theme-color"]').getAttribute('content')!=='#211a3b')
+            note(name+': switching to dark mode did not synchronize browser theme color');
+          await toggle.click();
+          if(await page.locator('html').getAttribute('data-theme')!=='light' ||
+            await page.locator('meta[name="theme-color"]').getAttribute('content')!=='#fffbfd')
+            note(name+': switching to light mode did not synchronize browser theme color');
+        }
         const state=await page.evaluate(()=>{
           const doc=document.documentElement;
           const viewport=doc.clientWidth;
@@ -163,6 +178,28 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             const cards=await page.locator('[data-gallery-category]:visible').allTextContents();
             if(!cards.some(x=>x.includes('Three-Link')) || !cards.some(x=>x.includes('Virtual Network Analyzer')))
               note(name+': faculty research filter omitted an Honors Signature Experience');
+            // Category selections create browser-history steps without one per keystroke.
+            await page.evaluate(()=>history.back());
+            await page.waitForFunction(()=>!new URLSearchParams(location.search).has('area'));
+            await page.waitForFunction(()=>[...document.querySelectorAll('[data-gallery-category]')].every(el=>!el.hidden));
+            await page.evaluate(()=>history.forward());
+            await page.waitForFunction(()=>new URLSearchParams(location.search).get('area')==='research');
+            await page.waitForFunction(()=>[...document.querySelectorAll('[data-gallery-category]')].filter(el=>!el.hidden).length===2);
+            const search=page.locator('#directory-search');
+            await search.fill('not-a-real-engineering-project-xyz');
+            if(await page.locator('[data-gallery-category]:visible').count()!==0 ||
+              !await page.locator('#directory-empty').isVisible() ||
+              !new URL(page.url()).searchParams.has('q'))
+              note(name+': no-results search should display the empty state and shareable query');
+            await search.press('Escape');
+            if(await search.inputValue()!=='' ||
+              await page.locator('[data-gallery-category]:visible').count()!==2 ||
+              new URL(page.url()).searchParams.has('q'))
+              note(name+': Escape should clear only the search while retaining faculty filter');
+            await page.locator('.detail-heading h1').click();
+            await page.keyboard.press('/');
+            if(!await search.evaluate(el=>document.activeElement===el))
+              note(name+': slash shortcut did not focus project search');
             const clear=page.locator('#directory-clear');
             await clear.click();
             if(await page.locator('[data-gallery-category]:visible').count()!==16 ||

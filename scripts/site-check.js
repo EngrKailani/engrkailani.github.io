@@ -205,6 +205,16 @@ check(research.includes('Thermal-Validation-of-Commercial-LED-Luminaires-1.pdf')
 check(research.includes('Space Robotics Research & Publications | Kailani Alarcon'),
   'Research: title should name space robotics and publications');
 check(read('sitemap.xml').includes('<loc>'+domain+'/</loc>'),'Sitemap: missing home');
+check(archive.includes('<meta property="og:type" content="website">'),
+  'Project directory: collection needs website social metadata');
+for(const doc of ['academic-cv.html','resume.html'])
+  check(read(doc).includes('<meta name="twitter:image" content="'+domain+'/social/portfolio.png">'),
+    doc+': missing social sharing image');
+check(read('project-directory.js').includes("saveDirectoryToUrl('push')") &&
+  read('project-directory.js').includes("history[method==='push'?'pushState':'replaceState']"),
+  'Directory: filter selection should add navigable history entries');
+check(read('unified-theme.js').includes("themeMeta.content = dark ? '#211a3b' : '#fffbfd'"),
+  'Theme: browser chrome should follow the selected palette');
 for(const message of violations)console.error('FAIL '+message);
 console.log((assertions-violations.length)+'/'+assertions+' checks passed');
 if(violations.length)process.exitCode=1;
