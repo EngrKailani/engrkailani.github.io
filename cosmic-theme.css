@@ -548,3 +548,14 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
  html{scroll-behavior:auto!important}
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+
+/* Keep the standalone archive link legible on the deep-plum homepage sections. */
+:root[data-theme="dark"] body.cosmic-home .section-head a{
+  color:var(--cosmic-accent);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+:root[data-theme="dark"] body.cosmic-home .section-head a:hover{
+  color:var(--cosmic-accent-hover);
+}
