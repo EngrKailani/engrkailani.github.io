@@ -121,6 +121,23 @@ for(const [name,asset] of [
 }
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
+
+check(archive.includes('data-gallery-filter="research"') &&
+  archive.includes('data-gallery-category="robotics research" href="leg.html"') &&
+  archive.includes('data-gallery-category="measurement research" href="vna.html"'),
+  'Archive: faculty-mentored research filter must include both Honors projects');
+for(const [file,mentor,anchorId] of [
+  ['projects/leg.html','Dr. Sesh Commuri','leg-research'],
+  ['projects/vna.html','Dr. Jihwan Yoon','vna-research']
+]){
+  check(read(file).includes('Honors Signature Experience')&&read(file).includes(mentor),
+    file+': faculty-mentored Honors research is not correctly identified');
+  check(read(file).includes('../research.html#'+anchorId)&&research.includes('id="'+anchorId+'"'),
+    file+': missing linked research summary');
+}
+check(research.includes('projects/index.html?area=research'),
+  'Research: missing link to filtered faculty-mentored archive');
+
 const expectedHomeOrder=['selected-work','research','experience','about','contact'];
 check(expectedHomeOrder.every((id,i)=>home.indexOf('id="'+id+'"')>=0&&
   (i===0||home.indexOf('id="'+id+'"')>home.indexOf('id="'+expectedHomeOrder[i-1]+'"'))),
