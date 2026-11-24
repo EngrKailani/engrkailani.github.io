@@ -42,7 +42,8 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.
 - Publish only materials and photos authorized for public release. Do not commit private NASA or employer information, transcripts, or internal reports.
-- Maintain five curated homepage projects, with both NASA and faculty-mentored engineering work represented. Keep detailed methods and qualifications in the individual case studies.\n- Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
+- Maintain five curated homepage projects, with both NASA and faculty-mentored engineering work represented. Keep detailed methods and qualifications in the individual case studies.
+- Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
 - Keep the academic CV and résumé PDF downloads current and ensure their contact links point to `kailanialarcon.com`.
 - For changes, use a branch, inspect the diff, run checks, merge a pull request, and confirm the GitHub Pages deployment.
 
