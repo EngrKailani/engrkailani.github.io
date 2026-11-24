@@ -51,64 +51,115 @@
 <header class="detail-heading">
 <p class="eyebrow">NASA MARSHALL · OSTEM · 2026 · INDEPENDENT ENGINEERING ASSESSMENT</p><h1>NASA Robotic-Arm Assessment</h1><p>Connecting robotic motion, actuation, thermal behavior, and verification planning for lunar-dust testing.</p>
 </header>
-<nav class="project-reading-shortcuts" aria-label="Quick access to project evidence"><span class="project-reading-shortcuts__label">REVIEW THE ASSESSMENT</span><a href="#project-results">Assessment status <span aria-hidden="true">↗</span></a><a href="#project-evidence">Evidence &amp; limitations <span aria-hidden="true">↗</span></a></nav>
+<nav class="project-reading-shortcuts" aria-label="Read this assessment">
+  <span class="project-reading-shortcuts__label">PROJECT SECTIONS</span>
+  <a href="#project-overview">Overview <span aria-hidden="true">↗</span></a>
+  <a href="#nasa-contributions">Contributions <span aria-hidden="true">↗</span></a>
+  <a href="#project-method">Methods &amp; tools <span aria-hidden="true">↗</span></a>
+  <a href="#project-results">Outcomes &amp; limitations <span aria-hidden="true">↗</span></a>
+</nav>
 <aside class="nasa-disclaimer" aria-label="NASA affiliation disclaimer">
-  <span class="nasa-disclaimer__eyebrow">IMPORTANT AFFILIATION DISCLAIMER</span>
-  <h2>Personal portfolio. Not an official NASA publication.</h2>
-  <p>I am not an official representative or spokesperson for NASA. This is an independently written portfolio summary of my own internship work, conducted with NASA mentor oversight; the descriptions, interpretations, analyses, and illustrative graphics are not official NASA publications.</p>
-  <p>Nothing on this page should be interpreted as an official NASA statement, technical specification, endorsement, representation of agency capabilities, or description of the performance or status of any NASA program, system, hardware, mission, or organization.</p>
+  <span class="nasa-disclaimer__eyebrow">NASA AFFILIATION DISCLAIMER</span>
+  <h2>Independent portfolio summary. Not an official NASA publication.</h2>
+  <p>This page describes my individual internship work under NASA mentor oversight. It is not a NASA statement, endorsement, released hardware specification, or evidence of completed flight or vacuum qualification. The figures are generic illustrations, not agency engineering drawings or measured project data.</p>
 </aside>
-<section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title"><p class="project-evidence-first__eyebrow">PROJECT BRIEF</p><h2 id="evidence-summary-title">My role and the result</h2><div class="project-evidence-first__grid"><div class="project-evidence-first__item"><h3>Problem</h3><p>Evaluate a robotic-arm concept for chamber access, actuator suitability, and high-vacuum operation.</p></div><div class="project-evidence-first__item"><h3>My contribution</h3><p>Independently evaluated arm geometry, joint travel, reachable workspace, loading, actuator suitability, preliminary controls, and verification planning under NASA mentor oversight.</p></div><div class="project-evidence-first__item"><h3>Engineering tools</h3><p>Creo, Python, ROS and motion-planning tools, actuator-load calculations, legacy servo-control hardware, and structured system requirements; simulation experience.</p></div><div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed workspace, actuator loading, thermal behavior, and planned operating scenarios against system requirements.</p></div><div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Developed hierarchical system requirements from operating scenarios, assessed preliminary joint loading, created a simulation and control workflow, and authored technical specification documents. Further actuator-loading and vacuum verification are required.</p></div><div class="project-evidence-first__item"><h3>Limitations</h3><p>The preliminary shoulder-load estimate omits some component masses and is not sufficient for actuator selection. No project-specific design drawings, calibration data, vacuum qualification or validated operation are presented.</p></div></div></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#nasa-figures">Technical context</a><a href="#nasa-controls">Control &amp; calibration</a><a href="#nasa-thermal">Thermal modeling</a><a href="#nasa-requirements">Requirements</a><a href="#nasa-verification">Verification plan</a><a href="#nasa-evidence-map">Evidence map</a><a href="#project-results">Assessment status</a><a href="#project-evidence">Evidence</a></nav>
 
-<section class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
-  <header class="nasa-figures__intro">
-    <p class="nasa-figures__eyebrow">TECHNICAL CONTEXT</p>
-    <h2 id="nasa-figures-title">Engineering workstreams</h2>
-    <p>This public portfolio page presents the project at a general level. The visuals below use intentionally generic robotic-arm representations and do not reproduce project-specific dimensions, link lengths, joint locations, chamber geometry, or mechanical configuration. They are illustrative portfolio graphics, not official NASA engineering drawings, solver outputs, or qualification results.</p>
-  </header>
-  <figure class="nasa-figure" id="nasa-fig-01">
-    <div class="nasa-figure__top"><span>ROBOTIC-ARM CONCEPT</span><span>GENERIC · NOT TO SCALE</span></div>
-    <img src="nasa-figures/robotic-arm-geometry.svg?v=20261013-no-numbers" alt="Generic reconstructed illustration of a ceiling-mounted robotic arm inside an enclosure, with no project-specific dimensions shown." width="1200" height="760" loading="lazy" decoding="async">
-    <figcaption><strong>Robotic-arm concept.</strong> This reconstructed illustration is intentionally generic and not to scale. It does not represent project-specific dimensions, proportions, hardware configuration, or validated NASA CAD.</figcaption>
-  </figure>
-  <figure class="nasa-figure" id="nasa-fig-thermal">
-    <div class="nasa-figure__top"><span>THERMAL MODELING</span><span>QUALITATIVE RECONSTRUCTION</span></div>
-    <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic robotic-arm thermal-analysis illustration showing steady-state and transient modeling approaches without project-specific geometry or measurements." width="1200" height="760" loading="lazy" decoding="async">
-    <figcaption><strong>Thermal-analysis workstream.</strong> A qualitative illustration using a generic arm silhouette. The geometry, proportions, and joint placement are illustrative only and do not represent the project hardware. The colors are explanatory only and do not represent measured or qualified thermal performance.</figcaption>
-  </figure>
+<section class="project-evidence-first" id="project-overview" aria-labelledby="evidence-summary-title">
+  <p class="project-evidence-first__eyebrow">PROJECT OVERVIEW</p>
+  <h2 id="evidence-summary-title">Robotic-arm feasibility for lunar-dust testing</h2>
+  <div class="project-evidence-first__grid">
+    <div class="project-evidence-first__item">
+      <h3>Engineering problem</h3>
+      <p>Assess a proposed robotic tool-handling approach for a high-vacuum lunar-dust test environment, with attention to workspace, actuation, thermal constraints, and verification needs.</p>
+    </div>
+    <div class="project-evidence-first__item">
+      <h3>My role</h3>
+      <p>Independently conducted mechanical and systems analysis, developed requirements, and prepared robotics simulation and control workflows under mentor oversight.</p>
+    </div>
+    <div class="project-evidence-first__item project-evidence-first__item--result">
+      <h3>Project status</h3>
+      <p>A preliminary engineering feasibility assessment. The work supports design and test planning; it does not establish actuator adequacy, vacuum readiness, or validated robotic operation.</p>
+    </div>
+  </div>
 </section>
 
-<section class="nasa-evidence-map" id="nasa-evidence-map" aria-labelledby="nasa-evidence-map-title">
-  <p class="eyebrow">PUBLIC ENGINEERING EVIDENCE / SCOPE</p>
-  <h2 id="nasa-evidence-map-title">What the assessment established—and what remains open</h2>
-  <p class="nasa-evidence-map__intro">The distinction between an engineering result, a preliminary estimate, and a future verification activity matters. This summary describes general engineering work without publishing project-specific measurements, specifications, or test results.</p>
-  <div class="nasa-evidence-map__scroll" tabindex="0" aria-label="Scroll the assessment evidence table horizontally if necessary">
+<section class="nasa-workstreams" id="nasa-contributions" aria-labelledby="nasa-workstreams-title">
+  <h2 id="nasa-workstreams-title">My engineering contributions</h2>
+  <div class="nasa-workstreams__grid">
+    <section id="nasa-requirements">
+      <h3>Systems requirements</h3>
+      <p>Translated operating scenarios into structured requirements addressing manipulation, chamber access, safety, environmental constraints, and planned verification.</p>
+    </section>
+    <section id="nasa-controls">
+      <h3>Robotics simulation and controls</h3>
+      <p>Developed Python-based simulation and preliminary control tools with visualization and automated task routines. Prepared atmospheric bench-test procedures for legacy control hardware.</p>
+    </section>
+    <section>
+      <h3>Mechanical feasibility</h3>
+      <p>Evaluated arm reach, joint travel, loading assumptions, candidate actuators, and component suitability. The preliminary shoulder-loading estimate is not a final actuator-selection calculation.</p>
+    </section>
+    <section id="nasa-verification">
+      <h3>Engineering documentation</h3>
+      <p>Prepared technical specifications and verification-planning materials to organize future design reviews and testing work.</p>
+    </section>
+  </div>
+</section>
+
+<section class="detail-card" id="project-method" aria-labelledby="project-method-title">
+  <h2 class="project-details-title" id="project-method-title">Methods and tools</h2>
+  <div class="detail-grid">
+    <section class="detail-panel">
+      <h3>Mechanical and system analysis</h3>
+      <p>Used engineering models, workspace review, actuator-loading calculations, and structured requirements to identify feasibility questions. The assessment did not establish a final qualified configuration.</p>
+    </section>
+    <section class="detail-panel" id="nasa-thermal">
+      <h3>Environmental and thermal analysis</h3>
+      <p>Explored thermal behavior relevant to high-vacuum mechanisms using Thermal Desktop, alongside conduction-cooling and dust-protection concepts. Public graphics below are conceptual, not solver outputs.</p>
+    </section>
+    <section class="detail-panel">
+      <h3>Software and design tools</h3>
+      <p>Applied Creo, Python, ROS-based motion-planning and simulation tools, engineering calculations, and documented procedures. These were development activities, not validated vacuum operation.</p>
+    </section>
+  </div>
+  <div class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
+    <header class="nasa-figures__intro">
+      <p class="nasa-figures__eyebrow">ILLUSTRATIVE ENGINEERING CONTEXT</p>
+      <h3 id="nasa-figures-title">Generic concept illustrations</h3>
+      <p>These visuals explain the engineering categories without disclosing project-specific dimensions, chamber geometry, mechanical configuration, or test measurements.</p>
+    </header>
+    <figure class="nasa-figure" id="nasa-fig-01">
+      <div class="nasa-figure__top"><span>ROBOTIC-ARM CONCEPT</span><span>GENERIC · NOT TO SCALE</span></div>
+      <img src="nasa-figures/robotic-arm-geometry.svg?v=20261013-no-numbers" alt="Illustrative robotic-arm concept without NASA project dimensions or verified hardware geometry" width="1200" height="760" loading="lazy" decoding="async">
+      <figcaption>Generic robotic-arm representation, not an official hardware drawing or validated CAD model.</figcaption>
+    </figure>
+    <figure class="nasa-figure" id="nasa-fig-thermal">
+      <div class="nasa-figure__top"><span>THERMAL ANALYSIS</span><span>QUALITATIVE ILLUSTRATION</span></div>
+      <img src="nasa-figures/thermal-analysis-concept.svg?v=20261013-generic-geometry" alt="Generic thermal-analysis diagram without project data or measured temperature values" width="1200" height="760" loading="lazy" decoding="async">
+      <figcaption>Illustrative thermal-analysis workflow, not a measured or qualified thermal result.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="nasa-evidence-map" id="project-results" aria-labelledby="project-results-title">
+  <p class="eyebrow">ASSESSMENT STATUS</p>
+  <h2 id="project-results-title">Outcomes and limitations</h2>
+  <p class="nasa-evidence-map__intro">The work established engineering deliverables and identified areas for continued verification. The distinctions below describe what was completed and what remains unverified.</p>
+  <div class="nasa-evidence-map__scroll" id="nasa-evidence-map" tabindex="0" aria-label="Scroll outcomes table horizontally if necessary">
     <table class="nasa-evidence-map__table">
-      <thead><tr><th scope="col">Workstream</th><th scope="col">Previously described work</th><th scope="col">Evidence boundary</th></tr></thead>
+      <thead><tr><th scope="col">Work area</th><th scope="col">Documented engineering work</th><th scope="col">Limitations and next verification</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Requirements</th><td>Hierarchical system requirements informed by operating scenarios.</td><td>Requirements development; not completed system qualification.</td></tr>
-        <tr><th scope="row">Mechanical feasibility</th><td>Preliminary shoulder-loading assessment for a representative arm configuration.</td><td>Excludes rocker and actuator masses; insufficient for actuator selection.</td></tr>
-        <tr><th scope="row">Controls</th><td>Preliminary software and atmospheric bench-test procedures for a legacy controller.</td><td>Calibration performance and proposed replacement-actuator verification remain open.</td></tr>
-        <tr><th scope="row">Thermal assessment</th><td>Steady-state and transient analysis using Thermal Desktop.</td><td>Public figure is qualitative, not a solver output or qualification result.</td></tr>
-        <tr><th scope="row">High-vacuum suitability</th><td>Constraints and verification needs identified as part of the assessment.</td><td>No completed vacuum qualification or validated operation is claimed.</td></tr>
+        <tr><th scope="row">Requirements</th><td>Operating scenarios translated into a hierarchical requirements set.</td><td>Requirements support planning and do not demonstrate system qualification.</td></tr>
+        <tr><th scope="row">Mechanical assessment</th><td>Workspace and preliminary loading analysis.</td><td>The loading estimate omits some component masses; actuator assumptions require refinement.</td></tr>
+        <tr><th scope="row">Controls</th><td>Development-stage simulation, software, and bench-test planning.</td><td>Calibration and hardware performance remain to be verified.</td></tr>
+        <tr><th scope="row">Thermal and environmental suitability</th><td>Conceptual thermal assessment and high-vacuum constraints review.</td><td>No completed vacuum qualification or validated operation is claimed.</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="nasa-evidence-map__note">The figures on this page are generic illustrations, not NASA CAD or test measurements. No additional geometry, test parameters, performance margins, or unreleased results are disclosed here.</p>
+  <div class="detail-results" id="project-evidence">
+    <h3>Evidence boundary and next steps</h3>
+    <p>No project-specific drawings, dimensions, test datasets, calibration results, or quantitative performance margins are published here. Further work would refine loading assumptions, controls, and thermal and vacuum verification against requirements.</p>
+  </div>
 </section>
-
-<article class="detail-card" aria-label="nasa engineering decisions"><h2 class="project-details-title">Engineering decisions</h2><div id="project-method" class="detail-grid"><section class="detail-panel"><h3>Check mechanical feasibility alongside motion control</h3><p>Estimated preliminary shoulder loading for a representative configuration; the calculation omits some component masses. The remaining center-of-gravity and joint-loading work must be completed before determining actuator adequacy. Project-specific geometry remains outside this public summary.</p></section><section class="detail-panel"><h3>Treat thermal behavior as a separate workstream</h3><p>Motion control alone cannot establish suitability for high vacuum. Steady-state and transient Thermal Desktop analysis addressed the environmental part of the assessment.</p></section></div><section class="nasa-workstreams" aria-labelledby="nasa-workstreams-title">
-<h2 id="nasa-workstreams-title">Implementation and verification scope</h2>
-<div class="nasa-workstreams__grid">
-<section id="nasa-controls"><h3>Control &amp; calibration</h3><p>Developed preliminary control software and atmospheric bench-test procedures for a legacy controller, along with Python-based robotics simulation and control tools with visualization and automated routines. These were development tools, not vacuum-qualified robotic operation.</p></section>
-<section id="nasa-thermal"><h3>Thermal modeling</h3><p>Used Thermal Desktop for steady-state and transient analysis relevant to high-vacuum operation. The public visual illustrates the workstream qualitatively and is not a solver output.</p></section>
-<section id="nasa-requirements"><h3>Requirements &amp; constraints</h3><p>Developed hierarchical requirements informed by operating scenarios, addressing manipulation, high-vacuum compatibility, workspace constraints, emergency shutdown, and verification. These requirements describe planned engineering work, not completed qualifications.</p></section>
-<section id="nasa-verification"><h3>Verification planning</h3><p>Connected planned verification activities to system requirements and operating scenarios to support future testing and qualification work.</p></section>
-</div>
-</section><div id="project-results" class="detail-results"><h2>Assessment status</h2><p>The assessment identified areas for continued engineering review across actuator capability, mechanical packaging, controls, thermal behavior, and high-vacuum operation. These are design and analytical findings rather than completed acceptance or qualification tests.</p></div><div class="case-next-step"><h3>Next verification step</h3><p>Validate actuator assumptions, refine the mechanical and control design, characterize calibration performance, and complete thermal and vacuum verification against the project requirements.</p></div></article>
-
-<section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2><p>This page summarizes the engineering methods and general project work that can be shared publicly. Detailed NASA source data, project-specific dimensions, link lengths, joint locations, mechanical configuration, quantitative performance margins, calibration results, and completed qualification results are not public here. Any robotic-arm geometry shown on this page is intentionally generic and illustrative.</p></section>
 <aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=nasa%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../academic-cv.html">Read academic CV ↗</a></div></aside>
 <nav class="detail-footer" aria-label="Adjacent projects">
 <a class="detail-home-link" href="powershell.html">← PowerShell Systems &amp; Concurrency</a>
