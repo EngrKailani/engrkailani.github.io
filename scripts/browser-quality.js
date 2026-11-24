@@ -78,6 +78,24 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         if(test.path==='/') {
           const cards=await page.locator('.work-card').count();
           if(cards!==6)note(name+': expected six curated project cards, found '+cards);
+          const gridLayout=await page.locator('#selected-work .work-grid').evaluate(grid=>{
+            const list=[...grid.querySelectorAll('.work-card')];
+            const media=list.map(card=>card.querySelector('figure')?.getBoundingClientRect().height||0);
+            const rects=list.map(card=>card.getBoundingClientRect());
+            return {
+              columns:getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length,
+              mediaRange:Math.max(...media)-Math.min(...media),
+              pairsAligned:[0,2,4].every(i=>Math.abs(rects[i].top-rects[i+1].top)<2),
+              equalCardRows:[0,2,4].every(i=>Math.abs(rects[i].height-rects[i+1].height)<2)
+            };
+          });
+          if(test.width>=761){
+            if(gridLayout.columns!==2 || !gridLayout.pairsAligned || !gridLayout.equalCardRows ||
+               gridLayout.mediaRange>2)
+              note(name+': six featured projects are not evenly aligned in three desktop rows');
+          } else if(gridLayout.columns!==1){
+            note(name+': featured projects should stack in one column on narrow screens');
+          }
           const intro=await page.locator('#hero-title').textContent();
           if(!intro.includes('reliable robots'))note(name+': main engineering focus not visible');
           if(await page.locator('#bookshelf, #robot-lab, #repo-orbit-shell, #case-explorer').count())
