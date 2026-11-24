@@ -35,7 +35,10 @@ const cases=[
   }))),
   {path:'/workbench.html',width:390,theme:'dark'},
   {path:'/academic-cv.html',width:390,theme:'dark'},
-  {path:'/resume.html',width:390,theme:'dark'}
+  {path:'/resume.html',width:390,theme:'dark'},
+  ...['/', '/research.html', '/projects/index.html', '/projects/nasa.html',
+    '/workbench.html', '/academic-cv.html', '/resume.html']
+    .map(path=>({path,width:390,theme:'invalid'}))
 ];
 const issues=[];
 const reports=[];
@@ -51,6 +54,9 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         reducedMotion:'reduce',
         deviceScaleFactor:1
       });
+      if(test.theme==='invalid'){
+        await context.addInitScript(()=>{try{localStorage.setItem('kailani-theme','invalid-value')}catch(_){}});
+      }
       if(test.theme==='dark'){
         await context.addInitScript(()=>{try{localStorage.setItem('kailani-theme','dark')}catch(_){}});
       }
@@ -71,6 +77,10 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         const response=await page.goto(origin+test.path,{waitUntil:'domcontentloaded',timeout:40000});
         if(!response || response.status()>=400)note(name+': document did not load');
         await page.waitForTimeout(230);
+        if(test.theme==='invalid'){
+          const chosen=await page.locator('html').getAttribute('data-theme');
+          if(chosen!=='light')note(name+': invalid preference should fall back to light mode');
+        }
         if(test.theme==='dark'){
           const chosen=await page.locator('html').getAttribute('data-theme');
           if(chosen!=='dark')note(name+': dark theme did not initialize');
@@ -124,7 +134,19 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             if(nav && visible) await menu.click();
             const contact=visible && await page.locator('.cosmic-mobile-links a[href="#contact"]').isVisible();
             if(!nav || !visible || !contact)note(name+': mobile navigation is not accessible');
-            if(visible) await page.locator('.cosmic-mobile-menu').evaluate(el=>{el.open=false});
+            if(visible && contact){
+              await menu.press('Escape');
+              const closedOnEscape=await page.locator('.cosmic-mobile-menu').evaluate(el=>!el.open);
+              const focusReturned=await menu.evaluate(el=>document.activeElement===el);
+              if(!closedOnEscape || !focusReturned)
+                note(name+': Escape did not close the menu and return focus');
+              await menu.click();
+              await page.locator('.cosmic-mobile-links a[href="#contact"]').click();
+              if(await page.locator('.cosmic-mobile-menu').evaluate(el=>el.open))
+                note(name+': mobile menu did not close after following the Contact link');
+              if(new URL(page.url()).hash!=='#contact')
+                note(name+': mobile Contact anchor did not navigate');
+            }
           }
         }
         if(test.path==='/projects/index.html') {
