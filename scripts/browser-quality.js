@@ -119,6 +119,18 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
+          const crumb=page.locator('nav.case-breadcrumb');
+          if(!await crumb.count() || !await crumb.isVisible()) {
+            note(name+': project breadcrumb missing or hidden');
+          } else {
+            const current=(await crumb.locator('[aria-current="page"]').textContent())?.trim();
+            const title=(await page.locator('h1').textContent())?.trim();
+            if(current!==title)note(name+': breadcrumb title and heading differ');
+            const archive=crumb.locator('a[href="index.html"]');
+            if(!await archive.isVisible())note(name+': project archive breadcrumb link is not visible');
+          }
+          const returnLink=page.locator('nav.detail-footer a.case-archive-return[href="index.html"]');
+          if(!await returnLink.count())note(name+': missing return link to full project directory');
         }
         if(test.images) {
           await page.locator('img').evaluateAll(imgs=>imgs.forEach(img=>{img.loading='eager'}));
