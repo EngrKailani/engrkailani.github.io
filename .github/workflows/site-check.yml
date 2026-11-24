@@ -20,7 +20,9 @@ jobs:
         run: |
           for file in *.js scripts/*.js; do node --check "$file"; done
       - name: Verify pages, internal links and assets
-        run: node scripts/site-check.js
+        run: |
+          node scripts/site-check.js
+          node scripts/sync-asset-versions.js --check
 
   browser-quality:
     name: Chromium, CSS, accessibility and Lighthouse
