@@ -25,7 +25,6 @@ on:
       - scripts/css-quality.js
       - scripts/workbench-models-test.js
       - scripts/browser-quality.js
-      - scripts/mobile-layout.js
       - scripts/lighthouse-phase4-report.js
       - .github/workflows/portfolio-audit.yml
   workflow_dispatch:
