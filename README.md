@@ -12,10 +12,10 @@ A public engineering portfolio documenting NASA internship work, faculty-mentore
 | Searchable archive of 16 project case studies | `projects/index.html`, `projects/*.html` |
 | Research directions and technical writing | `research.html` |
 | Academic CV and downloadable PDF | `academic-cv.html`, `assets/Kailani_Alarcon_CV.pdf` |
-| Current résumé and downloadable PDF | `resume.html`, `assets/Kailani_Alarcon_Resume.pdf` |
+| Current résumé and downloadable PDF | `resume.html`, `assets/Kailani_Alarcon_Master_Resume.pdf` |
 | Optional browser-only interactive models | `workbench.html`, `workbench.js` |
 
-Styles are intentionally modular. `professional-home.css` provides the homepage foundations; `cosmic-theme.css` supplies the shared space/pink design and accessible mobile navigation; research, workbench, résumé and project pages retain their scoped stylesheets. The site is hosted on GitHub Pages from `main`, with `CNAME` configured for `kailanialarcon.com`.
+Styles are intentionally modular. `professional-home.css` provides the homepage foundations; `cosmic-theme.css` supplies the shared space/pink design and accessible mobile navigation; research, workbench, PDF-only document pages, and project case studies load only their currently needed stylesheets. The site is hosted on GitHub Pages from `main`, with `CNAME` configured for `kailanialarcon.com`.
 
 ## Development and checks
 
@@ -46,4 +46,4 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Keep the academic CV and résumé PDF downloads current and ensure their contact links point to `kailanialarcon.com`.
 - For changes, use a branch, inspect the diff, run checks, merge a pull request, and confirm the GitHub Pages deployment.
 
-Historical site experiments are retained as archived source and documentation, but the current homepage intentionally avoids the earlier redundant galleries and demos.
+The current site uses shared navigation, a small theme-switch script, and page-scoped assets. Historical experiments are documented in `docs/portfolio-history.md`; unused legacy script and CV/résumé stylesheets have been retired. Keep project-specific CSS only where referenced.
