@@ -5,11 +5,11 @@ This document describes repeatable accessibility, mobile, and performance checks
 
 ## Scope
 
-- Homepage: `/`, including the optional engineering archive.
+- Homepage: `/`, including its featured engineering projects and research links.
 - Research and technical writing: `/research.html`.
 - Engineering project directory: `/projects/`.
 - Engineering Workbench: `/workbench.html`.
-- All sixteen individual case studies and the HTML résumé are included in the existing Chromium/axe test suite.
+- All sixteen case studies, the PDF-based CV and résumé viewers, and responsive navigation are included in the Chromium/axe test suite.
 
 ## Automated checks
 
@@ -17,7 +17,7 @@ The [Portfolio accessibility and performance audit](.github/workflows/portfolio-
 workflow runs on changes to the relevant pages or through **Actions → Portfolio accessibility and performance audit → Run workflow**.
 
 1. **Static quality:** `node scripts/site-check.js` validates local assets, links, semantics, research/publication status and navigation. `node scripts/css-quality.js` parses stylesheets. `node scripts/workbench-models-test.js` tests synthetic signals and planar inverse kinematics.
-2. **Chromium/axe:** `node scripts/browser-quality.js` covers desktop and mobile layouts, keyboard interactions, light/dark themes, content, console errors, image loading and automated WCAG 2.0/2.1 A/AA checks. `scripts/mobile-layout.js` checks narrow-screen overflow and card containment.
+2. **Chromium/axe:** `node scripts/browser-quality.js` covers desktop and mobile layouts, keyboard interactions, light/dark themes, content, console errors, image loading and automated WCAG 2.0/2.1 A/AA checks. The browser suite also checks narrow-screen overflow and content containment.
 3. **Lighthouse:** Four entry points are tested in mobile and desktop presets: **eight real lab runs**. `node scripts/lighthouse-phase4-report.js` creates a Markdown scorecard and JSON measurement table; raw reports are uploaded. The summary lists performance, accessibility, best practices, SEO, largest contentful paint, cumulative layout shift, and total blocking time.
 
 The workflow uploads:
@@ -59,12 +59,18 @@ Automated tools cannot prove WCAG conformance. Before treating the audit as comp
 - Check screenshots and Lighthouse issues before changing fonts, animations, or loaded imagery.
 - Do not present private company reports as public downloadable publications without authorization.
 
-## Source-level changes made in Phase 4
+## Current site organization and disclosure safeguards
 
-- Added a research/technical-writing page distinguishing **future research interests**, **documented engineering projects**, and **two internal technical white papers**.
-- Added direct research navigation to the homepage, project directory, Workbench, and résumé; added the research URL to the sitemap.
-- Added verified intrinsic dimensions to five lazy-loaded homepage WebP images to reduce layout-shift risk.
-- Added research page, keyboard, dark-theme, mobile and axe checks, and the Lighthouse scorecard workflow.
+- The Research page distinguishes documented engineering research, proposed PhD work, student posters, and two publicly available industry white papers.
+- The homepage links directly to research, publications, the selected project portfolio, and the academic CV. The project directory remains the archive for other work.
+- The NASA case study uses generic, non-measured illustrations. Unused numerical NASA diagrams and obsolete résumé/CV generators have been retired.
+- Static checks block the former NASA-specific numerical claims and the previous public PDF binaries, and cover internal links, page structure, and publications.
+
+## Published CV and résumé policy
+
+The two public PDF assets are maintained by manually reviewing and uploading revised source PDFs. Obsolete generators that could publish older technical figures have been removed. The static checks reject the known earlier, NASA-numbered PDF binaries but cannot prove that arbitrary future PDF uploads contain no sensitive details. Review any replacement PDF before publishing.
+
+Removing a file from the current GitHub branch does not remove previous revisions from Git history.
 
 ## Deployment note
 
