@@ -30,7 +30,9 @@ const cases=[
   {path:'/',width:390,screenshot:true,theme:'dark'},
   {path:'/research.html',width:390,screenshot:true,theme:'dark'},
   {path:'/projects/index.html',width:390,screenshot:true,theme:'dark'},
-  {path:'/projects/nasa.html',width:390,theme:'dark'},
+  ...slugs.flatMap(slug=>[390,1440].map(width=>({
+    path:'/projects/'+slug+'.html',width,theme:'dark'
+  }))),
   {path:'/workbench.html',width:390,theme:'dark'},
   {path:'/academic-cv.html',width:390,theme:'dark'},
   {path:'/resume.html',width:390,theme:'dark'}
@@ -54,6 +56,15 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
       }
       const page=await context.newPage();
       const name=label(test);
+      let earlyTheme;
+      if(test.theme==='dark' && ['/', '/academic-cv.html', '/resume.html'].includes(test.path)){
+        // Observe the saved preference before the deferred toggle script is delivered.
+        await page.route('**/unified-theme.js',async route=>{
+          await page.locator('link[rel="stylesheet"]').first().waitFor({state:'attached'});
+          earlyTheme=await page.locator('html').getAttribute('data-theme');
+          await route.continue();
+        });
+      }
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
       try {
@@ -63,6 +74,8 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         if(test.theme==='dark'){
           const chosen=await page.locator('html').getAttribute('data-theme');
           if(chosen!=='dark')note(name+': dark theme did not initialize');
+          if(['/', '/academic-cv.html', '/resume.html'].includes(test.path) && earlyTheme!=='dark')
+            note(name+': saved dark theme was not applied before the deferred script');
         }
         const state=await page.evaluate(()=>{
           const doc=document.documentElement;
@@ -164,10 +177,33 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
               targets:v.nodes.slice(0,3).map(n=>({selector:n.target?.join(', '),html:n.html?.slice(0,140),failure:n.failureSummary?.slice(0,220)}))}));
         });
         if(axe.length)note(name+': serious WCAG issues '+JSON.stringify(axe).slice(0,500));
+        const buttonStates=[];
+        if(test.theme==='dark'){
+          const buttons=page.locator('.case-contact .btn-primary');
+          for(let i=0;i<await buttons.count();i++){
+            const button=buttons.nth(i);
+            for(const interaction of ['hover','focus']){
+              if(interaction==='hover')await button.hover();
+              else {
+                await page.mouse.move(0,0);
+                await button.focus();
+              }
+              // Let color transitions settle before sampling the interactive state.
+              await page.waitForTimeout(250);
+              const contrast=await button.evaluate(async el=>{
+                const result=await window.axe.run(el,{runOnly:{type:'rule',values:['color-contrast']}});
+                return {violations:result.violations,incomplete:result.incomplete};
+              });
+              buttonStates.push({button:i,state:interaction,...contrast});
+              if(contrast.violations.length || contrast.incomplete.length)
+                note(name+': contact button '+interaction+' contrast did not pass');
+            }
+          }
+        }
         if(test.screenshot) {
           await page.screenshot({path:path.join(screenshotDir,name+'.png'),fullPage:true,animations:'disabled'});
         }
-        reports.push({page:test.path,width:test.width,document:state,jsErrors:errors,axe});
+        reports.push({page:test.path,width:test.width,document:state,jsErrors:errors,axe,earlyTheme,buttonStates});
       } catch(e) {
         note(name+': '+String(e.message||e).slice(0,300));
       } finally {

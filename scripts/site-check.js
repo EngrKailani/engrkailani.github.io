@@ -146,7 +146,7 @@ for(const slug of slugs){
   check(page.includes('class="case-archive-return" href="index.html"') &&
     page.includes('aria-label="Project navigation"'),
     'Case study: missing archive return link in '+slug);
-  check(page.includes('../cosmic-theme.css?v=20261124-breadcrumb9'),
+  check(page.includes('../cosmic-theme.css?v=20261124-dark11'),
     'Case study: missing current shared breadcrumb styling in '+slug);
 }
 for(const [name,asset] of [

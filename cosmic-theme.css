@@ -396,7 +396,7 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
   .directory-card-badge,.directory-evidence__label,
   .detail-panel h2,.detail-results h2,
   .directory-breadcrumb a,.detail-jump a,
-  .project-reading-shortcuts a,.case-contact a,
+  .project-reading-shortcuts a,.case-contact a:not(.btn-primary),
   .detail-home-link,.project-evidence-first__eyebrow
 ){color:var(--cosmic-accent)}
 :root[data-theme="dark"] body.project-page .directory-card-visual{
