@@ -7,13 +7,24 @@ on:
       - research.html
       - research.css
       - academic-cv.html
-      - academic-cv.css
+      - resume.html
+      - pdf-page.css
+      - cosmic-theme.css
+      - professional-home.css
+      - professional-resume.css
+      - portfolio.css
+      - portfolio-upgrade.css
       - homepage-refinement.css
+      - unified-theme.js
+      - project-directory.js
+      - 'assets/*.pdf'
       - projects/index.html
       - 'projects/**/*.html'
       - 'projects/**/*.css'
       - workbench.html
       - scripts/site-check.js
+      - scripts/css-quality.js
+      - scripts/workbench-models-test.js
       - scripts/browser-quality.js
       - scripts/mobile-layout.js
       - scripts/lighthouse-phase4-report.js
