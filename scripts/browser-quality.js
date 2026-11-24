@@ -77,7 +77,7 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         if(errors.length)note(name+': JavaScript error: '+errors.join('; ').slice(0,320));
         if(test.path==='/') {
           const cards=await page.locator('.work-card').count();
-          if(cards!==5)note(name+': expected five curated project cards, found '+cards);
+          if(cards!==6)note(name+': expected six curated project cards, found '+cards);
           const intro=await page.locator('#hero-title').textContent();
           if(!intro.includes('reliable robots'))note(name+': main engineering focus not visible');
           if(await page.locator('#bookshelf, #robot-lab, #repo-orbit-shell, #case-explorer').count())
