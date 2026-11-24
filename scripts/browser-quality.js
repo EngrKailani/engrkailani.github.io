@@ -83,7 +83,7 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             const media=list.map(card=>card.querySelector('figure')?.getBoundingClientRect().height||0);
             const rects=list.map(card=>card.getBoundingClientRect());
             return {
-              columns:getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length,
+              columns:getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length,
               mediaRange:Math.max(...media)-Math.min(...media),
               pairsAligned:[0,2,4].every(i=>Math.abs(rects[i].top-rects[i+1].top)<2),
               equalCardRows:[0,2,4].every(i=>Math.abs(rects[i].height-rects[i+1].height)<2)
