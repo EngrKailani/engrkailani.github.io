@@ -35,7 +35,7 @@ npm run check:static
 npm run check:browser
 ```
 
-The repository's GitHub Actions workflows test internal links, images, browser layout, accessibility, JavaScript, CSS, and performance. The weekly **External link health** workflow also audits public outbound project repositories, industry papers, and professional links; it produces an artifact and job summary. You can run `npm run check:external:inventory` to list them without network access or `npm run check:external` to test destinations manually. An inaccessible site is reported for review rather than automatically treated as broken; only a confirmed HTTP 404 or 410 fails the scheduled audit. See [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Automated checks do not establish full WCAG conformance or guarantee field performance.
+The repository's GitHub Actions workflows test internal links, project-to-project navigation, same-page anchors, sitemap coverage, images, browser layout, accessibility, JavaScript, CSS, and performance. The weekly **External link health** workflow also audits public outbound project repositories, industry papers, and professional links; it produces an artifact and job summary. You can run `npm run check:external:inventory` to list them without network access or `npm run check:external` to test destinations manually. An inaccessible site is reported for review rather than automatically treated as broken; only a confirmed HTTP 404 or 410 fails the scheduled audit. See [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Automated checks do not establish full WCAG conformance or guarantee field performance.
 
 ## Editorial standards
 
@@ -46,6 +46,7 @@ The repository's GitHub Actions workflows test internal links, images, browser l
 - Project media need a visible provenance label. Use original project images only with publication clearance; describe illustrative or synthetic figures as such. The six featured project images are labeled accordingly.
 - Avoid committing unapproved employer CAD, lab hardware photos, and screenshots showing internal file paths. Previously published technical photos were removed from the current branch; Git history and caches may still retain older copies. Git history cleanup requires a separate coordinated review.
 - Link directly to a project repository only when it is already public and verified to match the project. A source link establishes code availability, not hardware validation or authorization to reuse third-party materials.
+- Keep the 16 case studies connected through previous and next links following the project archive order, with the last project linking back to the first. Run `npm run check:navigation` after changing archive order or project links.
 - Maintain six curated homepage projects in a balanced two-column desktop grid, representing NASA, faculty-mentored research, robotics coursework, and test automation. Keep detailed methods and qualifications in the individual case studies.
 - Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
 - Keep the manually maintained academic CV and résumé PDFs current, review future uploads for NASA project numbers, and ensure the public links point to the existing website filenames.

@@ -22,6 +22,7 @@ jobs:
       - name: Verify pages, internal links and assets
         run: |
           node scripts/site-check.js
+          node scripts/navigation-quality.js
           node scripts/sync-asset-versions.js --check
       - name: Verify external link inventory without network requests
         run: |
