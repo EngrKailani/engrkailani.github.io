@@ -603,3 +603,17 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 @media(max-width:760px){
   .cosmic-home .work-grid{grid-template-columns:1fr}
 }
+
+
+/* Visual provenance remains visible on every featured project, in both themes.
+   A project illustration is not a photograph or independently validated test result. */
+.cosmic-home .work-card > figure{position:relative}
+.cosmic-home .work-media-note{
+  position:absolute;top:12px;right:12px;z-index:3;
+  max-width:calc(100% - 24px);margin:0;padding:6px 11px;
+  border:1px solid rgba(255,255,255,.35);border-radius:999px;
+  background:rgba(31,23,48,.95);color:#fff7fd;
+  font:750 .68rem/1.35 var(--cosmic-sans,system-ui,sans-serif);
+  letter-spacing:.025em;text-align:center;
+  pointer-events:none;box-shadow:0 2px 10px rgba(12,9,21,.16);
+}
