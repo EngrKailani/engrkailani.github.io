@@ -64,6 +64,47 @@ for(const link of ['research.html','academic-cv.html','#selected-work'])
   check(home.includes('href="'+link+'"'),'Home: missing navigation '+link);
 check(!/34 hierarchical requirements|3\.1\s*N[·.]?m|12-document/.test(home+research+read('projects/nasa.html')+archive),
   'Public NASA summaries should not include numeric project findings');
+
+const nasaPublicText=[home,research,archive,read('projects/nasa.html'),
+  read('docs/portfolio-history.md')].join('\n');
+const privateNASAQuantities=[
+  /\b34\s+(?:hierarchical\s+|system\s+)?requirements\b/i,
+  /\b(?:six|6)\s+(?:planned\s+|operational\s+|operating\s+|proposed\s+)?scenarios\b/i,
+  /\b3\.1\s*N(?:[·.]?m)?\b/i,
+  /\b27\.23\s*lbf[- ]in\b/i,
+  /\b(?:10\^-?7|1e-7)\s*torr\b/i,
+  /\b12[- ]document\b/i,
+];
+for(const term of privateNASAQuantities)
+  check(!term.test(nasaPublicText),'Public NASA narrative contains specific technical values: '+term);
+const retired=[
+  'projects/nasa-figures/shoulder-torque-comparison.svg',
+  'projects/nasa-figures/requirements-verification.svg',
+  'scripts/build-resume-pdf.py',
+  'scripts/build-academic-cv-pdf.js',
+  '.github/workflows/resume-pdf.yml',
+  '.github/workflows/update-resume.yml',
+  '.github/workflows/academic-cv-pdf.yml'
+];
+for(const name of retired)
+  check(!fs.existsSync(path.join(root,name)),'Retired asset or generator must remain removed: '+name);
+const crypto=require('node:crypto');
+const previousPublicPDFs={
+  'assets/Kailani_Alarcon_CV.pdf':'09ec82c69d7d023a92542cfc2df4a6dfc3b5b299',
+  'assets/Kailani_Alarcon_Master_Resume.pdf':'13512bbf96504d192191d4f122de32df05788fcc'
+};
+for(const [name,oldBlob] of Object.entries(previousPublicPDFs)){
+  const pathToPDF=path.join(root,name);
+  if(!fs.existsSync(pathToPDF))continue;
+  const bytes=fs.readFileSync(pathToPDF);
+  const gitBlob=crypto.createHash('sha1')
+    .update('blob '+bytes.length+'\0').update(bytes).digest('hex');
+  check(bytes.subarray(0,5).toString()==='%PDF-',
+    name+': not a valid PDF header');
+  check(gitBlob!==oldBlob,
+    name+': an outdated NASA-numbered PDF was restored');
+}
+
 for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
   check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
