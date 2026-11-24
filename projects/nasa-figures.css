@@ -92,3 +92,11 @@
 :root[data-theme="dark"] .nasa-evidence-map__table tbody tr:nth-child(even),:root[data-theme="dark"] .nasa-evidence-map__note{background:#3b2d41}
 @media(max-width:640px){.nasa-evidence-map{padding:17px 14px}.nasa-evidence-map__table{min-width:575px}.nasa-evidence-map__table th,.nasa-evidence-map__table td{padding:10px 12px}}
 @media print{.nasa-evidence-map__scroll{overflow:visible}.nasa-evidence-map__table{min-width:0}.nasa-evidence-map__table tr{break-inside:avoid}}
+
+
+/* Compact figure gallery in the consolidated NASA assessment. */
+.nasa-figures__intro h3{font:600 clamp(23px,3vw,33px)/1.23 var(--serif,Georgia,serif);color:var(--ink,#332a35);margin:0 0 11px}
+:root[data-theme="dark"] .nasa-figures__intro h3{color:#fff3fa}
+#project-method .nasa-figures{margin:26px 0 0}
+#project-method .nasa-figures__intro{margin-bottom:16px}
+#project-results .detail-results{margin:19px 0 0}
