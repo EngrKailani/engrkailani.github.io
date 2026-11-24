@@ -566,3 +566,29 @@ body:is(.project-page,.research-page,.wb-page) :is(a:hover){text-decoration-colo
 :root[data-theme="dark"] body.cosmic-home .evidence-links,
 :root[data-theme="dark"] body.cosmic-home .evidence-links .evidence-label{color:var(--cosmic-muted)}
 :root[data-theme="dark"] body.cosmic-home .evidence-links a{color:var(--cosmic-accent)}
+
+/* Consistent route back to the project directory from every case study. */
+.project-page .case-breadcrumb{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  margin:0 0 clamp(17px,2.5vw,26px);
+  font:650 12px/1.65 var(--cosmic-sans,Arial,sans-serif);
+  color:var(--cosmic-muted);
+}
+.project-page .case-breadcrumb a{
+  color:var(--cosmic-accent);text-decoration:underline;text-underline-offset:3px;
+}
+.project-page .case-breadcrumb a:hover{color:var(--cosmic-accent-hover)}
+.project-page .case-breadcrumb [aria-current="page"]{
+  color:var(--cosmic-ink);font-weight:750;
+}
+.project-page .case-breadcrumb__divider{color:var(--cosmic-muted)}
+.project-page .detail-footer .case-archive-return{
+  color:var(--cosmic-accent);font-weight:750;text-decoration:underline;text-underline-offset:3px;
+}
+:root[data-theme="dark"] body.project-page .case-breadcrumb a,
+:root[data-theme="dark"] body.project-page .detail-footer .case-archive-return{
+  color:var(--cosmic-accent);
+}
+@media(max-width:560px){
+  .project-page .case-breadcrumb{gap:5px 8px;font-size:11px}
+}
