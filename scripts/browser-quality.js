@@ -25,12 +25,20 @@ const cases=[
   {path:'/projects/index.html',width:390},
   {path:'/workbench.html',width:1440},
   {path:'/workbench.html',width:320},
-  ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390}))
+  ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390})),
+  {path:'/',width:1440,screenshot:true,theme:'dark'},
+  {path:'/',width:390,screenshot:true,theme:'dark'},
+  {path:'/research.html',width:390,screenshot:true,theme:'dark'},
+  {path:'/projects/index.html',width:390,screenshot:true,theme:'dark'},
+  {path:'/projects/nasa.html',width:390,theme:'dark'},
+  {path:'/workbench.html',width:390,theme:'dark'},
+  {path:'/academic-cv.html',width:390,theme:'dark'},
+  {path:'/resume.html',width:390,theme:'dark'}
 ];
 const issues=[];
 const reports=[];
 function note(s){issues.push(s);console.error('::error::'+s)}
-function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').replace(/\//g,'-'))+'-'+test.width}
+function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').replace(/\//g,'-'))+'-'+test.width+(test.theme?'-'+test.theme:'')}
 (async()=>{
   const browser=await chromium.launch({headless:true,args:['--disable-dev-shm-usage']});
   try {
@@ -41,6 +49,9 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         reducedMotion:'reduce',
         deviceScaleFactor:1
       });
+      if(test.theme==='dark'){
+        await context.addInitScript(()=>{try{localStorage.setItem('kailani-theme','dark')}catch(_){}});
+      }
       const page=await context.newPage();
       const name=label(test);
       const errors=[];
@@ -49,6 +60,10 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         const response=await page.goto(origin+test.path,{waitUntil:'domcontentloaded',timeout:40000});
         if(!response || response.status()>=400)note(name+': document did not load');
         await page.waitForTimeout(230);
+        if(test.theme==='dark'){
+          const chosen=await page.locator('html').getAttribute('data-theme');
+          if(chosen!=='dark')note(name+': dark theme did not initialize');
+        }
         const state=await page.evaluate(()=>{
           const doc=document.documentElement;
           const viewport=doc.clientWidth;
