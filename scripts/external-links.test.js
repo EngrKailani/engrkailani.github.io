@@ -24,6 +24,6 @@ test('HEAD availability is accepted; GET confirms missing resources only',()=>{
 });
 test('report distinguishes inventory and verified status without claiming availability',()=>{
   const link={url:'https://example.org/',pages:['index.html']};
-  assert.match(makeMarkdown([{...link,status:'inventory'}],'--inventory'==='--check'?/network/:/Inventory only/);
+  assert.match(makeMarkdown([{...link,status:'inventory'}], '--inventory'), /Inventory only/);
   assert.match(makeMarkdown([{...link,status:'broken'}],'--check'),/BROKEN/);
 });
