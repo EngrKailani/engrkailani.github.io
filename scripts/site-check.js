@@ -16,28 +16,28 @@ function read(name){
   if(!files.has(name))files.set(name,fs.readFileSync(path.join(root,name),'utf8'));
   return files.get(name);
 }
-function ids(name){return new Set([...read(name).matchAll(/\\bid=["']([^"']+)["']/g)].map(m=>m[1]))}
+function ids(name){return new Set([...read(name).matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]))}
 for(const file of pages){
   const full=path.join(root,file);
   if(!fs.existsSync(full)){check(false,file+': missing page');continue}
   const html=read(file);
   const prefix=file.startsWith('projects/')?'../':'';
-  check((html.match(/<h1(?:\\s[^>]*)?>/gi)||[]).length===1,file+': expected one h1');
+  check((html.match(/<h1(?:\s[^>]*)?>/gi)||[]).length===1,file+': expected one h1');
   const pageIds=[...ids(file)];
-  const allIds=[...html.matchAll(/\\bid=["']([^"']+)["']/g)].map(m=>m[1]);
+  const allIds=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]);
   check(pageIds.length===allIds.length,file+': duplicate element id');
-  check(/<title>[^<]+<\\/title>/i.test(html),file+': missing title');
+  check(/<title>[^<]+<\/title>/i.test(html),file+': missing title');
   check(/<meta name="description" content="[^"]{20,}"/i.test(html),file+': missing description');
   check(html.includes(domain),file+': missing canonical domain');
   check(html.includes('class="cosmic-site-header"')&&html.includes('class="cosmic-mobile-menu"'),
     file+': missing shared navigation');
   check(html.includes('href="'+prefix+'cosmic-theme.css?'),file+': missing shared theme');
   check(!html.includes('kalarcon775.github.io'),file+': obsolete domain');
-  for(const img of html.matchAll(/<img\\b[^>]*>/gi))
-    check(/\\balt=["'][^"']*["']/i.test(img[0]),file+': image missing alt');
-  for(const item of html.matchAll(/\\s(?:href|src|poster)=["']([^"']+)["']/gi)){
+  for(const img of html.matchAll(/<img\b[^>]*>/gi))
+    check(/\balt=["'][^"']*["']/i.test(img[0]),file+': image missing alt');
+  for(const item of html.matchAll(/\s(?:href|src|poster)=["']([^"']+)["']/gi)){
     const ref=item[1].trim();
-    if(!ref||/^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i.test(ref))continue;
+    if(!ref||/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(ref))continue;
     const [beforeFragment,rawFragment]=ref.split('#');
     const local=beforeFragment.split('?')[0];
     let relative;
@@ -55,14 +55,14 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
-check((home.match(/<article class="work-card(?:\\s[^"]*)?"/g)||[]).length===5,
+check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===5,
   'Home: five featured projects expected');
 for(const link of ['projects/nasa.html','projects/ur3e.html','projects/leg.html',
   'research.html#regolith-analysis','research.html#propulsion-testing'])
   check(home.includes('href="'+link+'"'),'Home: missing priority project '+link);
 for(const link of ['research.html','academic-cv.html','#selected-work'])
   check(home.includes('href="'+link+'"'),'Home: missing navigation '+link);
-check(!/34 hierarchical requirements|3\\.1\\s*N[·.]?m|12-document/.test(home+research+read('projects/nasa.html')+archive),
+check(!/34 hierarchical requirements|3\.1\s*N[·.]?m|12-document/.test(home+research+read('projects/nasa.html')+archive),
   'Public NASA summaries should not include numeric project findings');
 for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
