@@ -82,6 +82,10 @@ check(read('scripts/visual-regression.js').includes('baseline') &&
 const expPage=read('robotics-experiment.html');
 const expModel=read('robotics-experiment-model.js');
 const expViewer=read('robotics-experiment.js');
+check((expPage.match(/class="exp-chart-wrap" role="region"[^>]*tabindex="0"/g)||[]).length===3 &&
+  expPage.includes('class="exp-table-wrap" role="region"') &&
+  read('robotics-experiment.css').includes('.exp-chart-wrap:focus-visible'),
+  'Robotics: scrollable chart and table regions need keyboard focus');
 check(expPage.includes('Reproducible Robotics Experiment') &&
   expPage.includes('id="exp-sensitivity-plot"') &&
   expPage.includes('id="exp-error-plot"') &&
