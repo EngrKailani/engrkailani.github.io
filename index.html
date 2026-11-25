@@ -76,7 +76,7 @@
         <div>
           <p class="eyebrow">Portfolio highlights</p>
           <h2 id="selected-title">Selected engineering projects.</h2>
-          <p>Six projects spanning space robotics, measurement, and automation. Each case study details my role, technical approach, and evidence limitations.</p>
+          <p>Six engineering projects selected for technical relevance. Start with the documented contribution and result, then inspect the methods, source, and validation scope.</p>
         </div>
         <a href="projects/index.html" aria-label="Browse the full engineering project archive">Browse all projects</a>
       </div>
@@ -88,7 +88,7 @@
             <p class="project-meta">NASA Marshall · Space robotics</p>
             <h3><a href="projects/nasa.html">Robotic-arm feasibility for lunar-dust testing</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Independently assessed robotic-arm requirements, workspace, loading, and actuation with NASA mentorship.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> Analytical checks, simulation preparation, and verification planning; no vacuum qualification.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> Requirements-to-verification planning and analytical workspace checks; no vacuum qualification.</p>
             <a class="case-link" href="projects/nasa.html">Explore the robotic-arm case study →</a>
           </div>
         </article>
@@ -103,7 +103,7 @@
             <p class="project-meta">NASA Marshall · Image processing</p>
             <h3><a href="research.html#regolith-analysis">Lunar-regolith contamination analysis</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Developed image-processing workflows for lunar-regolith contamination assessment.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> Fiji/ImageJ segmentation and particle morphology; original measurements are not public.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> Fiji/ImageJ segmentation and morphology; source measurements are not public.</p>
             <a class="case-link" href="research.html#regolith-analysis">Read the documented research summary →</a>
           </div>
         </article>
@@ -114,22 +114,18 @@
             <p class="project-meta">UNR · Honors Signature Experience</p>
             <h3><a href="projects/vna.html">Virtual network analyzer and radar measurement workflow</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Developed a MATLAB virtual VNA workflow as faculty-mentored Honors research.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> SOLT calibration methods and S-parameter analysis; example traces are synthetic.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> SOLT calibration and S-parameter analysis; public example traces are synthetic.</p>
             <a class="case-link" href="projects/vna.html">View faculty-mentored research →</a>
           </div>
         </article>
 
         <article class="work-card">
-          <figure class="work-card-concept work-card-concept--robotics" role="img" aria-label="Decorative graphic for kinematic analysis, not a measured robot configuration">
-            <span class="work-card-concept__overline">ROBOT KINEMATICS</span>
-            <span class="work-card-concept__title">UR3e manipulation</span>
-            <span class="work-card-concept__detail">Forward kinematics · Jacobians · singularities</span>
-          <figcaption class="work-media-note">Concept graphic</figcaption></figure>
+          <figure><img class="fit-contain" src="projects/ur3e/media/jacobian-rank-comparison.svg" alt="Diagram of the robotics team's reported Jacobian ranks: 5 at the zero-angle singular configuration and 6 at another configuration; not physical measurements" width="1120" height="490" loading="lazy" decoding="async"><figcaption class="work-media-note">Reported model result · not hardware testing</figcaption></figure>
           <div class="work-card-content">
             <p class="project-meta">UNR · Robotics team project</p>
             <h3><a href="projects/ur3e.html">UR3e manipulator kinematics</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Collaborated on UR3e kinematics and singularity analysis; individual derivations were not separately attributed.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> MATLAB, Denavit–Hartenberg models, and Jacobians; no hardware validation.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> DH transforms and Jacobian rank analysis; reported rank-5 singularity, not hardware validation.</p>
             <a class="case-link" href="projects/ur3e.html">View robotics case study →</a>
           </div>
         </article>
@@ -140,7 +136,7 @@
             <p class="project-meta">UNR · Honors Signature Experience</p>
             <h3><a href="projects/leg.html">Three-link leg dynamics and simulation</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Independently modeled and simulated three-link leg dynamics with faculty mentorship.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> MATLAB/Simulink motion and torque analysis; no physical validation.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> MATLAB/Simulink joint motion and torque simulation; public source, no gait validation.</p>
             <a class="case-link" href="projects/leg.html">View faculty-mentored research →</a>
           </div>
         </article>
@@ -151,12 +147,13 @@
             <p class="project-meta">Engineering software · Test automation</p>
             <h3><a href="projects/thermal.html">Thermal controller and logger</a></h3>
             <p class="work-overview"><strong>My contribution:</strong> Developed Python tools for multichannel temperature monitoring and test reporting.</p>
-            <p class="work-result"><strong>Methods and limits:</strong> Python/Tkinter, thermocouple logging, and CSV/Excel; sensor calibration unverified.</p>
+            <p class="work-result"><strong>Methods and limits:</strong> Python/Tkinter thermocouple logging and CSV/Excel reporting; calibration unverified.</p>
             <a class="case-link" href="projects/thermal.html">View test-automation case study →</a>
           </div>
         </article>
       </div>
 
+      <p class="archive-link"><strong>Reproducible robotics example:</strong> <a href="robotics-experiment.html">Run a seeded sensing and kinematics experiment</a> with model source, quantitative plots, and CSV export. This educational demonstration is separate from the original research projects.</p>
       <p class="archive-link">Explore the <a href="projects/index.html">full project archive</a>, browse <a href="projects/index.html?area=source">projects with public code</a>, or <a href="projects/index.html?q=MATLAB">find MATLAB-based work</a>.</p>
     </div>
   </section>

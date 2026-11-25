@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fcf9f8">
+<meta name="description" content="Reproducible educational robotics experiment comparing raw and smoothed synthetic position measurements through a planar three-link inverse-kinematics model.">
+<link rel="canonical" href="https://kailanialarcon.com/robotics-experiment.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reproducible Robotics Experiment | Kailani Alarcon">
+<meta property="og:description" content="Explore seeded position noise, smoothing, planar 3R kinematics, and endpoint RMSE with downloadable simulation data.">
+<title>Reproducible Robotics Experiment | Kailani Alarcon</title>
+<script>try{const t=localStorage.getItem('kailani-theme');document.documentElement.dataset.theme=t==='dark'?'dark':'light'}catch{document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="professional-home.css?v=221461b06a">
+<link rel="stylesheet" href="cosmic-theme.css?v=5ec1d70a13">
+<link rel="stylesheet" href="robotics-experiment.css?v=e8fee3cb42">
+<script src="workbench-models.js?v=c581e77d18" defer></script>
+<script src="robotics-experiment-model.js?v=878c4cfd76" defer></script>
+<script src="robotics-experiment.js?v=55ce7dde2a" defer></script>
+</head>
+<body class="cosmic-home experiment-page">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="cosmic-site-header"><nav class="cosmic-site-nav" aria-label="Main navigation">
+  <a class="cosmic-site-brand" href="index.html">Kailani Alarcon</a>
+  <div class="cosmic-desktop-links"><a href="index.html#selected-work">Selected work</a><a href="projects/index.html">All projects</a><a href="research.html">Research</a><a href="academic-cv.html">Academic CV</a><a href="resume.html">Résumé</a><a class="cosmic-nav-contact" href="index.html#contact">Contact</a></div>
+  <button type="button" class="cosmic-theme-switch cosmic-shared-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾ Dark mode</button>
+  <details class="cosmic-mobile-menu"><summary aria-label="Open site navigation">Menu <span aria-hidden="true">☰</span></summary><div class="cosmic-mobile-links"><a href="index.html#selected-work">Selected work</a><a href="projects/index.html">All projects</a><a href="research.html">Research</a><a href="academic-cv.html">Academic CV</a><a href="resume.html">Résumé</a><a href="index.html#contact">Contact</a></div></details>
+</nav></header>
+<main id="main" class="exp-main"><div class="exp-wrap">
+<nav class="exp-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Portfolio</a> / <a href="workbench.html">Engineering workbench</a> / <span aria-current="page">Reproducible robotics experiment</span></nav>
+<header class="exp-intro"><p class="exp-tag">OPEN MODEL · REPRODUCIBLE SIMULATION</p>
+<h1>Sensing uncertainty in a three-link robot.</h1>
+<p>How does measurement noise affect the endpoint accuracy of an inverse-kinematics solution, and when does simple smoothing help? Adjust the inputs, rerun the model, inspect the trajectories, and export the underlying synthetic samples.</p>
+</header>
+<p class="exp-note"><strong>Provenance:</strong> This is a supplementary educational experiment built with a public planar 3R geometry model. It is not a recovered result from my Honors leg project, a UR3e model, a NASA robot, or a physical measurement. No claim of experimentally validated control performance is made.</p>
+<section class="exp-panel" aria-labelledby="setup-title">
+<h2 id="setup-title">Run the experiment</h2>
+<p>A moving simulated tool target is corrupted with seeded Gaussian position noise. The unfiltered and exponentially smoothed targets are independently passed through the same inverse-kinematics solver. Their forward-kinematics endpoints are compared with the true target using planar root-mean-square position error (RMSE).</p>
+<form id="experiment-form">
+<div class="exp-grid">
+<label class="exp-field">Random seed <input type="number" name="seed" min="0" max="4294967295" step="1" value="42" required></label>
+<label class="exp-field">Noise standard deviation (mm) <input type="number" name="noise" min="0" max="25" step="1" value="8" required></label>
+<label class="exp-field">EMA smoothing weight α <input type="number" name="alpha" min="0.05" max="1" step="0.05" value="0.3" required></label>
+<label class="exp-field">Samples <input type="number" name="samples" min="30" max="2000" step="1" value="240" required></label>
+</div>
+<div class="exp-actions"><button type="submit" class="exp-button">Run simulation</button><button type="button" class="exp-button exp-button--outline" id="exp-csv" disabled>Export synthetic CSV</button></div>
+</form>
+<p id="exp-status" role="status" aria-live="polite">Preparing simulation.</p>
+</section>
+<section class="exp-panel" aria-labelledby="results-title">
+<h2 id="results-title">Computed results</h2>
+<div id="exp-summary" class="exp-metrics" aria-live="polite"></div>
+<div class="exp-chart-wrap"><svg id="exp-plot" class="exp-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" role="img" aria-label="XY plot of synthetic true, noisy measured, and smoothed robot endpoint trajectories. Numerical error statistics appear above and every sample is available as a CSV."><title>Synthetic planar robot endpoint trajectories</title></svg></div>
+<div class="exp-legend" aria-label="Plot legend"><span><b class="truth"></b>True target</span><span><b class="raw"></b>Noisy measurement</span><span><b class="filtered"></b>Smoothed IK endpoint</span></div>
+<p>Results are computed locally using the selected seed and model parameters. The plotted noisy measurement is the unfiltered solver target. The smoothed path is the forward-kinematics endpoint of its corresponding inverse solution. It is not a record of motor tracking.</p>
+</section>
+<section class="exp-panel" aria-labelledby="methods-title"><h2 id="methods-title">Model, baseline, and limitations</h2>
+<ol>
+<li><strong>Ground truth:</strong> A deterministic, periodic planar target path with fixed tool angle of 0°. The model uses link lengths 140, 110, and 75 mm, chosen for illustration, not taken from a specific robot.</li>
+<li><strong>Observation model:</strong> Independent Gaussian noise is added to x and y with the selected standard deviation. A seeded pseudo-random generator ensures repeatable runs.</li>
+<li><strong>Baseline:</strong> The raw noisy target is solved with planar 3R inverse kinematics, then passed through forward kinematics.</li>
+<li><strong>Comparison:</strong> Exponential moving-average smoothing, with weight α, is applied before the same inverse and forward kinematics steps. Low α can reduce jitter while introducing lag on a moving trajectory.</li>
+<li><strong>Metric:</strong> RMSE is the square root of the mean squared two-dimensional distance between model endpoint and the true target. Because inverse kinematics reconstructs the supplied positions, this tests the synthetic observation and filtering pipeline, not robot actuation or estimator performance under real sensors.</li>
+</ol>
+<p><strong>Interpretation:</strong> Results depend on the chosen path, noise level, seed, smoothing weight, joint limits, and idealized kinematics. No collisions, dynamics, actuator limits, temporal sampling rate, or independent physical calibration are modeled. A change in RMSE is not proof of improved real-world control.</p>
+<p><a href="https://github.com/EngrKailani/engrkailani.github.io/blob/main/robotics-experiment-model.js" target="_blank" rel="noopener noreferrer">Inspect the full experiment model</a> · <a href="https://github.com/EngrKailani/engrkailani.github.io/blob/main/scripts/robotics-experiment-test.js" target="_blank" rel="noopener noreferrer">View repeatability tests</a> · <a href="workbench.html">Try the interactive three-link kinematics workbench</a></p>
+<p>Run the tests locally with <code>node scripts/robotics-experiment-test.js</code>. Rerunning with the same seed and settings produces identical samples and metrics.</p>
+</section>
+</div></main>
+<footer class="exp-footer"><div class="exp-wrap"><p>© Kailani Alarcon · Educational simulation · <a href="projects/index.html">Full project archive</a></p></div></footer>
+<script src="unified-theme.js?v=83cfaac609" defer></script>
+</body>
+</html>

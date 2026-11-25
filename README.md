@@ -106,3 +106,16 @@ Legacy bookshelf, robotics-lab, and case-explorer runtime files were retired in 
 Every local CSS and JavaScript file linked by an HTML page uses a ten-character Git blob SHA as the `?v=` cache version. After changing local CSS or JavaScript, run `npm run sync:assets` to automatically refresh all referencing HTML pages. Run `npm run check:assets` to verify that no page has a stale version. GitHub Actions enforces these versions, preventing visitors from receiving outdated cached assets after a deployment.
 
 The current site uses shared navigation, a small theme-switch script, and page-scoped assets. Historical experiments are documented in `docs/portfolio-history.md`; unused legacy script and CV/résumé stylesheets have been retired. Keep project-specific CSS only where referenced.
+
+
+## Reproducible robotics teaching experiment (November 2026)
+
+The standalone [planar 3R sensing experiment](robotics-experiment.html) extends the existing [educational kinematics model](workbench-models.js). It compares raw noisy position observations with exponentially smoothed observations on the same deterministic reference path, reports endpoint RMSE, and exports labeled synthetic CSV samples.
+
+- Model and seeded experiment: [robotics-experiment-model.js](robotics-experiment-model.js).
+- Interactive browser plot and controls: [robotics-experiment.js](robotics-experiment.js).
+- Repeatability and limiting-case tests: [scripts/robotics-experiment-test.js](scripts/robotics-experiment-test.js), run with `node scripts/robotics-experiment-test.js` or `npm run check:models`.
+- Identical seed, noise, smoothing weight, and sample count produce the same generated observations and computed statistics.
+- This is a new explanatory simulation, **not** recovered Honors research data, a validated UR3e robot model, NASA work, or hardware sensor measurements. Findings apply to the specified idealized model only.
+
+The homepage keeps six featured projects. The experimental page is linked separately to avoid representing the educational demo as additional completed faculty-mentored research.
