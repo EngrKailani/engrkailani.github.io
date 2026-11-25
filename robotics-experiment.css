@@ -1,0 +1,43 @@
+/* Educational experiment: responsive results, readable dark mode. */
+.experiment-page{--ex-line:#dfd3df;--ex-ink:#292033;--ex-muted:#58485c;--ex-paper:#fff;--ex-soft:#f8f2f7;--ex-accent:#873a69;--ex-alt:#206f80;background:var(--ex-soft);color:var(--ex-ink)}
+:root[data-theme="dark"] .experiment-page{--ex-line:#665568;--ex-ink:#f7eff8;--ex-muted:#d1bfd2;--ex-paper:#2b2437;--ex-soft:#211b2d;--ex-accent:#efb7d6;--ex-alt:#86d4de}
+.experiment-page .exp-wrap{width:min(1100px,calc(100% - 40px));margin-inline:auto}
+.experiment-page .exp-main{padding:40px 0 75px}
+.experiment-page .exp-breadcrumb{font-size:.85rem;margin-bottom:25px}
+.experiment-page .exp-intro{max-width:850px}
+.experiment-page .exp-intro h1{max-width:18ch;font-size:clamp(2.4rem,5vw,4.3rem);line-height:1.12}
+.experiment-page .exp-intro p{color:var(--ex-muted);max-width:78ch}
+.experiment-page .exp-tag{font-size:.76rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--ex-accent)}
+.experiment-page .exp-note{margin:23px 0 30px;border:1px solid var(--ex-line);border-left:4px solid var(--ex-accent);padding:16px 20px;border-radius:10px;background:var(--ex-paper);font-size:.93rem}
+.experiment-page .exp-panel{padding:clamp(20px,3vw,32px);background:var(--ex-paper);border:1px solid var(--ex-line);border-radius:15px;margin:20px 0}
+.experiment-page .exp-panel h2{font-size:clamp(1.45rem,3vw,2rem)}
+.experiment-page .exp-panel p,.experiment-page .exp-panel li{color:var(--ex-muted)}
+.experiment-page .exp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:21px 0}
+.experiment-page .exp-field{display:flex;flex-direction:column;gap:6px;font-weight:650;font-size:.88rem}
+.experiment-page .exp-field input{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--ex-line);border-radius:7px;background:var(--ex-soft);color:var(--ex-ink);font:inherit}
+.experiment-page .exp-actions{display:flex;flex-wrap:wrap;gap:12px;margin:17px 0}
+.experiment-page .exp-button{cursor:pointer;min-height:44px;padding:10px 17px;border-radius:7px;font:700 .91rem/1.4 system-ui,sans-serif;border:1px solid var(--ex-accent);color:var(--ex-paper);background:var(--ex-accent)}
+.experiment-page .exp-button[disabled]{cursor:not-allowed;opacity:.55}
+.experiment-page .exp-button--outline{color:var(--ex-accent);background:transparent}
+.experiment-page .exp-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.experiment-page .exp-metric{padding:17px;background:var(--ex-soft);border:1px solid var(--ex-line);border-radius:9px}
+.experiment-page .exp-metric span{display:block;font-size:.83rem;color:var(--ex-muted)}
+.experiment-page .exp-metric strong{font-size:clamp(1.25rem,2vw,1.7rem);color:var(--ex-ink)}
+.experiment-page .exp-chart-wrap{border-radius:10px;background:var(--ex-soft);overflow:hidden;border:1px solid var(--ex-line);padding:10px}
+.experiment-page .exp-chart{display:block;width:100%;height:auto}
+.experiment-page .exp-chart .exp-gridline{stroke:var(--ex-line);stroke-width:1}
+.experiment-page .exp-chart text{fill:var(--ex-muted);font:14px sans-serif}
+.experiment-page .exp-chart .exp-truth{stroke:var(--ex-ink);stroke-width:2.4}
+.experiment-page .exp-chart .exp-raw{stroke:var(--ex-accent);stroke-width:1.25;opacity:.75}
+.experiment-page .exp-chart .exp-filtered{stroke:var(--ex-alt);stroke-width:2.1}
+.experiment-page .exp-chart path{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.experiment-page .exp-legend{display:flex;flex-wrap:wrap;gap:13px;margin:13px 0;color:var(--ex-muted);font-size:.86rem}
+.experiment-page .exp-legend b{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px}
+.experiment-page .exp-legend .truth{background:var(--ex-ink)}
+.experiment-page .exp-legend .raw{background:var(--ex-accent)}
+.experiment-page .exp-legend .filtered{background:var(--ex-alt)}
+.experiment-page a{color:var(--ex-accent)}
+.experiment-page :focus-visible{outline:3px solid var(--ex-alt);outline-offset:3px}
+.experiment-page .exp-footer{border-top:1px solid var(--ex-line);padding:25px 0;color:var(--ex-muted);font-size:.88rem}
+@media(max-width:700px){.experiment-page .exp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experiment-page .exp-metrics{grid-template-columns:1fr}.experiment-page .exp-main{padding-top:25px}}
+@media(max-width:420px){.experiment-page .exp-grid{grid-template-columns:1fr}}
