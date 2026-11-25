@@ -328,6 +328,15 @@ const keywordCards=[...archive.matchAll(/<a class="featured-project-card" data-g
 check(keywordCards.length===16 &&
   keywordCards.every(x=>x[1].split(' ').length>=6),
   'Archive: all 16 projects should be searchable by grounded methods and tools');
+for(const id of ['group-robotics','group-embedded','group-measurement',
+  'group-software','additional-project-briefs']){
+  check(archive.includes('data-directory-jump="'+id+'"') &&
+    ids('projects/index.html').has(id),
+    'Archive: section shortcut must target a real heading or briefs section: '+id);
+}
+check(archive.includes('id="directory-jump"') &&
+  read('project-directory.js').includes('jumpLinks.forEach('),
+  'Archive: in-page section navigation must respond to filtered results');
 check(archive.includes('aria-describedby="directory-search-help"') &&
   archive.includes('id="directory-copy-link"') &&
   /id="directory-share-status"[^>]*role="status"/.test(archive),
