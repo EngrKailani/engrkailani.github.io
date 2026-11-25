@@ -21,6 +21,7 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kailanialarcon.com/social/vna.png">
+<link rel="stylesheet" href="technical-methods.css?v=2f9b0f4edb">
 <link rel="stylesheet" href="../cosmic-theme.css?v=5ec1d70a13">
 <link rel="stylesheet" href="case-print.css?v=ffb5d2ca8f" media="print">
 </head>
@@ -58,7 +59,7 @@
 <div class="project-evidence-first__item"><h3>Validation method</h3><p>Reviewed documented 100 MHz–6 GHz scope and 12-term SOLT approach; six later synthetic analyzer tests were not instrument calibration.</p></div>
 <div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>A described MATLAB measurement/visualization workflow plus separate illustrative analysis reconstruction.</p></div>
 <div class="project-evidence-first__item"><h3>Limitations</h3><p>Original RF data and calibration coefficients are unavailable; plotted example traces are synthetic, not verified measurements.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#vna-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#vna-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#vna-interpretation">RF interpretation</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview">
 <span class="detail-tag">FACULTY-MENTORED HONORS RESEARCH · UNR</span>
 <p class="detail-lead">This student-initiated Honors project examined two-port RF calibration and S-parameter analysis using MATLAB. Since the original measurement data and source are unavailable for public review, newly created analysis examples are labeled separately from the documented research workflow.</p>
@@ -98,6 +99,19 @@
 <section class="detail-panel"><h3>Tools</h3><p>MATLAB, two-port VNA, RF calibration, S-parameter visualization.</p></section>
 
 </div>
+
+<section class="technical-methods" id="vna-interpretation" aria-labelledby="vna-interpretation-title">
+  <p class="technical-methods__eyebrow">RF method interpretation / documented versus reconstructed</p>
+  <h2 id="vna-interpretation-title">What the two-port analysis can establish</h2>
+  <p class="technical-methods__lead">The Honors project described a MATLAB workflow for stepped-frequency two-port analysis and a 12-term SOLT calibration approach. The later public reconstruction demonstrates analysis operations using synthetic values, not recovered measurements.</p>
+  <div class="technical-methods__grid">
+    <div class="technical-methods__item"><h3>Reflection and transmission</h3><p>S11 describes the input reflection response; S21 describes forward transmission. Their frequency dependence can help characterize a device, but an illustrative trace cannot establish actual device behavior.</p></div>
+    <div class="technical-methods__item"><h3>Calibration dependency</h3><p>Open, Short, Load and Thru reference measurements support correction of systematic two-port errors. The original calibration coefficients are unavailable; a working correction cannot be inferred from a method diagram.</p></div>
+    <div class="technical-methods__item"><h3>Verification still required</h3><p>Six synthetic analyzer checks demonstrate limited offline calculations. A defensible instrument result would require original sweep files, reference standards, calibration settings and repeat measurements.</p></div>
+  </div>
+  <p class="technical-methods__boundary"><strong>Evidence boundary:</strong> See the <a href="#vna-visuals">illustrative signal-chain, trace and calibration figures</a> and <a href="#project-evidence">source limitations</a>. This explanation adds no measured S-parameters or completed calibration results.</p>
+</section>
+
 <div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The original project described a MATLAB analysis workflow for two-port RF measurements from 100 MHz to 6 GHz, including a 12-term SOLT calibration approach. The original calibrated files and source were not recovered during the current archive review.</p></div>
 <div class="detail-panel"><h2>Analysis reconstruction and limitations</h2><p>A newly written MATLAB Touchstone S2P analyzer and a Python cross-check utility calculate S11, S21, return loss, VSWR and input impedance. The recovery package documents RF equations, calibration requirements, and a verification plan. Six Python unit tests passed using explicitly synthetic RF data. No restored instrument link, original measurement trace, or implemented 12-term SOLT correction is being claimed.</p></div>
 

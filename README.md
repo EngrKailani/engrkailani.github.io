@@ -20,6 +20,18 @@ Styles are intentionally modular. Unused pre-space-theme navigation selectors we
 
 Image previews in the 20-entry archive stay lazy-loaded, and the 13 illustrations below the initial robotics group explicitly use low network priority; this reduces competition for critical text and stylesheet requests without changing any scientific figure or evidence label. Lighthouse scores must be verified against a completed lab run, not inferred from image attributes.
 
+## Research-first reading path
+
+The project directory provides four direct starting points for technical reviewers: NASA robotic-arm feasibility, student-initiated three-link leg research, faculty-mentored RF measurement work, and group UR3e kinematics. These links do not replace search, filtering, or the 16 case studies and four briefs.
+
+Four flagship case studies include short technical-method explanations. A reused leg schematic is explicitly labeled illustrative, RF analysis differentiates S-parameter interpretation from unavailable instrument calibration, UR3e commentary distinguishes Jacobian rank from conditioning, and the NASA assessment links qualitative feasibility decisions to still-open verification questions. No new measurements or project-specific NASA data are asserted.
+
+## CSS build and retained sources
+
+Published homepage styles use `professional-home.css` and `cosmic-theme.css`. The old generated `home-css-*.css` slices were not loaded by any published page and are no longer produced by `build-css.js`. The unreferenced `critical-home.css` and `projects-menu.css` assets were also retired. This removes unused repository assets, **not a measured reduction in visitors' transfer size**.
+
+The nine source stylesheets listed in `build-css.js` remain essential for rebuilding the published `portfolio.css` bundle used by projects and other pages. Do not remove those authored source files without first replacing the bundle build. Flagship technical notes use one small page-scoped stylesheet. All CSS asset URLs have SHA-based cache fingerprints and are validated by CI.
+
 ## Printing research and case studies
 
 The research page and all sixteen case studies support the browser's **Print / Save as PDF** command. The case studies use one small shared print-only `projects/case-print.css` stylesheet loaded after the screen theme. Their print-specific styles remove the site menu and navigation controls, convert the dark theme to a readable white-paper layout, and keep engineering evidence, limitations, source links and NASA affiliation disclaimers. Large technical tables are sized for printable pages. This is a browser feature, not a server-generated publication, and it does not alter the uploaded academic CV or résumé PDFs.

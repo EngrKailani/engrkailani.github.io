@@ -22,6 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kailanialarcon.com/social/nasa.png">
 <link rel="stylesheet" href="../homepage-refinement.css?v=11fa61f975">
+<link rel="stylesheet" href="technical-methods.css?v=2f9b0f4edb">
 <link rel="stylesheet" href="../cosmic-theme.css?v=5ec1d70a13">
 <link rel="stylesheet" href="case-print.css?v=ffb5d2ca8f" media="print">
 </head>
@@ -58,6 +59,7 @@
   <a href="#project-overview">Overview <span aria-hidden="true">↗</span></a>
   <a href="#nasa-contributions">Contributions <span aria-hidden="true">↗</span></a>
   <a href="#project-method">Methods &amp; tools <span aria-hidden="true">↗</span></a>
+  <a href="#nasa-decision-trace">Decision trace <span aria-hidden="true">↗</span></a>
   <a href="#project-results">Outcomes &amp; limitations <span aria-hidden="true">↗</span></a>
   <a href="#project-evidence">Evidence boundary <span aria-hidden="true">↗</span></a>
 </nav>
@@ -119,6 +121,19 @@
       <p>Applied Creo, Python, ROS-based motion-planning and simulation tools, engineering calculations, and documented procedures. These were development activities, not validated vacuum operation.</p>
     </section>
   </div>
+
+<section class="technical-methods" id="nasa-decision-trace" aria-labelledby="nasa-decision-trace-title">
+  <p class="technical-methods__eyebrow">Feasibility reasoning / no unreleased project values</p>
+  <h2 id="nasa-decision-trace-title">From feasibility assumptions to verification needs</h2>
+  <p class="technical-methods__lead">A preliminary assessment can identify constraints and the tests needed to resolve them without claiming a qualified design. These are the public, non-quantitative decision areas represented in my internship work.</p>
+  <div class="technical-methods__grid">
+    <div class="technical-methods__item"><h3>Workspace and task coverage</h3><p>Check whether candidate joint travel and reach are compatible with the intended manipulation tasks. A workspace estimate must eventually be compared with verified geometry and test fixtures.</p></div>
+    <div class="technical-methods__item"><h3>Loading and actuation</h3><p>Evaluate loading assumptions and their sensitivity to omitted component masses before assessing actuator suitability. A preliminary moment estimate alone cannot establish performance margin.</p></div>
+    <div class="technical-methods__item"><h3>Thermal and environmental limits</h3><p>Review heat-transfer pathways, dust exposure, component suitability and controls interfaces. Vacuum-relevant operation requires later component and integrated-system testing.</p></div>
+  </div>
+  <p class="technical-methods__boundary"><strong>Verification status:</strong> The <a href="#nasa-evidence-map">requirements-to-verification table</a> distinguishes preliminary analyses from outstanding tests. No chamber geometry, component dimensions, measured margins, or NASA qualification results are supplied here.</p>
+</section>
+
   <div class="nasa-figures" id="nasa-figures" aria-labelledby="nasa-figures-title">
     <header class="nasa-figures__intro">
       <p class="nasa-figures__eyebrow">ILLUSTRATIVE ENGINEERING CONTEXT</p>
