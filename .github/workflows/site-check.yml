@@ -29,6 +29,8 @@ jobs:
         run: node scripts/leg-equation-check.js
       - name: Verify thermal trend-label source semantics and edge cases
         run: node scripts/thermal-trend-source-check.js
+      - name: Verify reconstructed VNA two-port parser and synthetic diagnostics
+        run: python3 -m unittest discover -s projects/vna/analysis -p 'test_*.py' -v
       - name: Verify external link inventory without network requests
         run: |
           node scripts/external-links.js --inventory
