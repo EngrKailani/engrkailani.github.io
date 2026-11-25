@@ -49,6 +49,37 @@ At `|S11| >= 1`, the offline JSON sets VSWR to `null` rather than reporting a mi
 
 For Touchstone DB form, `S = 10^(magnitude_dB/20) * exp(j*phase_deg*pi/180)`. MA uses linear magnitude; RI uses real and imaginary components.
 
+## Additional offline two-port consistency diagnostics
+
+The **newly reconstructed Python checker**, not the original Honors measurement code, also derives two diagnostics from a full complex 2×2 S-matrix at each synthetic frequency point:
+
+- **Reciprocity difference:** `|S21 - S12|`. A zero difference is algebraically consistent with a reciprocal two-port at that point; a nonzero value may be expected for active or nonreciprocal devices and is not automatically a measurement error.
+- **Maximum power-wave gain:** the largest eigenvalue of `SᴴS`, equal to the square of the greatest singular value of S. For a linear passive two-port with the same real positive reference impedance at both ports, this value must not exceed 1. This is stronger than checking the two input columns separately because coherent superpositions can have greater gain.
+
+For `S = [[S11,S12],[S21,S22]]`, let `a = |S11|² + |S21|²`, `d = |S12|² + |S22|²`, and `b = conj(S11)×S12 + conj(S21)×S22`. Then:
+
+```text
+max_power_gain = [a + d + sqrt((a - d)² + 4|b|²)] / 2
+passivity_compatible = max_power_gain <= 1 + 1e-9
+reciprocity_difference_abs = |S21 - S12|
+```
+
+The `1e-9` numerical tolerance avoids treating minor rounding above unity as a definite inconsistency. It is **not** an instrument-uncertainty model.
+
+### Independent synthetic examples
+
+| S matrix | Maximum power-wave gain | Reciprocity difference | Algebraic reading |
+| --- | ---: | ---: | --- |
+| Matched attenuator, S21=S12=0.5 | 0.25 | 0 | Compatible with passive and reciprocal behavior |
+| Ideal through, S21=S12=1 | 1.00 | 0 | Passive boundary |
+| One-way attenuator, S21=0.5, S12=0 | 0.25 | 0.5 | Passive-compatible, not reciprocal |
+| Gain example, S21=2, S12=0 | 4.00 | 2 | Not passive-compatible |
+| Coupled S11=S22=0.8, S21=S12=0.6 | 1.96 | 0 | Not passive-compatible despite each input column norm being 1 |
+
+All unspecified entries in the first four matrices are zero. All entries are artificial, dimensionless, frequency-specific teaching values, not original measured RF sweeps.
+
+The JSON includes these diagnostics under `measurements[].diagnostics`. They are **necessary algebraic consistency indicators only**. Without known reference impedances, trustworthy calibration, uncertainties, a properly identified device and traceable captures, the checker cannot verify actual passivity, actual reciprocity or any equipment performance. A real active or nonreciprocal DUT can legitimately fail these passive/reciprocal assumptions.
+
 ## Practical interpretation
 
 - A `-20 dB` S11 corresponds to `|Gamma|=0.1` and VSWR approximately `1.222`.
