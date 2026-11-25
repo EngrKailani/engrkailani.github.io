@@ -41,7 +41,7 @@ async function run(){
         const response=await page.goto(origin+'/robotics-experiment.html',{waitUntil:'networkidle'});
         assert.equal(response.status(),200);
         await page.locator('#exp-status').waitFor();
-        await assert.doesNotReject(async()=>page.locator('#exp-status').getByText(/Simulation complete/).waitFor());
+        await page.locator('#exp-status').filter({hasText:'Simulation complete'}).waitFor();
         assert.equal(await page.locator('#exp-summary .exp-metric').count(),3);
         assert.equal(await page.locator('#exp-batch-summary .exp-metric').count(),3);
         assert.equal(await page.locator('#exp-sensitivity-rows tr').count(),5);
