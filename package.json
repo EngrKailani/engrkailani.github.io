@@ -23,7 +23,8 @@
     "test:external": "node --test scripts/external-links.test.js",
     "sync:assets": "node scripts/sync-asset-versions.js --write",
     "check:leg-equations": "node scripts/leg-equation-check.js",
-    "check:thermal-trend": "node scripts/thermal-trend-source-check.js"
+    "check:thermal-trend": "node scripts/thermal-trend-source-check.js",
+    "check:vna": "python3 -m unittest discover -s projects/vna/analysis -p 'test_*.py' -v"
   },
   "devDependencies": {
     "axe-core": "4.10.3",
