@@ -36,6 +36,7 @@ on:
       - robotics-experiment-model.js
       - scripts/robotics-experiment-test.js
       - scripts/robotics-experiment-smoke.js
+      - scripts/document-integrity.js
       - scripts/site-check.js
       - scripts/css-quality.js
       - scripts/workbench-models-test.js
@@ -71,6 +72,8 @@ jobs:
         run: npm run check:models
       - name: Verify current asset fingerprints
         run: npm run check:assets
+      - name: Check academic CV and résumé PDF links
+        run: npm run check:documents
 
   browser-accessibility:
     runs-on: ubuntu-24.04

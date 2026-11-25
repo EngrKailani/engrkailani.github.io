@@ -49,6 +49,25 @@ async function run(){
         assert.equal(await page.locator('#exp-error-plot path').count(),2);
         assert.equal(await page.locator('#exp-sensitivity-plot path').count(),2);
         assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
+        // On narrow screens, charts and the results table must be keyboard scrollable.
+        const regions=page.locator('.exp-chart-wrap, .exp-table-wrap');
+        assert.equal(await regions.count(),4);
+        for(let i=0;i<4;i++){
+          const region=regions.nth(i);
+          assert.equal(await region.getAttribute('tabindex'),'0');
+          assert.equal(await region.getAttribute('role'),'region');
+          assert((await region.getAttribute('aria-label')||'').length>12);
+        }
+        if(width<=390){
+          const scroll=regions.first();
+          await scroll.focus();
+          assert.equal(await scroll.evaluate(el=>document.activeElement===el),true,
+            'Chart container must accept keyboard focus');
+          await scroll.press('ArrowRight');
+          await page.waitForTimeout(200);
+          assert((await scroll.evaluate(el=>el.scrollLeft))>0,
+            'Focused chart must scroll using arrow keys at '+width+'px');
+        }
         await page.locator('input[name="trials"]').fill('4');
         await page.locator('input[name="noise"]').fill('0');
         await page.locator('button[type="submit"]').click();

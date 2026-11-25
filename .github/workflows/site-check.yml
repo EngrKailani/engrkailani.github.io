@@ -24,6 +24,7 @@ jobs:
           node scripts/site-check.js
           node scripts/navigation-quality.js
           node scripts/sync-asset-versions.js --check
+          node scripts/document-integrity.js
       - name: Verify external link inventory without network requests
         run: |
           node scripts/external-links.js --inventory

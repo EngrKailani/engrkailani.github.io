@@ -76,3 +76,8 @@
   .experiment-page .exp-chart{min-width:0}
   .experiment-page a{color:inherit}
 }
+
+/* Keyboard-operable horizontal scrolling for charts and numerical tables. */
+.experiment-page .exp-chart-wrap:focus-visible,.experiment-page .exp-table-wrap:focus-visible{outline:3px solid var(--ex-alt);outline-offset:3px}
+.experiment-page .exp-scroll-help{font-size:.9rem;color:var(--ex-muted);margin:12px 0 18px}
+@media (min-width:701px){.experiment-page .exp-scroll-help{display:none}}
