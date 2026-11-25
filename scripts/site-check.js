@@ -333,7 +333,8 @@ check(archive.includes('aria-describedby="directory-search-help"') &&
   /id="directory-share-status"[^>]*role="status"/.test(archive),
   'Archive: query help and accessible shareable view feedback are missing');
 check(read('project-directory.js').includes('terms.every(term=>index.includes(term))') &&
-  read('project-directory.js').includes("navigator.clipboard.writeText(location.href)"),
+  read('project-directory.js').includes('const requestedUrl=location.href') &&
+  read('project-directory.js').includes("navigator.clipboard.writeText(requestedUrl)"),
   'Archive: technical multiword search and shareable filtered links are not implemented');
 for(const file of [
   'assets/Creo-1.jpg','assets/Creo-2.jpg','assets/Arm.jpg',
