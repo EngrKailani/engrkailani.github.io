@@ -1,0 +1,66 @@
+/* Project method sketches are explanatory illustrations, never recovered observations. */
+.project-page .method-sketch{
+  margin:23px 0 24px;padding:clamp(15px,2.2vw,23px);
+  background:var(--cosmic-paper,#fff);
+  border:1px solid var(--cosmic-line,#e5d8e2);
+  border-radius:14px;color:var(--cosmic-ink,#2c2332);
+}
+.project-page .method-sketch__label{
+  color:var(--cosmic-accent,#88466e);font:800 11px/1.5 var(--sans,Arial,sans-serif);
+  letter-spacing:.10em;text-transform:uppercase;margin:0 0 7px;
+}
+.project-page .method-sketch h2{
+  color:var(--cosmic-ink,#2c2332);font-size:clamp(22px,2.8vw,30px);
+  line-height:1.3;margin:0 0 9px;
+}
+.project-page .method-sketch p{
+  color:var(--cosmic-muted,#625569);font-size:14px;line-height:1.75;
+  margin:0 0 13px;max-width:76ch;
+}
+.project-page .method-sketch figure{margin:12px 0 0}
+.project-page .method-sketch img{
+  display:block;width:100%;height:auto;aspect-ratio:1200/510;object-fit:contain;
+  background:#241a32;border-radius:11px;
+}
+.project-page .method-sketch figcaption{
+  color:var(--cosmic-muted,#625569);font-size:12px;line-height:1.7;margin-top:10px;
+}
+.project-page .repro-checklist{
+  margin:18px 0 5px;padding:17px 21px;
+  border:1px solid var(--cosmic-line,#e5d8e2);border-radius:12px;
+  background:var(--cosmic-paper,#fff);color:var(--cosmic-ink,#2c2332);
+}
+.project-page .repro-checklist h3{
+  font-size:clamp(18px,2.5vw,23px);line-height:1.4;
+  margin:0 0 10px;color:var(--cosmic-ink,#2c2332);
+}
+.project-page .repro-checklist ul{margin:0;padding-left:23px}
+.project-page .repro-checklist li{
+  font-size:13px;line-height:1.85;margin:5px 0;
+  color:var(--cosmic-muted,#625569);
+}
+.project-page .repro-checklist li strong{color:var(--cosmic-ink,#2c2332)}
+.project-page .repro-checklist a{
+  color:var(--cosmic-accent,#88466e);font-weight:750;
+  text-decoration:underline;text-underline-offset:3px;
+}
+:root[data-theme="dark"] body.project-page .method-sketch,
+:root[data-theme="dark"] body.project-page .repro-checklist{
+  background:var(--cosmic-paper,#302537);border-color:var(--cosmic-line,#735774);
+}
+@media(max-width:580px){
+  .project-page .method-sketch{padding:12px}
+  .project-page .repro-checklist{padding:14px}
+}
+@media print{
+  body.project-page :is(.method-sketch,.repro-checklist){
+    background:#fff!important;border-color:#bbb!important;color:#111!important;
+    box-shadow:none!important;break-inside:avoid;page-break-inside:avoid;
+  }
+  body.project-page :is(.method-sketch,.repro-checklist) :is(h2,h3,p,li,strong,figcaption){
+    color:#111!important;
+  }
+  body.project-page .method-sketch img{
+    max-height:70mm!important;object-fit:contain!important;
+  }
+}

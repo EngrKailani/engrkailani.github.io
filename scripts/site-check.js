@@ -44,6 +44,40 @@ check(require('./structured-data.js').check(),
   'Structured-data schema must agree with current titles, descriptions, and links');
 const printJsVersion=assetVersion('print-document.js');
 const summaryCssVersion=assetVersion('projects/case-study-summary.css');
+// Source-informed visuals must be explicitly distinguishable from original data.
+const illustratedCaseStudies=['alu','controls','fingerprint','motor','vhdl'];
+for(const slug of illustratedCaseStudies){
+  const file='projects/'+slug+'.html',html=read(file);
+  const art='projects/method-visuals/'+slug+'-workflow.svg';
+  check(html.includes('id="'+slug+'-visual-method"') &&
+    html.includes('src="method-visuals/'+slug+'-workflow.svg"') &&
+    html.includes('href="#'+slug+'-visual-method"') &&
+    html.includes('Diagram provenance:') &&
+    html.includes('href="evidence-enhancements.css?v='+assetVersion('projects/evidence-enhancements.css')+'"'),
+    'Illustrated project: method figure and provenance missing in '+slug);
+  const diagram=read(art);
+  check(diagram.includes('METHOD SKETCH / CONCEPTUAL') &&
+    diagram.includes('EVIDENCE LIMIT') &&
+    diagram.includes('<desc id="desc">'),
+    'Illustrated project: conceptual workflow boundary missing in '+slug);
+}
+for(const slug of ['leg','vna','ur3e','thermal']){
+  const html=read('projects/'+slug+'.html');
+  check(html.includes('id="'+slug+'-repro-title"') &&
+    html.includes('What a reviewer can verify') &&
+    html.includes('href="evidence-enhancements.css?v='+assetVersion('projects/evidence-enhancements.css')+'"') &&
+    (html.match(/<li><strong>/g)||[]).length>=3,
+    'Research dossier: verification checklist missing in '+slug);
+}
+check(read('research.html').includes('id="research-evidence-crosswalk"') &&
+  read('research.html').includes('How existing work informs the next research question') &&
+  read('research.html').includes('research.css?v='+assetVersion('research.css')) &&
+  read('research.html').includes('not a reported experiment'),
+  'Research: the evidence-to-question crosswalk must separate proposals from completed work');
+check(read('scripts/visual-regression.js').includes('baseline') &&
+  read('.github/workflows/visual-regression.yml').includes('pull_request') &&
+  read('.github/workflows/visual-regression.yml').includes('visual-regression.js'),
+  'Visual regression: base-branch screenshot checks must remain available');
 const sharedCssVersion=assetVersion('cosmic-theme.css');
 const sharedThemeJsVersion=assetVersion('unified-theme.js');
 for(const file of pages){

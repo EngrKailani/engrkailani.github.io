@@ -1,0 +1,50 @@
+name: Visual layout regression against PR base
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-stable-pages:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout proposed changes
+        uses: actions/checkout@v4
+      - name: Checkout comparison baseline
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha || 'main' }}
+          path: baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned visual-test dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install chromium
+      - name: Serve current and baseline copies
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory . >/tmp/portfolio-new.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory baseline >/tmp/portfolio-base.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null && curl -fsS http://127.0.0.1:4174/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/portfolio-new.log /tmp/portfolio-base.log
+          exit 1
+      - name: Compare representative unchanged pages at desktop and phone widths
+        run: node scripts/visual-regression.js
+        env:
+          SITE_URL: http://127.0.0.1:4173
+          BASELINE_URL: http://127.0.0.1:4174
+      - name: Upload baseline and proposed screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-comparison
+          path: quality-artifacts/visual-regression/
+          if-no-files-found: warn

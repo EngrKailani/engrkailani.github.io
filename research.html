@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=optional" rel="stylesheet">
   <script>try{const theme=localStorage.getItem('kailani-theme');document.documentElement.dataset.theme=theme==='dark'?'dark':'light'}catch{document.documentElement.dataset.theme='light'}</script>
   <link rel="stylesheet" href="portfolio-upgrade.css?v=7b3390696d">
-  <link rel="stylesheet" href="research.css?v=5ecd681906">
+  <link rel="stylesheet" href="research.css?v=eb5f9581c1">
   <link rel="stylesheet" href="design-refresh.css?v=5ee6e5b71b">
   <script src="unified-theme.js?v=83cfaac609" defer></script>
   <title>Space Robotics Research & Publications | Kailani Alarcon</title>
@@ -167,6 +167,32 @@
       <article class="research-theme-card"><span class="research-card-index">DIRECTION / 01</span><h3>Space robotic manipulation</h3><p>Dexterous arms, sensor fusion, state estimation, and contact-aware control for exploration tasks such as handling tools and interacting with uncertain surfaces.</p><p class="research-theme-evidence"><span>Related engineering background</span><a href="projects/nasa.html">NASA arm feasibility</a><a href="projects/ur3e.html">UR3e kinematics</a></p></article>
       <article class="research-theme-card"><span class="research-card-index">DIRECTION / 02</span><h3>Autonomy and human–robot operations</h3><p>Control and decision-making that support operators working alongside robots in constrained, demanding environments.</p><p class="research-theme-evidence"><span>Related engineering background</span><a href="projects/nasa.html">Robotic-arm control preparation</a></p></article>
       <article class="research-theme-card"><span class="research-card-index">DIRECTION / 03</span><h3>Sensing and engineering verification</h3><p>Connecting feedback, simulation, and repeatable tests to produce defensible evidence about the performance and limits of a system.</p><p class="research-theme-evidence"><span>Related engineering background</span><a href="#regolith-analysis">Regolith image analysis</a><a href="projects/vna.html">RF measurement research</a></p></article>
+
+    </div>
+    <div class="research-evidence-crosswalk" id="research-evidence-crosswalk" aria-labelledby="research-evidence-crosswalk-title">
+      <p class="research-eyebrow">EVIDENCE / OPEN PROBLEM / EVALUATION</p>
+      <h3 id="research-evidence-crosswalk-title">How existing work informs the next research question</h3>
+      <p class="research-evidence-crosswalk__intro">The evidence below is from completed engineering or simulation studies. Each evaluation is a proposed next step, not a reported experiment or NASA project commitment.</p>
+      <div class="research-evidence-crosswalk__grid">
+        <article class="research-evidence-crosswalk__item">
+          <h4>Manipulation geometry and robustness</h4>
+          <p><strong>Experience:</strong> <a href="projects/nasa.html">Robotic-arm feasibility</a> and <a href="projects/ur3e.html">group kinematic rank analysis</a> show how workspace assumptions and robot configuration constrain tasks.</p>
+          <p><strong>Open question:</strong> How reliably can tool motion be maintained as geometric assumptions and joint-state estimates become uncertain?</p>
+          <p><strong>Proposed evaluation:</strong> Compare baseline and estimation-informed control in a generic simulation using tool-pose error and failed-motion cases.</p>
+        </article>
+        <article class="research-evidence-crosswalk__item">
+          <h4>Estimation under incomplete feedback</h4>
+          <p><strong>Experience:</strong> <a href="projects/leg.html">Three-link simulation</a> illustrates model dependence; <a href="projects/controls.html">control laboratories</a> documented differences between modeled and measured responses.</p>
+          <p><strong>Open question:</strong> When do delayed or missing observations make model-based predictions unreliable?</p>
+          <p><strong>Proposed evaluation:</strong> Predeclare synthetic sensor-noise and dropout scenarios and compare estimation error, recovery rate and control constraints.</p>
+        </article>
+        <article class="research-evidence-crosswalk__item">
+          <h4>Trustworthy sensing and verification</h4>
+          <p><strong>Experience:</strong> <a href="#regolith-analysis">Regolith image analysis</a> and <a href="projects/vna.html">RF measurement methods</a> emphasize measurement processing and the need to separate illustrations from calibrated evidence.</p>
+          <p><strong>Open question:</strong> Which uncertainties dominate decisions when perception or contact signals are only partially observed?</p>
+          <p><strong>Proposed evaluation:</strong> Define traceable inputs, uncertainty assumptions and independent reference checks before claiming reliable task outcomes.</p>
+        </article>
+      </div>
     </div>
   </section>
 

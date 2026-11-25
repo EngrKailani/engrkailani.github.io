@@ -6,6 +6,7 @@
   "scripts": {
     "check:css": "node scripts/css-quality.js",
     "check:browser": "node scripts/browser-quality.js",
+    "check:visual": "node scripts/visual-regression.js",
     "report:lighthouse": "node scripts/lighthouse-report.js",
     "check:models": "node scripts/workbench-models-test.js",
     "check:workbench-browser": "node scripts/workbench-smoke.js",
