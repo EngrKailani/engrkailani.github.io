@@ -263,7 +263,7 @@ check((archive.match(/data-brief-category="[^"]+" data-brief-keywords="[^"]+"/g)
   'Project search: all four briefs need filter metadata and a visible result count');
 check(read('project-directory.js').includes('briefs.forEach(brief=>') &&
   read('project-directory.js').includes('visible+visibleBriefs!==0') &&
-  archive.includes('Search and filters cover all 20 entries'),
+  archive.includes('The archive includes 16 case studies and four'),
   'Project search: archive must include shorter CV and résumé briefs, not just full case studies');
 check(archive.includes('id="additional-project-briefs"') &&
   archive.includes('href="../research.html#instron-processing"') &&
