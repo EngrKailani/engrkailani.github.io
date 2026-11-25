@@ -109,6 +109,16 @@ Every local CSS and JavaScript file linked by an HTML page uses a ten-character 
 The current site uses shared navigation, a small theme-switch script, and page-scoped assets. Historical experiments are documented in `docs/portfolio-history.md`; unused legacy script and CV/résumé stylesheets have been retired. Keep project-specific CSS only where referenced.
 
 
+## Accessibility, document links, and live deployment verification
+
+The robotics experiment's mobile-only horizontal chart and table regions can be focused with the keyboard and scrolled with arrow keys. The Chromium smoke test and axe audit guard against regressions.
+
+`npm run check:documents` verifies that the academic CV and résumé PDF assets have PDF headers and EOF markers, and that their open, download, and embedded viewer links agree. It does **not** inspect PDF wording or replace the uploaded originals.
+
+The [published-site verification workflow](.github/workflows/verify-public-site.yml) runs after relevant commits reach `main` and can be dispatched manually. It checks the custom domain, accessible robotics page, model source, and both downloadable PDFs. This checks the actual public site independently of third-party Vercel status. A failed public check should be investigated, not interpreted as proof that the source branch is defective.
+
+The [proposed independent robotics research protocol](docs/independent-space-robotics-study-protocol.md) describes a potential future 6-DOF manipulator simulation, baselines, evaluation metrics, and reproducibility gates. It is a study plan, **not** a completed project.
+
 ## Reproducible robotics teaching experiment (November 2026)
 
 The standalone [planar 3R sensing experiment](robotics-experiment.html) extends the existing [educational kinematics model](workbench-models.js). It compares raw noisy position observations with exponentially smoothed observations on the same deterministic reference path. Twenty paired synthetic trials are used by default to show mean RMSE and a seeded 95% percentile bootstrap interval. It also charts sample-level errors and smoothing-weight sensitivity, and exports both sample-level and trial-level CSV data.
