@@ -9,6 +9,11 @@ on:
       - robotics-experiment.css
       - robotics-experiment.js
       - robotics-experiment-model.js
+      - projects/leg.html
+      - projects/index.html
+      - research.html
+      - docs/three-link-source-audit.md
+      - scripts/leg-equation-check.js
       - 'assets/*.pdf'
       - CNAME
       - scripts/production-smoke.js

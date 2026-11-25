@@ -35,6 +35,7 @@ on:
       - robotics-experiment.css
       - robotics-experiment-model.js
       - scripts/robotics-experiment-test.js
+      - scripts/leg-equation-check.js
       - scripts/robotics-experiment-smoke.js
       - scripts/document-integrity.js
       - scripts/site-check.js

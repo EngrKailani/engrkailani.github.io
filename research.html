@@ -127,8 +127,9 @@
       <article class="research-study" id="leg-research">
         <p class="research-meta">UNR / HONORS SIGNATURE EXPERIENCE / FACULTY-MENTORED RESEARCH</p>
         <h3>Three-link human-leg dynamics</h3>
-        <p>In a student-initiated Honors Signature Experience mentored by Dr. Sesh Commuri, developed a MATLAB Level-2 S-function for a planar three-link leg in Simulink, computing foot position, Jacobian-mapped velocity, and simplified inertia, Coriolis/centrifugal, and gravity-related joint torques.</p>
-        <p class="research-result"><strong>Evidence boundary:</strong> The analysis is simulation-based; no physical gait measurements or experimental validation are claimed.</p>
+        <p>In a student-initiated Honors Signature Experience mentored by Dr. Sesh Commuri, developed a MATLAB Level-2 S-function for a planar three-link leg, computing foot position, Jacobian-mapped velocity, and a partial velocity- and gravity-related torque expression. The published source assembles an inertia matrix but does not include the joint-acceleration term in its returned torque.</p>
+        <p class="research-result"><strong>Evidence boundary:</strong> The published source and an independent equation-consistency check support the kinematic description, not complete inverse dynamics, a recovered Simulink execution, physical gait measurement, or experimental validation.</p>
+        <p class="research-result"><strong>Independent source review:</strong> <a href="https://github.com/EngrKailani/engrkailani.github.io/blob/main/docs/three-link-source-audit.md" target="_blank" rel="noopener noreferrer">See the documented equation checks and dynamic-model limitation</a>. These newer checks are separate from the original Honors research.</p>
         <a href="projects/leg.html">Read Honors research case study <span aria-hidden="true">↗</span></a>
       </article>
       <article class="research-study" id="vna-research">
