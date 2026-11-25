@@ -210,6 +210,34 @@ for(const slug of slugs) {
 check(read('projects/leg.html').includes('3link-sim/blob/main/MatLabCode') &&
   read('projects/thermal.html').includes('Thermal-Logger/blob/main/logger_core.py'),
   'Inspectable public source links missing from flagship research cases');
+// Keep projects named in the uploaded academic CV and master résumé discoverable
+// without inventing measurements or publishing internal NASA design numbers.
+const resumeProjectBriefs={
+  'regolith-analysis':'Lunar-regolith surface contamination',
+  'propulsion-testing':'Wire-extraction force modeling',
+  'instron-processing':'Instron wire-pull data processor',
+  'arduino-pi-control':'DC motor'
+};
+check((archive.match(/class="directory-brief-card"/g)||[]).length===4,
+  'CV/resume: expected four accessible additional project briefs');
+check(archive.includes('id="additional-project-briefs"') &&
+  archive.includes('href="../research.html#instron-processing"') &&
+  archive.includes('href="motor.html#arduino-pi-control"') &&
+  home.includes('href="projects/index.html#additional-project-briefs"'),
+  'CV/resume: additional briefs need direct links from project archive and homepage');
+for(const [anchor,label] of Object.entries(resumeProjectBriefs)){
+  const file=anchor==='arduino-pi-control'?'projects/motor.html':'research.html';
+  check(read(file).includes('id="'+anchor+'"'),
+    'CV/resume: missing documented '+label+' summary section');
+}
+check(read('projects/alu.html').includes('id="fpga-digital-design"') &&
+  read('projects/iverify.html').includes('five-subsystem') &&
+  read('projects/huemotion.html').includes('two-hand recognition') &&
+  read('projects/fingerprint.html').includes('UART sensor packet handling'),
+  'CV/resume: missing source-supported FPGA, capstone, gesture or embedded project details');
+const nasaPublicNarrative=[home,research,archive,read('projects/nasa.html')].join(' ');
+check(!/34 hierarchical|3\.1\s*N|12-document technical specification set/.test(nasaPublicNarrative),
+  'CV/resume: internal NASA project-specific quantitative claims should not be copied publicly');
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
 

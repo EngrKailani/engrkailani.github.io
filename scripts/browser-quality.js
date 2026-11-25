@@ -182,6 +182,20 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
           }
         }
         if(test.path==='/projects/index.html') {
+          const briefs=page.locator('#additional-project-briefs .directory-brief-card');
+          if(await briefs.count()!==4)note(name+': expected four CV and résumé project briefs');
+          else {
+            const briefUrls=await briefs.locator('a').evaluateAll(links=>
+              links.map(link=>link.getAttribute('href')));
+            for(const target of [
+              '../research.html#regolith-analysis','../research.html#propulsion-testing',
+              '../research.html#instron-processing','motor.html#arduino-pi-control'
+            ]) if(!briefUrls.includes(target))note(name+': project brief missing destination '+target);
+            const gridColumns=await page.locator('#additional-project-briefs .directory-brief-grid')
+              .evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
+            if(test.width<=720 && gridColumns!==1)
+              note(name+': additional briefs must stack on narrow screens');
+          }
           const faculty=page.locator('[data-gallery-filter="research"]');
           if(!await faculty.count()) {
             note(name+': faculty research filter is missing');
