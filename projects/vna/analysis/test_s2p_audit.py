@@ -59,5 +59,43 @@ class S2PTests(unittest.TestCase):
         self.assertEqual(d["measurements"][-1]["frequency_Hz"], 6e9)
 
 
+    def test_matched_reciprocal_attenuator_is_passivity_compatible(self):
+        self.write("# GHz S RI R 50\n1 0 0 0.5 0 0.5 0 0 0\n")
+        d = read_s2p(self.path)["measurements"][0]["diagnostics"]
+        self.assertAlmostEqual(d["maximum_power_gain"], 0.25)
+        self.assertTrue(d["passivity_compatible"])
+        self.assertAlmostEqual(d["reciprocity_difference_abs"], 0)
+
+    def test_gain_device_exceeds_passive_power_bound(self):
+        self.write("# GHz S RI R 50\n1 0 0 2 0 0 0 0 0\n")
+        d = read_s2p(self.path)["measurements"][0]["diagnostics"]
+        self.assertAlmostEqual(d["maximum_power_gain"], 4)
+        self.assertFalse(d["passivity_compatible"])
+        self.assertAlmostEqual(d["reciprocity_difference_abs"], 2)
+
+    def test_one_way_attenuator_is_not_reciprocal(self):
+        self.write("# GHz S RI R 50\n1 0 0 0.5 0 0 0 0 0\n")
+        d = read_s2p(self.path)["measurements"][0]["diagnostics"]
+        self.assertAlmostEqual(d["maximum_power_gain"], 0.25)
+        self.assertTrue(d["passivity_compatible"])
+        self.assertAlmostEqual(d["reciprocity_difference_abs"], 0.5)
+
+    def test_spectral_bound_detects_coupled_matrix(self):
+        # Both column powers equal one, yet coherent excitation can yield
+        # gain > 1. A separate per-column check would miss this.
+        self.write("# GHz S RI R 50\n1 0.8 0 0.6 0 0.6 0 0.8 0\n")
+        d = read_s2p(self.path)["measurements"][0]["diagnostics"]
+        self.assertAlmostEqual(d["maximum_power_gain"], 1.96)
+        self.assertFalse(d["passivity_compatible"])
+        self.assertAlmostEqual(d["reciprocity_difference_abs"], 0)
+
+    def test_ideal_through_at_passivity_boundary(self):
+        self.write("# GHz S RI R 50\n1 0 0 1 0 1 0 0 0\n")
+        d = read_s2p(self.path)["measurements"][0]["diagnostics"]
+        self.assertAlmostEqual(d["maximum_power_gain"], 1)
+        self.assertTrue(d["passivity_compatible"])
+        self.assertAlmostEqual(d["reciprocity_difference_abs"], 0)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -528,6 +528,13 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
                 note(name+': method diagram did not load or fit the phone viewport');
             }
           }
+          if(slug==='vna'){
+            const diagnostics=page.locator('#vna-twoport-diagnostics');
+            if(await diagnostics.count()!==1 ||
+              await diagnostics.locator('.technical-methods__item').count()!==3 ||
+              !((await diagnostics.textContent())||'').includes('1.96'))
+              note(name+': reconstructed RF diagnostics and example values missing');
+          }
           if(slug==='thermal'){
             const table=page.locator('.thermal-source-table-wrap');
             if(await table.count()!==1 ||

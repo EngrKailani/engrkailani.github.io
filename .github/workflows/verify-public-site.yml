@@ -9,6 +9,9 @@ on:
       - robotics-experiment.css
       - robotics-experiment.js
       - robotics-experiment-model.js
+      - projects/vna.html
+      - projects/vna/docs/RF_METHOD.md
+      - 'projects/vna/analysis/*.py'
       - projects/thermal.html
       - projects/thermal/thermal-gallery.css
       - docs/thermal-trend-source-audit.md
