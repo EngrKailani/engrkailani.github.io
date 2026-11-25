@@ -19,6 +19,7 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kailanialarcon.com/social/leg.png">
+<link rel="stylesheet" href="technical-methods.css?v=2f9b0f4edb">
 <link rel="stylesheet" href="../cosmic-theme.css?v=5ec1d70a13">
 <link rel="stylesheet" href="case-print.css?v=ffb5d2ca8f" media="print">
 </head>
@@ -56,7 +57,7 @@
 <div class="project-evidence-first__item"><h3>Validation method</h3><p>Applied analytical kinematic and dynamic relationships within simulation; no independent experimental validation is documented.</p></div>
 <div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>A three-joint biomechanical simulation exploring position, velocity and joint torque.</p></div>
 <div class="project-evidence-first__item"><h3>Limitations</h3><p>No prosthetic prototype, measured gait comparison or quantified model error.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a><a href="https://github.com/EngrKailani/3link-sim" target="_blank" rel="noopener noreferrer" aria-label="View public 3link-sim source code and documentation on GitHub">Public source code ↗</a></p></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#leg-model-walkthrough">Model walkthrough</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">FACULTY-MENTORED HONORS RESEARCH · UNR</span><p class="detail-lead">The MATLAB/Simulink model links three-joint motion to foot-position and velocity estimates and simplified joint-torque calculations. This student-initiated Honors project examined modeling methods, not a physical assistive device.</p><p class="project-evidence-first__links"><a href="../research.html#leg-research">See this Honors Signature Experience in my research overview ↗</a></p></section>
 <article class="detail-card" aria-label="3-Link Leg Simulation engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
@@ -68,6 +69,23 @@
 <section class="detail-panel"><h3>Tools</h3><p>MATLAB, Simulink, S-functions, Jacobian mapping, and simplified dynamic modeling.</p></section>
 
 </div>
+
+<section class="technical-methods" id="leg-model-walkthrough" aria-labelledby="leg-model-walkthrough-title">
+  <p class="technical-methods__eyebrow">Model interpretation / simulation, not gait measurements</p>
+  <h2 id="leg-model-walkthrough-title">From joint motion to simulated foot position and torque</h2>
+  <p class="technical-methods__lead">The original MATLAB/Simulink work couples kinematic relationships with simplified linked-body dynamics. The sequence below explains the modeling method; it is not an independently calibrated description of human walking.</p>
+  <div class="technical-methods__grid">
+    <div class="technical-methods__item"><h3>1. Position from joint angles</h3><p>Planar link lengths and cumulative joint angles define the modeled foot endpoint relative to the hip. Forward kinematics establishes the position before velocities or forces are considered.</p></div>
+    <div class="technical-methods__item"><h3>2. Velocity from the Jacobian</h3><p>The Jacobian maps joint-angle rates to foot velocity. This relates local joint motion to the endpoint motion used by the simulation.</p><code>v = J(q) q̇</code></div>
+    <div class="technical-methods__item"><h3>3. Simplified joint dynamics</h3><p>The dynamic model considers inertia, velocity-dependent interactions and gravity-related torque terms. Its output depends on the assumed link and mass parameters.</p></div>
+  </div>
+  <figure class="technical-methods__figure">
+    <img src="directory-thumbnails/leg.svg" alt="Simplified illustrative three-link planar leg showing hip, knee, ankle and foot; not photographed hardware or measured gait geometry." width="960" height="540" loading="lazy" decoding="async">
+    <figcaption>Illustrative three-link model geometry reused from the project archive. Not a recovered Simulink screenshot, an anthropometric measurement, or a gait experiment.</figcaption>
+  </figure>
+  <p class="technical-methods__boundary"><strong>Reproducibility boundary:</strong> The <a href="https://github.com/EngrKailani/3link-sim" target="_blank" rel="noopener noreferrer">public model repository</a> permits inspection of code and assumptions. Quantified numerical accuracy would additionally require declared link parameters, reference trajectories and comparison against measured motion, which are not provided here.</p>
+</section>
+
 <div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A faculty-mentored, student-initiated simulation of articulated leg kinematics and simplified dynamics. No assistive device was built, and no physical validation is claimed.</p></div>
 
 

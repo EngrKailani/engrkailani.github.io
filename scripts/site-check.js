@@ -71,6 +71,35 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
+
+const researchStartingPoints=['nasa.html','leg.html','vna.html','ur3e.html'];
+const researchPath=archive.split('<nav class="directory-research-path"')[1]?.split('</nav>')[0]||'';
+check(researchPath.includes('Research-focused starting points') &&
+  researchStartingPoints.every(p=>researchPath.includes('href="'+p+'"')) &&
+  (researchPath.match(/<a href=/g)||[]).length===4,
+  'Project archive: a concise four-project research-first reading path must be present');
+check(read('projects/directory-thumbnails.css').includes('.directory-research-path__links'),
+  'Project archive: research-first links need responsive styling');
+for(const [slug,methodId] of Object.entries({
+  nasa:'nasa-decision-trace',leg:'leg-model-walkthrough',
+  vna:'vna-interpretation',ur3e:'ur3e-rank-caveats'
+})){
+  const file='projects/'+slug+'.html',html=read(file);
+  check(html.includes('id="'+methodId+'"') &&
+    html.includes('href="technical-methods.css?v='+assetVersion('projects/technical-methods.css')+'"'),
+    'Flagship case study: method reasoning or stylesheet missing in '+slug);
+  check(html.includes('href="#'+methodId+'"'),
+    'Flagship case study: method section not linked from reading navigation in '+slug);
+}
+check(read('projects/leg.html').includes('src="directory-thumbnails/leg.svg"') &&
+  read('projects/leg.html').includes('Not a recovered Simulink screenshot'),
+  'Honors leg simulation: illustrative schematic must retain its provenance');
+for(const filename of [
+  'home-css-initial.css','home-css-layout.css','home-css-project.css',
+  'critical-home.css','projects-menu.css'
+])check(!fs.existsSync(path.join(root,filename)),
+  'Retired unreferenced CSS was restored: '+filename);
+
 check(read('projects/case-print.css').includes('@media print') &&
   read('projects/case-print.css').includes('.nasa-evidence-map__table') &&
   read('projects/case-print.css').includes('.project-evidence-first__grid'),

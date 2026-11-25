@@ -20,6 +20,7 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kailanialarcon.com/social/ur3e.png">
+<link rel="stylesheet" href="technical-methods.css?v=2f9b0f4edb">
 <link rel="stylesheet" href="../cosmic-theme.css?v=5ec1d70a13">
 <link rel="stylesheet" href="case-print.css?v=ffb5d2ca8f" media="print">
 </head>
@@ -64,7 +65,7 @@
 </div>
 <p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
 </section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#ur3e-analysis">Jacobian analysis</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#ur3e-analysis">Jacobian analysis</a><a href="#ur3e-rank-caveats">Interpretation</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">ROBOTICS · GROUP ANALYSIS</span><p class="detail-lead">In a three-person robotics analysis project, we modeled the six-joint UR3e using Denavit–Hartenberg transforms and Jacobian rank analysis. The work identified singular and nonsingular configurations in the team's mathematical model, without independent robot-hardware validation.</p><div class="project-overview__role"><strong>Team context</strong><p>Member of a three-person robot-kinematics analysis team; the project documentation describes shared DH, Jacobian, and singularity analysis.</p></div></section>
 <article class="detail-card" aria-label="UR3e Robot Kinematics engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
@@ -105,6 +106,19 @@
 </div>
 <p class="ur-analysis__note"><strong>Evidence boundary:</strong> These are standard mathematical relationships and a visual explanation of the group's reported ranks. The source records do not preserve the complete numeric matrices or original code in this public case study. No new numerical rank calculation or hardware result is claimed.</p>
 </section>
+
+<section class="technical-methods" id="ur3e-rank-caveats" aria-labelledby="ur3e-rank-caveats-title">
+  <p class="technical-methods__eyebrow">Interpretation / analytical limitation</p>
+  <h2 id="ur3e-rank-caveats-title">Rank is not a complete measure of robot dexterity</h2>
+  <p class="technical-methods__lead">The team's reported rank comparison identifies one singular model configuration, but a complete motion-quality assessment requires more than checking whether the Jacobian is full rank.</p>
+  <div class="technical-methods__grid">
+    <div class="technical-methods__item"><h3>Numerical tolerance</h3><p>A computed rank depends on matrix values and the threshold used to classify small singular values. The original matrix and tolerance are not publicly preserved.</p></div>
+    <div class="technical-methods__item"><h3>Near-singular behavior</h3><p>Even a full-rank Jacobian may be poorly conditioned, making some end-effector motions demand disproportionately large joint rates. Conditioning was not independently quantified.</p></div>
+    <div class="technical-methods__item"><h3>Physical constraints</h3><p>Joint limits, controller behavior, payload and sensor error affect real operation. The reported mathematical ranks do not constitute a hardware safety or accuracy test.</p></div>
+  </div>
+  <p class="technical-methods__boundary"><strong>Reproduction requirement:</strong> Verify the six-joint model with the actual DH parameters, exact joint vectors, complete Jacobian entries and an explicit rank tolerance. See the <a href="#ur3e-analysis">reported comparison and equations</a>.</p>
+</section>
+
 <div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The group reported Jacobian rank 5 at the analyzed zero-angle configuration and full rank 6 at another evaluated configuration. The distinction identifies a locally singular pose in the mathematical model; it does not establish independent UR3e hardware accuracy, numerical conditioning, or general safety margins.</p></div>
 
 
