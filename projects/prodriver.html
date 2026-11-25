@@ -81,7 +81,7 @@
  <figcaption>Values are based on public module-profile lookup points. They are not a new laboratory current sweep, verified module I–V characterization, or a claim about optical lumen output.</figcaption></figure>
 </article>
 <article class="project-visual-gallery__item" aria-labelledby="prodriver-power-title">
- <div class="project-visual-gallery__top"><div><h3 id="prodriver-power-title">Predicted output power, input power and efficiency</h3><p>At nominal currents, the profiles predict 26.82 W and 35.76 W delivered to the respective modules. Input power estimates follow from modeled efficiency, not a physical mains-power measurement.</p></div><span class="project-visual-gallery__count">FIG 03 / POWER MODEL</span></div>
+ <div class="project-visual-gallery__top"><div><h3 id="prodriver-power-title">Predicted output power, input power and efficiency</h3><p>The figure's output-power estimates are calculated from archived I–V profiles. Input-power estimates also use modeled driver efficiency; neither represents a calibrated mains-power measurement.</p></div><span class="project-visual-gallery__count">FIG 03 / POWER MODEL</span></div>
  <figure class="project-visual-gallery__figure" tabindex="0"><img src="prodriver/media/power-estimates.svg" width="1280" height="720" decoding="async" loading="lazy" alt="Two ProDriver simulation output panels showing predicted LED module output power 26.82 and 35.76 watts, estimated input power 30.36 and 40.24 watts, and model efficiencies around 88 percent; explicitly not bench readings.">
  <figcaption>Derived estimates from the archived BST1 driver and HO7 module tables at nominal 120 V input. The output-power operating points lie below the driver's earliest archived output-power efficiency-table point, so endpoint clamping adds uncertainty. No calibration or hardware efficiency validation is implied.</figcaption></figure>
 </article>
@@ -98,7 +98,7 @@
 <section class="detail-panel"><h3>Tools</h3><p>Python, PyQt6, LED I–V lookup tables, driver efficiency profiles, electrical modeling.</p></section>
 
 </div>
-<div id="project-results" class="detail-results"><h2>Recovered engineering model</h2><p>The original public Python application and LED driver/module JSON profiles were recovered. The implementation interpolates module I-V curves, estimates efficiency from driver profile tables, calculates DC output and estimated input power, and flags operating-limit violations. The current simulation reports out-of-range conditions rather than automatically limiting driver output.</p></div>
+<div id="project-results" class="detail-results"><h2>Recovered engineering model</h2><p>The public application combines interpolated module voltage with driver-efficiency tables to estimate output and input power. It flags operating-limit violations but does not automatically restrict current or establish safe behavior on physical hardware.</p></div>
 <div class="detail-panel"><h2>Engineering calculations and validation</h2><p>Using the public model tables, the nominal HO7 4800 lm configuration predicts 44.7 V at 0.60 A, or 26.82 W output. The HO7 6400 lm configuration predicts 44.7 V at 0.80 A, or 35.76 W output. These values are calculated estimates, not recovered bench readings. An independent offline model check, a synthetic test suite, and a verification matrix document what can be reproduced and what still requires instrument testing.</p></div>
 
 

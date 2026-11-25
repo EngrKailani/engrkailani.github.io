@@ -50,6 +50,8 @@ The repository's GitHub Actions workflows test internal links, project-to-projec
 - Keep project titles and contributions in the uploaded academic CV and master résumé aligned with the site. Search and category filters cover both the 16 full case studies and four additional project briefs, which link to detailed research sections or the separate Arduino PI-control exercise. Do not merge that Arduino project into the STM32 PWM coursework.
 - Document verified personal contributions, not uncompleted tests or future plans as finished research.
 - Use concise, specific descriptions of methods, outcomes, and evidence limitations. Avoid generic project taglines or repeating the six evidence facets verbatim in introductory paragraphs.
+- In longer case studies, keep numerical results in the evidence/results section and use figure introductions to interpret their meaning rather than repeat the full results. Preserve source references and critical validation limits.
+- Keep the four shorter project briefs focused on contributions, methods, and public evidence boundaries. Do not imply they contain independent experimental records or complete case-study documentation.
 - Give each case study a unique search/social description grounded in that project. Describe proposed doctoral questions separately from documented work, and state group attribution and validation limits where applicable.
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.

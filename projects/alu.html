@@ -57,7 +57,7 @@
 <div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>A synchronous four-bit ALU with next-clock output updates; pin mapping and LED-driver conflicts were encountered.</p></div>
 <div class="project-evidence-first__item"><h3>Limitations</h3><p>No archived exhaustive testbench, timing closure report or independent measurement data.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
 <nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
-<section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 07 / 16</span><p class="detail-lead">I designed and tested a four-bit arithmetic and logic unit from a high-level datapath down to the individual logic blocks. Four chained one-bit full adders form the arithmetic core; registered inputs and outputs make the results stable and predictable. The design uses board switches and a pushbutton for commands, with LEDs and seven-segment displays as visible feedback.</p></section>
+<section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 07 / 16</span><p class="detail-lead">For this VHDL coursework project, I implemented a registered four-bit ALU with ripple-carry arithmetic and an XOR path. Switches and a pushbutton select operations, while LEDs and seven-segment displays show the outputs. The case study documents integration issues with FPGA pin mapping and display drivers.</p></section>
 <article class="detail-card" aria-label="Pipelined VHDL ALU engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
 
@@ -68,7 +68,7 @@
 <section class="detail-panel"><h3>Tools</h3><p>VHDL, ripple-carry adder, sequential logic, FPGA I/O mapping, binary LED readout, seven-segment display.</p></section>
 
 </div>
-<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>A tested synchronous design with outputs updating on the following clock cycle. Debugging pin assignments and competing LED drivers reinforced disciplined hardware integration.</p></div>
+<div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The implemented design updated outputs after a clock edge. Pin assignments and competing LED drivers required debugging; an exhaustive timing or hardware-verification record is unavailable.</p></div>
 
 
 </article>
