@@ -25,6 +25,20 @@ function assetVersion(name){
     .update('blob '+bytes.length+String.fromCharCode(0))
     .update(bytes).digest('hex').slice(0,10);
 }
+// Published project styles must remain reproducible and exclude unused homepage modules.
+const projectCssSources=['styles.css','enhancements.css','engineering.css',
+  'case-studies.css','project-pages.css'];
+const projectCss='portfolio-projects.css';
+const projectBundle='/* Compiled project-only styles. Source: build-css.js. This bundle omits homepage-only bookshelf, ambient, botanical and UX source styles. */\n'+
+  projectCssSources.map(file=>'\n/* SOURCE: '+file+' */\n'+read(file).trimEnd()+'\n').join('');
+check(read(projectCss)===projectBundle,
+  'Project CSS: compiled bundle must match its five authored source files');
+check(read(projectCss).length < read('portfolio.css').length/2,
+  'Project CSS: dedicated bundle should be less than half the original full bundle');
+check(projectCssSources.every(name=>read(projectCss).includes('/* SOURCE: '+name+' */')) &&
+  ['bookshelf.css','ux.css','botanical.css','ambient.css'].every(name=>
+    !read(projectCss).includes('/* SOURCE: '+name+' */')),
+  'Project CSS: must retain project styles but exclude homepage-only modules');
 const sharedCssVersion=assetVersion('cosmic-theme.css');
 const sharedThemeJsVersion=assetVersion('unified-theme.js');
 for(const file of pages){
@@ -71,6 +85,10 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
+check(archive.includes('href="../portfolio-projects.css?v='+assetVersion(projectCss)+'"') &&
+  !archive.includes('href="../portfolio.css?v='),
+  'Project directory: must load the lean CSS bundle');
+
 
 const researchStartingPoints=['nasa.html','leg.html','vna.html','ur3e.html'];
 const researchPath=archive.split('<nav class="directory-research-path"')[1]?.split('</nav>')[0]||'';
@@ -191,6 +209,10 @@ for(const [name,oldBlob] of Object.entries(previousPublicPDFs)){
 
 for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
+  check(page.includes('href="../portfolio-projects.css?v='+assetVersion(projectCss)+'"') &&
+    !page.includes('href="../portfolio.css?v='),
+    'Project CSS: case-study should use lean bundle in '+slug);
+
   check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
   check(page.includes('class="project-evidence-first"'),'Case study: missing evidence section in '+slug);
   check(page.includes('href="case-print.css?v='+assetVersion('projects/case-print.css')+'" media="print"'),
