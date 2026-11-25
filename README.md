@@ -114,7 +114,7 @@ The standalone [planar 3R sensing experiment](robotics-experiment.html) extends 
 
 - Model and seeded experiment: [robotics-experiment-model.js](robotics-experiment-model.js).
 - Interactive browser plot and controls: [robotics-experiment.js](robotics-experiment.js).
-- Repeatability and limiting-case tests: [scripts/robotics-experiment-test.js](scripts/robotics-experiment-test.js), run with \`node scripts/robotics-experiment-test.js\` or \`npm run check:models\`.
+- Repeatability and limiting-case tests: [scripts/robotics-experiment-test.js](scripts/robotics-experiment-test.js), run with `node scripts/robotics-experiment-test.js` or `npm run check:models`.
 - Identical seed, noise, smoothing weight, and sample count produce the same generated observations and computed statistics.
 - This is a new explanatory simulation, **not** recovered Honors research data, a validated UR3e robot model, NASA work, or hardware sensor measurements. Findings apply to the specified idealized model only.
 
