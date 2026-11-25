@@ -1,0 +1,31 @@
+name: Verify published portfolio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - robotics-experiment.html
+      - robotics-experiment.css
+      - robotics-experiment.js
+      - robotics-experiment-model.js
+      - 'assets/*.pdf'
+      - CNAME
+      - scripts/production-smoke.js
+      - .github/workflows/verify-public-site.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-pages-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify custom domain and current public assets
+        run: node scripts/production-smoke.js
