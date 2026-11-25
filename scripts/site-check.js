@@ -71,6 +71,13 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
+check(read('projects/case-study-summary.css').includes('@media print') &&
+  read('projects/case-study-summary.css').includes('.nasa-evidence-map__table') &&
+  read('projects/case-study-summary.css').includes('.project-evidence-first__grid'),
+  'Case-study print layout should preserve evidence summaries and make NASA tables printable');
+check(read('research.css').includes('@media print') &&
+  read('research.css').includes('.research-publications li'),
+  'Research print layout should preserve documented publications and proposal boundaries');
 check((home.match(/<article class="work-card(?:\s[^"]*)?"/g)||[]).length===6,
   'Home: six featured projects expected');
 check(home.includes('src="projects/thermal/media/logger-interface-concept.svg"')&&
