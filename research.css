@@ -130,3 +130,50 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
 .research-page .research-theme-evidence span{flex-basis:100%;font-size:11px;font-weight:750;color:var(--r-muted)}
 .research-page .research-theme-evidence a{color:var(--r-accent);font-weight:750;text-decoration:underline;text-underline-offset:3px}
 .research-page .research-theme-evidence a:hover{text-decoration-thickness:2px}
+
+
+/* The research statement and publications must remain readable in saved PDFs. */
+@page{margin:15mm 14mm}
+@media print{
+  :root{color-scheme:light!important}
+  html,body.research-page{
+    background:#fff!important;color:#111!important;
+  }
+  body.research-page :is(.cosmic-site-header,.cosmic-shared-toggle,
+    .research-breadcrumb,.research-footer,.research-action){
+    display:none!important;
+  }
+  body.research-page .research-container{
+    width:100%!important;max-width:none!important;
+    margin:0 auto!important;padding:0!important;
+  }
+  body.research-page :is(.research-hero,.research-section,
+    .research-study,.research-theme-card,.research-writing-card,
+    .research-questions-section,.research-concept,.research-concept__intro,
+    .research-concept__grid article,.research-related-projects,
+    .research-publications li,.research-next,.research-concept__boundary){
+    background:#fff!important;background-image:none!important;
+    color:#111!important;box-shadow:none!important;
+    border-color:#bbb!important;
+  }
+  body.research-page :is(h1,h2,h3,h4,p,li,span,strong,small,time,figcaption,em){
+    color:#111!important;text-shadow:none!important;
+  }
+  body.research-page a{
+    color:#15446b!important;text-decoration:underline!important;
+  }
+  body.research-page :is(.research-study,.research-theme-card,
+    .research-concept__grid article,.research-publications li){
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  body.research-page :is(.research-theme-grid,.research-concept__grid){
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  body.research-page :is(h2,h3){break-after:avoid-page}
+  body.research-page img{max-width:100%!important;height:auto!important}
+}
+@media print and (max-width:650px){
+  body.research-page :is(.research-theme-grid,.research-concept__grid){
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}

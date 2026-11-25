@@ -60,6 +60,7 @@ Automated tools cannot prove WCAG conformance. Before treating the audit as comp
 - At **320 px**, **200% zoom**, and in both themes, check readable text, focus visibility, no clipped buttons or horizontal document scrolling, and content reflow.
 - Use a screen reader such as NVDA or VoiceOver to verify landmark order, headings, link purposes, disclosure state, field labels, dynamic status feedback, and meaningful readings from the simulated instruments.
 - Check that motion obeys **prefers-reduced-motion** and that the Workbench does not claim real hardware data.
+- Print the Research page and a NASA and a university case study, including from dark mode. Check that menus are hidden, evidence and affiliation boundaries remain legible, tables fit on paper, and figures and source citations are retained. The browser audit also generates sample A4 PDFs for a basic print-layout regression check.
 - Check screenshots and Lighthouse issues before changing fonts, animations, or loaded imagery.
 - Do not present private company reports as public downloadable publications without authorization.
 

@@ -46,6 +46,56 @@ const issues=[];
 const reports=[];
 function note(s){issues.push(s);console.error('::error::'+s)}
 function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').replace(/\//g,'-'))+'-'+test.width+(test.theme?'-'+test.theme:'')}
+async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
+  // Test actual Chromium print output, including when the saved theme is dark.
+  await page.emulateMedia({media:'print'});
+  try{
+    if(!researchPage){
+      // An on-demand print stylesheet can finish loading after media switches.
+      await page.waitForFunction(()=>[...document.styleSheets].some(sheet=>
+        sheet.href?.includes('/projects/case-print.css') &&
+        [...sheet.cssRules].some(rule=>rule.conditionText==='print')),null,{timeout:8000});
+    }
+    await page.waitForTimeout(220);
+    const printed=await page.evaluate(isResearch=>{
+      const get=selector=>document.querySelector(selector);
+      const style=selector=>get(selector)?getComputedStyle(get(selector)):null;
+      const color=isResearch?style('.research-deck'):style('.project-evidence-first__item p');
+      const footer=isResearch?style('.research-footer'):style('.footer');
+      const nav=style('.cosmic-site-header');
+      const critical=isResearch?style('.research-concept__boundary'):style('.project-evidence-first');
+      return {
+        title:get('h1')?.textContent.trim(),
+        printMedia:matchMedia('print').matches,
+        theme:document.documentElement.dataset.theme,
+        printSheet:document.querySelector('link[href*="case-print.css"]')?.media||null,
+        printSheetLoaded:[...document.styleSheets].some(sheet=>sheet.href?.includes('/projects/case-print.css')),
+        printSelectorMatches:document.querySelectorAll('html[data-theme="dark"] body.project-page.project-page').length,
+        nav:nav?.display,footer:footer?.display,
+        background:getComputedStyle(document.body).backgroundColor,
+        foreground:color?.color,critical:critical?.display,
+        emphasis:style('.research-concept h2 em')?.color||null,
+        disclaimer:style('.nasa-disclaimer')?.display||null,
+        sourceLinks:document.querySelectorAll('main a[href^="https://"]').length
+      };
+    },researchPage);
+    if(printed.nav!=='none' || printed.footer!=='none' ||
+      printed.background!=='rgb(255, 255, 255)' ||
+      printed.foreground!=='rgb(17, 17, 17)' ||
+      printed.critical==='none' || !printed.title)
+      note(name+': print styles do not provide a readable, uncluttered document '+JSON.stringify(printed));
+    if(nasaPage&&printed.disclaimer==='none')
+      note(name+': the NASA affiliation disclaimer must remain visible in print');
+    if(researchPage&&printed.emphasis!=='rgb(17, 17, 17)')
+      note(name+': research headings need readable print emphasis in dark mode');
+    const pdf=await page.pdf({format:'A4',printBackground:false});
+    if(pdf.length<5000 || pdf.subarray(0,5).toString()!=='%PDF-')
+      note(name+': browser Save as PDF did not generate a valid document');
+  } finally {
+    await page.emulateMedia({media:'screen'});
+  }
+}
+
 (async()=>{
   const browser=await chromium.launch({headless:true,args:['--disable-dev-shm-usage']});
   try {
@@ -382,6 +432,8 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             note(name+': documented research should precede proposed directions');
           if(!await page.locator('#investigations .research-study').count())
             note(name+': documented research card grid is missing');
+          if(test.theme==='dark' && test.width===390)
+            await checkPrintLayout(page,name,true,false);
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
@@ -415,6 +467,9 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
           }
           const returnLink=page.locator('nav.detail-footer a.case-archive-return[href="index.html"]');
           if(!await returnLink.count())note(name+': missing return link to full project directory');
+          if(test.theme==='dark' && test.width===1440 &&
+            ['/projects/nasa.html','/projects/leg.html'].includes(test.path))
+            await checkPrintLayout(page,name,false,test.path==='/projects/nasa.html');
         }
         if(test.images) {
           await page.locator('img').evaluateAll(imgs=>imgs.forEach(img=>{img.loading='eager'}));
