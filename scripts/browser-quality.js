@@ -133,6 +133,12 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             }));
             if(!visible)note(name+': a project visual provenance label is not visible');
           }
+          const resultBorders=await page.locator('#selected-work .work-card').evaluateAll(cards=>
+            cards.every(card=>{
+              const style=getComputedStyle(card.querySelector('.work-result'));
+              return parseFloat(style.borderTopWidth)>=1 && parseFloat(style.lineHeight)>20;
+            }));
+          if(!resultBorders)note(name+': project evidence needs readable separators');
           const gridLayout=await page.locator('#selected-work .work-grid').evaluate(grid=>{
             const list=[...grid.querySelectorAll('.work-card')];
             const media=list.map(card=>card.querySelector('figure')?.getBoundingClientRect().height||0);
@@ -148,8 +154,8 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             if(gridLayout.columns!==2 || !gridLayout.pairsAligned || !gridLayout.equalCardRows ||
                gridLayout.mediaRange>2)
               note(name+': six featured projects are not evenly aligned in three desktop rows');
-          } else if(gridLayout.columns!==1){
-            note(name+': featured projects should stack in one column on narrow screens');
+          } else if(gridLayout.columns!==1 || gridLayout.mediaRange>2){
+            note(name+': featured projects should stack with even media heights on narrow screens');
           }
           const intro=await page.locator('#hero-title').textContent();
           if(!intro.includes('reliable robots'))note(name+': main engineering focus not visible');
@@ -366,6 +372,13 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
+           if(await page.locator('nav.project-reading-shortcuts, nav.detail-jump').count()!==1)
+             note(name+': case study should have one reading navigation');
+           if(!(await page.locator('#evidence-summary-title').textContent()).includes('Contribution, evidence, and limitations'))
+             note(name+': case study heading should clarify evidence limitations');
+           const evidenceFont=await page.locator('.project-evidence-first__item p').first()
+             .evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+           if(evidenceFont<14)note(name+': evidence summaries should use readable text');
           const evidenceFacets=await page.locator('.project-evidence-first__item h3').allTextContents();
           if(evidenceFacets.length!==6 ||
             !['Problem','My contribution','Engineering tools','Validation method','Documented result','Limitations']

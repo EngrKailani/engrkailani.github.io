@@ -131,3 +131,16 @@ figcaption { color: #607080; font-size: .78rem; line-height: 1.45; margin-top: 9
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Evidence-led homepage: balanced media, legible results and aligned card actions. */
+body.cosmic-home #selected-work .work-card-content{display:flex;flex-direction:column;padding:clamp(21px,2.4vw,28px)}
+body.cosmic-home #selected-work .work-card :is(.project-meta,h3,.work-overview,.work-result){margin-top:0;min-width:0;overflow-wrap:break-word}
+body.cosmic-home #selected-work .work-card h3{margin-bottom:14px;line-height:1.3;text-wrap:balance}
+body.cosmic-home #selected-work .work-card .work-overview{flex:1 1 auto;margin-bottom:14px;line-height:1.68}
+body.cosmic-home #selected-work .work-card .work-result{margin-bottom:12px;border-top:1px solid var(--cosmic-line,#dfcede);padding-top:13px;line-height:1.65}
+body.cosmic-home #selected-work .work-card .case-link{display:inline-flex;align-items:center;min-height:44px;padding-block:7px;margin-top:auto;line-height:1.5;text-underline-offset:3px}
+body.cosmic-home #selected-work .work-card>figure{height:clamp(205px,25vw,285px);min-height:0;overflow:hidden}
+body.cosmic-home #selected-work .work-card>figure img{display:block;width:100%;height:100%;aspect-ratio:auto}
+:root[data-theme="dark"] body.cosmic-home #selected-work .work-card .work-result{border-top-color:var(--cosmic-line,#79677d)}
+@media(min-width:761px){body.cosmic-home #selected-work .work-card h3{min-height:3.25rem}body.cosmic-home #selected-work .work-card .project-meta{min-height:2rem}}
+@media(max-width:760px){body.cosmic-home #selected-work .work-card>figure{height:clamp(200px,52vw,245px)}body.cosmic-home #selected-work .work-card h3{min-height:0}body.cosmic-home #selected-work .work-card-content{padding:21px}}

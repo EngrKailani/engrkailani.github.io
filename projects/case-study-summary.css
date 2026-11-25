@@ -42,3 +42,14 @@
 :root[data-theme="dark"] .project-reading-shortcuts__label{color:#e4cbda}
 @media(max-width:650px){.project-reading-shortcuts{gap:8px;padding:11px}.project-reading-shortcuts__label{flex-basis:100%;font-size:11px}.project-reading-shortcuts a{flex:1;min-width:0;padding:9px 10px;text-align:center}}
 @media(max-width:350px){.project-reading-shortcuts a{flex-basis:100%}}
+
+/* Scannable evidence on all 16 case studies, with results and limits distinct. */
+body.project-page .project-evidence-first__grid{gap:clamp(11px,1.6vw,16px)}
+body.project-page .project-evidence-first__item{display:flex;flex-direction:column;gap:7px;min-width:0;padding:clamp(15px,1.65vw,20px)}
+body.project-page .project-evidence-first__item h3{margin:0;font-size:14px;line-height:1.45;letter-spacing:.015em}
+body.project-page .project-evidence-first__item p{margin:0;font-size:14px;line-height:1.72;overflow-wrap:break-word;text-wrap:pretty}
+body.project-page .project-evidence-first__item--result{border-color:#af779b;box-shadow:inset 4px 0 #b77b9c}
+body.project-page .project-evidence-first__item:last-child{border-style:dashed;border-color:#af9aa9}
+body.project-page .project-evidence-first__links a{display:inline-flex;align-items:center;min-height:38px;line-height:1.5}
+:root[data-theme="dark"] body.project-page .project-evidence-first__item--result{border-color:#c594b5;box-shadow:inset 4px 0 #d69fbe}
+:root[data-theme="dark"] body.project-page .project-evidence-first__item:last-child{border-color:#a48b9f}
