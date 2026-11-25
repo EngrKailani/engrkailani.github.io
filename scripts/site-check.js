@@ -385,6 +385,15 @@ for(const slug of slugs) {
   check(summary.includes('ENGINEERING EVIDENCE / AT A GLANCE'),
     slug+': evidence-first summary lacks its shared visible heading');
 }
+check(read('projects/vna.html').includes('id="vna-twoport-diagnostics"') &&
+  read('projects/vna.html').includes('maximum power-wave gain is 0.25') &&
+  read('projects/vna.html').includes('eleven offline unit tests') &&
+  read('projects/vna/analysis/s2p_audit.py').includes('maximum_power_gain') &&
+  read('projects/vna/analysis/s2p_audit.py').includes('reciprocity_difference_abs') &&
+  read('projects/vna/analysis/test_s2p_audit.py').includes('test_spectral_bound_detects_coupled_matrix') &&
+  read('research.html').includes('synthetic S-matrix passivity') &&
+  read('index.html').includes('independently tested two-port checks'),
+  'VNA source reconstruction: technical diagnostics, tests and provenance must remain linked');
 check(read('projects/thermal.html').includes('thermal-source-table-wrap') &&
   read('projects/thermal.html').includes('Ten values with a 9 °C range') &&
   read('projects/thermal.html').includes('stable (retained)') &&
