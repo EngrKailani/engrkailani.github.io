@@ -12,6 +12,13 @@ This document describes repeatable accessibility, mobile, and performance checks
 - Reproducible educational robotics experiment: `/robotics-experiment.html`.
 - All sixteen case studies, the PDF-based CV and résumé viewers, the custom 404 page, and responsive navigation are included in the Chromium/axe test suite.
 
+## Additional release checks
+
+- The three narrow-screen robotics charts and the numerical table are keyboard-focusable horizontal regions. Test them with Tab and arrow keys at 320 px and 390 px, in both themes.
+- `node scripts/document-integrity.js` validates that the unchanged source PDFs are intact and consistently linked. PDF typography and PDF body text are outside this structural test.
+- The separate `verify-public-site.yml` workflow checks the actual custom-domain pages and PDF downloads after a push to `main`. It must not be confused with a Vercel check or with local browser results.
+- A proposed independent 6-DOF study protocol is stored under `docs/`, and is explicitly **not** treated as an experimental publication.
+
 ## Automated checks
 
 The [Portfolio accessibility and performance audit](.github/workflows/portfolio-audit.yml)
