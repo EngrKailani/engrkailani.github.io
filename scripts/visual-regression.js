@@ -32,11 +32,18 @@ async function capture(browser,base,test,filename){
     const page=await context.newPage();
     await page.goto(base+test.route,{waitUntil:'domcontentloaded',timeout:40000});
     await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important;scroll-behavior:auto!important}'});
-    await page.evaluate(async()=>{
-      await document.fonts.ready;
-      const visible=[...document.images].filter(img=>img.getBoundingClientRect().top<1000);
-      await Promise.all(visible.map(img=>img.decode().catch(()=>{})));
-    });
+    await page.evaluate(async()=>{await document.fonts.ready});
+    // A decoded placeholder is not a visual baseline. Wait for actual
+    // viewport-visible image pixels before photographing either revision.
+    await page.waitForFunction(()=>{
+      const visible=[...document.images].filter(img=>{
+        const rect=img.getBoundingClientRect(),style=getComputedStyle(img);
+        return rect.width>0&&rect.height>0&&rect.bottom>0&&
+          rect.top<innerHeight&&style.display!=='none'&&style.visibility!=='hidden';
+      });
+      return visible.every(img=>img.complete && img.naturalWidth>0);
+    },null,{timeout:12000});
+    await page.waitForTimeout(120);
     await page.screenshot({path:path.join(output,filename),animations:'disabled'});
     return fs.readFileSync(path.join(output,filename)).toString('base64');
   }finally{await context.close()}
