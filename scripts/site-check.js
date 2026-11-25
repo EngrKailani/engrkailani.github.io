@@ -186,6 +186,13 @@ for(const [slug,methodId] of Object.entries({
   check(html.includes('href="#'+methodId+'"'),
     'Flagship case study: method section not linked from reading navigation in '+slug);
 }
+check(read('projects/leg.html').includes('No joint-acceleration input') &&
+  read('projects/leg.html').includes('Independently checked') &&
+  read('projects/leg.html').includes('leg-equation-check.js') &&
+  read('research.html').includes('does not include the joint-acceleration term') &&
+  read('index.html').includes('no full inverse dynamics') &&
+  read('projects/index.html').includes('independently checked kinematics'),
+  'Three-link research: independent source check and partial torque limitation must remain visible');
 check(read('projects/leg.html').includes('src="directory-thumbnails/leg.svg"') &&
   read('projects/leg.html').includes('Not a recovered Simulink screenshot'),
   'Honors leg simulation: illustrative schematic must retain its provenance');
