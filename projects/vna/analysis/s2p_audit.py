@@ -24,6 +24,26 @@ def _complex_pair(a: float, b: float, fmt: str) -> complex:
     return cmath.rect(magnitude, math.radians(b))
 
 
+def diagnose_twoport(s11: complex, s21: complex, s12: complex, s22: complex) -> dict[str, Any]:
+    """Synthetic-data algebraic checks, not passivity or reciprocity certification.
+
+    With a common real positive port-reference impedance, the squared maximum
+    singular value of S is the largest eigenvalue of S^H S. For an ideal
+    linear passive two-port at a frequency this must be <= 1.
+    """
+    col1_power = abs(s11)**2 + abs(s21)**2
+    col2_power = abs(s12)**2 + abs(s22)**2
+    cross = s11.conjugate() * s12 + s21.conjugate() * s22
+    discriminant = (col1_power - col2_power)**2 + 4 * abs(cross)**2
+    maximum_gain = (col1_power + col2_power + math.sqrt(max(0.0, discriminant))) / 2
+    reciprocity_error = abs(s21 - s12)
+    return {
+        "maximum_power_gain": maximum_gain,
+        "passivity_compatible": maximum_gain <= 1 + 1e-9,
+        "reciprocity_difference_abs": reciprocity_error,
+    }
+
+
 def read_s2p(path: Path) -> dict[str, Any]:
     """Read Touchstone 1.0 S2P with S11, S21, S12, S22 port order."""
     tokens: list[float] = []
@@ -82,11 +102,12 @@ def read_s2p(path: Path) -> dict[str, Any]:
             "input_impedance_ohms": ({"real": zin.real, "imag": zin.imag} if zin is not None else None),
             "S11_complex": {"real": s11.real, "imag": s11.imag},
             "S21_complex": {"real": s21.real, "imag": s21.imag},
+            "diagnostics": diagnose_twoport(s11, s21, s12, s22),
         })
     return {"filename": path.name, "reference_impedance_ohms": z0, "format": fmt,
             "frequency_unit": unit, "number_of_points": len(records),
             "calibration_verified": False, "measurements": records,
-            "warning": "A valid Touchstone file does not establish instrument calibration or data provenance."}
+            "warning": "Two-port diagnostics are algebraic checks for a common real positive reference impedance, not instrument calibration, actual DUT passivity, reciprocity, or data provenance."}
 
 
 def main() -> None:
