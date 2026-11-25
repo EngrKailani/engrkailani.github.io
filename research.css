@@ -177,3 +177,21 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
     grid-template-columns:minmax(0,1fr)!important;
   }
 }
+
+
+/* Printable researcher handout: intentional, keyboard-operable control. */
+.research-page .research-jumps .portfolio-print-button{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px;padding:9px 15px;border:1px solid #9e6690;
+  border-radius:999px;background:var(--r-panel);color:var(--r-accent);
+  font:800 12px/1.4 var(--r-sans,system-ui,sans-serif);cursor:pointer;
+}
+.research-page .research-jumps .portfolio-print-button[hidden]{display:none!important}
+.research-page .research-jumps .portfolio-print-button:is(:hover,:focus-visible){
+  background:var(--r-paper);border-color:var(--r-accent);text-decoration:underline;
+}
+.research-page .portfolio-print-button:focus-visible{outline:3px solid #ad5086;outline-offset:3px}
+:root[data-theme="dark"] body.research-page .research-jumps .portfolio-print-button{
+  background:var(--cosmic-paper);color:var(--cosmic-accent);border-color:var(--cosmic-line);
+}
+@media print{body.research-page .research-jumps,body.research-page .portfolio-print-button{display:none!important}}

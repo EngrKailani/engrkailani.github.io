@@ -165,6 +165,40 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
         if(state.h1!==1)note(name+': expected one page-level heading, found '+state.h1);
         if(state.bodyText<150)note(name+': unexpectedly little readable content');
         if(errors.length)note(name+': JavaScript error: '+errors.join('; ').slice(0,320));
+        if(test.path==='/research.html' || test.path.startsWith('/projects/')){
+          const structured=await page.evaluate(()=>{
+            const node=document.querySelector('script[data-portfolio-structured]');
+            if(!node)return {missing:true};
+            try{
+              const data=JSON.parse(node.textContent);
+              return {
+                type:data['@type'],url:data.url,
+                canonical:document.querySelector('link[rel="canonical"]')?.href,
+                breadcrumbs:data.breadcrumb?.itemListElement?.length,
+                entries:data.mainEntity?.itemListElement?.length
+              };
+            }catch(error){return {error:String(error)}}
+          });
+          const isArchive=test.path==='/projects/index.html';
+          if(structured.missing || structured.error ||
+            structured.type!==(isArchive?'CollectionPage':'WebPage') ||
+            structured.url!==structured.canonical ||
+            structured.breadcrumbs!==(isArchive?2:test.path==='/research.html'?2:3) ||
+            (isArchive&&structured.entries!==20))
+            note(name+': structured page metadata or breadcrumbs do not match visible content');
+          if(!isArchive){
+            const print=page.locator('button[data-print-page]');
+            if(await print.count()!==1 || !await print.isVisible())
+              note(name+': print/Save as PDF action is not available');
+            if((test.path==='/research.html'&&test.width===1440&&!test.theme) ||
+              (test.path==='/projects/nasa.html'&&test.width===390&&test.theme==='dark')){
+              await page.evaluate(()=>{window.__printCalls=0;window.print=()=>{window.__printCalls++}});
+              await print.click();
+              if(await page.evaluate(()=>window.__printCalls)!==1)
+                note(name+': print control did not invoke browser print');
+            }
+          }
+        }
         if(test.path==='/404.html'){
           if(!await page.locator('meta[name="robots"][content="noindex"]').count())
             note(name+': missing noindex directive on custom 404 page');
