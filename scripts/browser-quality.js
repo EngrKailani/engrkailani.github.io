@@ -56,6 +56,7 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
         sheet.href?.includes('/projects/case-print.css') &&
         [...sheet.cssRules].some(rule=>rule.conditionText==='print')),null,{timeout:8000});
     }
+    await page.waitForTimeout(220);
     const printed=await page.evaluate(isResearch=>{
       const get=selector=>document.querySelector(selector);
       const style=selector=>get(selector)?getComputedStyle(get(selector)):null;
@@ -65,6 +66,11 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
       const critical=isResearch?style('.research-concept__boundary'):style('.project-evidence-first');
       return {
         title:get('h1')?.textContent.trim(),
+        printMedia:matchMedia('print').matches,
+        theme:document.documentElement.dataset.theme,
+        printSheet:document.querySelector('link[href*="case-print.css"]')?.media||null,
+        printSheetLoaded:[...document.styleSheets].some(sheet=>sheet.href?.includes('/projects/case-print.css')),
+        printSelectorMatches:document.querySelectorAll('html[data-theme="dark"] body.project-page.project-page').length,
         nav:nav?.display,footer:footer?.display,
         background:getComputedStyle(document.body).backgroundColor,
         foreground:color?.color,critical:critical?.display,
