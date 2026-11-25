@@ -25,6 +25,17 @@ async function check(){
   assert(experiment.includes('tabindex="0"')&&
     experiment.includes('aria-label="Synthetic planar robot trajectories, horizontally scrollable"'),
     'Published robotics experiment does not include the keyboard-accessible chart update');
+  const leg=await(await retrieve('/projects/leg.html')).text();
+  assert(leg.includes('No joint-acceleration input') &&
+    leg.includes('Independent checks against the published equations') &&
+    leg.includes('three-link-source-audit.md'),
+    'Published Honors case study is missing source-based torque limitations or audit link');
+  const research=await(await retrieve('/research.html')).text();
+  assert(research.includes('does not include the joint-acceleration term'),
+    'Published research page has an outdated full-dynamics description');
+  const archive=await(await retrieve('/projects/')).text();
+  assert(archive.includes('independently checked kinematics'),
+    'Published project directory does not reflect the source audit');
   const model=await(await retrieve('/robotics-experiment-model.js')).text();
   assert(model.includes('runTrials')&&model.includes('runSensitivity'),
     'Published robotics experiment model is stale');
