@@ -58,11 +58,12 @@
 <div class="exp-chart-wrap"><svg id="exp-plot" class="exp-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" role="img" aria-label="XY plot of synthetic true, noisy measured, and smoothed robot endpoint trajectories. Numerical error statistics appear above and every sample is available as a CSV."><title>Synthetic planar robot endpoint trajectories</title></svg></div>
 <div class="exp-legend" aria-label="Plot legend"><span><b class="truth"></b>True target</span><span><b class="raw"></b>Noisy measurement</span><span><b class="filtered"></b>Smoothed IK endpoint</span></div>
 <h3>Sample-by-sample endpoint error</h3>
-<div class="exp-chart-wrap"><svg id="exp-error-plot" class="exp-chart" viewBox="0 0 780 300" role="img" aria-label="Synthetic position error in millimeters over sample index, comparing raw and smoothed inverse kinematics."></svg></div>
+<div class="exp-chart-wrap"><svg id="exp-error-plot" class="exp-chart" viewBox="0 0 780 340" role="img" aria-label="Synthetic position error in millimeters over sample index, comparing raw and smoothed inverse kinematics."></svg></div>
 <div class="exp-legend" aria-label="Endpoint error legend"><span><b class="raw"></b>Unfiltered error</span><span><b class="filtered"></b>Smoothed error</span></div>
 <h3>Smoothing parameter sensitivity</h3>
 <p>Mean endpoint RMSE at five smoothing weights, keeping the target path, noise setting, and seed sequence fixed. Smoothing can reduce observation noise but also introduces lag.</p>
-<div class="exp-chart-wrap"><svg id="exp-sensitivity-plot" class="exp-chart" viewBox="0 0 780 310" role="img" aria-label="Mean model endpoint RMSE in millimeters versus smoothing weight alpha. The unfiltered baseline is shown for comparison; values also appear in the following table."></svg></div>
+<div class="exp-chart-wrap"><svg id="exp-sensitivity-plot" class="exp-chart" viewBox="0 0 780 340" role="img" aria-label="Mean model endpoint RMSE in millimeters versus smoothing weight alpha. The unfiltered baseline is shown for comparison; values also appear in the following table."></svg></div>
+<div class="exp-legend" aria-label="Sensitivity chart legend"><span><b class="raw"></b>Unfiltered mean</span><span><b class="filtered"></b>Smoothed mean</span></div>
 <div class="exp-table-wrap"><table class="exp-table"><caption>Numerical sensitivity results from synthetic trials</caption><thead><tr><th scope="col">Smoothing α</th><th scope="col">Unfiltered mean RMSE (mm)</th><th scope="col">Smoothed mean RMSE (mm)</th></tr></thead><tbody id="exp-sensitivity-rows"></tbody></table></div>
 <p>Results are computed locally using the selected seed and model parameters. The plotted noisy measurement is the unfiltered solver target. The smoothed path is the forward-kinematics endpoint of its corresponding inverse solution. It is not a record of motor tracking.</p>
 </section>
