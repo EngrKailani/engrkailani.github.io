@@ -90,7 +90,8 @@ check(featureCards.length===6 &&
   featureCards.every(card=>card.includes('<strong>My contribution:</strong>') &&
     card.includes('<strong>Methods and limits:</strong>')),
   'Home: every featured case study needs contribution and evidence-boundary summaries');
-check(home.includes('My documented work spans') &&
+check(home.includes('My engineering work spans') &&
+  home.includes('I plan to pursue doctoral research') &&
   home.includes('These directions are research goals, not completed experiments.'),
   'Home: must distinguish engineering contributions from research intentions');
 check(home.includes('href="projects/index.html?area=research"'),
@@ -181,6 +182,27 @@ for(const slug of slugs){
   check(page.includes('../cosmic-theme.css?v='+sharedCssVersion),
     'Case study: missing current shared breadcrumb styling in '+slug);
 }
+// Editorial quality: public snippets should identify the engineering work,
+// rather than reuse the same generic promotional summary on every project.
+const caseDescriptions=slugs.map(slug=>{
+  const html=read('projects/'+slug+'.html');
+  const match=html.match(/<meta name="description" content="([^"]+)"/);
+  return match?.[1]||'';
+});
+check(caseDescriptions.length===16 &&
+  new Set(caseDescriptions).size===16 &&
+  caseDescriptions.every(description=>
+    description.length>=90 &&
+    description.length<=170 &&
+    !/Engineering project summary, methods, tools, and documented outcomes/i.test(description)),
+  'Project metadata: require unique, evidence-led summaries without boilerplate');
+check(!archive.includes('Making temperature measurements easier to trust') &&
+  !archive.includes('A small system with meaningful communication challenges') &&
+  !archive.includes('A browser interface connected to physical lights'),
+  'Archive: prefer concrete technical descriptions over vague promotional copy');
+check(research.includes('How does uncertain contact affect robotic tool handling?') &&
+  research.includes('Manipulation with <em>incomplete feedback.</em>'),
+  'Research: proposed contact and incomplete-feedback studies must remain distinct');
 for(const [name,asset] of [
   ['academic-cv.html','assets/Kailani_Alarcon_CV.pdf'],
   ['resume.html','assets/Kailani_Alarcon_Master_Resume.pdf']
@@ -241,7 +263,7 @@ check((archive.match(/data-brief-category="[^"]+" data-brief-keywords="[^"]+"/g)
   'Project search: all four briefs need filter metadata and a visible result count');
 check(read('project-directory.js').includes('briefs.forEach(brief=>') &&
   read('project-directory.js').includes('visible+visibleBriefs!==0') &&
-  archive.includes('Search and filters cover all 20 entries'),
+  archive.includes('The archive includes 16 case studies and four'),
   'Project search: archive must include shorter CV and résumé briefs, not just full case studies');
 check(archive.includes('id="additional-project-briefs"') &&
   archive.includes('href="../research.html#instron-processing"') &&
