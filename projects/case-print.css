@@ -1,0 +1,100 @@
+/* Print and browser Save as PDF: preserve the actual evidence, not site navigation. */
+@page{margin:15mm 14mm}
+@media print{
+  :root{color-scheme:light!important}
+  html,body.project-page{
+    background:#fff!important;color:#111!important;
+    print-color-adjust:auto!important;
+  }
+  body.project-page :is(.cosmic-site-header,.cosmic-shared-toggle,.case-breadcrumb,
+    .project-reading-shortcuts,.detail-jump,.detail-footer,.footer,.case-contact){
+    display:none!important;
+  }
+  body.project-page .project-paper,
+  body.project-page .project-paper>.detail-container{
+    width:100%!important;max-width:none!important;min-width:0!important;
+    margin:0!important;padding:0!important;overflow:visible!important;
+    background:#fff!important;box-shadow:none!important;border:0!important;
+  }
+  body.project-page .project-paper::before,
+  body.project-page .detail-heading::after{display:none!important}
+  body.project-page .detail-heading{
+    padding:0 0 6mm!important;margin:0 0 7mm!important;
+    background:#fff!important;border:0!important;border-bottom:1px solid #aaa!important;
+    box-shadow:none!important;border-radius:0!important;
+  }
+  body.project-page .detail-heading h1{
+    font-size:27pt!important;line-height:1.15!important;
+    margin-bottom:3mm!important;
+  }
+  body.project-page :is(h1,h2,h3,h4,p,li,th,td,small,span,strong,figcaption,dt,dd){
+    color:#111!important;text-shadow:none!important;
+  }
+  body.project-page a{
+    color:#15446b!important;text-decoration:underline!important;
+  }
+  body.project-page :is(.project-evidence-first,.project-evidence-first__item,
+    .detail-card,.detail-panel,.detail-results,.project-overview,.project-evidence,
+    .nasa-workstreams,.nasa-workstreams__grid>section,.nasa-disclaimer,
+    .nasa-evidence-map,.project-visual-gallery__item,.thermal-feature,
+    .case-next-step){
+    color:#111!important;background:#fff!important;
+    background-image:none!important;box-shadow:none!important;
+    border-color:#bbb!important;
+  }
+  body.project-page .project-evidence-first{
+    margin:0 0 7mm!important;padding:4mm!important;border-radius:5px!important;
+  }
+  body.project-page .project-evidence-first__grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:2mm!important;
+  }
+  body.project-page .project-evidence-first__item{
+    break-inside:avoid;page-break-inside:avoid;
+    border-style:solid!important;box-shadow:none!important;
+    padding:3mm!important;border-radius:3px!important;
+  }
+  body.project-page .project-evidence-first__item--result{
+    border-left:3px solid #555!important;
+  }
+  body.project-page .project-evidence-first__item h3,
+  body.project-page .project-evidence-first__item p{
+    color:#111!important;font-size:10pt!important;
+  }
+  body.project-page :is(figure,.detail-panel,.nasa-workstreams__grid>section){
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  body.project-page figure img{
+    max-width:100%!important;height:auto!important;object-fit:contain!important;
+  }
+  body.project-page :is(.nasa-evidence-map__scroll,.verification-scroll){
+    overflow:visible!important;max-width:100%!important;
+  }
+  body.project-page :is(.nasa-evidence-map__table,.verification-table){
+    min-width:0!important;width:100%!important;table-layout:fixed!important;
+    font-size:9pt!important;
+  }
+  body.project-page :is(th,td){overflow-wrap:anywhere!important}
+  body.project-page :is(h2,h3){break-after:avoid-page}
+}
+@media print and (max-width:650px){
+  body.project-page .project-evidence-first__grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+
+/* Specificity guard: the older night-mode bundle loads before this print sheet. */
+@media print{
+  html[data-theme="dark"] body.project-page.project-page{
+    background:#fff!important;color:#111!important;
+  }
+  html[data-theme="dark"] body.project-page .project-paper :is(h1,h2,h3,h4,p,li,th,td,small,span,strong,figcaption,dt,dd,em){
+    color:#111!important;
+  }
+  html[data-theme="dark"] body.project-page .project-evidence-first__item p{
+    color:#111!important;
+  }
+  html[data-theme="dark"] body.project-page .project-paper{
+    background:#fff!important;
+  }
+}

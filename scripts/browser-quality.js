@@ -50,6 +50,12 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
   // Test actual Chromium print output, including when the saved theme is dark.
   await page.emulateMedia({media:'print'});
   try{
+    if(!researchPage){
+      // An on-demand print stylesheet can finish loading after media switches.
+      await page.waitForFunction(()=>[...document.styleSheets].some(sheet=>
+        sheet.href?.includes('/projects/case-print.css') &&
+        [...sheet.cssRules].some(rule=>rule.conditionText==='print')),null,{timeout:8000});
+    }
     const printed=await page.evaluate(isResearch=>{
       const get=selector=>document.querySelector(selector);
       const style=selector=>get(selector)?getComputedStyle(get(selector)):null;
@@ -62,6 +68,7 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
         nav:nav?.display,footer:footer?.display,
         background:getComputedStyle(document.body).backgroundColor,
         foreground:color?.color,critical:critical?.display,
+        emphasis:style('.research-concept h2 em')?.color||null,
         disclaimer:style('.nasa-disclaimer')?.display||null,
         sourceLinks:document.querySelectorAll('main a[href^="https://"]').length
       };
@@ -73,6 +80,8 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
       note(name+': print styles do not provide a readable, uncluttered document '+JSON.stringify(printed));
     if(nasaPage&&printed.disclaimer==='none')
       note(name+': the NASA affiliation disclaimer must remain visible in print');
+    if(researchPage&&printed.emphasis!=='rgb(17, 17, 17)')
+      note(name+': research headings need readable print emphasis in dark mode');
     const pdf=await page.pdf({format:'A4',printBackground:false});
     if(pdf.length<5000 || pdf.subarray(0,5).toString()!=='%PDF-')
       note(name+': browser Save as PDF did not generate a valid document');

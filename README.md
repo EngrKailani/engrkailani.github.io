@@ -22,7 +22,7 @@ Image previews in the 20-entry archive stay lazy-loaded, and the 13 illustration
 
 ## Printing research and case studies
 
-The research page and all sixteen case studies support the browser's **Print / Save as PDF** command. Their print-specific styles remove the site menu and navigation controls, convert the dark theme to a readable white-paper layout, and keep engineering evidence, limitations, source links and NASA affiliation disclaimers. Large technical tables are sized for printable pages. This is a browser feature, not a server-generated publication, and it does not alter the uploaded academic CV or résumé PDFs.
+The research page and all sixteen case studies support the browser's **Print / Save as PDF** command. The case studies use one small shared print-only `projects/case-print.css` stylesheet loaded after the screen theme. Their print-specific styles remove the site menu and navigation controls, convert the dark theme to a readable white-paper layout, and keep engineering evidence, limitations, source links and NASA affiliation disclaimers. Large technical tables are sized for printable pages. This is a browser feature, not a server-generated publication, and it does not alter the uploaded academic CV or résumé PDFs.
 
 The Chromium browser audit checks print styles with saved dark-mode preferences and renders representative NASA, Honors research, and research-page PDFs to catch regressions.
 

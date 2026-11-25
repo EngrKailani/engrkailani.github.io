@@ -71,9 +71,9 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
-check(read('projects/case-study-summary.css').includes('@media print') &&
-  read('projects/case-study-summary.css').includes('.nasa-evidence-map__table') &&
-  read('projects/case-study-summary.css').includes('.project-evidence-first__grid'),
+check(read('projects/case-print.css').includes('@media print') &&
+  read('projects/case-print.css').includes('.nasa-evidence-map__table') &&
+  read('projects/case-print.css').includes('.project-evidence-first__grid'),
   'Case-study print layout should preserve evidence summaries and make NASA tables printable');
 check(read('research.css').includes('@media print') &&
   read('research.css').includes('.research-publications li'),
@@ -163,6 +163,8 @@ for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
   check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
   check(page.includes('class="project-evidence-first"'),'Case study: missing evidence section in '+slug);
+  check(page.includes('href="case-print.css?v='+assetVersion('projects/case-print.css')+'" media="print"'),
+    'Case study: missing print-only stylesheet or stale print asset version in '+slug);
   check((page.match(/<nav class="(?:project-reading-shortcuts|detail-jump)"/g)||[]).length===1,
     'Case study: expected exactly one reading navigation in '+slug);
   check(page.includes('Contribution, evidence, and limitations'),
