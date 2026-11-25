@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..');
 const slugs=['alu','controls','dmx','fingerprint','hall','huemotion','iverify','leg',
   'motor','nasa','powershell','prodriver','thermal','ur3e','vhdl','vna'];
 const pages=['index.html','404.html','research.html','academic-cv.html','resume.html',
-  'workbench.html','projects/index.html',...slugs.map(name=>'projects/'+name+'.html')];
+  'workbench.html','robotics-experiment.html','projects/index.html',...slugs.map(name=>'projects/'+name+'.html')];
 const domain='https://kailanialarcon.com';
 const violations=[];
 let assertions=0;
@@ -78,6 +78,32 @@ check(read('scripts/visual-regression.js').includes('baseline') &&
   read('.github/workflows/visual-regression.yml').includes('pull_request') &&
   read('.github/workflows/visual-regression.yml').includes('visual-regression.js'),
   'Visual regression: base-branch screenshot checks must remain available');
+// Interactive robotics work must remain synthetic, reproducible and discoverable.
+const expPage=read('robotics-experiment.html');
+const expModel=read('robotics-experiment-model.js');
+const expViewer=read('robotics-experiment.js');
+check(expPage.includes('Reproducible Robotics Experiment') &&
+  expPage.includes('id="exp-sensitivity-plot"') &&
+  expPage.includes('id="exp-error-plot"') &&
+  expPage.includes('id="exp-sensitivity-rows"') &&
+  expPage.includes('id="exp-trials-csv"') &&
+  expPage.includes('not a recovered result from my Honors leg project'),
+  'Robotics: synthetic multi-seed evidence and provenance should be visible');
+check(expModel.includes('runTrials') &&
+  expModel.includes('runSensitivity') &&
+  expModel.includes('estimates.sort') &&
+  expViewer.includes('download') &&
+  expViewer.includes('exp-batch-summary'),
+  'Robotics: statistical computation, data export, and displayed metrics are required');
+check(read('sitemap.xml').includes('<loc>'+domain+'/robotics-experiment.html</loc>') &&
+  read('index.html').includes('href="robotics-experiment.html"') &&
+  read('workbench.html').includes('href="robotics-experiment.html"'),
+  'Robotics: model must be discoverable from homepage, workbench and sitemap');
+check(read('scripts/browser-quality.js').includes("path:'/robotics-experiment.html'") &&
+  read('scripts/robotics-experiment-smoke.js').includes("planar-robot-synthetic-trials.csv") &&
+  read('.github/workflows/portfolio-audit.yml').includes('robotics:/robotics-experiment.html'),
+  'Robotics: browser and Lighthouse coverage must be configured');
+
 const sharedCssVersion=assetVersion('cosmic-theme.css');
 const sharedThemeJsVersion=assetVersion('unified-theme.js');
 for(const file of pages){
