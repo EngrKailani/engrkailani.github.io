@@ -26,13 +26,6 @@ p { margin-bottom: 16px; }
 .container { width: min(var(--max), calc(100% - 64px)); margin-inline: auto; }
 .skip-link { position: absolute; z-index: 100; left: 12px; top: -150px; background: var(--ink); padding: 12px 16px; color: #fff; }
 .skip-link:focus { top: 12px; }
-.site-header { background: #fff; border-bottom: 1px solid var(--line); }
-.nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { font-size: 1.06rem; font-weight: 760; letter-spacing: -.025em; color: var(--ink); text-decoration: none; white-space: nowrap; }
-.nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: end; gap: 10px 26px; }
-.nav-links a { font-size: .89rem; color: #405261; text-decoration: none; font-weight: 620; }
-.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent); }
-.nav-links .nav-contact { padding: 9px 14px; border: 1px solid #c2d2da; border-radius: 5px; color: var(--ink); }
 .eyebrow { margin-bottom: 12px; color: var(--accent); text-transform: uppercase; font-size: .73rem; letter-spacing: .125em; font-weight: 760; }
 .hero { background: var(--soft); border-bottom: 1px solid var(--line); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(235px, .65fr); align-items: center; gap: clamp(32px, 6vw, 88px); padding-top: 72px; padding-bottom: 72px; }
@@ -103,8 +96,6 @@ figcaption { color: #607080; font-size: .78rem; line-height: 1.45; margin-top: 9
 .footer-links a { font-size: .79rem; }
 @media (max-width: 780px) {
   .container { width: min(var(--max), calc(100% - 40px)); }
-  .nav { padding-block: 17px; flex-direction: column; align-items: flex-start; gap: 14px; }
-  .nav-links { justify-content: flex-start; gap: 9px 19px; }
   .hero-grid { grid-template-columns: minmax(0,1fr); padding-block: 52px; }
   .hero-photo { max-width: 400px; }
   .hero-photo img { max-height: 320px; }
@@ -122,9 +113,6 @@ figcaption { color: #607080; font-size: .78rem; line-height: 1.45; margin-top: 9
   .work-grid { grid-template-columns: 1fr; }
   .work-card-content { padding: 21px; }
   .button { width: 100%; }
-  .nav-links { gap: 8px 16px; }
-  .nav-links a { font-size: .83rem; }
-  .nav-links .nav-contact { padding: 6px 10px; }
   .section { padding-block: 46px; }
   .contact-section { padding-block: 48px; }
 }

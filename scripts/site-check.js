@@ -331,6 +331,15 @@ for(const [slug,category] of [
 check(archive.includes('data-gallery-filter="source"') &&
   home.includes('href="projects/index.html?area=source"'),
   'Home and archive should let visitors find projects with verifiable public code');
+const archiveImages=[...archive.matchAll(/<img\b[^>]*>/g)].map(match=>match[0]);
+check(archiveImages.length===16 &&
+  archiveImages.every((img,i)=>img.includes('loading="lazy"') &&
+    img.includes('decoding="async"') &&
+    (i<3?!img.includes('fetchpriority="low"'):img.includes('fetchpriority="low"'))),
+  'Archive: reserve normal image priority for the first row and lower priority offscreen project illustrations');
+check(!['.site-header {','.nav-links {','.brand {','.nav {']
+  .some(rule=>read('professional-home.css').includes(rule)),
+  'Home: unused legacy navigation styling should stay retired');
 const keywordCards=[...archive.matchAll(/<a class="featured-project-card" data-gallery-category="[^"]+" href="[^"]+" data-gallery-keywords="([^"]+)"/g)];
 check(keywordCards.length===16 &&
   keywordCards.every(x=>x[1].split(' ').length>=6),
