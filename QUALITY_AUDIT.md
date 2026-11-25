@@ -12,6 +12,10 @@ This document describes repeatable accessibility, mobile, and performance checks
 - Reproducible educational robotics experiment: `/robotics-experiment.html`.
 - All sixteen case studies, the PDF-based CV and résumé viewers, the custom 404 page, and responsive navigation are included in the Chromium/axe test suite.
 
+## Thermal logger trend-source consistency review
+
+Run `npm run check:thermal-trend` to verify the published logger's trend-label decisions on ten finite synthetic sequences, plus configuration and history-boundary checks. The new <a href="docs/thermal-trend-source-audit.md">source audit</a> explicitly distinguishes the historic UI label from a separate proposed stricter verification policy. Browser tests verify keyboard scrolling and visible evidence at 320 px and 390 px in light and dark themes. The source check is not a Python integration, calibration, timestamp, hardware or thermal-equilibrium test.
+
 ## MATLAB source-informed consistency review
 
 Run `npm run check:leg-equations` to independently verify three-link foot position and the analytical Jacobian against finite differences. The exact source-derived link values are declared in the script. This check does not run MATLAB or validate acceleration-dependent inverse dynamics; the [source audit](docs/three-link-source-audit.md) records these limits.

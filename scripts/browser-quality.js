@@ -29,14 +29,15 @@ const cases=[
   {path:'/robotics-experiment.html',width:1440,screenshot:true},
   {path:'/robotics-experiment.html',width:390,screenshot:true},
   {path:'/robotics-experiment.html',width:320},
-  ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390})),
+  ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390,screenshot:slug==='thermal'})),
+  {path:'/projects/thermal.html',width:320,screenshot:true},
   {path:'/',width:1440,screenshot:true,theme:'dark'},
   {path:'/404.html',width:390,theme:'dark'},
   {path:'/',width:390,screenshot:true,theme:'dark'},
   {path:'/research.html',width:390,screenshot:true,theme:'dark'},
   {path:'/projects/index.html',width:390,screenshot:true,theme:'dark'},
   ...slugs.flatMap(slug=>[390,1440].map(width=>({
-    path:'/projects/'+slug+'.html',width,theme:'dark'
+    path:'/projects/'+slug+'.html',width,theme:'dark',screenshot:slug==='thermal'&&width===390
   }))),
   {path:'/workbench.html',width:390,theme:'dark'},
   {path:'/robotics-experiment.html',width:390,theme:'dark',screenshot:true},
@@ -525,6 +526,23 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
               });
               if(!image.width || !image.height || !image.alt || image.overflow)
                 note(name+': method diagram did not load or fit the phone viewport');
+            }
+          }
+          if(slug==='thermal'){
+            const table=page.locator('.thermal-source-table-wrap');
+            if(await table.count()!==1 ||
+              await table.getAttribute('role')!=='region' ||
+              await table.getAttribute('tabindex')!=='0' ||
+              await table.locator('tbody tr').count()!==5)
+              note(name+': source-backed thermal trend comparison missing or not keyboard accessible');
+            if(test.width<=390){
+              await table.focus();
+              if(!await table.evaluate(el=>el===document.activeElement))
+                note(name+': thermal source comparison cannot take keyboard focus');
+              await table.press('ArrowRight');
+              await page.waitForTimeout(220);
+              const left=await table.evaluate(el=>el.scrollLeft);
+              if(left<=0)note(name+': thermal comparison table does not scroll with the keyboard');
             }
           }
           if(['leg','vna','ur3e','thermal'].includes(slug) &&

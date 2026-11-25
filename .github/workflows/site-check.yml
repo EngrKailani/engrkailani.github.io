@@ -27,6 +27,8 @@ jobs:
           node scripts/document-integrity.js
       - name: Verify published three-link kinematics independently
         run: node scripts/leg-equation-check.js
+      - name: Verify thermal trend-label source semantics and edge cases
+        run: node scripts/thermal-trend-source-check.js
       - name: Verify external link inventory without network requests
         run: |
           node scripts/external-links.js --inventory

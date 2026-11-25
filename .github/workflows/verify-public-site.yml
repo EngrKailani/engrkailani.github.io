@@ -9,6 +9,10 @@ on:
       - robotics-experiment.css
       - robotics-experiment.js
       - robotics-experiment-model.js
+      - projects/thermal.html
+      - projects/thermal/thermal-gallery.css
+      - docs/thermal-trend-source-audit.md
+      - scripts/thermal-trend-source-check.js
       - projects/leg.html
       - projects/index.html
       - research.html

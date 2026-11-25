@@ -148,3 +148,38 @@
 .thermal-fact span{font-size:12px;line-height:1.6}
 .thermal-boundary{font-size:14px;line-height:1.75}
 @media(max-width:650px){.thermal-feature img{width:1100px;min-width:1100px;max-width:none;height:auto}}
+
+/* Public source review: not an original hardware measurement table. */
+.thermal-source-review{margin:23px 0 0;padding:18px;border:1px solid #dacbda;border-radius:12px;background:#fffcfe;color:#493748}
+.thermal-source-review h4{font:700 clamp(17px,2vw,20px)/1.35 var(--sans);color:#502b4b;margin:0 0 10px}
+.thermal-source-review p{font:400 14px/1.7 var(--sans);margin:0 0 11px;color:#58465a}
+.thermal-source-table-wrap{overflow-x:auto;overscroll-behavior-inline:contain;max-width:100%;border:1px solid #d9cad9;border-radius:9px;scrollbar-width:thin}
+.thermal-source-table-wrap:focus-visible{outline:3px solid #904469;outline-offset:3px}
+.thermal-source-table{border-collapse:collapse;width:100%;min-width:680px;color:#35283d;font:400 13px/1.6 var(--sans);background:#fffcff}
+.thermal-source-table caption{caption-side:top;text-align:left;background:#f7eef4;color:#634261;padding:12px 14px;font-weight:650}
+.thermal-source-table th,.thermal-source-table td{padding:12px 14px;text-align:left;vertical-align:top;border-top:1px solid #dacbda}
+.thermal-source-table thead th{background:#f2e7f0;font-weight:750}
+.thermal-source-table tbody tr:nth-child(even){background:#f9f5f9}
+.thermal-source-table tbody th{font-weight:650}
+.thermal-source-review .thermal-source-scroll-hint{font-size:12px;color:#694763}
+.thermal-source-review .thermal-source-review__note{margin:13px 0 0}
+.thermal-source-review a{color:#74335d;text-decoration:underline;text-underline-offset:2px}
+:root[data-theme="dark"] .thermal-source-review{background:#2b2535;border-color:#7d617b;color:#fff4fa}
+:root[data-theme="dark"] .thermal-source-review h4{color:#ffdfef}
+:root[data-theme="dark"] .thermal-source-review p{color:#f1e2f0}
+:root[data-theme="dark"] .thermal-source-table-wrap{border-color:#7b627b}
+:root[data-theme="dark"] .thermal-source-table-wrap:focus-visible{outline-color:#f3a6ca}
+:root[data-theme="dark"] .thermal-source-table{background:#342a3e;color:#fceffa}
+:root[data-theme="dark"] .thermal-source-table caption{background:#49324a;color:#fceafa}
+:root[data-theme="dark"] .thermal-source-table th,:root[data-theme="dark"] .thermal-source-table td{border-color:#745772}
+:root[data-theme="dark"] .thermal-source-table thead th{background:#49334c}
+:root[data-theme="dark"] .thermal-source-table tbody tr:nth-child(even){background:#3e3045}
+:root[data-theme="dark"] .thermal-source-review a{color:#ffbedc}
+@media(min-width:760px){.thermal-source-review .thermal-source-scroll-hint{display:none}}
+@media(max-width:650px){.thermal-source-review{padding:15px 12px}.thermal-source-table th,.thermal-source-table td{padding:10px 11px}}
+@media print{
+ .thermal-source-review{break-inside:avoid;box-shadow:none}
+ .thermal-source-table-wrap{overflow:visible}
+ .thermal-source-table{min-width:0;font-size:10px}
+ .thermal-source-review .thermal-source-scroll-hint{display:none}
+}
