@@ -30,6 +30,12 @@ on:
       - 'projects/**/*.html'
       - 'projects/**/*.css'
       - workbench.html
+      - robotics-experiment.html
+      - robotics-experiment.js
+      - robotics-experiment.css
+      - robotics-experiment-model.js
+      - scripts/robotics-experiment-test.js
+      - scripts/robotics-experiment-smoke.js
       - scripts/site-check.js
       - scripts/css-quality.js
       - scripts/workbench-models-test.js
@@ -60,8 +66,10 @@ jobs:
         run: node scripts/site-check.js
       - name: Parse and validate all CSS
         run: node scripts/css-quality.js
-      - name: Oscilloscope and inverse-kinematics unit tests
-        run: node scripts/workbench-models-test.js
+      - name: Engineering model and bootstrap reproducibility tests
+        run: npm run check:models
+      - name: Verify current asset fingerprints
+        run: npm run check:assets
 
   browser-accessibility:
     runs-on: ubuntu-24.04
@@ -86,6 +94,8 @@ jobs:
           exit 1
       - name: Full responsive and axe accessibility audit
         run: node scripts/browser-quality.js
+      - name: Robotics experiment interactions, CSV and responsive smoke checks
+        run: npm run check:robotics-browser
       - name: Upload browser audits and screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -117,10 +127,10 @@ jobs:
           done
           cat /tmp/portfolio-server.log
           exit 1
-      - name: Run mobile and desktop Lighthouse for four entry points
+      - name: Run mobile and desktop Lighthouse for five entry points
         run: |
           mkdir -p quality-artifacts
-          for pair in home:/ research:/research.html projects:/projects/index.html workbench:/workbench.html; do
+          for pair in home:/ research:/research.html projects:/projects/index.html workbench:/workbench.html robotics:/robotics-experiment.html; do
             slug="$(echo "$pair" | cut -d: -f1)"
             target="$(echo "$pair" | cut -d: -f2-)"
             url="http://127.0.0.1:4173$target"
