@@ -20,6 +20,8 @@ workflow runs on changes to the relevant pages or through **Actions → Portfoli
 2. **Chromium/axe:** `node scripts/browser-quality.js` covers desktop and mobile layouts, keyboard interactions, light/dark themes, content, console errors, image loading and automated WCAG 2.0/2.1 A/AA checks. The browser suite also checks narrow-screen overflow and content containment.
 3. **Lighthouse:** Four entry points are tested in mobile and desktop presets: **eight real lab runs**. `node scripts/lighthouse-phase4-report.js` creates a Markdown scorecard and JSON measurement table; raw reports are uploaded. The summary lists performance, accessibility, best practices, SEO, largest contentful paint, cumulative layout shift, and total blocking time.
 
+The Ubuntu 24.04 CI jobs install the pinned Playwright Chromium browser without re-running apt's font-package dependency installer. The previous apt step could fail when package sources were unavailable even though the responsive tests passed. Browser startup and Lighthouse still fail the jobs if dependencies or measurements are missing.
+
 The workflow uploads:
 - `browser-accessibility-results`: screenshots, Chromium tests and axe findings.
 - `lighthouse-performance-results`: eight Lighthouse JSON reports, a Markdown scorecard and review-target warnings.

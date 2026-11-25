@@ -16,7 +16,9 @@ A public engineering portfolio documenting NASA internship work, faculty-mentore
 | Optional browser-only interactive models | `workbench.html`, `workbench.js` |
 | Custom not-found page | `404.html` |
 
-Styles are intentionally modular. `professional-home.css` provides the homepage foundations; `cosmic-theme.css` supplies the shared space/pink design and accessible mobile navigation; research, workbench, PDF-only document pages, and project case studies load only their currently needed stylesheets. The site is hosted on GitHub Pages from `main`, with `CNAME` configured for `kailanialarcon.com`.
+Styles are intentionally modular. Unused pre-space-theme navigation selectors were retired from `professional-home.css`; `professional-home.css` provides the homepage foundations; `cosmic-theme.css` supplies the shared space/pink design and accessible mobile navigation; research, workbench, PDF-only document pages, and project case studies load only their currently needed stylesheets. The site is hosted on GitHub Pages from `main`, with `CNAME` configured for `kailanialarcon.com`.
+
+Image previews in the 20-entry archive stay lazy-loaded, and the 13 illustrations below the initial robotics group explicitly use low network priority; this reduces competition for critical text and stylesheet requests without changing any scientific figure or evidence label. Lighthouse scores must be verified against a completed lab run, not inferred from image attributes.
 
 ## Development and checks
 

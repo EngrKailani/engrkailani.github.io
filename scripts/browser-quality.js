@@ -195,6 +195,19 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             ])));
           if(badges.all!==20 || badges.research!==2 || badges.source!==5)
             note(name+': initial discipline counts should cover all 20 indexed entries');
+          const archiveMedia=await page.locator('.project-directory-grid img')
+            .evaluateAll(imgs=>imgs.map(img=>({
+              loading:img.getAttribute('loading'),
+              priority:img.getAttribute('fetchpriority'),
+              alt:img.getAttribute('alt'),
+              width:img.getAttribute('width'),
+              height:img.getAttribute('height')
+            })));
+          if(archiveMedia.length!==16 ||
+            archiveMedia.some((m,i)=>m.loading!=='lazy' ||
+              (i>=3?m.priority!=='low':m.priority==='low') ||
+              !m.alt || !m.width || !m.height))
+            note(name+': offscreen archive illustrations should retain lazy loading, provenance and low network priority');
           const jumpLinks=page.locator('#directory-jump [data-directory-jump]');
           const initialJumps=await jumpLinks.evaluateAll(links=>
             Object.fromEntries(links.map(link=>[
