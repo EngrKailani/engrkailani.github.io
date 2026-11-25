@@ -220,6 +220,13 @@ const resumeProjectBriefs={
 };
 check((archive.match(/class="directory-brief-card"/g)||[]).length===4,
   'CV/resume: expected four accessible additional project briefs');
+check((archive.match(/data-brief-category="[^"]+" data-brief-keywords="[^"]+"/g)||[]).length===4 &&
+  archive.includes('id="directory-brief-count"'),
+  'Project search: all four briefs need filter metadata and a visible result count');
+check(read('project-directory.js').includes('briefs.forEach(brief=>') &&
+  read('project-directory.js').includes('visible+visibleBriefs!==0') &&
+  archive.includes('Search and filters cover all 20 entries'),
+  'Project search: archive must include shorter CV and résumé briefs, not just full case studies');
 check(archive.includes('id="additional-project-briefs"') &&
   archive.includes('href="../research.html#instron-processing"') &&
   archive.includes('href="motor.html#arduino-pi-control"') &&
@@ -326,7 +333,8 @@ check(archive.includes('aria-describedby="directory-search-help"') &&
   /id="directory-share-status"[^>]*role="status"/.test(archive),
   'Archive: query help and accessible shareable view feedback are missing');
 check(read('project-directory.js').includes('terms.every(term=>index.includes(term))') &&
-  read('project-directory.js').includes("navigator.clipboard.writeText(location.href)"),
+  read('project-directory.js').includes('const requestedUrl=location.href') &&
+  read('project-directory.js').includes("navigator.clipboard.writeText(requestedUrl)"),
   'Archive: technical multiword search and shareable filtered links are not implemented');
 for(const file of [
   'assets/Creo-1.jpg','assets/Creo-2.jpg','assets/Arm.jpg',

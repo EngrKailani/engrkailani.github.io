@@ -134,3 +134,19 @@
   .project-page .directory-brief-grid{grid-template-columns:minmax(0,1fr)}
   .project-page .directory-brief-card{gap:8px}
 }
+
+/* The four shorter briefs participate in the same search and filter state.
+   Explicit hidden rules are needed because cards use display:flex. */
+.project-page .directory-brief-card[hidden],
+.project-page .directory-briefs[hidden]{display:none!important}
+.project-page .directory-brief-count{
+  margin:10px 0 0;
+  font:700 12px/1.55 var(--sans,Arial,sans-serif);
+  color:#68455e;
+}
+.project-page .directory-copy-link:disabled{
+  cursor:progress;opacity:.74;
+}
+:root[data-theme="dark"] .project-page .directory-brief-count{
+  color:#f0d1e2;
+}

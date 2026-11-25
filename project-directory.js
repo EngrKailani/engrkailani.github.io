@@ -3,6 +3,9 @@
 'use strict';
   const search=document.getElementById('directory-search');
   const cards=[...document.querySelectorAll('[data-gallery-category]')];
+  const briefs=[...document.querySelectorAll('[data-brief-category]')];
+  const briefSection=document.getElementById('additional-project-briefs');
+  const briefCount=document.getElementById('directory-brief-count');
   const groups=[...document.querySelectorAll('[data-gallery-group]')];
   const buttons=[...document.querySelectorAll('[data-gallery-filter]')];
   const count=document.getElementById('directory-count');
@@ -16,8 +19,11 @@
   // Cache each index once rather than walking the full card DOM on every keystroke.
   const searchIndex=new Map(cards.map(card=>[card,
     normalize(card.textContent+' '+(card.dataset.galleryKeywords||''))]));
+  const briefSearchIndex=new Map(briefs.map(brief=>[brief,
+    normalize(brief.textContent+' '+(brief.dataset.briefKeywords||''))]));
   const validCategories=new Set(buttons.map(button=>button.dataset.galleryFilter));
   let category='all';
+  let copyAttempt=0;
   // A filtered project directory has its own shareable address.
   function restoreDirectoryFromUrl(){
     if(!cards.length)return;
@@ -44,6 +50,7 @@
     // do not prevent discovery of verified technical terms.
     const terms=normalize(search?.value||'').split(/\s+/).filter(Boolean);
     let visible=0;
+    let visibleBriefs=0;
     cards.forEach(card=>{
       const matchType=category==='all'||(card.dataset.galleryCategory||'').split(' ').includes(category);
       const index=searchIndex.get(card)||'';
@@ -55,10 +62,22 @@
       const hasResults=[...group.querySelectorAll('[data-gallery-category]')].some(card=>!card.hidden);
       group.hidden=!hasResults;
     });
-    if(count)count.textContent='Showing '+visible+' of '+cards.length+' engineering projects';
-    if(empty)empty.hidden=visible!==0;
+    briefs.forEach(brief=>{
+      const matchType=category==='all'||(brief.dataset.briefCategory||'').split(' ').includes(category);
+      const index=briefSearchIndex.get(brief)||'';
+      const matchQuery=terms.every(term=>index.includes(term));
+      brief.hidden=!(matchType&&matchQuery);
+      if(!brief.hidden)visibleBriefs++;
+    });
+    if(briefSection)briefSection.hidden=visibleBriefs===0;
+    if(briefCount)briefCount.textContent='Showing '+visibleBriefs+' of '+briefs.length+' additional briefs';
+    if(count)count.textContent='Showing '+visible+' of '+cards.length+' case studies and '+
+      visibleBriefs+' of '+briefs.length+' additional briefs';
+    if(empty)empty.hidden=visible+visibleBriefs!==0;
     if(clearFilters)clearFilters.hidden=category==='all'&&!terms.length;
-    if(copyLink)copyLink.textContent='Copy view link';
+    // A previous asynchronous clipboard write must not overwrite the latest view state.
+    copyAttempt++;
+    if(copyLink){copyLink.textContent='Copy view link';copyLink.disabled=false;}
     if(shareStatus)shareStatus.textContent='';
   }
   function resetDirectory(){
@@ -96,14 +115,24 @@
   document.getElementById('directory-reset')?.addEventListener('click',resetDirectory);
   clearFilters?.addEventListener('click',resetDirectory);
   copyLink?.addEventListener('click',async()=>{
+    const attempt=++copyAttempt;
+    const requestedUrl=location.href;
+    copyLink.disabled=true;
+    copyLink.textContent='Copying link…';
+    if(shareStatus)shareStatus.textContent='';
     try{
       if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');
-      await navigator.clipboard.writeText(location.href);
+      await navigator.clipboard.writeText(requestedUrl);
+      if(attempt!==copyAttempt)return;
       copyLink.textContent='Link copied';
       if(shareStatus)shareStatus.textContent='Copied a link to this project view.';
     }catch(_){
+      if(attempt!==copyAttempt)return;
+      copyLink.textContent='Copy view link';
       if(shareStatus)shareStatus.textContent=
         'Copying is unavailable here. Share this view using the browser address bar.';
+    }finally{
+      if(attempt===copyAttempt)copyLink.disabled=false;
     }
   });
   window.addEventListener('popstate',()=>{

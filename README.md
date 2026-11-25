@@ -39,7 +39,7 @@ The repository's GitHub Actions workflows test internal links, project-to-projec
 
 ## Editorial standards
 
-- Keep project titles and contributions in the uploaded academic CV and master résumé aligned with the site. The 16 full case studies remain searchable; four additional project briefs link to detailed research sections or a clearly identified separate Arduino PI-control exercise. Do not merge that Arduino project into the STM32 PWM coursework.
+- Keep project titles and contributions in the uploaded academic CV and master résumé aligned with the site. Search and category filters cover both the 16 full case studies and four additional project briefs, which link to detailed research sections or the separate Arduino PI-control exercise. Do not merge that Arduino project into the STM32 PWM coursework.
 - Document verified personal contributions, not uncompleted tests or future plans as finished research.
 - Distinguish preliminary NASA engineering assessments from qualification results; keep NASA affiliation and image disclaimers.
 - Keep student projects and synthetic workbench models clearly distinguished from flight or clinically validated hardware.
