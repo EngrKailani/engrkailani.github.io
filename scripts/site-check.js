@@ -236,7 +236,7 @@ check(read('projects/alu.html').includes('id="fpga-digital-design"') &&
   read('projects/fingerprint.html').includes('UART sensor packet handling'),
   'CV/resume: missing source-supported FPGA, capstone, gesture or embedded project details');
 const nasaPublicNarrative=[home,research,archive,read('projects/nasa.html')].join(' ');
-check(!/34 hierarchical|3\\.1\\s*N|12-document technical specification set/.test(nasaPublicNarrative),
+check(!/34 hierarchical|3\.1\s*N|12-document technical specification set/.test(nasaPublicNarrative),
   'CV/resume: internal NASA project-specific quantitative claims should not be copied publicly');
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
