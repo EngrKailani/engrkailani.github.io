@@ -187,7 +187,7 @@ for(const [slug,methodId] of Object.entries({
     'Flagship case study: method section not linked from reading navigation in '+slug);
 }
 check(read('projects/leg.html').includes('No joint-acceleration input') &&
-  read('projects/leg.html').includes('Independently checked') &&
+  read('projects/leg.html').includes('independently checked') &&
   read('projects/leg.html').includes('leg-equation-check.js') &&
   read('research.html').includes('does not include the joint-acceleration term') &&
   read('index.html').includes('no full inverse dynamics') &&
