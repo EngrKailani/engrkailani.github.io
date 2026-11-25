@@ -26,6 +26,9 @@ const cases=[
   {path:'/projects/index.html',width:390},
   {path:'/workbench.html',width:1440},
   {path:'/workbench.html',width:320},
+  {path:'/robotics-experiment.html',width:1440,screenshot:true},
+  {path:'/robotics-experiment.html',width:390,screenshot:true},
+  {path:'/robotics-experiment.html',width:320},
   ...slugs.map(slug=>({path:'/projects/'+slug+'.html',width:390})),
   {path:'/',width:1440,screenshot:true,theme:'dark'},
   {path:'/404.html',width:390,theme:'dark'},
@@ -36,10 +39,11 @@ const cases=[
     path:'/projects/'+slug+'.html',width,theme:'dark'
   }))),
   {path:'/workbench.html',width:390,theme:'dark'},
+  {path:'/robotics-experiment.html',width:390,theme:'dark',screenshot:true},
   {path:'/academic-cv.html',width:390,theme:'dark'},
   {path:'/resume.html',width:390,theme:'dark'},
   ...['/', '/research.html', '/projects/index.html', '/projects/nasa.html',
-    '/workbench.html', '/academic-cv.html', '/resume.html']
+    '/workbench.html', '/robotics-experiment.html', '/academic-cv.html', '/resume.html']
     .map(path=>({path,width:390,theme:'invalid'}))
 ];
 const issues=[];
@@ -198,6 +202,14 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
                 note(name+': print control did not invoke browser print');
             }
           }
+        }
+        if(test.path==='/robotics-experiment.html'){
+          const summary=page.locator('#exp-batch-summary .exp-metric');
+          await page.locator('#exp-status').filter({hasText:'Simulation complete'}).waitFor();
+          if(await summary.count()!==3 ||
+             await page.locator('#exp-sensitivity-rows tr').count()!==5 ||
+             await page.locator('#exp-error-plot path').count()!==2)
+            note(name+': numerical trials, sensitivity table, or error chart missing');
         }
         if(test.path==='/404.html'){
           if(!await page.locator('meta[name="robots"][content="noindex"]').count())
