@@ -42,6 +42,7 @@ on:
       - scripts/browser-quality.js
       - scripts/lighthouse-phase4-report.js
       - .github/workflows/portfolio-audit.yml
+  pull_request:
   workflow_dispatch:
 
 permissions:
