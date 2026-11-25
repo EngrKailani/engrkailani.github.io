@@ -7,6 +7,8 @@
   const briefSection=document.getElementById('additional-project-briefs');
   const briefCount=document.getElementById('directory-brief-count');
   const groups=[...document.querySelectorAll('[data-gallery-group]')];
+  const jumpNav=document.getElementById('directory-jump');
+  const jumpLinks=[...document.querySelectorAll('[data-directory-jump]')];
   const buttons=[...document.querySelectorAll('[data-gallery-filter]')];
   const count=document.getElementById('directory-count');
   const empty=document.getElementById('directory-empty');
@@ -96,6 +98,22 @@
         (total===1?'project':'projects'));
     });
     if(briefSection)briefSection.hidden=visibleBriefs===0;
+    // Jump links lead only to sections that still contain visible results.
+    // Unlike discipline filters, these anchors never change the search.
+    let visibleSections=0;
+    jumpLinks.forEach(link=>{
+      const target=document.getElementById(link.dataset.directoryJump);
+      const group=target?.closest('[data-gallery-group]');
+      const amount=target===briefSection?visibleBriefs:
+        (group?.querySelectorAll('[data-gallery-category]:not([hidden])').length||0);
+      link.hidden=amount===0;
+      if(amount>0)visibleSections++;
+      const badge=link.querySelector('.directory-jump__count');
+      if(badge)badge.textContent=String(amount);
+      link.setAttribute('aria-label',link.dataset.directoryJumpLabel+
+        ': '+amount+' visible '+(amount===1?'project':'projects'));
+    });
+    if(jumpNav)jumpNav.hidden=visibleSections===0;
     if(briefCount)briefCount.textContent='Showing '+visibleBriefs+' of '+briefs.length+' additional briefs';
     if(count)count.textContent='Showing '+visible+' of '+cards.length+' case studies and '+
       visibleBriefs+' of '+briefs.length+' additional briefs';

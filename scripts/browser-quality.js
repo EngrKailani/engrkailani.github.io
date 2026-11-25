@@ -189,6 +189,19 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             ])));
           if(badges.all!==20 || badges.research!==2 || badges.source!==5)
             note(name+': initial discipline counts should cover all 20 indexed entries');
+          const jumpLinks=page.locator('#directory-jump [data-directory-jump]');
+          const initialJumps=await jumpLinks.evaluateAll(links=>
+            Object.fromEntries(links.map(link=>[
+              link.dataset.directoryJump,
+              Number(link.querySelector('.directory-jump__count')?.textContent)
+            ])));
+          if(await jumpLinks.count()!==5 ||
+            initialJumps['group-robotics']!==3 ||
+            initialJumps['group-embedded']!==4 ||
+            initialJumps['group-measurement']!==5 ||
+            initialJumps['group-software']!==4 ||
+            initialJumps['additional-project-briefs']!==4)
+            note(name+': in-page section navigation must count all 20 projects');
           const briefs=page.locator('#additional-project-briefs .directory-brief-card');
           if(await briefs.count()!==4)note(name+': expected four CV and résumé project briefs');
           else {
@@ -212,6 +225,12 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
           ]) {
             await archiveSearch.fill(query);
             if(query==='imagej contamination'){
+              const availableJumps=await page.locator('#directory-jump [data-directory-jump]:visible')
+                .evaluateAll(links=>links.map(link=>link.dataset.directoryJump));
+              if(availableJumps.length!==1 || availableJumps[0]!=='additional-project-briefs' ||
+                !await page.locator('#directory-jump [data-directory-jump="additional-project-briefs"]')
+                  .getAttribute('aria-label').then(text=>text?.includes('1 visible project')))
+                note(name+': section shortcuts should hide empty groups after search');
               const counts=await page.locator('[data-gallery-filter]').evaluateAll(buttons=>
                 Object.fromEntries(buttons.map(button=>[
                   button.dataset.galleryFilter,
@@ -255,6 +274,7 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             const search=page.locator('#directory-search');
             await search.fill('not-a-real-engineering-project-xyz');
             if(await page.locator('[data-gallery-category]:visible').count()!==0 ||
+              await page.locator('#directory-jump').isVisible() ||
               !await page.locator('#directory-empty').isVisible() ||
               !new URL(page.url()).searchParams.has('q'))
               note(name+': no-results search should display the empty state and shareable query');
@@ -325,6 +345,15 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             await page.locator('#directory-clear').click();
             if(await page.locator('[data-gallery-category]:visible').count()!==16)
               note(name+': clearing combined filters failed');
+            const softwareJump=page.locator('#directory-jump [data-directory-jump="group-software"]');
+            if(!await softwareJump.isVisible())
+              note(name+': section shortcuts should reappear when filters are cleared');
+            else{
+              await softwareJump.click();
+              if(new URL(page.url()).hash!=='#group-software' ||
+                !await page.locator('#group-software').isVisible())
+                note(name+': section shortcut did not navigate to the visible project group');
+            }
           }
         }
         if(test.path==='/research.html') {
