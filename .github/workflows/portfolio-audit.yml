@@ -36,6 +36,7 @@ on:
       - robotics-experiment-model.js
       - scripts/robotics-experiment-test.js
       - scripts/leg-equation-check.js
+      - scripts/thermal-trend-source-check.js
       - scripts/robotics-experiment-smoke.js
       - scripts/document-integrity.js
       - scripts/site-check.js
