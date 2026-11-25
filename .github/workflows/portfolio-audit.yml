@@ -12,6 +12,13 @@ on:
       - cosmic-theme.css
       - professional-home.css
       - portfolio.css
+      - portfolio-projects.css
+      - build-css.js
+      - styles.css
+      - enhancements.css
+      - engineering.css
+      - case-studies.css
+      - project-pages.css
       - portfolio-upgrade.css
       - homepage-refinement.css
       - unified-theme.js

@@ -237,6 +237,22 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
             }
           }
         }
+        if(test.path.startsWith('/projects/')) {
+          const bundle=await page.evaluate(()=>{
+            const refs=[...document.querySelectorAll('link[rel="stylesheet"]')]
+              .map(link=>link.getAttribute('href')||'');
+            return {
+              lean:refs.some(ref=>ref.includes('portfolio-projects.css?v=')),
+              legacy:refs.some(ref=>ref.split('?')[0].endsWith('/portfolio.css')),
+              rulesLoaded:[...document.styleSheets].some(sheet=>
+                sheet.href?.includes('/portfolio-projects.css')),
+              paper:getComputedStyle(document.querySelector('.project-paper')).display
+            };
+          });
+          if(!bundle.lean || bundle.legacy || !bundle.rulesLoaded ||
+            bundle.paper==='none')
+            note(name+': project styles should load the dedicated lean bundle without hiding content');
+        }
         if(test.path==='/projects/index.html') {
           const badges=await page.locator('[data-gallery-filter]').evaluateAll(buttons=>
             Object.fromEntries(buttons.map(button=>[
