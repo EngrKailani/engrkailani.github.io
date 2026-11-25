@@ -150,3 +150,24 @@
 :root[data-theme="dark"] .project-page .directory-brief-count{
   color:#f0d1e2;
 }
+
+/* Live match counts make discipline filters easier to scan in both themes. */
+.project-page .directory-filter-set button[data-gallery-filter]{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:42px;
+}
+.project-page .directory-filter-count{
+  display:inline-grid;place-items:center;min-width:23px;height:23px;
+  padding:0 6px;border-radius:99px;border:1px solid #d8bed0;
+  background:#f4e6ef;color:#59374f;
+  font:750 11px/1 var(--sans,Arial,sans-serif);font-variant-numeric:tabular-nums;
+}
+.project-page .directory-filter-set button[aria-pressed="true"] .directory-filter-count{
+  background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);color:#fff;
+}
+:root[data-theme="dark"] .project-page .directory-filter-count{
+  background:#503b54;border-color:#906f8d;color:#ffdfef;
+}
+:root[data-theme="dark"] .project-page .directory-filter-set button[aria-pressed="true"] .directory-filter-count{
+  background:rgba(255,255,255,.12);border-color:#e7b3ce;color:#fff;
+}
