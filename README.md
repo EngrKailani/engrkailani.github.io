@@ -49,7 +49,9 @@ The repository's GitHub Actions workflows test internal links, project-to-projec
 - Link directly to a project repository only when it is already public and verified to match the project. A source link establishes code availability, not hardware validation or authorization to reuse third-party materials.
 - Keep the 16 case studies connected through previous and next links following the project archive order, with the last project linking back to the first. Run `npm run check:navigation` after changing archive order or project links.
 - Maintain six curated homepage projects in a balanced two-column desktop grid, representing NASA, faculty-mentored research, robotics coursework, and test automation. Keep detailed methods and qualifications in the individual case studies.
-- Organize the Research page around completed work and publications before proposed PhD research. Keep the NASA case study concise and avoid public numerical NASA project specifics.
+- Lead the Research page with documented engineering experience before proposed doctoral directions. Keep completed evidence, publications, and future study questions distinct.
+- Use the same six evidence-summary facets on all 16 project case studies: Problem, My contribution, Engineering tools, Validation method, Documented result, and Limitations. On flagship cases, link directly to inspectable source files or clearly labeled conceptual figures, never imply that their existence proves hardware validation.
+- Keep the NASA case study concise and avoid public numerical NASA project specifics.
 - Keep the manually maintained academic CV and résumé PDFs current, review future uploads for NASA project numbers, and ensure the public links point to the existing website filenames.
 - Never restore retired résumé/CV generators or diagrams containing project-specific NASA figures. The static checker rejects those legacy assets and the previously published PDF binaries.
 - For changes, use a branch, inspect the diff, run checks, merge a pull request, and confirm the GitHub Pages deployment.

@@ -65,7 +65,7 @@ Automated tools cannot prove WCAG conformance. Before treating the audit as comp
 
 - The Research page distinguishes documented engineering research, proposed PhD work, student posters, and two publicly available industry white papers.
 - The homepage links directly to research, publications, the selected project portfolio, and the academic CV.
-- Five case studies link to matching verified public project repositories; code availability is not presented as instrument calibration or hardware validation.
+- Five case studies link to matching verified public project repositories; code availability is not presented as instrument calibration or hardware validation. Featured research case studies point to inspectable public source files or distinguish conceptual figures from measurement evidence. All 16 case studies use the same six-facet evidence overview.
 - The 404 page is explicitly noindexed and offers links back to the homepage, project archive, and research. The project directory remains the archive for other work.
 - The NASA case study uses generic, non-measured illustrations. Unused numerical NASA diagrams and obsolete résumé/CV generators have been retired.
 - Static checks block the former NASA-specific numerical claims and the previous public PDF binaries, and cover internal links, page structure, and publications.
