@@ -25,6 +25,11 @@ async function check(){
   assert(experiment.includes('tabindex="0"')&&
     experiment.includes('aria-label="Synthetic planar robot trajectories, horizontally scrollable"'),
     'Published robotics experiment does not include the keyboard-accessible chart update');
+  const thermal=await(await retrieve('/projects/thermal.html')).text();
+  assert(thermal.includes('thermal-source-table-wrap') &&
+    thermal.includes('Ten values with a 9 °C range') &&
+    thermal.includes('thermal-trend-source-audit.md'),
+    'Published thermal case study lacks source-backed label review');
   const leg=await(await retrieve('/projects/leg.html')).text();
   assert(leg.includes('No joint-acceleration input') &&
     leg.includes('Independent checks against the published equations') &&
