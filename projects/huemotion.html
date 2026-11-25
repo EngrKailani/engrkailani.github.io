@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="../portfolio-projects.css?v=0f6318eba3">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=7b3390696d">
 <link rel="stylesheet" href="project-visuals.css?v=2e373d3ff0">
-<link rel="stylesheet" href="case-study-summary.css?v=60eda77024">
+<link rel="stylesheet" href="case-study-summary.css?v=19eb3c13ac">
 <meta property="og:image" content="https://kailanialarcon.com/social/huemotion.png">
 <meta property="og:image:alt" content="Branded engineering case-study illustration: HueMotion">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -22,6 +22,44 @@
 <meta name="twitter:image" content="https://kailanialarcon.com/social/huemotion.png">
 <link rel="stylesheet" href="../cosmic-theme.css?v=5ec1d70a13">
 <link rel="stylesheet" href="case-print.css?v=ffb5d2ca8f" media="print">
+<script type="application/ld+json" data-portfolio-structured>
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://kailanialarcon.com/projects/huemotion.html#webpage",
+  "url": "https://kailanialarcon.com/projects/huemotion.html",
+  "name": "HueMotion | Kailani Alarcon",
+  "description": "Webcam gesture recognition for RGBW lighting scene control, with offline software checks but no new camera or fixture validation.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Kailani Alarcon engineering portfolio",
+    "url": "https://kailanialarcon.com/"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Portfolio",
+        "item": "https://kailanialarcon.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Engineering projects",
+        "item": "https://kailanialarcon.com/projects/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "HueMotion",
+        "item": "https://kailanialarcon.com/projects/huemotion.html"
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body class="project-page">
 <a class="skip-link" href="#project-main">Skip to project details</a>
@@ -57,7 +95,7 @@
 <div class="project-evidence-first__item"><h3>Validation method</h3><p>Source inspection and 11 synthetic offline behavior checks of timing, mappings and state handling.</p></div>
 <div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Eight source-defined scenes and a reconstructed policy model with 11 offline tests.</p></div>
 <div class="project-evidence-first__item"><h3>Limitations</h3><p>No newly verified camera recognition rate or physical lighting performance; bridge has no request authentication.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a><a href="https://github.com/EngrKailani/HueMotion" target="_blank" rel="noopener noreferrer" aria-label="View public HueMotion source code and documentation on GitHub">Public source code ↗</a></p></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#huemotion-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#huemotion-visuals">Visual walkthrough</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a><button type="button" class="portfolio-print-button" data-print-page hidden>Print / save PDF</button></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview">
 <span class="detail-tag">PROJECT 14 / 16</span>
 <p class="detail-lead">HueMotion maps webcam hand-landmark classifications to RGBW lighting scenes. The recovered implementation separates browser-side gesture stabilization from an optional local bridge to the lighting system.</p>
@@ -97,4 +135,5 @@
 </nav></div></main>
 <footer class="footer"><div class="container footer-inner"><span class="footer-logo">kailani<span>.</span></span><p>Engineering work and project evidence · © 2026</p><a href="../index.html">Return home ↑</a></div></footer>
 <script src="../unified-theme.js?v=83cfaac609" defer></script>
+<script src="../print-document.js?v=e1c3fa873d" defer></script>
 </body></html>

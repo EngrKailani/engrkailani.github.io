@@ -39,6 +39,11 @@ check(projectCssSources.every(name=>read(projectCss).includes('/* SOURCE: '+name
   ['bookshelf.css','ux.css','botanical.css','ambient.css'].every(name=>
     !read(projectCss).includes('/* SOURCE: '+name+' */')),
   'Project CSS: must retain project styles but exclude homepage-only modules');
+// Keep machine-readable breadcrumbs and the 20-entry archive aligned with visible content.
+check(require('./structured-data.js').check(),
+  'Structured-data schema must agree with current titles, descriptions, and links');
+const printJsVersion=assetVersion('print-document.js');
+const summaryCssVersion=assetVersion('projects/case-study-summary.css');
 const sharedCssVersion=assetVersion('cosmic-theme.css');
 const sharedThemeJsVersion=assetVersion('unified-theme.js');
 for(const file of pages){
@@ -85,6 +90,14 @@ for(const file of pages){
   }
 }
 const home=read('index.html'),research=read('research.html'),archive=read('projects/index.html');
+check(research.includes('data-print-page hidden') &&
+  research.includes('src="print-document.js?v='+printJsVersion+'"') &&
+  research.includes('research-jumps'),
+  'Research: provide a working, progressive print and save-as-PDF action');
+check(read('print-document.js').includes("button.hidden=false") &&
+  read('print-document.js').includes('window.print()'),
+  'Print: only expose buttons after binding the browser print action');
+
 check(archive.includes('href="../portfolio-projects.css?v='+assetVersion(projectCss)+'"') &&
   !archive.includes('href="../portfolio.css?v='),
   'Project directory: must load the lean CSS bundle');
@@ -209,6 +222,11 @@ for(const [name,oldBlob] of Object.entries(previousPublicPDFs)){
 
 for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
+  check(page.includes('data-print-page hidden') &&
+    page.includes('src="../print-document.js?v='+printJsVersion+'"') &&
+    page.includes('href="case-study-summary.css?v='+summaryCssVersion+'"'),
+    'Case study: printable action or styling missing in '+slug);
+
   check(page.includes('href="../portfolio-projects.css?v='+assetVersion(projectCss)+'"') &&
     !page.includes('href="../portfolio.css?v='),
     'Project CSS: case-study should use lean bundle in '+slug);

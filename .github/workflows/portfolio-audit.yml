@@ -22,6 +22,8 @@ on:
       - portfolio-upgrade.css
       - homepage-refinement.css
       - unified-theme.js
+      - print-document.js
+      - scripts/structured-data.js
       - project-directory.js
       - 'assets/*.pdf'
       - projects/index.html
