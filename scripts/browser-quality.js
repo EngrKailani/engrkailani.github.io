@@ -196,6 +196,26 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             if(test.width<=720 && gridColumns!==1)
               note(name+': additional briefs must stack on narrow screens');
           }
+          // The four additional CV/résumé briefs participate in the same search.
+          const archiveSearch=page.locator('#directory-search');
+          for(const [query,title] of [
+            ['imagej contamination','Lunar-regolith'],
+            ['instron friction','Instron'],
+            ['motor generator','DC motor']
+          ]) {
+            await archiveSearch.fill(query);
+            const found=page.locator('#additional-project-briefs .directory-brief-card:visible');
+            if(await found.count()!==1 ||
+              !(await found.first().locator('h3').textContent()).includes(title) ||
+              await page.locator('#directory-empty').isVisible())
+              note(name+': search should find the additional brief for '+query);
+          }
+          await page.locator('[data-gallery-filter="embedded"]').click();
+          if(await page.locator('#additional-project-briefs .directory-brief-card:visible').count()!==1)
+            note(name+': category and query together should find the Arduino motor brief');
+          await page.locator('#directory-clear').click();
+          if(await page.locator('#additional-project-briefs .directory-brief-card:visible').count()!==4)
+            note(name+': resetting search and category should restore four briefs');
           const faculty=page.locator('[data-gallery-filter="research"]');
           if(!await faculty.count()) {
             note(name+': faculty research filter is missing');
@@ -275,6 +295,10 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             const currentLink=page.url();
             await page.context().grantPermissions(['clipboard-read','clipboard-write']);
             await page.locator('#directory-copy-link').click();
+            // Clipboard writes are asynchronous; wait for success feedback before
+            // reading the clipboard, especially on slower mobile CI workers.
+            await page.waitForFunction(()=>
+              document.querySelector('#directory-copy-link')?.textContent?.trim()==='Link copied');
             const copied=await page.evaluate(()=>navigator.clipboard.readText());
             if(copied!==currentLink ||
               (await page.locator('#directory-copy-link').textContent()).trim()!=='Link copied')
