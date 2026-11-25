@@ -182,6 +182,13 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
           }
         }
         if(test.path==='/projects/index.html') {
+          const badges=await page.locator('[data-gallery-filter]').evaluateAll(buttons=>
+            Object.fromEntries(buttons.map(button=>[
+              button.dataset.galleryFilter,
+              Number(button.querySelector('.directory-filter-count')?.textContent)
+            ])));
+          if(badges.all!==20 || badges.research!==2 || badges.source!==5)
+            note(name+': initial discipline counts should cover all 20 indexed entries');
           const briefs=page.locator('#additional-project-briefs .directory-brief-card');
           if(await briefs.count()!==4)note(name+': expected four CV and résumé project briefs');
           else {
@@ -204,6 +211,15 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
             ['motor generator','DC motor']
           ]) {
             await archiveSearch.fill(query);
+            if(query==='imagej contamination'){
+              const counts=await page.locator('[data-gallery-filter]').evaluateAll(buttons=>
+                Object.fromEntries(buttons.map(button=>[
+                  button.dataset.galleryFilter,
+                  Number(button.querySelector('.directory-filter-count')?.textContent)
+                ])));
+              if(counts.all!==1 || counts.measurement!==1 || counts.source!==0)
+                note(name+': filter counts should respond to a live technical search');
+            }
             const found=page.locator('#additional-project-briefs .directory-brief-card:visible');
             if(await found.count()!==1 ||
               !(await found.first().locator('h3').textContent()).includes(title) ||

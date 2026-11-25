@@ -22,6 +22,7 @@
   const briefSearchIndex=new Map(briefs.map(brief=>[brief,
     normalize(brief.textContent+' '+(brief.dataset.briefKeywords||''))]));
   const validCategories=new Set(buttons.map(button=>button.dataset.galleryFilter));
+  const filterLabels=new Map(buttons.map(button=>[button,button.textContent.trim()]));
   let category='all';
   let copyAttempt=0;
   // A filtered project directory has its own shareable address.
@@ -49,12 +50,22 @@
     // Match all query words in any order. Punctuation and accented letters
     // do not prevent discovery of verified technical terms.
     const terms=normalize(search?.value||'').split(/\s+/).filter(Boolean);
+    // Counts reflect search matches across every category, even when one is selected.
+    const available=new Map([...validCategories].map(name=>[name,0]));
+    function tallyMatch(categories){
+      available.set('all',available.get('all')+1);
+      for(const name of categories.split(/\s+/).filter(Boolean)){
+        if(name!=='all' && available.has(name))
+          available.set(name,available.get(name)+1);
+      }
+    }
     let visible=0;
     let visibleBriefs=0;
     cards.forEach(card=>{
       const matchType=category==='all'||(card.dataset.galleryCategory||'').split(' ').includes(category);
       const index=searchIndex.get(card)||'';
       const matchQuery=terms.every(term=>index.includes(term));
+      if(matchQuery)tallyMatch(card.dataset.galleryCategory||'');
       card.hidden=!(matchType&&matchQuery);
       if(!card.hidden)visible++;
     });
@@ -66,8 +77,23 @@
       const matchType=category==='all'||(brief.dataset.briefCategory||'').split(' ').includes(category);
       const index=briefSearchIndex.get(brief)||'';
       const matchQuery=terms.every(term=>index.includes(term));
+      if(matchQuery)tallyMatch(brief.dataset.briefCategory||'');
       brief.hidden=!(matchType&&matchQuery);
       if(!brief.hidden)visibleBriefs++;
+    });
+    buttons.forEach(button=>{
+      const total=available.get(button.dataset.galleryFilter)||0;
+      let badge=button.querySelector('.directory-filter-count');
+      if(!badge){
+        badge=document.createElement('span');
+        badge.className='directory-filter-count';
+        badge.setAttribute('aria-hidden','true');
+        button.append(badge);
+      }
+      badge.textContent=String(total);
+      const label=filterLabels.get(button);
+      button.setAttribute('aria-label',label+': '+total+' matching '+
+        (total===1?'project':'projects'));
     });
     if(briefSection)briefSection.hidden=visibleBriefs===0;
     if(briefCount)briefCount.textContent='Showing '+visibleBriefs+' of '+briefs.length+' additional briefs';
