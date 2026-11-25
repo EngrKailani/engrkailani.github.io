@@ -25,6 +25,11 @@ async function check(){
   assert(experiment.includes('tabindex="0"')&&
     experiment.includes('aria-label="Synthetic planar robot trajectories, horizontally scrollable"'),
     'Published robotics experiment does not include the keyboard-accessible chart update');
+  const vna=await(await retrieve('/projects/vna.html')).text();
+  assert(vna.includes('vna-twoport-diagnostics') &&
+    vna.includes('maximum power-wave gain is 0.25') &&
+    vna.includes('eleven offline unit tests'),
+    'Published VNA page lacks synthetic reciprocity and passivity diagnostics');
   const thermal=await(await retrieve('/projects/thermal.html')).text();
   assert(thermal.includes('thermal-source-table-wrap') &&
     thermal.includes('Ten values with a 9 °C range') &&
