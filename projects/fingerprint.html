@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../portfolio-projects.css?v=0f6318eba3">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=7b3390696d">
 <link rel="stylesheet" href="case-study-summary.css?v=19eb3c13ac">
+<link rel="stylesheet" href="evidence-enhancements.css?v=4526e24daf">
 <meta property="og:image" content="https://kailanialarcon.com/social/fingerprint.png">
 <meta property="og:image:alt" content="Branded engineering case-study illustration: Fingerprint Authentication">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -94,7 +95,7 @@
 <div class="project-evidence-first__item"><h3>Validation method</h3><p>Group demonstration covered enrollment, response handling, template search and status LEDs.</p></div>
 <div class="project-evidence-first__item project-evidence-first__item--result"><h3>Documented result</h3><p>Standalone group demonstration of 24 template IDs mapped to four users.</p></div>
 <div class="project-evidence-first__item"><h3>Limitations</h3><p>No independently measured error rates, security assessment or complete preserved test logs.</p></div></div><p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p></section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a><button type="button" class="portfolio-print-button" data-print-page hidden>Print / save PDF</button></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#fingerprint-visual-method">Method sketch</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a><button type="button" class="portfolio-print-button" data-print-page hidden>Print / save PDF</button></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 04 / 16</span><p class="detail-lead">Our four-person embedded-systems group built a standalone fingerprint identification system around an STM32F767ZI and an optical sensor. Instead of relying on the sensor library, the firmware uses manually constructed UART command packets and response parsing. A guided enrollment process lets users register prints, while green and red LEDs indicate matching results.</p></section>
 <article class="detail-card" aria-label="Fingerprint Authentication engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
@@ -106,6 +107,15 @@
 <section class="detail-panel"><h3>Tools</h3><p>STM32F767ZI, embedded C, UART packet protocol, sensor integration, GPIO.</p></section>
 
 </div>
+<section class="method-sketch" id="fingerprint-visual-method" aria-labelledby="fingerprint-visual-method-title">
+  <p class="method-sketch__label">Engineering method / explanatory sketch</p>
+  <h2 id="fingerprint-visual-method-title">Enrollment and template-search flow</h2>
+  <p>The group implementation exchanged sensor commands and responses with the STM32 over UART and used status outputs to report identification.</p>
+  <figure>
+    <img src="method-visuals/fingerprint-workflow.svg" width="1200" height="510" loading="lazy" decoding="async" alt="Conceptual five-stage workflow for enrollment and template-search flow, with named stages and an explicit note that no original experiment data are shown.">
+    <figcaption><strong>Diagram provenance:</strong> Group-level functional illustration, not an optical-sensor schematic, recovered firmware trace, or biometric security validation.</figcaption>
+  </figure>
+</section>
 <div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The group demonstrated enrollment and matching across 24 template IDs associated with four users. The available record does not establish false-match or false-rejection rates.</p></div>
 
 

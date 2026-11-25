@@ -26,6 +26,20 @@ The project directory provides four direct starting points for technical reviewe
 
 Four flagship case studies include short technical-method explanations. A reused leg schematic is explicitly labeled illustrative, RF analysis differentiates S-parameter interpretation from unavailable instrument calibration, UR3e commentary distinguishes Jacobian rank from conditioning, and the NASA assessment links qualitative feasibility decisions to still-open verification questions. No new measurements or project-specific NASA data are asserted.
 
+## Evidence-first visuals and experimental boundaries
+
+Five formerly text-only case studies (ALU, Control & Measurement Labs, Fingerprint Authentication, STM32 PWM, and combinational VHDL) now include compact SVG **method sketches**. These diagrams summarize documented functional workflows. They are explicitly labeled conceptual and are not recovered schematics, oscilloscope traces, circuit wiring, sensor results, or evidence of hardware testing. The five vector illustrations are original source-controlled site assets.
+
+The four research-forward case studies (leg dynamics, VNA, UR3e, and thermal logging) now include a reviewer-oriented verification checklist distinguishing what can be inspected from what would be needed for independent replication. No unmeasured instrument, robot, or NASA performance results have been added.
+
+The research page links selected past work to specific future technical questions and **proposed**, rather than completed, evaluation methods. The aim is to make the distinction between prior evidence and the intended doctoral research more visible.
+
+## Visual regression checks
+
+Pull requests trigger `.github/workflows/visual-regression.yml`, which checks out the real base commit alongside the proposed branch and captures controlled Playwright viewport screenshots of representative **unchanged** pages in light/dark and desktop/mobile configurations. It compares pixel differences with a stated 7% threshold and uploads before-and-after images and a JSON report. Deliberately edited HTML routes are skipped in this comparison and remain covered by the full responsive/axe browser suite. The screenshot comparison is a regression guard, not a substitute for manual review or a promise of pixel-identical rendering across browsers.
+
+Run `npm run check:visual` only when two preview servers are available at `SITE_URL` and `BASELINE_URL`; ordinary local checks need only `npm run check:static` and the browser suite.
+
 ## CSS build and retained sources
 
 Published homepage styles use `professional-home.css` and `cosmic-theme.css`. The old generated `home-css-*.css` slices were not loaded by any published page and are no longer produced by `build-css.js`. The unreferenced `critical-home.css` and `projects-menu.css` assets were also retired. This removes unused repository assets, **not a measured reduction in visitors' transfer size**.

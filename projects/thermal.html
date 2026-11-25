@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../portfolio-projects.css?v=0f6318eba3">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=7b3390696d">
 <link rel="stylesheet" href="case-study-summary.css?v=19eb3c13ac">
+<link rel="stylesheet" href="evidence-enhancements.css?v=4526e24daf">
 <link rel="stylesheet" href="thermal/thermal-gallery.css?v=5b372dd950">
 <meta property="og:image" content="https://kailanialarcon.com/social/thermal.png">
 <meta property="og:image:alt" content="Branded engineering case-study illustration: Thermal Controller &amp; Logger">
@@ -152,7 +153,16 @@
 
 <section class="project-evidence" id="project-evidence" aria-labelledby="project-evidence-title"><h2 id="project-evidence-title">Evidence &amp; limitations</h2>
 <p><strong>Public source you can inspect:</strong> the <a href="https://github.com/EngrKailani/Thermal-Logger/blob/main/main_ui.pyw" target="_blank" rel="noopener noreferrer">application interface</a>, <a href="https://github.com/EngrKailani/Thermal-Logger/blob/main/graph_window.py" target="_blank" rel="noopener noreferrer">plotting module</a>, and <a href="https://github.com/EngrKailani/Thermal-Logger/blob/main/logger_core.py" target="_blank" rel="noopener noreferrer">logging logic</a>. The <a href="#thermal-visuals">workflow illustrations</a> describe the software architecture, not a live hardware test.</p>
-<p><strong>Evidence boundary:</strong> Public software files are inspectable, but the graphics contain synthetic examples, not measured thermocouple readings. Pico TC-08 calibration and real acquisition timing were not independently revalidated. Internal engineering logs, employer records and proprietary reports are not offered as public downloads.</p></section>
+<p><strong>Evidence boundary:</strong> Public software files are inspectable, but the graphics contain synthetic examples, not measured thermocouple readings. Pico TC-08 calibration and real acquisition timing were not independently revalidated. Internal engineering logs, employer records and proprietary reports are not offered as public downloads.</p>
+<div class="repro-checklist" aria-labelledby="thermal-repro-title">
+  <h3 id="thermal-repro-title">What a reviewer can verify</h3>
+  <ul>
+    <li><strong>Inspect application behavior:</strong> Available: public Python UI, graphing and logging modules for the temperature workflow.</li>
+    <li><strong>Check the software reconstruction:</strong> Available: four synthetic checks of a separate CSV audit utility, not physical test data.</li>
+    <li><strong>Validate an instrumented test:</strong> Requires: calibrated thermocouples, hardware timestamp checks, recovered optional Arduino firmware and traceable readings.</li>
+  </ul>
+</div>
+</section>
 <aside class="case-contact" aria-label="Discuss this project"><div><h2>Let’s talk engineering.</h2><p>Questions about my contribution or a related opportunity?</p></div><div class="case-contact-actions"><a class="btn btn-primary" href="mailto:kailanip.alarcon@gmail.com?subject=thermal%20project">Email Kailani ↗</a><a class="btn btn-outline" href="../assets/Kailani_Alarcon_Master_Resume.pdf" target="_blank" rel="noopener noreferrer">View résumé ↗</a></div></aside>
 <nav class="detail-footer" aria-label="Project navigation">
 <a class="case-archive-return" href="index.html">All projects</a>

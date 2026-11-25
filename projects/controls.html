@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../portfolio-projects.css?v=0f6318eba3">
 <link rel="stylesheet" href="../portfolio-upgrade.css?v=7b3390696d">
 <link rel="stylesheet" href="case-study-summary.css?v=19eb3c13ac">
+<link rel="stylesheet" href="evidence-enhancements.css?v=4526e24daf">
 <meta property="og:image" content="https://kailanialarcon.com/social/controls.png">
 <meta property="og:image:alt" content="Branded engineering case-study illustration: Control &amp; Measurement Labs">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -101,7 +102,7 @@
 </div>
 <p class="project-evidence-first__links"><a href="#project-results">Read the findings ↗</a><a href="#project-evidence">Evidence and limitations ↗</a></p>
 </section>
-<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a><button type="button" class="portfolio-print-button" data-print-page hidden>Print / save PDF</button></nav>
+<nav class="detail-jump" aria-label="Project sections"><span>EXPLORE THIS PROJECT</span><a href="#project-overview">Overview</a><a href="#project-method">Approach</a><a href="#controls-visual-method">Method sketch</a><a href="#project-results">Findings</a><a href="#project-evidence">Evidence</a><button type="button" class="portfolio-print-button" data-print-page hidden>Print / save PDF</button></nav>
 <section class="project-overview" id="project-overview" aria-label="Project overview"><span class="detail-tag">PROJECT 08 / 16</span><p class="detail-lead">In four partner-based instrumentation and control laboratories, we connected models to bench measurements. We calibrated a strain-gauge amplifier and examined bending and vibration of a metal strip, measured RLC and motor frequency responses, then designed proportional and PID motor-speed controllers using MATLAB and physical controller boards. Comparisons between modeled and measured responses revealed discrepancies requiring closer examination of component values and test conditions.</p></section>
 <article class="detail-card" aria-label="Control &amp; Measurement Labs engineering detail"><h2 class="project-details-title">Engineering details</h2>
 
@@ -113,6 +114,15 @@
 <section class="detail-panel"><h3>Tools</h3><p>MATLAB, P/PID feedback, strain gauges, Wheatstone bridge, RLC frequency response, oscilloscope, function generator, DC motor controller board.</p></section>
 
 </div>
+<section class="method-sketch" id="controls-visual-method" aria-labelledby="controls-visual-method-title">
+  <p class="method-sketch__label">Engineering method / explanatory sketch</p>
+  <h2 id="controls-visual-method-title">From instrumentation to comparison</h2>
+  <p>A conceptual flow shows why excitation, sensor conditioning, captured response, and a model must be distinguished when interpreting laboratory differences.</p>
+  <figure>
+    <img src="method-visuals/controls-workflow.svg" width="1200" height="510" loading="lazy" decoding="async" alt="Conceptual five-stage workflow for from instrumentation to comparison, with named stages and an explicit note that no original experiment data are shown.">
+    <figcaption><strong>Diagram provenance:</strong> Combines methods from several separate partner laboratories. Not an actual wiring diagram, oscilloscope capture, or plotted dataset.</figcaption>
+  </figure>
+</section>
 <div id="project-results" class="detail-results"><h2>Documented outcome</h2><p>The strain experiment characterized vibration near 49.3 Hz. Increasing proportional gain shortened measured rise and settling times, but P-control experiments showed roughly tenfold differences from the simulation; some PID measurements differed by over 50%. These discrepancies motivated stronger component and setup verification.</p></div>
 <p class="project-related"><a href="#project-evidence">View methods, results and limitations ↗</a></p>
 

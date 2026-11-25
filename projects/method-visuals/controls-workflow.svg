@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+<title id="title">Model-to-bench comparison</title><desc id="desc">Instrumentation and feedback methodology across partner laboratories. Generalized sequence across separate labs. No original waveforms or uncertainty data.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#20172e"/><stop offset="1" stop-color="#3c2848"/></linearGradient><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0 H0 V28" fill="none" stroke="#b4a0cc" stroke-opacity=".10"/></pattern><marker id="arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L6 3.5 L0 7" fill="none" stroke="#d5a6d2" stroke-width="1.2"/></marker></defs>
+<rect width="1200" height="510" rx="18" fill="url(#bg)"/><rect width="1200" height="510" rx="18" fill="url(#grid)"/>
+<text x="58" y="60" fill="#f2b6d4" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2">METHOD SKETCH / CONCEPTUAL</text>
+<text x="58" y="112" fill="#fff4fd" font-family="Arial,sans-serif" font-size="35" font-weight="700">Model-to-bench comparison</text>
+<text x="58" y="151" fill="#ddd0e7" font-family="Arial,sans-serif" font-size="19">Instrumentation and feedback methodology across partner laboratories</text>
+<path d="M251 274 H280" fill="none" stroke="#d5a6d2" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M476 274 H505" fill="none" stroke="#d5a6d2" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M701 274 H730" fill="none" stroke="#d5a6d2" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M926 274 H955" fill="none" stroke="#d5a6d2" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="58" y="208" width="193" height="132" rx="17" fill="#30243f" stroke="#af82ae" stroke-width="1.5"/>
+<text x="74" y="237" fill="#f6b9d8" font-family="Arial,sans-serif" font-weight="700" font-size="15">01</text>
+<text x="74" y="274" fill="#fff4fd" font-family="Arial,sans-serif" font-weight="700" font-size="18">Test stimulus</text>
+<text x="74" y="305" fill="#dccde5" font-family="Arial,sans-serif" font-size="15">Strain or motor</text>
+<rect x="283" y="208" width="193" height="132" rx="17" fill="#3a2a4e" stroke="#af82ae" stroke-width="1.5"/>
+<text x="299" y="237" fill="#f6b9d8" font-family="Arial,sans-serif" font-weight="700" font-size="15">02</text>
+<text x="299" y="274" fill="#fff4fd" font-family="Arial,sans-serif" font-weight="700" font-size="18">Sensor / circuit</text>
+<text x="299" y="305" fill="#dccde5" font-family="Arial,sans-serif" font-size="15">Bridge or feedback</text>
+<rect x="508" y="208" width="193" height="132" rx="17" fill="#30243f" stroke="#af82ae" stroke-width="1.5"/>
+<text x="524" y="237" fill="#f6b9d8" font-family="Arial,sans-serif" font-weight="700" font-size="15">03</text>
+<text x="524" y="274" fill="#fff4fd" font-family="Arial,sans-serif" font-weight="700" font-size="18">Bench capture</text>
+<text x="524" y="305" fill="#dccde5" font-family="Arial,sans-serif" font-size="15">Oscilloscope</text>
+<rect x="733" y="208" width="193" height="132" rx="17" fill="#3a2a4e" stroke="#af82ae" stroke-width="1.5"/>
+<text x="749" y="237" fill="#f6b9d8" font-family="Arial,sans-serif" font-weight="700" font-size="15">04</text>
+<text x="749" y="274" fill="#fff4fd" font-family="Arial,sans-serif" font-weight="700" font-size="18">MATLAB model</text>
+<text x="749" y="305" fill="#dccde5" font-family="Arial,sans-serif" font-size="15">Predicted response</text>
+<rect x="958" y="208" width="193" height="132" rx="17" fill="#30243f" stroke="#af82ae" stroke-width="1.5"/>
+<text x="974" y="237" fill="#f6b9d8" font-family="Arial,sans-serif" font-weight="700" font-size="15">05</text>
+<text x="974" y="274" fill="#fff4fd" font-family="Arial,sans-serif" font-weight="700" font-size="18">Compare results</text>
+<text x="974" y="305" fill="#dccde5" font-family="Arial,sans-serif" font-size="15">Timing and error</text>
+<path d="M58 387 H1140" stroke="#af85b1" stroke-opacity=".55"/>
+<text x="58" y="420" fill="#f1bdcf" font-family="Arial,sans-serif" font-size="15" font-weight="700">EVIDENCE LIMIT</text>
+<text x="58" y="451" fill="#e9dbea" font-family="Arial,sans-serif" font-size="16">Generalized sequence across separate labs. No original waveforms or uncertainty data.</text>
+</svg>

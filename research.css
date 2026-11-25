@@ -195,3 +195,66 @@ html{scroll-padding-top:98px;scroll-behavior:smooth}
   background:var(--cosmic-paper);color:var(--cosmic-accent);border-color:var(--cosmic-line);
 }
 @media print{body.research-page .research-jumps,body.research-page .portfolio-print-button{display:none!important}}
+
+
+/* Evidence-to-question crosswalk: existing work is not presented as PhD results. */
+.research-page .research-evidence-crosswalk{
+  margin-top:24px;padding:clamp(18px,3vw,29px);
+  border:1px solid var(--r-border);border-radius:15px;
+  background:var(--r-paper);color:var(--r-ink);
+}
+.research-page .research-evidence-crosswalk h3{
+  margin:0 0 7px;font-size:clamp(23px,3vw,31px);
+  line-height:1.3;color:var(--r-ink);
+}
+.research-page .research-evidence-crosswalk__intro{
+  margin:0 0 16px;color:var(--r-muted);font-size:13px;line-height:1.8;
+}
+.research-page .research-evidence-crosswalk__grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;
+}
+.research-page .research-evidence-crosswalk__item{
+  padding:18px;border:1px solid var(--r-border);border-radius:12px;
+  background:var(--r-panel);
+}
+.research-page .research-evidence-crosswalk__item h4{
+  margin:0 0 11px;color:var(--r-ink);font-size:18px;line-height:1.4;
+}
+.research-page .research-evidence-crosswalk__item p{
+  margin:0 0 9px;color:var(--r-muted);font-size:12px;line-height:1.82;
+}
+.research-page .research-evidence-crosswalk__item p:last-child{margin-bottom:0}
+.research-page .research-evidence-crosswalk__item strong{color:var(--r-ink)}
+.research-page .research-evidence-crosswalk__item a{
+  color:var(--r-accent);font-weight:750;
+  text-decoration:underline;text-underline-offset:3px;
+}
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk{
+  background:var(--cosmic-paper);border-color:var(--cosmic-line);
+}
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk__item{
+  background:var(--cosmic-soft);border-color:var(--cosmic-line);
+}
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk__item :is(h4,strong),
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk h3{
+  color:var(--cosmic-ink);
+}
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk__item p,
+:root[data-theme="dark"] body.research-page .research-evidence-crosswalk__intro{
+  color:var(--cosmic-muted);
+}
+@media(max-width:870px){
+  .research-page .research-evidence-crosswalk__grid{grid-template-columns:1fr}
+}
+@media print{
+  body.research-page :is(.research-evidence-crosswalk,.research-evidence-crosswalk__item){
+    background:#fff!important;color:#111!important;border-color:#bbb!important;
+    box-shadow:none!important;
+  }
+  body.research-page .research-evidence-crosswalk__grid{
+    grid-template-columns:1fr!important;
+  }
+  body.research-page .research-evidence-crosswalk__item{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+}

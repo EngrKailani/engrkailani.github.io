@@ -476,6 +476,17 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
           }
         }
         if(test.path==='/research.html') {
+          const crosswalk=page.locator('#research-evidence-crosswalk');
+          if(await crosswalk.count()!==1 ||
+            await crosswalk.locator('.research-evidence-crosswalk__item').count()!==3)
+            note(name+': research evidence-to-question crosswalk is missing');
+          else{
+            const columns=await crosswalk.locator('.research-evidence-crosswalk__grid')
+              .evaluate(el=>getComputedStyle(el).gridTemplateColumns.trim().split(' ').length);
+            const expected=test.width<870?1:3;
+            if(columns!==expected)
+              note(name+': research crosswalk should use '+expected+' column(s) here');
+          }
           const sections=await page.locator('main.research-container > section.research-section[id]')
             .evaluateAll(els=>els.map(el=>el.id));
           if(sections[0]!=='investigations' || sections[1]!=='directions')
@@ -486,6 +497,27 @@ async function checkPrintLayout(page,name,researchPage=false,nasaPage=false){
             await checkPrintLayout(page,name,true,false);
         }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
+          const slug=test.path.split('/').pop().replace('.html','');
+          if(['alu','controls','fingerprint','motor','vhdl'].includes(slug)){
+            const drawing=page.locator('#'+slug+'-visual-method img');
+            if(await drawing.count()!==1 ||
+              !await page.locator('#'+slug+'-visual-method figcaption').count())
+              note(name+': missing documented method illustration');
+            else if(test.width===390 && !test.theme){
+              await drawing.scrollIntoViewIfNeeded();
+              const image=await drawing.evaluate(async img=>{
+                try{await img.decode()}catch(_){}
+                return {width:img.naturalWidth,height:img.naturalHeight,
+                  alt:img.alt,overflow:img.getBoundingClientRect().right >
+                    document.documentElement.clientWidth+3};
+              });
+              if(!image.width || !image.height || !image.alt || image.overflow)
+                note(name+': method diagram did not load or fit the phone viewport');
+            }
+          }
+          if(['leg','vna','ur3e','thermal'].includes(slug) &&
+            await page.locator('#'+slug+'-repro-title').count()!==1)
+            note(name+': evidence verification checklist missing');
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
            if(await page.locator('nav.project-reading-shortcuts, nav.detail-jump').count()!==1)
              note(name+': case study should have one reading navigation');

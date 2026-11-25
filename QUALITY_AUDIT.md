@@ -52,6 +52,10 @@ For the focused Workbench smoke test:
 npm run check:workbench-browser
 ```
 
+## Visual regression comparison
+
+The separate [visual layout regression](.github/workflows/visual-regression.yml) workflow launches the real pull-request base and proposed versions side by side, compares selected unchanged page screenshots at fixed viewport sizes, and uploads paired PNGs plus a JSON change fraction. A 7% significantly changed-pixel fraction is a review threshold. Intentional page-content changes are excluded from baseline comparisons, while the full Chromium/axe suite checks those pages independently. Screenshots can still vary with browser rendering and font delivery, so investigate failures rather than treating the percentage as a universal accessibility or performance measure.
+
 ## Manual accessibility checklist
 
 Automated tools cannot prove WCAG conformance. Before treating the audit as complete, check these manually:
