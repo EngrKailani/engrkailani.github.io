@@ -12,6 +12,10 @@ This document describes repeatable accessibility, mobile, and performance checks
 - Reproducible educational robotics experiment: `/robotics-experiment.html`.
 - All sixteen case studies, the PDF-based CV and résumé viewers, the custom 404 page, and responsive navigation are included in the Chromium/axe test suite.
 
+## MATLAB source-informed consistency review
+
+Run `npm run check:leg-equations` to independently verify three-link foot position and the analytical Jacobian against finite differences. The exact source-derived link values are declared in the script. This check does not run MATLAB or validate acceleration-dependent inverse dynamics; the [source audit](docs/three-link-source-audit.md) records these limits.
+
 ## Additional release checks
 
 - The three narrow-screen robotics charts and the numerical table are keyboard-focusable horizontal regions. Test them with Tab and arrow keys at 320 px and 390 px, in both themes.
