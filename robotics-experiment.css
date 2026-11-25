@@ -58,3 +58,21 @@
 .experiment-page .exp-button--outline:hover{background:var(--ex-soft)}
 @media(max-width:970px) and (min-width:701px){.experiment-page .exp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.experiment-page .exp-table th,.experiment-page .exp-table td{padding:9px 10px;font-size:.82rem}}
+
+/* Keep plotting text readable on phones without overflowing the document. */
+@media(max-width:700px){
+  .experiment-page .exp-chart-wrap{overflow-x:auto;overscroll-behavior-inline:contain}
+  .experiment-page .exp-chart{min-width:570px}
+  .experiment-page .exp-note{padding:15px}
+}
+/* A readable static summary when a reviewer prints the experiment. */
+@media print{
+  .experiment-page{--ex-soft:#fff;--ex-paper:#fff;--ex-ink:#111;--ex-muted:#333;--ex-line:#bbb;--ex-accent:#5d254b;--ex-alt:#14606e}
+  .experiment-page .cosmic-site-header,.experiment-page .exp-actions,
+  .experiment-page #experiment-form,.experiment-page .exp-footer{display:none!important}
+  .experiment-page .exp-main{padding:0}
+  .experiment-page .exp-panel{break-inside:avoid;box-shadow:none}
+  .experiment-page .exp-chart-wrap{overflow:visible}
+  .experiment-page .exp-chart{min-width:0}
+  .experiment-page a{color:inherit}
+}
