@@ -385,6 +385,15 @@ for(const slug of slugs) {
   check(summary.includes('ENGINEERING EVIDENCE / AT A GLANCE'),
     slug+': evidence-first summary lacks its shared visible heading');
 }
+check(read('projects/thermal.html').includes('thermal-source-table-wrap') &&
+  read('projects/thermal.html').includes('Ten values with a 9 °C range') &&
+  read('projects/thermal.html').includes('stable (retained)') &&
+  read('projects/thermal.html').includes('thermal-trend-source-audit.md') &&
+  read('projects/thermal.html').includes('thermal-trend-source-check.js') &&
+  read('projects/thermal/thermal-gallery.css').includes('.thermal-source-table-wrap:focus-visible') &&
+  read('index.html').includes('trend-label edge cases') &&
+  read('projects/index.html').includes('trend-label edge cases'),
+  'Thermal source review: counterexamples, audit links and keyboard access must remain visible');
 check(read('projects/leg.html').includes('3link-sim/blob/main/MatLabCode') &&
   read('projects/thermal.html').includes('Thermal-Logger/blob/main/logger_core.py'),
   'Inspectable public source links missing from flagship research cases');
