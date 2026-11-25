@@ -62,6 +62,7 @@
   // Paired Monte Carlo trials quantify variability across simulated noise seeds,
   // not uncertainty about a real physical robot or sensor.
   function runTrials({seed=42,noiseMm=8,alpha=0.3,samples=240,trials=20}={}){
+    if(!Number.isInteger(seed)||seed<0||seed>4294967295)throw new RangeError('Invalid batch seed');
     if(!Number.isInteger(trials)||trials<4||trials>40)throw new RangeError('Trials must be between 4 and 40');
     const records=[];
     for(let i=0;i<trials;i++){
