@@ -9,6 +9,7 @@ This document describes repeatable accessibility, mobile, and performance checks
 - Research and technical writing: `/research.html`.
 - Engineering project directory: `/projects/`.
 - Engineering Workbench: `/workbench.html`.
+- Reproducible educational robotics experiment: `/robotics-experiment.html`.
 - All sixteen case studies, the PDF-based CV and résumé viewers, the custom 404 page, and responsive navigation are included in the Chromium/axe test suite.
 
 ## Automated checks
@@ -16,11 +17,13 @@ This document describes repeatable accessibility, mobile, and performance checks
 The [Portfolio accessibility and performance audit](.github/workflows/portfolio-audit.yml)
 workflow runs on changes to the relevant pages or through **Actions → Portfolio accessibility and performance audit → Run workflow**.
 
-1. **Static quality:** `node scripts/site-check.js` validates local assets, links, semantics, research/publication status and navigation. `node scripts/navigation-quality.js` checks all 16 previous/next project links, same-page anchors, and sitemap coverage. `node scripts/css-quality.js` parses stylesheets. `node scripts/workbench-models-test.js` tests synthetic signals and planar inverse kinematics.
+1. **Static quality:** `node scripts/site-check.js` validates local assets, links, semantics, research/publication status and navigation. `node scripts/navigation-quality.js` checks all 16 previous/next project links, same-page anchors, and sitemap coverage. `node scripts/css-quality.js` parses stylesheets. `node scripts/workbench-models-test.js` tests synthetic signals and planar inverse kinematics. `node scripts/robotics-experiment-test.js` checks seeded paired trials, bootstrap bounds, and smoothing sensitivity.
 2. **Chromium/axe:** `node scripts/browser-quality.js` covers desktop and mobile layouts, keyboard interactions, light/dark themes, content, console errors, image loading and automated WCAG 2.0/2.1 A/AA checks. The browser suite also checks narrow-screen overflow and content containment.
-3. **Lighthouse:** Four entry points are tested in mobile and desktop presets: **eight real lab runs**. `node scripts/lighthouse-phase4-report.js` creates a Markdown scorecard and JSON measurement table; raw reports are uploaded. The summary lists performance, accessibility, best practices, SEO, largest contentful paint, cumulative layout shift, and total blocking time.
+3. **Lighthouse:** Five entry points, including the robotics experiment, are tested in mobile and desktop presets: **ten real lab runs**. `node scripts/lighthouse-phase4-report.js` creates a Markdown scorecard and JSON measurement table; raw reports are uploaded. The summary lists performance, accessibility, best practices, SEO, largest contentful paint, cumulative layout shift, and total blocking time.
 
 The Ubuntu 24.04 CI jobs install the pinned Playwright Chromium browser without re-running apt's font-package dependency installer. The previous apt step could fail when package sources were unavailable even though the responsive tests passed. Browser startup and Lighthouse still fail the jobs if dependencies or measurements are missing.
+
+The browser workflow also tests robotics experiment interactions, CSV export, sample plots, theme switching and 320/390/1280 px layout.
 
 The workflow uploads:
 - `browser-accessibility-results`: screenshots, Chromium tests and axe findings.
@@ -50,6 +53,7 @@ For the focused Workbench smoke test:
 
 ```sh
 npm run check:workbench-browser
+npm run check:robotics-browser
 ```
 
 ## Visual regression comparison

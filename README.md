@@ -14,6 +14,7 @@ A public engineering portfolio documenting NASA internship work, faculty-mentore
 | Academic CV and downloadable PDF | `academic-cv.html`, `assets/Kailani_Alarcon_CV.pdf` |
 | Current résumé and downloadable PDF | `resume.html`, `assets/Kailani_Alarcon_Master_Resume.pdf` |
 | Optional browser-only interactive models | `workbench.html`, `workbench.js` |
+| Reproducible synthetic sensing and robotics trial experiment | `robotics-experiment.html`, `robotics-experiment-model.js`, `robotics-experiment.js` |
 | Custom not-found page | `404.html` |
 
 Styles are intentionally modular. Unused pre-space-theme navigation selectors were retired from `professional-home.css`; `professional-home.css` provides the homepage foundations; `cosmic-theme.css` supplies the shared space/pink design and accessible mobile navigation; research, workbench, PDF-only document pages, and project case studies load only their currently needed stylesheets. The site is hosted on GitHub Pages from `main`, with `CNAME` configured for `kailanialarcon.com`.
@@ -110,11 +111,12 @@ The current site uses shared navigation, a small theme-switch script, and page-s
 
 ## Reproducible robotics teaching experiment (November 2026)
 
-The standalone [planar 3R sensing experiment](robotics-experiment.html) extends the existing [educational kinematics model](workbench-models.js). It compares raw noisy position observations with exponentially smoothed observations on the same deterministic reference path, reports endpoint RMSE, and exports labeled synthetic CSV samples.
+The standalone [planar 3R sensing experiment](robotics-experiment.html) extends the existing [educational kinematics model](workbench-models.js). It compares raw noisy position observations with exponentially smoothed observations on the same deterministic reference path. Twenty paired synthetic trials are used by default to show mean RMSE and a seeded 95% percentile bootstrap interval. It also charts sample-level errors and smoothing-weight sensitivity, and exports both sample-level and trial-level CSV data.
 
 - Model and seeded experiment: [robotics-experiment-model.js](robotics-experiment-model.js).
 - Interactive browser plot and controls: [robotics-experiment.js](robotics-experiment.js).
-- Repeatability and limiting-case tests: [scripts/robotics-experiment-test.js](scripts/robotics-experiment-test.js), run with `node scripts/robotics-experiment-test.js` or `npm run check:models`.
+- Browser interaction and CSV checks: [scripts/robotics-experiment-smoke.js](scripts/robotics-experiment-smoke.js), run with `npm run check:robotics-browser` after installing Playwright Chromium.
+- Repeatability, bootstrap, sensitivity and limiting-case tests: [scripts/robotics-experiment-test.js](scripts/robotics-experiment-test.js), run with `node scripts/robotics-experiment-test.js` or `npm run check:models`.
 - Identical seed, noise, smoothing weight, and sample count produce the same generated observations and computed statistics.
 - This is a new explanatory simulation, **not** recovered Honors research data, a validated UR3e robot model, NASA work, or hardware sensor measurements. Findings apply to the specified idealized model only.
 

@@ -12,7 +12,7 @@
 .experiment-page .exp-panel{padding:clamp(20px,3vw,32px);background:var(--ex-paper);border:1px solid var(--ex-line);border-radius:15px;margin:20px 0}
 .experiment-page .exp-panel h2{font-size:clamp(1.45rem,3vw,2rem)}
 .experiment-page .exp-panel p,.experiment-page .exp-panel li{color:var(--ex-muted)}
-.experiment-page .exp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:21px 0}
+.experiment-page .exp-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:21px 0}
 .experiment-page .exp-field{display:flex;flex-direction:column;gap:6px;font-weight:650;font-size:.88rem}
 .experiment-page .exp-field input{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--ex-line);border-radius:7px;background:var(--ex-soft);color:var(--ex-ink);font:inherit}
 .experiment-page .exp-actions{display:flex;flex-wrap:wrap;gap:12px;margin:17px 0}
@@ -41,3 +41,38 @@
 .experiment-page .exp-footer{border-top:1px solid var(--ex-line);padding:25px 0;color:var(--ex-muted);font-size:.88rem}
 @media(max-width:700px){.experiment-page .exp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experiment-page .exp-metrics{grid-template-columns:1fr}.experiment-page .exp-main{padding-top:25px}}
 @media(max-width:420px){.experiment-page .exp-grid{grid-template-columns:1fr}}
+
+/* Scientific evidence tables and charts maintain contrast across themes. */
+.experiment-page .exp-panel h3{margin:24px 0 9px;font-size:1.17rem;color:var(--ex-ink)}
+.experiment-page .exp-panel h3:first-child{margin-top:0}
+.experiment-page .exp-chart-wrap + .exp-legend{margin-bottom:24px}
+.experiment-page .exp-table-wrap{overflow-x:auto;max-width:100%;margin:15px 0 22px;border:1px solid var(--ex-line);border-radius:10px}
+.experiment-page .exp-table{width:100%;border-collapse:collapse;background:var(--ex-paper);font-size:.9rem}
+.experiment-page .exp-table caption{padding:12px 15px;text-align:left;font-weight:650;color:var(--ex-muted);background:var(--ex-soft)}
+.experiment-page .exp-table th,.experiment-page .exp-table td{text-align:left;vertical-align:top;padding:11px 14px;border-top:1px solid var(--ex-line);color:var(--ex-ink)}
+.experiment-page .exp-table th{background:var(--ex-soft);font-weight:700}
+.experiment-page .exp-raw-point{fill:var(--ex-accent)}
+.experiment-page .exp-filtered-point{fill:var(--ex-alt)}
+.experiment-page .exp-metric strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.experiment-page .exp-button--outline{border-color:var(--ex-accent)}
+.experiment-page .exp-button--outline:hover{background:var(--ex-soft)}
+@media(max-width:970px) and (min-width:701px){.experiment-page .exp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.experiment-page .exp-table th,.experiment-page .exp-table td{padding:9px 10px;font-size:.82rem}}
+
+/* Keep plotting text readable on phones without overflowing the document. */
+@media(max-width:700px){
+  .experiment-page .exp-chart-wrap{overflow-x:auto;overscroll-behavior-inline:contain}
+  .experiment-page .exp-chart{min-width:570px}
+  .experiment-page .exp-note{padding:15px}
+}
+/* A readable static summary when a reviewer prints the experiment. */
+@media print{
+  .experiment-page{--ex-soft:#fff;--ex-paper:#fff;--ex-ink:#111;--ex-muted:#333;--ex-line:#bbb;--ex-accent:#5d254b;--ex-alt:#14606e}
+  .experiment-page .cosmic-site-header,.experiment-page .exp-actions,
+  .experiment-page #experiment-form,.experiment-page .exp-footer{display:none!important}
+  .experiment-page .exp-main{padding:0}
+  .experiment-page .exp-panel{break-inside:avoid;box-shadow:none}
+  .experiment-page .exp-chart-wrap{overflow:visible}
+  .experiment-page .exp-chart{min-width:0}
+  .experiment-page a{color:inherit}
+}

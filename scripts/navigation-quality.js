@@ -21,7 +21,7 @@ check(slugs.length === 16 && new Set(slugs).size === 16,
   'Project directory must feature 16 unique case studies');
 const pages = [
   'index.html', 'research.html', 'academic-cv.html', 'resume.html',
-  'workbench.html', 'projects/index.html',
+  'workbench.html', 'robotics-experiment.html', 'projects/index.html',
   ...slugs.map(slug => 'projects/' + slug + '.html')
 ];
 for (let index = 0; index < slugs.length; index++) {

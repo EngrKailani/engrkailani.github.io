@@ -58,5 +58,42 @@
       maxRaw:Math.max(...rows.map(row=>row.rawError)),
       maxFiltered:Math.max(...rows.map(row=>row.filteredError))}};
   }
-  return Object.freeze({runExperiment});
+
+  // Paired Monte Carlo trials quantify variability across simulated noise seeds,
+  // not uncertainty about a real physical robot or sensor.
+  function runTrials({seed=42,noiseMm=8,alpha=0.3,samples=240,trials=20}={}){
+    if(!Number.isInteger(seed)||seed<0||seed>4294967295)throw new RangeError('Invalid batch seed');
+    if(!Number.isInteger(trials)||trials<4||trials>40)throw new RangeError('Trials must be between 4 and 40');
+    const records=[];
+    for(let i=0;i<trials;i++){
+      const trialSeed=(seed + Math.imul(i,0x9E3779B1))>>>0;
+      const result=runExperiment({seed:trialSeed,noiseMm,alpha,samples});
+      const {rawRmse,filteredRmse}=result.metrics;
+      records.push({trial:i+1,seed:trialSeed,rawRmse,filteredRmse,improvementMm:rawRmse-filteredRmse});
+    }
+    const mean=key=>records.reduce((acc,r)=>acc+r[key],0)/trials;
+    const meanImprovement=mean('improvementMm');
+    // Percentile bootstrap for the mean of paired trial differences,
+    // reproducible with a separate deterministic generator.
+    const rng=random((seed^0x51F15EED)>>>0);
+    const estimates=[];
+    for(let b=0;b<500;b++){
+      let total=0;
+      for(let i=0;i<trials;i++)total+=records[Math.floor(rng()*trials)].improvementMm;
+      estimates.push(total/trials);
+    }
+    estimates.sort((a,b)=>a-b);
+    return {records,params:{seed,noiseMm,alpha,samples,trials},
+      metrics:{meanRawRmse:mean('rawRmse'),meanFilteredRmse:mean('filteredRmse'),
+        meanImprovementMm:meanImprovement,ciLow:estimates[12],ciHigh:estimates[487]}};
+  }
+  function runSensitivity({seed=42,noiseMm=8,samples=240,trials=12}={}){
+    return [0.15,0.3,0.5,0.8,1].map(alpha=>{
+      const result=runTrials({seed,noiseMm,alpha,samples,trials});
+      return {alpha,rawRmse:result.metrics.meanRawRmse,
+        filteredRmse:result.metrics.meanFilteredRmse,
+        meanImprovementMm:result.metrics.meanImprovementMm};
+    });
+  }
+  return Object.freeze({runExperiment,runTrials,runSensitivity});
 });
