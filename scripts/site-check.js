@@ -83,6 +83,9 @@ check(featureCards.length===6 &&
   featureCards.every(card=>card.includes('<strong>My contribution:</strong>') &&
     card.includes('<strong>Methods and limits:</strong>')),
   'Home: every featured case study needs contribution and evidence-boundary summaries');
+check(home.includes('My documented work spans') &&
+  home.includes('These directions are research goals, not completed experiments.'),
+  'Home: must distinguish engineering contributions from research intentions');
 check(home.includes('href="projects/index.html?area=research"'),
   'Home: faculty-mentored research should be directly discoverable');
 check(!read('cosmic-theme.css').includes('.work-card .project-meta::before'),
@@ -153,6 +156,10 @@ for(const slug of slugs){
   const page=read('projects/'+slug+'.html');
   check(archive.includes('href="'+slug+'.html"'),'Archive: missing '+slug);
   check(page.includes('class="project-evidence-first"'),'Case study: missing evidence section in '+slug);
+  check((page.match(/<nav class="(?:project-reading-shortcuts|detail-jump)"/g)||[]).length===1,
+    'Case study: expected exactly one reading navigation in '+slug);
+  check(page.includes('Contribution, evidence, and limitations'),
+    'Case study: summary heading should identify evidence limits in '+slug);
   const heading=(page.match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/)||[])[1];
   check(Boolean(heading) && page.includes('<span aria-current="page">'+heading+'</span>'),
     'Case study: breadcrumb must identify the current project in '+slug);
