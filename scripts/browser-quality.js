@@ -273,8 +273,27 @@ function label(test){return (test.path==='/'?'home':test.path.replace(/^\//,'').
               note(name+': clearing combined filters failed');
           }
         }
+        if(test.path==='/research.html') {
+          const sections=await page.locator('main.research-container > section.research-section[id]')
+            .evaluateAll(els=>els.map(el=>el.id));
+          if(sections[0]!=='investigations' || sections[1]!=='directions')
+            note(name+': documented research should precede proposed directions');
+          if(!await page.locator('#investigations .research-study').count())
+            note(name+': documented research card grid is missing');
+        }
         if(test.path.startsWith('/projects/') && !test.path.endsWith('/index.html')) {
           if(!await page.locator('.project-evidence-first').count())note(name+': case study missing evidence summary');
+          const evidenceFacets=await page.locator('.project-evidence-first__item h3').allTextContents();
+          if(evidenceFacets.length!==6 ||
+            !['Problem','My contribution','Engineering tools','Validation method','Documented result','Limitations']
+              .every((label,index)=>evidenceFacets[index]===label))
+            note(name+': engineering evidence summary does not follow the shared six-facet structure');
+          if(['/projects/nasa.html','/projects/leg.html','/projects/vna.html','/projects/thermal.html']
+            .includes(test.path)) {
+            const supporting=page.locator('#project-evidence');
+            if(!await supporting.count() || !(await supporting.locator('a').count()))
+              note(name+': flagship case study missing an inspectable evidence trail');
+          }
           const crumb=page.locator('nav.case-breadcrumb');
           if(!await crumb.count() || !await crumb.isVisible()) {
             note(name+': project breadcrumb missing or hidden');

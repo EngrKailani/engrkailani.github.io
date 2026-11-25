@@ -182,6 +182,34 @@ for(const [name,asset] of [
     html.includes('<meta name="twitter:card"'),
     name+': missing share preview metadata');
 }
+// Documented work precedes proposed faculty research directions.
+check(research.indexOf('id="investigations"') < research.indexOf('id="directions"') &&
+  research.includes('01 / DOCUMENTED ENGINEERING AND RESEARCH') &&
+  research.includes('02 / PROPOSED RESEARCH DIRECTIONS'),
+  'Research: completed work must be presented before proposed PhD directions');
+const evidenceCases=['nasa','leg','vna','thermal'];
+for(const slug of evidenceCases) {
+  const html=read('projects/'+slug+'.html');
+  check(html.includes('<a href="#project-evidence"') || html.includes('id="project-evidence"'),
+    slug+': primary evidence section is missing');
+  check(html.includes('Inspectable on this page:') || html.includes('Public source you can inspect:'),
+    slug+': reviewers should be able to identify which supporting artifacts are public');
+}
+for(const slug of slugs) {
+  const html=read('projects/'+slug+'.html');
+  const start=html.indexOf('<section class="project-evidence-first"');
+  const end=html.indexOf('</section>',start);
+  const summary=html.slice(start,end);
+  for(const heading of ['Problem','My contribution','Engineering tools','Validation method','Documented result','Limitations']) {
+    check(summary.includes('<h3>'+heading+'</h3>'),
+      slug+': evidence-first summary is missing standard '+heading+' facet');
+  }
+  check(summary.includes('ENGINEERING EVIDENCE / AT A GLANCE'),
+    slug+': evidence-first summary lacks its shared visible heading');
+}
+check(read('projects/leg.html').includes('3link-sim/blob/main/MatLabCode') &&
+  read('projects/thermal.html').includes('Thermal-Logger/blob/main/logger_core.py'),
+  'Inspectable public source links missing from flagship research cases');
 check(research.includes('id="regolith-analysis"')&&research.includes('id="propulsion-testing"'),
   'Research: missing linked project anchors');
 
@@ -211,7 +239,7 @@ const expectedHomeOrder=['selected-work','research','experience','about','contac
 check(expectedHomeOrder.every((id,i)=>home.indexOf('id="'+id+'"')>=0&&
   (i===0||home.indexOf('id="'+id+'"')>home.indexOf('id="'+expectedHomeOrder[i-1]+'"'))),
   'Home: research, experience and education sections should follow expected order');
-const expectedResearchOrder=['directions','investigations','writing','questions','research-concept'];
+const expectedResearchOrder=['investigations','directions','writing','questions','research-concept'];
 check(expectedResearchOrder.every((id,i)=>research.indexOf('id="'+id+'"')>=0&&
   (i===0||research.indexOf('id="'+id+'"')>research.indexOf('id="'+expectedResearchOrder[i-1]+'"'))),
   'Research: evidence and publications should precede future proposals');
