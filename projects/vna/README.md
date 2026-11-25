@@ -11,12 +11,14 @@ This directory contains **new analysis utilities and engineering documentation**
 | File | What it provides | Evidence |
 |---|---|---|
 | [MATLAB two-port analysis](analysis/analyze_s2p.m) | Touchstone 1.0 S2P parsing, S11/S21/S12/S22, return loss, VSWR, impedance and plots | Reconstructed; MATLAB execution not yet verified |
-| [Python S2P audit](analysis/s2p_audit.py) | Offline two-port parser and JSON summary | Reconstructed; 6 synthetic Python tests passed |
-| [Unit tests](analysis/test_s2p_audit.py) | RI, MA, DB, units, continuation, validation checks | Synthetic, passed |
+| [Python S2P audit](analysis/s2p_audit.py) | Offline two-port parser, S-matrix spectral-gain and reciprocity diagnostics, JSON summary | Reconstructed; 11 synthetic Python tests passed |
+| [Unit tests](analysis/test_s2p_audit.py) | RI, MA, DB, units, continuation, validation, passive/gain/reciprocity edge cases | Synthetic, passed |
 | [Synthetic example](examples/synthetic_twoport.s2p) | Three artificial records between 0.1 GHz and 6 GHz | Training data, not a measurement |
 | [RF calculation notes](docs/RF_METHOD.md) | Equations, Touchstone port ordering, limitations | Derived engineering reference |
 | [SOLT reconstruction plan](docs/SOLT_RECOVERY_PLAN.md) | 12-term model concepts and information still required | Proposed verification workflow |
 | [Verification matrix](docs/VERIFICATION.md) | Software and physical-instrument checks | Hardware tests pending |
+
+The Python reconstruction additionally exposes `diagnostics.maximum_power_gain`, `diagnostics.passivity_compatible` and `diagnostics.reciprocity_difference_abs` for each record. These are algebraic checks that require an equal real positive reference impedance assumption, not certification of a measured device. See [RF method](docs/RF_METHOD.md) and [verification cases](docs/VERIFICATION.md).
 
 ## Run offline Python analysis
 
