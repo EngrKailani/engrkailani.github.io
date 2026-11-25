@@ -258,6 +258,17 @@ const resumeProjectBriefs={
 };
 check((archive.match(/class="directory-brief-card"/g)||[]).length===4,
   'CV/resume: expected four accessible additional project briefs');
+const briefs=[...archive.matchAll(/<article class="directory-brief-card"[^>]*>([\s\S]*?)<\/article>/g)];
+check(briefs.length===4 && briefs.every(match=>{
+  const summary=match[1].match(/<h3>[^<]+<\/h3>\s*<p>([^<]+)<\/p>/)?.[1]||'';
+  return summary.length>=105 && summary.length<=280 &&
+    !/generic|placeholder|coming soon/i.test(summary);
+}), 'Project briefs: maintain concise, specific contribution and method summaries');
+check(archive.includes('Original NASA measurements are not public.') &&
+  archive.includes('Internal test data are not public.') &&
+  archive.includes('Original test files remain internal.') &&
+  archive.includes('Separate from the STM32 PWM exercise.'),
+  'Project briefs: retain public-data boundaries and separate the two motor exercises');
 check((archive.match(/data-brief-category="[^"]+" data-brief-keywords="[^"]+"/g)||[]).length===4 &&
   archive.includes('id="directory-brief-count"'),
   'Project search: all four briefs need filter metadata and a visible result count');
