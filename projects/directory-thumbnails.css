@@ -67,3 +67,70 @@
 :root[data-theme="dark"] .project-page .directory-share-status{
   color:#f5d4e7;
 }
+
+
+/* Additional documented briefs are separate from the sixteen searchable case studies.
+   This keeps the project archive balanced without presenting internal NASA work as a
+   publishable hardware or test-data case study. */
+.project-page .directory-briefs{
+  margin:clamp(36px,5vw,60px) 0 30px;
+  padding-top:clamp(25px,3vw,35px);
+  border-top:1px solid var(--border,#ded3dc);
+}
+.project-page .directory-briefs__header{max-width:830px;margin-bottom:20px}
+.project-page .directory-briefs__header h2{
+  font:600 clamp(23px,3vw,31px)/1.22 var(--serif,Georgia,serif);
+  color:var(--ink,#382b3b);margin:0 0 10px;
+}
+.project-page .directory-briefs__header>p:last-child{
+  margin:0;color:var(--secondary,#675466);font-size:14px;line-height:1.75;
+}
+.project-page .directory-brief-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
+}
+.project-page .directory-brief-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:9px;
+  min-width:0;padding:clamp(17px,2.4vw,23px);
+  border:1px solid var(--border,#decdda);border-radius:15px;
+  background:var(--paper,#fff);
+}
+.project-page .directory-brief-card__meta{
+  margin:0;font:800 11px/1.5 var(--sans,Arial,sans-serif);
+  letter-spacing:.075em;text-transform:uppercase;color:#895371;
+}
+.project-page .directory-brief-card h3{
+  font:600 clamp(19px,2.1vw,24px)/1.25 var(--serif,Georgia,serif);
+  margin:0;color:var(--ink,#382b3b);
+}
+.project-page .directory-brief-card>p:not(.directory-brief-card__meta){
+  margin:0;font-size:13px;line-height:1.7;color:var(--secondary,#675466);
+}
+.project-page .directory-brief-card a{
+  margin-top:auto;display:inline-flex;align-items:center;min-height:42px;
+  color:#743953;text-decoration:underline;text-underline-offset:4px;
+  font:800 12px/1.45 var(--sans,Arial,sans-serif);
+}
+.project-page .directory-brief-card a:focus-visible{
+  outline:3px solid #b25284;outline-offset:3px;border-radius:3px;
+}
+:root[data-theme="dark"] .project-page .directory-briefs{
+  border-color:var(--dark-border,#635468);
+}
+:root[data-theme="dark"] .project-page .directory-brief-card{
+  background:#302838;border-color:#77667d;
+}
+:root[data-theme="dark"] .project-page .directory-briefs__header h2,
+:root[data-theme="dark"] .project-page .directory-brief-card h3{color:#fff0f8}
+:root[data-theme="dark"] .project-page .directory-briefs__header>p:last-child,
+:root[data-theme="dark"] .project-page .directory-brief-card>p:not(.directory-brief-card__meta){
+  color:#ead9e9;
+}
+:root[data-theme="dark"] .project-page .directory-brief-card__meta{color:#f1bfd9}
+:root[data-theme="dark"] .project-page .directory-brief-card a{color:#ffcee6}
+:root[data-theme="dark"] .project-page .directory-brief-card a:focus-visible{
+  outline-color:#ffd3eb;
+}
+@media(max-width:720px){
+  .project-page .directory-brief-grid{grid-template-columns:minmax(0,1fr)}
+  .project-page .directory-brief-card{gap:8px}
+}
