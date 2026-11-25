@@ -161,7 +161,7 @@
         </aside>
       </div>
       <details class="wb-model-note"><summary>Kinematic model &amp; solution limits</summary><p>Forward kinematics sums each link displacement: <strong>x = Σ Lᵢ cos(θ₁ + … + θᵢ)</strong> and <strong>y = Σ Lᵢ sin(θ₁ + … + θᵢ)</strong>. For inverse kinematics, the wrist target is the selected tool position minus the final link projected along tool orientation φ. The remaining two links form a triangle solved using the cosine law. Each elbow branch is evaluated independently. Goals beyond the wrist workspace, or solutions requiring a joint outside ±170°, are rejected without silently moving to a different target. The displayed residual is caused by rounding computed angles to the 0.1° joint-slider resolution.</p></details>
-      <div class="wb-project-link">Related work <a href="projects/leg.html">3-Link Leg Simulation <span aria-hidden="true">↗</span></a> <a href="projects/ur3e.html">UR3e Kinematics <span aria-hidden="true">↗</span></a></div>
+      <div class="wb-project-link">Related work <a href="projects/leg.html">3-Link Leg Simulation <span aria-hidden="true">↗</span></a> <a href="projects/ur3e.html">UR3e Kinematics <span aria-hidden="true">↗</span></a> <a href="robotics-experiment.html">Run a reproducible sensing experiment <span aria-hidden="true">↗</span></a></div>
     </section>
 
     <section id="wb-panel-lights" class="wb-panel" role="tabpanel" aria-labelledby="wb-tab-lights" hidden>
