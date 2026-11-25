@@ -37,6 +37,9 @@ on:
       - scripts/robotics-experiment-test.js
       - scripts/leg-equation-check.js
       - scripts/thermal-trend-source-check.js
+      - 'projects/vna/analysis/*.py'
+      - projects/vna/docs/RF_METHOD.md
+      - projects/vna/docs/VERIFICATION.md
       - scripts/robotics-experiment-smoke.js
       - scripts/document-integrity.js
       - scripts/site-check.js
@@ -72,6 +75,8 @@ jobs:
         run: node scripts/css-quality.js
       - name: Engineering model and bootstrap reproducibility tests
         run: npm run check:models
+      - name: Check reconstructed VNA S-parameter diagnostics
+        run: python3 -m unittest discover -s projects/vna/analysis -p 'test_*.py' -v
       - name: Verify current asset fingerprints
         run: npm run check:assets
       - name: Check academic CV and résumé PDF links
